@@ -1,0 +1,303 @@
+
+README
+
+=================================================
+TOC
+Chapter 1 Original tags
+Chapter 2 Creation of this repo
+
+=================================================
+=================================================
+
+
+=================================================
+Chapter 2 Creation of this repo
+
+[1] Download qemu-1.2.0.tar.bz2.
+[2] Extract into qemu-1.2.0.
+[3] Rename qemu-1.2.0 into src.
+[4] Move src into qemu120.
+[5] Create this README file.
+[6] Create the git repo. Tag it wbinit120
+
+The tree structure: 
+
+ qemu120
+ qemu120/src
+ qemu120/README
+ qemu120/.git
+
+Tags from the original git repo are all named "initial", "release...", "v1.2.3". 
+We will use "wbinit", "wbd001", "wbd002", "wbd...", "wbr...".
+
+
+=================================================
+Chapter 1 Original tags
+
+Below is the output from "git tag -n24" in the git tree:
+
+initial         This commit was manufactured by cvs2svn to create tag 'initial'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/initial@4 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_10_0  Add property to tag
+    
+    
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_10_0@6686 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_10_1  Add release tag for 0.10.1 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+    
+    
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_10_1@6881 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_10_2  Add a tag for the 0.10.2 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+    
+    
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_10_2@7013 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_5_1   This commit was manufactured by cvs2svn to create tag
+    'release_0_5_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_5_1@502 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_6_0   This commit was manufactured by cvs2svn to create tag
+    'release_0_6_0'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_6_0@1006 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_6_1   This commit was manufactured by cvs2svn to create tag
+    'release_0_6_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_6_1@1149 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_7_0   This commit was manufactured by cvs2svn to create tag
+    'release_0_7_0'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_7_0@1420 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_7_1   This commit was manufactured by cvs2svn to create tag
+    'release_0_7_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_7_1@1535 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_8_1   This commit was manufactured by cvs2svn to create tag
+    'release_0_8_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_8_1@1898 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_8_2   This commit was manufactured by cvs2svn to create tag
+    'release_0_8_2'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_8_2@2069 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_9_0   This commit was manufactured by cvs2svn to create tag
+    'release_0_9_0'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_9_0@2402 c046a42c-6fe2-441c-8c8c-71466251a162
+release_0_9_1   This commit was manufactured by cvs2svn to create tag
+    'release_0_9_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_9_1@3897 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.10.0         Add property to tag
+    
+    
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_10_0@6686 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.10.1         Add release tag for 0.10.1 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+    
+    
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_10_1@6881 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.10.2         Add a tag for the 0.10.2 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+    
+    
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_10_2@7013 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.10.3         Update version for 0.10.3 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.10.4         Update for 0.10.4 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.10.5         Update for 0.10.5 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.10.6         Update changelot for 0.10.6 release
+v0.11.0         Update version and changelog for 0.11.0 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.11.0-rc0     Update version for 0.11.0-rc0
+v0.11.0-rc1     Update Changelog and VERSION for 0.11.0-rc1 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.11.0-rc2     Update version and changelog for 0.11.0-rc2 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.11.1         Update version and changelog for 0.11.1 release
+    
+    Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+v0.12.0         Update for 0.12.0 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.12.0-rc0     Add S390 maintainer information
+    
+    This patch adds information about who handles what when it comes to S390.
+    I'll gladly support anything that's related to the device emulation model and
+    S390 KVM parts.
+    
+    Since this patchset doesn't implement S390 CPU emulation, I left that part
+    with a question mark. As soon as Uli's patchset gets committed I'd recommend
+    setting him there.
+    
+    Signed-off-by: Alexander Graf <agraf@suse.de>
+    Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+v0.12.0-rc1     Update version to -rc1
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.12.0-rc2     Update Changelog and VERSION for 0.12.0-rc2
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.12.1         Update version and changelog for 0.12.1
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.12.2         Update version and changelog for release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.12.3         Merge remote branch 'qemu-kvm/uq/stable-0.12' into stable-0.12
+v0.12.4         Update for 0.12.4 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.12.5         Update for 0.12.5 release
+    
+    Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+v0.13.0         Update for 0.13.0 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.13.0-rc0     Update version for 0.13.0-rc0
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.13.0-rc1     Update version for 0.13.0-rc1
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.13.0-rc2     Update version for 0.13.0-rc2
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.13.0-rc3     Merge remote branch 'kwolf/for-stable-0.13' into stable-0.13
+v0.14.0         Update version for 0.14.0
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.14.0-rc0     Update version for 0.14.0-rc0
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.14.0-rc1     Update version for 0.14.0-rc1
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.14.0-rc2     Update version for 0.14.0-rc2
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.14.1         Stable release 0.14.1
+v0.15.0         Update version to 0.15.0
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.15.0-rc0     Bump version to reflect v0.15.0-rc0
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.15.0-rc1     Bump version to 0.15.0-rc1
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.15.0-rc2     Revert "floppy: save and restore DIR register"
+    
+    This reverts commit 7d905f716bea633f2836e1d661387983aacdc6d6.
+    
+    The use of subsections by this commit are broken because of a fundamental
+    limitations of subsections in the current protocol.
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v0.15.1         Version 0.15.1
+    
+    Signed-off-by: Justin M. Forbes <jforbes@redhat.com>
+v0.5.1          This commit was manufactured by cvs2svn to create tag
+    'release_0_5_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_5_1@502 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.6.0          This commit was manufactured by cvs2svn to create tag
+    'release_0_6_0'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_6_0@1006 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.6.1          This commit was manufactured by cvs2svn to create tag
+    'release_0_6_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_6_1@1149 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.7.0          This commit was manufactured by cvs2svn to create tag
+    'release_0_7_0'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_7_0@1420 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.7.1          This commit was manufactured by cvs2svn to create tag
+    'release_0_7_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_7_1@1535 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.8.1          This commit was manufactured by cvs2svn to create tag
+    'release_0_8_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_8_1@1898 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.8.2          This commit was manufactured by cvs2svn to create tag
+    'release_0_8_2'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_8_2@2069 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.9.0          This commit was manufactured by cvs2svn to create tag
+    'release_0_9_0'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_9_0@2402 c046a42c-6fe2-441c-8c8c-71466251a162
+v0.9.1          This commit was manufactured by cvs2svn to create tag
+    'release_0_9_1'.
+    
+    git-svn-id: svn://svn.savannah.nongnu.org/qemu/tags/release_0_9_1@3897 c046a42c-6fe2-441c-8c8c-71466251a162
+v1.0            Tag for the v1.0 release
+v1.0-rc0        Bump version to 1.0-rc0
+    
+    Look out 1.0, here we come!
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.0-rc1        Update version for v1.0-rc1
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.0-rc2        Update version to 1.0-rc2
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.0-rc3        Update version for 1.0-rc3 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.0-rc4        Tag for v1.0-rc4
+v1.0.1          Version 1.0.1
+    
+    Signed-off-by: Justin M. Forbes <jforbes@redhat.com>
+v1.1-rc0        Update version for 1.1-rc0 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.1-rc1        Update version for 1.1.0-rc0 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.1-rc2        Update version to 1.1.0-rc2
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.1.0          Update version for 1.1.0 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.1.0-rc2      Update version to 1.1.0-rc2
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.1.0-rc3      Update version for 1.1.0-rc3
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.1.0-rc4      Update version for 1.1.0-rc4 release
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.2.0          Tag for 1.2.0
+v1.2.0-rc0      Update version to 1.2.0-rc0
+    
+    Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
+v1.2.0-rc1      Tag for v1.2.0-rc1 release
+v1.2.0-rc2      Update version for 1.2.0-rc2
+v1.2.0-rc3      Version for the v1.2.0-rc3 release
+
+
