@@ -1,0 +1,15 @@
+.
+├── [       4096]  embedded-linux
+│   ├── [     921485]  embedded_linux_realtime%20v2%202p.pdf
+│   ├── [         92]  embedded_linux_realtimev2-link
+│   └── [    1117018]  free-electrons-seminaire-temps-reel-5-mai-2010-toulouse.pdf
+├── [       4096]  free-electrons
+│   ├── [     346186]  embedded-agenda.pdf
+│   ├── [    5260176]  embedded-linux-presentation.pdf
+│   ├── [   13714121]  embedded-slides.pdf
+│   ├── [   12825921]  ldd3.pdf
+│   ├── [     203757]  linux-agenda.pdf
+│   └── [    5701473]  linux-slides.pdf
+└── [          0]  README
+
+2 directories, 10 files
