@@ -5,9 +5,58 @@ README
 TOC
 Chapter 1 Original tags
 Chapter 2 Creation of this repo
+Chapter 3 Build
 
 =================================================
 =================================================
+
+
+=================================================
+Chapter 3 Build
+
+Configure: Install additional packages: zlib-devel, glib2-devel.
+Run commands: 
+  cd builds
+  sh ../scripts/cfg1.sh
+  make
+  make install
+
+Make screen snippets:
+
+[@localhost builds]$ vi ../README 
+[@localhost builds]$ make
+  GEN   arm-softmmu/config-devices.mak
+  GEN   arm-linux-user/config-devices.mak
+  GEN   armeb-linux-user/config-devices.mak
+  GEN   config-all-devices.mak
+  GEN   config-host.h
+  GEN   trace.h
+  GEN   qemu-options.def
+  GEN   qmp-commands.h
+  GEN   qapi-types.h
+  GEN   qapi-visit.h
+  GEN   tests/test-qapi-types.h
+  GEN   tests/test-qapi-visit.h
+  GEN   tests/test-qmp-commands.h
+  GEN   qga/qapi-generated/qga-qapi-types.h
+  GEN   qga/qapi-generated/qga-qapi-visit.h
+  GEN   qga/qapi-generated/qga-qmp-commands.h
+
+  LINK  arm-softmmu/qemu-system-arm
+  CC    armeb-linux-user/linux-user/arm/nwfpe/extended_cpdo.o
+  LINK  armeb-linux-user/qemu-armeb
+  AS    optionrom/multiboot.o
+  Building optionrom/multiboot.img
+  Building optionrom/multiboot.raw
+  Signing optionrom/multiboot.bin
+  AS    optionrom/linuxboot.o
+  Building optionrom/linuxboot.img
+  Building optionrom/linuxboot.raw
+  Signing optionrom/linuxboot.bin
+  AS    optionrom/kvmvapic.o
+  Building optionrom/kvmvapic.img
+  Building optionrom/kvmvapic.raw
+  Signing optionrom/kvmvapic.bin
 
 
 =================================================

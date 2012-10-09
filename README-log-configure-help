@@ -1,0 +1,157 @@
+
+Usage: configure [options]
+Options: [defaults in brackets after descriptions]
+
+Standard options:
+  --help                   print this message
+  --prefix=PREFIX          install in PREFIX [/usr/local]
+  --interp-prefix=PREFIX   where to find shared libraries, etc.
+                           use %M for cpu name [/usr/gnemul/qemu-%M]
+  --target-list=LIST       set target list (default: build everything)
+                           Available targets: i386-softmmu x86_64-softmmu 
+                           alpha-softmmu arm-softmmu cris-softmmu lm32-softmmu 
+                           m68k-softmmu microblaze-softmmu microblazeel-softmmu 
+                           mips-softmmu mipsel-softmmu mips64-softmmu 
+                           mips64el-softmmu or32-softmmu ppc-softmmu 
+                           ppcemb-softmmu ppc64-softmmu sh4-softmmu 
+                           sh4eb-softmmu sparc-softmmu sparc64-softmmu 
+                           s390x-softmmu xtensa-softmmu xtensaeb-softmmu 
+                           unicore32-softmmu i386-linux-user x86_64-linux-user 
+                           alpha-linux-user arm-linux-user armeb-linux-user 
+                           cris-linux-user m68k-linux-user 
+                           microblaze-linux-user microblazeel-linux-user 
+                           mips-linux-user mipsel-linux-user or32-linux-user 
+                           ppc-linux-user ppc64-linux-user 
+                           ppc64abi32-linux-user sh4-linux-user 
+                           sh4eb-linux-user sparc-linux-user sparc64-linux-user 
+                           sparc32plus-linux-user unicore32-linux-user 
+                           s390x-linux-user 
+
+Advanced options (experts only):
+  --source-path=PATH       path of source code [/home/youruser/qemu/qemu120/src]
+  --cross-prefix=PREFIX    use PREFIX for compile tools []
+  --cc=CC                  use C compiler CC [gcc]
+  --host-cc=CC             use C compiler CC [gcc] for code run at
+                           build time
+  --objcc=OBJCC            use Objective-C compiler OBJCC [gcc]
+  --extra-cflags=CFLAGS    append extra C compiler flags QEMU_CFLAGS
+  --extra-ldflags=LDFLAGS  append extra linker flags LDFLAGS
+  --make=MAKE              use specified make [make]
+  --install=INSTALL        use specified install [install]
+  --python=PYTHON          use specified python [python]
+  --smbd=SMBD              use specified smbd [/usr/sbin/smbd]
+  --static                 enable static build [no]
+  --mandir=PATH            install man pages in PATH
+  --datadir=PATH           install firmware in PATH/qemu
+  --docdir=PATH            install documentation in PATH/qemu
+  --bindir=PATH            install binaries in PATH
+  --sysconfdir=PATH        install config in PATH/qemu
+  --with-confsuffix=SUFFIX suffix for QEMU data inside datadir and sysconfdir [/qemu]
+  --enable-debug-tcg       enable TCG debugging
+  --disable-debug-tcg      disable TCG debugging (default)
+  --enable-debug           enable common debug build options
+  --enable-sparse          enable sparse checker
+  --disable-sparse         disable sparse checker (default)
+  --disable-strip          disable stripping binaries
+  --disable-werror         disable compilation abort on warning
+  --disable-sdl            disable SDL
+  --enable-sdl             enable SDL
+  --disable-virtfs         disable VirtFS
+  --enable-virtfs          enable VirtFS
+  --disable-vnc            disable VNC
+  --enable-vnc             enable VNC
+  --disable-cocoa          disable Cocoa (Mac OS X only)
+  --enable-cocoa           enable Cocoa (default on Mac OS X)
+  --audio-drv-list=LIST    set audio drivers list:
+                           Available drivers: oss alsa sdl esd pa fmod
+  --audio-card-list=LIST   set list of emulated audio cards [ac97 es1370 sb16 hda]
+                           Available cards: ac97 es1370 sb16 cs4231a adlib gus hda
+  --block-drv-whitelist=L  set block driver whitelist
+                           (affects only QEMU, not qemu-img)
+  --enable-mixemu          enable mixer emulation
+  --disable-xen            disable xen backend driver support
+  --enable-xen             enable xen backend driver support
+  --disable-xen-pci-passthrough
+  --enable-xen-pci-passthrough
+  --disable-brlapi         disable BrlAPI
+  --enable-brlapi          enable BrlAPI
+  --disable-vnc-tls        disable TLS encryption for VNC server
+  --enable-vnc-tls         enable TLS encryption for VNC server
+  --disable-vnc-sasl       disable SASL encryption for VNC server
+  --enable-vnc-sasl        enable SASL encryption for VNC server
+  --disable-vnc-jpeg       disable JPEG lossy compression for VNC server
+  --enable-vnc-jpeg        enable JPEG lossy compression for VNC server
+  --disable-vnc-png        disable PNG compression for VNC server (default)
+  --enable-vnc-png         enable PNG compression for VNC server
+  --disable-curses         disable curses output
+  --enable-curses          enable curses output
+  --disable-curl           disable curl connectivity
+  --enable-curl            enable curl connectivity
+  --disable-fdt            disable fdt device tree
+  --enable-fdt             enable fdt device tree
+  --disable-bluez          disable bluez stack connectivity
+  --enable-bluez           enable bluez stack connectivity
+  --disable-slirp          disable SLIRP userspace network connectivity
+  --disable-kvm            disable KVM acceleration support
+  --enable-kvm             enable KVM acceleration support
+  --enable-tcg-interpreter enable TCG with bytecode interpreter (TCI)
+  --disable-nptl           disable usermode NPTL support
+  --enable-nptl            enable usermode NPTL support
+  --enable-system          enable all system emulation targets
+  --disable-system         disable all system emulation targets
+  --enable-user            enable supported user emulation targets
+  --disable-user           disable all user emulation targets
+  --enable-linux-user      enable all linux usermode emulation targets
+  --disable-linux-user     disable all linux usermode emulation targets
+  --enable-bsd-user        enable all BSD usermode emulation targets
+  --disable-bsd-user       disable all BSD usermode emulation targets
+  --enable-guest-base      enable GUEST_BASE support for usermode
+                           emulation targets
+  --disable-guest-base     disable GUEST_BASE support
+  --enable-pie             build Position Independent Executables
+  --disable-pie            do not build Position Independent Executables
+  --fmod-lib               path to FMOD library
+  --fmod-inc               path to FMOD includes
+  --oss-lib                path to OSS library
+  --enable-uname-release=R Return R for uname -r in usermode emulation
+  --cpu=CPU                Build for host CPU [i386]
+  --sparc_cpu=V            Build qemu for Sparc architecture v7, v8, v8plus, v8plusa, v9
+  --disable-uuid           disable uuid support
+  --enable-uuid            enable uuid support
+  --disable-vde            disable support for vde network
+  --enable-vde             enable support for vde network
+  --disable-linux-aio      disable Linux AIO support
+  --enable-linux-aio       enable Linux AIO support
+  --disable-cap-ng         disable libcap-ng support
+  --enable-cap-ng          enable libcap-ng support
+  --disable-attr           disables attr and xattr support
+  --enable-attr            enable attr and xattr support
+  --disable-blobs          disable installing provided firmware blobs
+  --enable-docs            enable documentation build
+  --disable-docs           disable documentation build
+  --disable-vhost-net      disable vhost-net acceleration support
+  --enable-vhost-net       enable vhost-net acceleration support
+  --enable-trace-backend=B Set trace backend
+                           Available backends: nop, ust, stderr, simple, dtrace
+  --with-trace-file=NAME   Full PATH,NAME of file to store traces
+                           Default:trace-<pid>
+  --disable-spice          disable spice
+  --enable-spice           enable spice
+  --enable-rbd             enable building the rados block device (rbd)
+  --disable-libiscsi       disable iscsi support
+  --enable-libiscsi        enable iscsi support
+  --disable-smartcard      disable smartcard support
+  --enable-smartcard       enable smartcard support
+  --disable-smartcard-nss  disable smartcard nss support
+  --enable-smartcard-nss   enable smartcard nss support
+  --disable-usb-redir      disable usb network redirection support
+  --enable-usb-redir       enable usb network redirection support
+  --disable-guest-agent    disable building of the QEMU Guest Agent
+  --enable-guest-agent     enable building of the QEMU Guest Agent
+  --disable-seccomp        disable seccomp support
+  --enable-seccomp         enables seccomp support
+  --with-coroutine=BACKEND coroutine backend. Supported options:
+                           gthread, ucontext, sigaltstack, windows
+
+NOTE: The object files are built at the place where configure is launched
+
