@@ -14,7 +14,7 @@ Chapter 3 Build
 =================================================
 Chapter 3 Build
 
-Configure: Install additional packages: zlib-devel, glib2-devel.
+Configure: Install additional packages: zlib-devel, glib2-devel. For x86 build, install SDL-devel.
 Run commands: 
   cd builds
   sh ../scripts/cfg1.sh
