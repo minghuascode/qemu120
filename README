@@ -15,23 +15,29 @@ Chapter 4 Run i386 Virtual Machine
 =================================================
 Chapter 4 Run i386 Virtual Machine
 
-4.1 Run the test image 
-Download qemu test image linux-0.2.img. Use this command to run:
+4.1 Run the qemu test image 
+
+Download qemu test image linux-0.2.img. Use this command to run and redirect monitor to a pts:
   qemu-system-i386  ~/download/linux-0.2.img -monitor /dev/pts/3
 
-4.2 Install Fedora 14 Or Debian Test Image
+
+4.2 Install Fedora 14 Or Debian Test Images
+
 Download an installation iso. Then use these commands: 
   qemu-img create -f qcow2 hd1 2G
-  qemu-system-i386 -cdrom ~/download/Fedora-14-i386-disc1.iso hd1 -m 512 -vga std
-  Or use these options:
+  qemu-system-i386 -cdrom ~/download/Fedora-14-i386-disc1.iso hd1 -m 512 
+Or try these options:
      -hda hda.img -nographic -append "root=/dev/hda1 console=ttyS0,115200n8 console=tty0" -kernel bzImage
 
-Download debian lenny or squeeze images here:
+Download debian lenny (2.6.26) or squeeze (2.6.32) i386 images from here:
   http://people.debian.org/~aurel32/qemu/i386/
 
-To use ssh access only, include "-redir tcp:5022::22" in command line.
+To use ssh access only, include "-redir tcp:5022::22" in command line. Squeeze works well 
+with qemu user mode network. You can connect from the guest to the host by host ip address, 
+in theory then user reverse port forwarding to connect from host to the guest.
 
 In monitor, use "info snapshots", "savevm <tag>", "loadvm <tag>" to manage snapshots. 
+To start guest os from a snapshot, use option "-loadvm <tab>" on command line.
 In non-graphic mode, use <C-a h> to see commands, and <C-a c> to toggle between command and console.
 
 
