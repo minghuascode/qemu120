@@ -6,9 +6,28 @@ TOC
 Chapter 1 Original tags
 Chapter 2 Creation of this repo
 Chapter 3 Build
+Chapter 4 Run i386 Virtual Machine
 
 =================================================
 =================================================
+
+
+=================================================
+Chapter 4 Run i386 Virtual Machine
+
+4.1 Run the test image 
+Download qemu test image linux-0.2.img. Use this command to run:
+  qemu-system-i386  ~/download/linux-0.2.img -monitor /dev/pts/3
+
+4.2 Install Fedora 14 Or Debian Test Image
+Download an installation iso. Then use these commands: 
+  qemu-img create -f qcow2 hd1 2G
+  qemu-system-i386 -cdrom ~/download/Fedora-14-i386-disc1.iso hd1 -m 512 -vga std
+  Or use these options:
+     -hda hda.img -nographic -append "root=/dev/hda1 console=ttyS0,115200n8 console=tty0" -kernel bzImage
+
+Download debian lenny or squeeze images here:
+  http://people.debian.org/~aurel32/qemu/i386/
 
 
 =================================================
