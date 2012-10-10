@@ -29,6 +29,11 @@ Download an installation iso. Then use these commands:
 Download debian lenny or squeeze images here:
   http://people.debian.org/~aurel32/qemu/i386/
 
+To use ssh access only, include "-redir tcp:5022::22" in command line.
+
+In monitor, use "info snapshots", "savevm <tag>", "loadvm <tag>" to manage snapshots. 
+In non-graphic mode, use <C-a h> to see commands, and <C-a c> to toggle between command and console.
+
 
 =================================================
 Chapter 3 Build
