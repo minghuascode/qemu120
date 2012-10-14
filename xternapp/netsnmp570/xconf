@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#this dir is netobj, install to ../nsnmpbin
+instpath=`echo $PWD | sed -e 's/\/netobj//'`/nsnmpbin
+
+excmods1="snmpv3mibs ucd_snmp notification notification-log-mib"
+excmods2="target agent_mibs agentx disman/event disman/schedule utilities"
+excmods="$excmods1 $excmods2"
+
+../net-snmp-5.7.1/configure --enable-minimalist --prefix=$instpath \
+                            --with-out-mib-modules="$excmods" \
+  --with-default-snmp-version="1" \
+  --with-sys-contact="contactunknown" \
+  --with-sys-location="locationunknown" \
+  --with-logfile="$instpath/var/log/snmpd.log" \
+  --with-persistent-directory="$instpath/var/net-snmp"
+
+
+echo instpath $instpath
+

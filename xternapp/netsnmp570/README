@@ -1,0 +1,82 @@
+
+Project: This is an exercise of building and running net-snmp 5.7.1.
+
+
+Files:
+  "snmp.conf" keeps default configuration 
+  "net-snmp-config.h" keeps configuration result and will be overwritten by configure script.
+
+Command to Configure (build under netobj dir aside net-snmp-5.7.1):
+  ../net-snmp-5.7.1/configure --enable-minimalist
+
+ Command asks for:
+  --with-default-snmp-version="x"
+  --with-sys-contact="contact"
+  --with-sys-location="location"
+  --with-logfile="path"
+  --with-persistent-directory="path"
+
+ Result:
+  SNMP Versions Supported:    1 2c 3
+  Building for:               linux
+  Net-SNMP Version:           5.7.1
+  Network transport support:  Callback Unix Alias TCP UDP IPv4Base SocketBase TCPBase UDPIPv4Base UDPBase
+  SNMPv3 Security Modules:     usm
+  Agent MIB code:             default_modules =>  snmpv3mibs mibII ucd_snmp notification 
+                                                  notification-log-mib target agent_mibs agentx 
+                                                  disman/event disman/schedule utilities host
+  MYSQL Trap Logging:         unavailable
+  Embedded Perl support:      disabled
+  SNMP Perl modules:          disabled
+  SNMP Python modules:        disabled
+  Crypto support from:        internal
+  Authentication support:     MD5 SHA1
+  Encryption support:         DES AES
+  Local DNSSEC validation:    disabled
+
+ Command options to leave only mibII and host modules (string in one line):
+  --with-out-mib-modules="snmpv3mibs ucd_snmp notification notification-log-mib 
+                  target agent_mibs agentx disman/event disman/schedule utilities"
+
+ Or use this script:
+  #!/bin/bash
+  
+  #this dir is netobj, install to ../nsnmpbin
+  instpath=`echo $PWD | sed -e 's/\/netobj//'`/nsnmpbin
+  
+  excmods1="snmpv3mibs ucd_snmp notification notification-log-mib"
+  excmods2="target agent_mibs agentx disman/event disman/schedule utilities"
+  excmods="$excmods1 $excmods2"
+  
+  ../net-snmp-5.7.1/configure --enable-minimalist --prefix=$instpath \
+                              --with-out-mib-modules="$excmods" \
+                              --with-default-snmp-version="1" \
+                              --with-sys-contact="contactunknown" \
+                              --with-sys-location="locationunknown" \
+                              --with-logfile="$instpath/var/log/snmpd.log" \
+                              --with-persistent-directory="$instpath/var/net-snmp"
+
+Perl Module for snmptranslate:
+
+   cd net-snmp-5.7.1/perl
+   perl Makefile.PL [-NET-SNMP-CONFIG="sh ../../net-snmp-config"] [-NET-SNMP-IN-SOURCE=true]
+   make
+   make test
+   make install
+
+Run:
+
+ Run snmpconf to configure snmpd.conf file. Move it to ~/.snmp. Listen on port 9999.
+ Start snmpd in foreground with lots of logs:
+   ../nsnmpbin/sbin/snmpd -Le -DALL -f -r 
+
+ Run snmpget:
+   snmpget -v 2c -c demopublic test.net-snmp.org SNMPv2-MIB::sysORDescr.1
+   snmpget -v 2c -c demopublic test.net-snmp.org SNMPv2-MIB::sysUpTime.0
+   snmpget -v 2c -c <your_string> localhost:9999 SNMPv2-MIB::sysUpTime.0
+
+ Run snmpgetnext and snmpwalk, found MIBs under 1.3.6.1.2.1:
+   SNMPv2-MIB DISMAN-EVENT-MIB IF-MIB SNMPv2-SMI  
+   IP-MIB IP-FORWARD-MIB TCP-MIB UDP-MIB HOST-RESOURCES-MIB  
+
+
