@@ -79,4 +79,10 @@ Run:
    SNMPv2-MIB DISMAN-EVENT-MIB IF-MIB SNMPv2-SMI  
    IP-MIB IP-FORWARD-MIB TCP-MIB UDP-MIB HOST-RESOURCES-MIB  
 
+Generating handler code: 
+   MIBS="+IF-MIB" mib2c -c mib2c.scalar.conf 1.3.6.1.2.1.1    --system node
+   MIBS="+IF-MIB" mib2c -c mib2c.scalar.conf 1.3.6.1.2.1      --mib_2 node
+
+
+   
 
