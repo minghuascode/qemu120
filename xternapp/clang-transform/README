@@ -1,0 +1,59 @@
+
+http://eli.thegreenplace.net/2012/06/08/basic-source-to-source-transformation-with-clang/
+2012-11-14
+
+Basic source-to-source transformation with Clang
+June 8th, 2012 at 7:38 am
+
+Source-to-source transformation of C/C++ code is known to be a hard problem. And yet, with the recent maturity of Clang as a powerful and library-friendly C++ compiler, I think there may finally be some light at the end of the tunnel.
+
+This post serves as a demonstration of basic source-to-source transformations with Clang. Specifically, it builds a simple program that links to Clang’s libraries (statically) and directly operates on Clang’s C++ API to achieve its goals. The C++ API of Clang is a moving target, so there’s a good chance this code will require modifications with next versions of Clang. At this point I verified that it works with release 3.1 and today’s trunk.
+
+The transformation itself done here is trivial and not really interesting – the program just adds comments in a few places (before and after function definitions, and inside if statements). The main goal here is to show how to set up the whole Clang machinery to enable this, and how to build the thing so it compiles and links correctly.
+
+The code
+
+This is rewritersample.cpp:
+... ...
+
+
+The makefile
+... ...
+
+
+First, let’s discuss the makefile and what’s important to look for.
+
+You must replace __PATH_TO... with the correct paths. The SRC path is where LLVM source root lives. BUILD path is where it was built. Note that this implies a source checkout and build with configure. If you use a CMake build, or build against binaries, you may have to fiddle with the paths a bit (including LLVM_BIN_PATH).
+
+llvm-config does a great job of figuring out the compile and link flags needed for LLVM and Clang. However, it currently only handles LLVM libs, and Clang libs have to be specified explicitly. The problem with this is that linkers, being sensitive to the order of libraries, are fickle, and it’s easy to get link errors if the libs are not specified in the correct order. A good place to see the up-to-date library list for Clang is tools/driver/Makefile – the makefile for the main Clang driver.
+
+Note also that the include dirs have to be speficied explicitly for Clang. This is important – if you have some version of Clang installed and these are not specified explicitly, you may get nasty linking errors (complaining about things like classof).
+
+What the code does – general
+
+Now, back to the source code. Our goal is to set up the Clang libraries to parse some source code into an AST, and then let us somehow traverse the AST and modify the source code.
+
+A major challenge in writing a tool using Clang as a library is setting everything up. The Clang frontend is a complex beast and consists of many parts. For the sake of modularity and testability, these parts are decoupled and hence take some work to set up. Fortunately, the Clang developers have provided a convenience class named CompilerInstance that helps with this task by collecting together everything needed to set up a functional Clang-based frontend. The bulk of the main function in my sample deals with setting up a CompilerInstance.
+
+The key call in main is to ParseAST. This function parses the input into an AST, and passes this AST to an implementation of the ASTConsumer interface, which represents some entity consuming the AST and acting upon it.
+
+ASTConsumer
+
+My implementation of ASTConsumer is MyASTConsumer. It’s a very simple class that only implements one method of the interface – HandleTopLevelDecl. This gets called by Clang whenever a top-level declaration (which also counts function definitions) is completed.
+
+RecursiveASTVisitor
+
+The main work-horse of AST traversal is MyASTVisitor, an implementation of RecursiveASTVisitor. This is the classical visitor pattern, with a method per interesting AST node. My code defines only a couple of visitor methods – to handle statements and function declarations. Note how the class itself is defined – this is a nice example of the curiously recurring template pattern (and actually the one I used in my earlier article on CRTP).
+
+Rewriter
+
+The Rewriter is a key component in the source-to-source transformation scheme implemented by this code. Instead of handling every possible AST node to spit back code from the AST, the approach taken here is to surgically change the original code at key places to perform the transformation. The Rewrite class is crucial for this. It’s a sophisticated buffer manager that uses a rope data structure to enable efficient slicing-and-dicing of the source. Coupled with Clang’s excellent preservation of source locations for all AST nodes, Rewriter enables to remove and insert code very accurately. Read its source code for more insights.
+
+Other resources
+
+Many thanks for the maintainers of the Clang-tutorial repository – my code is based on one of the examples taken from there.  https://github.com/loarabia/Clang-tutorial
+
+Another source of information is the "tooling" library that’s starting to emerge in Clang (include/clang/Tooling). It’s being developed by members of the Clang community that are writing in-house refactoring and code-transformation tools based on Clang as a library, so it’s a relevant source.
+
+Finally, due to the scarcity of Clang’s external documentation, the best source of information remains the code itself. While at first somewhat formidable, Clang’s code is actually very well organized and is readable enough.
+
