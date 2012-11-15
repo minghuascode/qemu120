@@ -1,0 +1,50 @@
+
+download
+================
+   2012-11-14
+
+   http://llvm.org/releases/3.1/llvm-3.1.src.tar.gz
+   http://llvm.org/releases/3.1/llvm-3.1.src.tar.gz.sig
+
+   http://llvm.org/releases/3.1/clang-3.1.src.tar.gz
+   http://llvm.org/releases/3.1/clang-3.1.src.tar.gz.sig
+
+
+build
+===========
+
+   tar zxf ../llvm-3.1.src.tar.gz 
+   tar zxf ../clang-3.1.src.tar.gz 
+   cd llvm-3.1.src/tools/
+   mv ../../clang-3.1.src clang
+   cd ..
+   ./configure --prefix=/home/you/clang/bin
+
+   [llvm-3.1.src]$ du -sh .
+   131M    .
+
+   [llvm-3.1.src]$ df -h .
+   /dev/sda1        11G  7.5G  2.6G  75% /
+
+   time make
+
+   ...build start 23:46, finish ...
+
+   [llvm-3.1.src]$ find . -type f -name '*.cpp' | wc
+      3221    3221  156044
+   [llvm-3.1.src]$ find . -type f -name '*.c' | wc
+      1611    1611   73565
+   [llvm-3.1.src]$ find . -type f -name '*.h' | wc
+      1511    1512   66826
+
+
+files
+===========
+
+  8158418 Nov 14 23:32 clang-3.1.src.tar.gz
+      543 Nov 14 23:33 clang-3.1.src.tar.gz.sig
+ 11077429 Nov 14 23:32 llvm-3.1.src.tar.gz
+      543 Nov 14 23:32 llvm-3.1.src.tar.gz.sig
+      585 Nov 15 01:32 README
+
+
