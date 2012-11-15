@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html class=" js no-flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths no-csspositionsticky eventsource" style=""><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# githubog: http://ogp.me/ns/fb/githubog#">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TutorialOrig · loarabia/Clang-tutorial Wiki · GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://github.com/loarabia/Clang-tutorial/wiki/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://github.com/loarabia/Clang-tutorial/wiki/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://github.com/loarabia/Clang-tutorial/wiki/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://github.com/loarabia/Clang-tutorial/wiki/apple-touch-icon-144.png">
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    
+    
+    <link rel="icon" type="image/x-icon" href="https://github.com/favicon.ico">
+
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="sEfuoOXfxXWbw0pXeyzNwQTO0dPnepz8WpYgh+ylEDQ=" name="csrf-token">
+
+    <link href="TutorialOrig_files/github-4a9b57c354a4014cf6abc11236671bcb30d81a4e.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="TutorialOrig_files/github2-678b50bf7cba9691eead17e12530134d01b45f04.css" media="screen" rel="stylesheet" type="text/css">
+    
+
+
+    <script src="TutorialOrig_files/track.js" data-site-id="4f5634b5613f5d0429000010" id="gauges-tracker" async="" type="text/javascript"></script><script src="TutorialOrig_files/frameworks-c9ece3c1d530c8b5201cab80ec5efc53bf244a05.js" type="text/javascript"></script>
+    <script src="TutorialOrig_files/github-dc5b8095529da6d9db0d3f7251dfe76535c35735.js" type="text/javascript"></script><script src="TutorialOrig_files/ga.js" async="" type="text/javascript"></script>
+    
+
+      <script src="TutorialOrig_files/wiki-dec2413e047224cac07760fa1b6a8c87de91f0c5.js" type="text/javascript"></script>
+    <meta property="og:title" content="Clang-tutorial">
+    <meta property="og:type" content="githubog:gitrepository">
+    <meta property="og:url" content="https://github.com/loarabia/Clang-tutorial">
+    <meta property="og:image" content="https://a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-user-420.png?1345673561">
+    <meta property="og:site_name" content="GitHub">
+    <meta property="og:description" content="Clang-tutorial - A collection of code samples showing usage of clang and llvm as a library">
+
+    <meta name="description" content="Clang-tutorial - A collection of code samples showing usage of clang and llvm as a library">
+
+  <link href="https://github.com/loarabia/Clang-tutorial/commits/master.atom" rel="alternate" title="Recent Commits to Clang-tutorial:master" type="application/atom+xml">
+
+  </head>
+
+
+  <body class="logged_out  linux vis-public env-production  ff">
+    <p>
+        <a href="https://github.com/loarabia/Clang-tutorial/wiki/TutorialOrig"> https://github.com/loarabia/Clang-tutorial/wiki/TutorialOrig </a>
+    </p>
+    <div id="wrapper">
+
+    
+    
+
+    
+
+      <div id="header" class="true clearfix">
+        <div class="container clearfix">
+          <a class="site-logo " href="https://github.com/">
+            <img alt="GitHub" class="github-logo-4x" src="TutorialOrig_files/logov74x.png" height="30">
+            <img alt="GitHub" class="github-logo-4x-hover" src="TutorialOrig_files/logov74x-hover.png" height="30">
+          </a>
+
+
+                  <ul class="top-nav logged_out">
+        <li class="pricing"><a href="https://github.com/signup">Sign up for free</a></li>
+        <li class="explore"><a href="https://github.com/explore">Explore GitHub</a></li>
+      <li class="features"><a href="https://github.com/features">Features</a></li>
+        <li class="blog"><a href="https://github.com/blog">Blog</a></li>
+      <li class="login"><a href="https://github.com/login?return_to=%2Floarabia%2FClang-tutorial%2Fwiki%2FTutorialOrig">Sign in</a></li>
+    </ul>
+
+
+
+          
+        </div>
+      </div>
+
+      
+
+      
+
+
+            <div class="site hfeed" itemscope="" itemtype="http://schema.org/WebPage">
+      <div class="hentry">
+        
+        <div class="pagehead repohead instapaper_ignore readability-menu">
+          <div class="container">
+            <div class="title-actions-bar">
+              
+
+
+                  <ul class="pagehead-actions">
+
+
+          <li>
+            <span class="star-button"><a original-title="You must be signed in to use this feature" href="https://github.com/login?return_to=%2Floarabia%2FClang-tutorial" class="minibutton js-toggler-target entice tooltipped leftwards" rel="nofollow"><span class="mini-icon mini-icon-star"></span>Star</a><a class="social-count js-social-count" href="https://github.com/loarabia/Clang-tutorial/stargazers">81</a></span>
+          </li>
+          <li>
+            <a original-title="You must be signed in to fork a repository" href="https://github.com/login?return_to=%2Floarabia%2FClang-tutorial" class="minibutton js-toggler-target fork-button entice tooltipped leftwards" rel="nofollow"><span class="mini-icon mini-icon-fork"></span>Fork</a><a href="https://github.com/loarabia/Clang-tutorial/network" class="social-count">15</a>
+          </li>
+    </ul>
+
+              <h1 itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public">
+                <span class="repo-label"><span>public</span></span>
+                <span class="mega-icon mega-icon-public-repo"></span>
+                <span class="author vcard">
+                  <a href="https://github.com/loarabia" class="url fn" itemprop="url" rel="author">
+                  <span itemprop="title">loarabia</span>
+                  </a></span> /
+                <strong><a href="https://github.com/loarabia/Clang-tutorial" class="js-current-repository">Clang-tutorial</a></strong>
+              </h1>
+            </div>
+
+            
+
+  <ul class="tabs">
+    <li><a href="https://github.com/loarabia/Clang-tutorial" highlight="repo_sourcerepo_downloadsrepo_commitsrepo_tagsrepo_branches">Code</a></li>
+    <li><a href="https://github.com/loarabia/Clang-tutorial/network" highlight="repo_network">Network</a></li>
+    <li><a href="https://github.com/loarabia/Clang-tutorial/pulls" highlight="repo_pulls">Pull Requests <span class="counter">0</span></a></li>
+
+      <li><a href="https://github.com/loarabia/Clang-tutorial/issues" highlight="repo_issues">Issues <span class="counter">2</span></a></li>
+
+      <li><a href="https://github.com/loarabia/Clang-tutorial/wiki" class="selected" highlight="repo_wiki">Wiki</a></li>
+
+
+    <li><a href="https://github.com/loarabia/Clang-tutorial/graphs" highlight="repo_graphsrepo_contributors">Graphs</a></li>
+
+
+  </ul>
+  
+  
+  
+  <div class="tabnav">
+  <ul class="tabnav-tabs">
+    <li><a href="https://github.com/loarabia/Clang-tutorial/wiki" class="tabnav-tab">Home</a></li>
+    <li><a href="https://github.com/loarabia/Clang-tutorial/wiki/_pages" class="tabnav-tab">Pages</a></li>
+    <li><a href="https://github.com/loarabia/Clang-tutorial/wiki/_history" class="tabnav-tab">Wiki History</a></li>
+    <li><a href="https://github.com/loarabia/Clang-tutorial/wiki/_access" class="tabnav-tab">Git Access</a></li>
+  </ul>
+</div>
+
+
+
+            
+          </div>
+        </div><!-- /.repohead -->
+
+        <div id="js-repo-pjax-container" class="container context-loader-container" data-pjax-container="">
+          
+
+<div id="wiki-wrapper" class="page">
+<div id="head">
+  <h1 class="instapaper_title">TutorialOrig</h1>
+  <ul class="wiki-actions readability-extra">
+    <li class="gollum-minibutton"><a href="https://github.com/loarabia/Clang-tutorial/wiki/TutorialOrig/_history" class="minibutton bigger action-page-history">
+       Page History
+     </a></li>
+  </ul>
+</div>
+<div id="wiki-content">
+  <div class="wrap">
+  <div id="wiki-body" class="gollum-markdown-content instapaper_body">
+    <div class="markdown-body">
+      <h1>How to parse C programs with Clang: A tutorial</h1>
+
+<p>Written by Nico Weber (9/2008)<br>
+Updated by Justin LaPre (10/2009)<br>
+Update by Larry Olson (12/2011)  </p>
+
+<h2>Introduction</h2>
+
+<p>From Clang's <a href="http://clang.llvm.org/">website</a></p>
+
+<blockquote>
+<p>The goal of the Clang project is to create a new C, C++, Objective C and Objective C++ front-end for the LLVM compiler. </p>
+</blockquote>
+
+<p>What does that mean, and why should you care? A front-end is a 
+program that takes a piece of code and converts it from a flat string to
+ a structured, tree-formed representation of the same program — an 
+Abstract Syntax Tree or AST.</p>
+
+<p>Once you have an AST of a program, you can do many things with the 
+program that are hard without an AST. For example, renaming a variable 
+without an AST is hard: You cannot simply search for the old name and 
+replace it with a new name, as this will change too much (for example, 
+variables that have the old name but are in a different namespace, and 
+so on). With an AST, it’s easy: In principle, you only have to change 
+the name field of the right VariableDeclaration AST node, and convert 
+the AST back to a string. (In practice, it’s a bit harder for <a href="http://www.spinellis.gr/pubs/jrnl/2003-TSE-Refactor/html/Spi03r.html">some codebases</a>.</p>
+
+<p>Front-ends have existed for decades. So, what’s special about clang? I
+ think the most interesting part is that clang uses a library design, 
+which means that you can easily embed clang into your own programs (and 
+by “easily”, I mean it. Most programs in this tutorial are well below 50
+ lines). This tutorial tells you how you do this.</p>
+
+<p>So, do you have a large C code-base and want to perform <a href="http://en.wikipedia.org/wiki/Static_code_analysis">non-trivial analysis</a>? Would you like to have <a href="http://en.wikipedia.org/wiki/Ctags">ctags</a>
+ that works better with C++ and at all with Objective-C? Would you like 
+to collect some statistics about your program, and you feel that grep 
+doesn’t cut it? Then clang is for you.</p>
+
+<p>This tutorial will offer a tour through clang’s preprocessor, parser, and AST libraries.</p>
+
+<p>A short word of warning: Clang is a work in progress. Although its 
+API surface is more stable than it was in 2008 when the first version of
+ this tutorial was written, it does not have a stable API, so this 
+tutorial might not be completely up-to-date. </p>
+
+<p>Clang works on all platforms. In this tutorial I assume that you have
+ some Unix-based platform, but everything works on Windows, too.</p>
+
+<h1>Getting Started</h1>
+
+<p>The official release of Clang is at version 3.0. You can get it <a href="http://llvm.org/releases/">here</a>. You can download and add that into your various binary, include, and library paths. </p>
+
+<p>Alternatively, you can get the latest from SVN by following these <a href="http://clang.llvm.org/get_started.html">instructions</a></p>
+
+<p>A hint for folks on Unix like systems who are pulling straight from 
+SVN and not the official released build. After getting the source for 
+llvm and clang and configuring it per the <a href="http://clang.llvm.org/get_started.html">instructions</a>, run the following:</p>
+
+<pre><code>make happiness
+# Note: You'll almost certainly need to run the next command under sudo
+make install
+</code></pre>
+
+<p><code>make happiness</code> will checkout the latest llvm and clang 
+from svn,  build them, and run the resulting binaries through a test 
+suite. The result of this command should look like:</p>
+
+<pre><code>Testing Time: 202.10s
+  Expected Passes    : 9678
+  Expected Failures  : 74
+  Unsupported Tests  : 13
+</code></pre>
+
+<p>If there are any lines that say:</p>
+
+<p><code>Unexpected Failures: 3</code></p>
+
+<p>or something like that, then run the command again, often times a fix
+ will already be waiting and the last update just happened to miss it. 
+Otherwise, check the <a href="http://lists.cs.uiuc.edu/pipermail/cfe-dev/">mailing lists</a> as there may be a bug.</p>
+
+<p><code>make install</code> will install the built libs, binaries, and include files.</p>
+
+<h2>Recommended reading to get some context if needed.</h2>
+
+<ul>
+<li>
+<em>Compilers: Principles, Techniques, and Tools</em> by Aho, Lan, 
+Sethi, and Ullman
+Pay attention to the first two chapters, especially discussions of 
+Lexical Analysis and Syntax Trees. Skim anything else that looks 
+interesting up to the Chapter on Syntax Directed Translation (chapter 5 
+in the 1st edition). Note: All of this is what Clang is doing for you.</li>
+<li>
+<em>Compiler Construction: Principles and Practice</em> by Kenneth C. Louden
+Pay attention to the first 3 chapters up to section 3.3 again.</li>
+</ul><h2>Tutorial 1: The bare minimum</h2>
+
+<p>A front-end consists of multiple parts. First is usually a lexer, 
+which converts the input from a stream of characters to a stream of 
+tokens. For example, the input <code>while</code> is converted from the five characters ‘w’, ‘h’, ‘i’, ‘l’, and ‘e’ to the token <code>kw_while</code>. For performance reasons, clang does not have a separate preprocessor program, but does preprocessing while lexing.</p>
+
+<p>The <code>Preprocessor</code> class is the main interface to the 
+lexer, and it’s a class you will need in almost every program that 
+embeds clang. So, for starters, let’s try to create <code>Preprocessor</code> object. Our first program will not do anything useful, it only constructs a <code>Preprocessor</code> and exits.</p>
+
+<p>The constructor of <code>Preprocessor</code> takes no less than 6 arguments: A <code>DiagnosticsEngine</code> object, a <code>LangOptions</code> object, a <code>TargetInfo</code> object, a <code>SourceManager</code> object, a <code>HeaderSearch</code> object, and finally a <code>Module Loader</code> object. Let’s break down what those objects are good for, and how we can build them.</p>
+
+<p>First is <code>DiagnosticsEngine</code>. This is used by clang to report errors and warnings to the user. A <code>DiagnosticsEngine</code> object can have a <code>DiagnosticsConsumer</code>, which is responsible for actually displaying the messages to the user. We will use clang’s built-in <code>TextDiagnosticPrinter</code> class, which writes errors and warnings to the console (it’s the same <code>DiagnosticsConsumer</code> that is used by the clang binary).</p>
+
+<p>Next up is <code>LangOptions</code>. This class lets you configure if
+ you’re compiling C or C++, and which language extensions you want to 
+allow. Constructing this object is easy, as its constructor does not 
+take any parameters.</p>
+
+<p>The <code>TargetInfo</code> is easy, too, but we need to call a 
+factory method as the constructor is private. The factory method takes a
+ “host triple” as parameter that defines the architecture clang should 
+compile for, such as “i386-apple-darwin”. We will get and pass the 
+default host triple (<code>getDefaultTargetTriple()</code>), which 
+contains the host triple describing the machine llvm was compiled on. 
+But in principle, you can use clang as a cross-compiler very easily, 
+too. The TargetInfo object is required so that the preprocessor can add 
+target-specific defines, for example <code>__APPLE__</code>. You need to delete this object at the end of the program.</p>
+
+<p><code>SourceManager</code> is used by clang to load and cache source files. Its constructor takes a <code>DiagnosticsEngine</code> for errors and a <code>FileManager</code> which helps it manage files on disk and in cache.</p>
+
+<p>The constructor of <code>HeaderSearch</code> which also requires a <code>DiagnosticsEngine</code> for errors and a <code>FileManager</code> which helps it manage files on disk and in cache. HeaderSearch configures where clang looks for include files.</p>
+
+<p>Finally, a <code>ModuleLoader</code> is an abstract class whose concrete implementation helps resolve module names. In this case, we'll create a <code>CompilerInstance</code> as the default <code>ModuleLoader</code>.</p>
+
+<p>So, to build a Preprocessor object, the following code is required:</p>
+
+<pre><code>clang::DiagnosticOptions diagnosticOptions;
+clang::TextDiagnosticPrinter *pTextDiagnosticPrinter =
+    new clang::TextDiagnosticPrinter(
+        llvm::outs(),
+        diagnosticOptions);
+llvm::IntrusiveRefCntPtr&lt;clang::DiagnosticIDs&gt; pDiagIDs;
+
+clang::DiagnosticsEngine *pDiagnosticsEngine =
+    new clang::DiagnosticsEngine(pDiagIDs, pTextDiagnosticPrinter);
+
+clang::LangOptions languageOptions;
+clang::FileSystemOptions fileSystemOptions;
+clang::FileManager fileManager(fileSystemOptions);
+clang::SourceManager sourceManager(
+    *pDiagnosticsEngine,
+    fileManager);
+clang::HeaderSearch headerSearch(fileManager, *pDiagnosticsEngine);
+
+clang::TargetOptions targetOptions;
+targetOptions.Triple = llvm::sys::getDefaultTargetTriple();
+
+clang::TargetInfo *pTargetInfo = 
+    clang::TargetInfo::CreateTargetInfo(
+        *pDiagnosticsEngine,
+        targetOptions);
+clang::CompilerInstance compInst;
+
+clang::Preprocessor preprocessor(
+    *pDiagnosticsEngine,
+    languageOptions,
+    pTargetInfo,
+    sourceManager,
+    headerSearch,
+    compInst);
+</code></pre>
+
+<p><em>Note that this is quite verbose. Since we're using a 
+CompilerInstance anyway, I've rebuilt these tutorials using a 
+CompilerInstance object and its helper methods. They make this setup a 
+bit simpler.</em></p>
+
+<h2>Compiling</h2>
+
+<p>Now that you've written your first tutorial, you need to compile it. To do that, use <code>llvm-config</code>. Pass it the <code>-fno-rtti</code>
+ flag otherwise you'll get a link error. Also, pass it which backend 
+libraries to use along with a list of clang libraries. See the 
+checked-in <code>makefile</code> in the project.</p>
+
+<h2>Tutorial 2: Processing a file</h2>
+
+<p>Right now, our program is not very interesting, as it does not do 
+anything yet. We want to change it so that it feeds C files into the 
+preprocessor object. To add an input file to the preprocessor, we call:</p>
+
+<pre><code>const clang::FileEntry *pFile = fileManager.getFile("test.c");
+sourceManager.createMainFileID(pFile);
+preprocessor.EnterMainSourceFile();
+</code></pre>
+
+<p>This three lines collectively create a file id for the input file and
+ stores it as the “main file” in the SourceManager object, tells the 
+preprocessor to enter the SourceManager’s main file into its file list, 
+and  does some other setup stuff (such as creating a buffer with 
+predefines), too.</p>
+
+<p>Now that a source file is added, we can ask the preprocessor to preprocess it and read the preprocessed input tokens:</p>
+
+<pre><code>clang::Token token;
+do {
+    preprocessor.Lex(token);
+    if( pDiagnosticsEngine-&gt;hasErrorOccurred())
+    {
+        break;
+    }
+    preprocessor.DumpToken(token);
+    std::cerr &lt;&lt; std::endl;
+} while( token.isNot(clang::tok::eof));
+</code></pre>
+
+<p>See tutorial2.cpp for the complete program. Note that this is a very 
+complete preprocessor, it handles all kinds of corner cases correctly 
+already. It also strips comments. The program can be compiled exactly 
+like tutorial1.</p>
+
+<p>After building, play around with it a bit. For example, here’s its output when test.c is given as an input file:</p>
+
+<pre><code>int 'int'
+identifier 'i'
+equal '='
+numeric_constant '4'
+semi ';'
+extern 'extern'
+int 'int'
+identifier 'j'
+semi ';'
+int 'int'
+identifier 'main'
+l_paren '('
+r_paren ')'
+l_brace '{'
+identifier 'printf'
+l_paren '('
+string_literal '"Hello World\n"'
+r_paren ')'
+semi ';'
+return 'return'
+numeric_constant '0'
+semi ';'
+r_brace '}'
+eof ''
+</code></pre>
+
+<p>You can also try feeding erroneous programs to tutorial2. As you’ll see, some errors are detected, while others are not (yet).</p>
+
+<h2>Tutorial 3: Include files</h2>
+
+<p>If you feed something with an #include line into our program, chances are that it does not work. For example, if we feed it <code>testInclude.c</code>, we get an error:</p>
+
+<pre><code>testInclude.c:1:10: fatal error: 'stdio.h' file not found
+#include &lt;stdio.h&gt;
+         ^
+</code></pre>
+
+<p>We need to tell the preprocessor where it can find its header files, in particular the standard header files for your system.</p>
+
+<p>You add those paths via the <code>HeaderSearchOptions</code> which, via a set of flags and properties, tells the <code>HeaderSearch</code> object how to initialize its search paths or where else to look.</p>
+
+<p>To add the default system header paths to clang, you use the following code:</p>
+
+<pre><code>clang::HeaderSearchOptions headerSearchOptions;
+</code></pre>
+
+<p>This creates a default <code>HeaderSearchOptions</code> object and 
+tells the system to use default options for this system. This happens 
+via a call to clang::ApplyHeaderSearchOptions which takes in the <code>LangOptions</code> and the <code>TargetInfo</code>. This is called as part of the call to <code>InitializePreprocessor</code> which we added to earlier tutorials.</p>
+
+<p>With this tiny change, <code>#include</code> directives that include system headers already work. See tutorial3.cpp for the complete program.</p>
+
+<pre><code># . . . LOTS of output omitted
+int 'int'
+identifier 'main'
+l_paren '('
+r_paren ')'
+l_brace '{'
+identifier 'printf'
+l_paren '('
+string_literal '"Hello World\n"'
+r_paren ')'
+semi ';'
+return 'return'
+numeric_constant '0'
+semi ';'
+r_brace '}'
+eof ''
+</code></pre>
+
+<p>This actually outputs all the tokens found in the included file, so the output is quite long.</p>
+
+<h2>Tutorial 4: Parsing the file</h2>
+
+<p>The preprocessor gives us a stream of tokens. We could now write a 
+parser that parses that token stream into an AST. Luckily, clang can do 
+this for us. </p>
+
+<p>So, how does clang’s parsing work? There is a call to clang::ParseAST
+ which takes in the configured Preprocessor object, an ASTConsumer, and 
+an ASTContext. The ASTConsumer has virtuals for high level parsing 
+constructs while the ASTContext holds onto long lived AST elements like 
+types and declarations for semantic analysis.</p>
+
+<p>To call ParseAST, we have to build a number of objects.</p>
+
+<pre><code>const clang::TargetInfo &amp;targetInfo = *pTargetInfo;
+
+clang::IdentifierTable identifierTable(languageOptions);
+clang::SelectorTable selectorTable;
+
+clang::Builtin::Context builtinContext;
+builtinContext.InitializeTarget(targetInfo);
+clang::ASTContext astContext(
+    languageOptions,
+    sourceManager,
+    pTargetInfo,
+    identifierTable,
+    selectorTable,
+    builtinContext,
+    0 /* size_reserve*/);
+clang::ASTConsumer astConsumer;
+
+clang::Sema sema(
+    preprocessor,
+    astContext,
+    astConsumer);
+</code></pre>
+
+<p>After creating these new objects to hold state (or in the case of the
+ ASTConsumer, in the near future to help us parse a file), we need to 
+invoke the actual parser.</p>
+
+<pre><code>clang::ParseAST(preprocessor, &amp;astConsumer, astContext); 
+</code></pre>
+
+<p>Finally, to show we've actually done something, let's print out statistics on the Identifier Table.</p>
+
+<pre><code>identifierTable.PrintStats();
+</code></pre>
+
+<p>Your output should look something like this:</p>
+
+<pre><code>*** Identifier Table Stats:
+# Identifiers:   91
+# Empty Buckets: 8101
+Hash density (#identifiers per bucket): 0.011108
+Ave identifier length: 8.483516
+Max identifier length: 28
+
+Number of memory regions: 1
+Bytes used: 3047
+Bytes allocated: 4096
+Bytes wasted: 1049 (includes alignment, etc)
+</code></pre>
+
+<h2>Tutorial 5 and 6: Doing something interesting, via semantic analysis with Clang</h2>
+
+<p>The original tutorials used the parser directly here to perform 
+semantic analysis. The technique used is no longer exposed through 
+clang's public APIs and instead you should now use Semantic analysis as 
+tutorial 6 did.</p>
+
+<p>By now, we can do some actual analysis of the input code. Remember, 
+we want to write a program that lists information about global 
+variables. Finding all globals in a program is a good start. In order to
+ do that, we will create an ASTConsumer which acts on 
+TopLevelDeclarations. So what then is a Declaration?</p>
+
+<p>Here are some examples of Declarations</p>
+
+<pre><code>const unsigned long int b;  // b is just a constant
+int *i;  // declares (and defines) a pointer-to-int variable
+extern int a;  //declares an int variable
+void printf(const char* c, ...);  // a function prototype
+typedef unsigned int u32;  // a typedef
+struct { int a } t;  // a variable that has an anonymous struct as type
+char *(*(**foo [][8])())[];  // ...wtf? see below :-)
+</code></pre>
+
+<p>Reading declarations can be tricky and <a href="http://eli.thegreenplace.net/2008/07/18/reading-c-type-declarations/">this</a> has good technique for reading them.</p>
+
+<p>A declaration has very roughly two parts: the declared type on the 
+left (e.g. const unsigned long int or struct { int a }) and a list of 
+“modifiers” and the variable name itself on the right (e.g. b, <em>i, or *(</em>(**foo
+ [][8])())[]). The part on the left is represented by a DeclSpec in 
+clang, the (potentially complex) part on the right is a list of 
+DeclaratorChunks. A DeclaratorChunk has a Kind that can be one of 
+Pointer, Reference, Array, or Function.</p>
+
+<p>To differentiate these various types of declarations cannot be done 
+just by a Parser, the Compiler must perform some Semantic Analysis. We 
+gain access to the results of Semantic Analysis by making our own 
+ASTConsumer. The method we want to override is HandleTopLevelDecl(), 
+which is called (surprise!) for every top-level declaration. The method 
+gets passed a Decl object, which is the AST class used for declarations.</p>
+
+<p>We want to handle only VarDecls, and only those that are global and not extern. This yields</p>
+
+<pre><code>virtual bool HandleTopLevelDecl( clang::DeclGroupRef d)
+{
+    static int count = 0;
+    clang::DeclGroupRef::iterator it;
+    for( it = d.begin(); it != d.end(); it++)
+    {
+        count++;
+        clang::VarDecl *vd = llvm::dyn_cast&lt;clang::VarDecl&gt;(*it);
+        if(!vd)
+        {
+            continue;
+        }
+        std::cout &lt;&lt; vd &lt;&lt; std::endl;
+        if( vd-&gt;isFileVarDecl() &amp;&amp; vd-&gt;hasExternalStorage() )
+        {
+            std::cerr &lt;&lt; "Read top-level variable decl: '";
+            std::cerr &lt;&lt; vd-&gt;getDeclName().getAsString() ;
+            std::cerr &lt;&lt; std::endl;
+        }
+    }
+    return true;
+}
+</code></pre>
+
+<p>After building and running, Tutorial 6 now gives us:</p>
+
+<pre><code>Read top-level variable decl: 'a
+Read top-level variable decl: 'a
+Read top-level variable decl: 'b
+Read top-level variable decl: 'c
+Read top-level variable decl: 'funcp
+Read top-level variable decl: 'fp2
+Read top-level variable decl: 'fp3
+Read top-level variable decl: 't
+</code></pre>
+    </div>
+  </div>
+  </div>
+
+</div>
+<div id="gollum-footer">
+  <p id="last-edit">
+    Last edited by huperniketes, <time class="js-relative-date" datetime="2012-08-29T08:26:16-07:00" title="2012-08-29 08:26:16">3 months ago</time>
+  </p>
+</div>
+</div>
+
+
+        </div>
+      </div>
+      <div class="context-overlay"></div>
+    </div>
+
+      <div id="footer-push"></div><!-- hack for sticky footer -->
+    </div><!-- end of wrapper - hack for sticky footer -->
+
+      <!-- footer -->
+      <div id="footer">
+        
+  <div class="upper_footer">
+     <div class="container clearfix">
+
+       <h4 id="blacktocat">GitHub Links</h4>
+
+       <ul class="footer_nav">
+         <h4>GitHub</h4>
+         <li><a href="https://github.com/about">About</a></li>
+         <li><a href="https://github.com/blog">Blog</a></li>
+         <li><a href="https://github.com/features">Features</a></li>
+         <li><a href="https://github.com/contact">Contact &amp; Support</a></li>
+         <li><a href="http://training.github.com/">Training</a></li>
+         <li><a href="http://enterprise.github.com/">GitHub Enterprise</a></li>
+         <li><a href="http://status.github.com/">Site Status</a></li>
+       </ul>
+
+       <ul class="footer_nav">
+         <h4>Clients</h4>
+         <li><a href="http://mac.github.com/">GitHub for Mac</a></li>
+         <li><a href="http://windows.github.com/">GitHub for Windows</a></li>
+         <li><a href="http://eclipse.github.com/">GitHub for Eclipse</a></li>
+         <li><a href="http://mobile.github.com/">GitHub Mobile Apps</a></li>
+       </ul>
+
+       <ul class="footer_nav">
+         <h4>Tools</h4>
+         <li><a href="http://get.gaug.es/">Gauges: Web analytics</a></li>
+         <li><a href="http://speakerdeck.com/">Speaker Deck: Presentations</a></li>
+         <li><a href="https://gist.github.com/">Gist: Code snippets</a></li>
+
+         <h4 class="second">Extras</h4>
+         <li><a href="http://jobs.github.com/">Job Board</a></li>
+         <li><a href="http://shop.github.com/">GitHub Shop</a></li>
+         <li><a href="http://octodex.github.com/">The Octodex</a></li>
+       </ul>
+
+       <ul class="footer_nav">
+         <h4>Documentation</h4>
+         <li><a href="http://help.github.com/">GitHub Help</a></li>
+         <li><a href="http://developer.github.com/">Developer API</a></li>
+         <li><a href="http://github.github.com/github-flavored-markdown/">GitHub Flavored Markdown</a></li>
+         <li><a href="http://pages.github.com/">GitHub Pages</a></li>
+       </ul>
+
+     </div><!-- /.site -->
+  </div><!-- /.upper_footer -->
+
+<div class="lower_footer">
+  <div class="container clearfix">
+    <div id="legal">
+      <ul>
+          <li><a href="https://github.com/site/terms">Terms of Service</a></li>
+          <li><a href="https://github.com/site/privacy">Privacy</a></li>
+          <li><a href="https://github.com/security">Security</a></li>
+      </ul>
+
+      <p>© 2012 <span title="0.07523s from fe13.rs.github.com">GitHub</span> Inc. All rights reserved.</p>
+    </div><!-- /#legal or /#legal_ie-->
+
+  </div><!-- /.site -->
+</div><!-- /.lower_footer -->
+
+
+      </div><!-- /#footer -->
+
+    
+
+<div id="keyboard_shortcuts_pane" class="instapaper_ignore readability-extra" style="display:none">
+  <h2>Keyboard Shortcuts <small><a href="#" class="js-see-all-keyboard-shortcuts">(see all)</a></small></h2>
+
+  <div class="columns threecols">
+    <div class="column first">
+      <h3>Site wide shortcuts</h3>
+      <dl class="keyboard-mappings">
+        <dt>s</dt>
+        <dd>Focus command bar</dd>
+      </dl>
+      <dl class="keyboard-mappings">
+        <dt>?</dt>
+        <dd>Bring up this help dialog</dd>
+      </dl>
+    </div><!-- /.column.first -->
+
+    <div class="column middle" style="display:none">
+      <h3>Commit list</h3>
+      <dl class="keyboard-mappings">
+        <dt>j</dt>
+        <dd>Move selection down</dd>
+      </dl>
+      <dl class="keyboard-mappings">
+        <dt>k</dt>
+        <dd>Move selection up</dd>
+      </dl>
+      <dl class="keyboard-mappings">
+        <dt>c <em>or</em> o <em>or</em> enter</dt>
+        <dd>Open commit</dd>
+      </dl>
+      <dl class="keyboard-mappings">
+        <dt>y</dt>
+        <dd>Expand URL to its canonical form</dd>
+      </dl>
+    </div><!-- /.column.first -->
+
+    <div class="column last js-hidden-pane" style="display:none">
+      <h3>Pull request list</h3>
+      <dl class="keyboard-mappings">
+        <dt>j</dt>
+        <dd>Move selection down</dd>
+      </dl>
+      <dl class="keyboard-mappings">
+        <dt>k</dt>
+        <dd>Move selection up</dd>
+      </dl>
+      <dl class="keyboard-mappings">
+        <dt>o <em>or</em> enter</dt>
+        <dd>Open issue</dd>
+      </dl>
+      <dl class="keyboard-mappings">
+        <dt><span class="platform-mac">⌘</span><span class="platform-other">ctrl</span> <em>+</em> enter</dt>
+        <dd>Submit comment</dd>
+      </dl>
+      <dl class="keyboard-mappings">
+        <dt><span class="platform-mac">⌘</span><span class="platform-other">ctrl</span> <em>+</em> shift p</dt>
+        <dd>Preview comment</dd>
+      </dl>
+    </div><!-- /.columns.last -->
+
+  </div><!-- /.columns.equacols -->
+
+  <div class="js-hidden-pane" style="display:none">
+    <div class="rule"></div>
+
+    <h3>Issues</h3>
+
+    <div class="columns threecols">
+      <div class="column first">
+        <dl class="keyboard-mappings">
+          <dt>j</dt>
+          <dd>Move selection down</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>k</dt>
+          <dd>Move selection up</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>x</dt>
+          <dd>Toggle selection</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>o <em>or</em> enter</dt>
+          <dd>Open issue</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt><span class="platform-mac">⌘</span><span class="platform-other">ctrl</span> <em>+</em> enter</dt>
+          <dd>Submit comment</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt><span class="platform-mac">⌘</span><span class="platform-other">ctrl</span> <em>+</em> shift p</dt>
+          <dd>Preview comment</dd>
+        </dl>
+      </div><!-- /.column.first -->
+      <div class="column last">
+        <dl class="keyboard-mappings">
+          <dt>c</dt>
+          <dd>Create issue</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>l</dt>
+          <dd>Create label</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>i</dt>
+          <dd>Back to inbox</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>u</dt>
+          <dd>Back to issues</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>/</dt>
+          <dd>Focus issues search</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="js-hidden-pane" style="display:none">
+    <div class="rule"></div>
+
+    <h3>Issues Dashboard</h3>
+
+    <div class="columns threecols">
+      <div class="column first">
+        <dl class="keyboard-mappings">
+          <dt>j</dt>
+          <dd>Move selection down</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>k</dt>
+          <dd>Move selection up</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>o <em>or</em> enter</dt>
+          <dd>Open issue</dd>
+        </dl>
+      </div><!-- /.column.first -->
+    </div>
+  </div>
+
+  <div class="js-hidden-pane" style="display:none">
+    <div class="rule"></div>
+
+    <h3>Network Graph</h3>
+    <div class="columns equacols">
+      <div class="column first">
+        <dl class="keyboard-mappings">
+          <dt><span class="badmono">←</span> <em>or</em> h</dt>
+          <dd>Scroll left</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt><span class="badmono">→</span> <em>or</em> l</dt>
+          <dd>Scroll right</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt><span class="badmono">↑</span> <em>or</em> k</dt>
+          <dd>Scroll up</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt><span class="badmono">↓</span> <em>or</em> j</dt>
+          <dd>Scroll down</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>t</dt>
+          <dd>Toggle visibility of head labels</dd>
+        </dl>
+      </div><!-- /.column.first -->
+      <div class="column last">
+        <dl class="keyboard-mappings">
+          <dt>shift <span class="badmono">←</span> <em>or</em> shift h</dt>
+          <dd>Scroll all the way left</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>shift <span class="badmono">→</span> <em>or</em> shift l</dt>
+          <dd>Scroll all the way right</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>shift <span class="badmono">↑</span> <em>or</em> shift k</dt>
+          <dd>Scroll all the way up</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>shift <span class="badmono">↓</span> <em>or</em> shift j</dt>
+          <dd>Scroll all the way down</dd>
+        </dl>
+      </div><!-- /.column.last -->
+    </div>
+  </div>
+
+  <div class="js-hidden-pane" style="display:none">
+    <div class="rule"></div>
+    <div class="columns threecols">
+      <div class="column first js-hidden-pane" style="display:none">
+        <h3>Source Code Browsing</h3>
+        <dl class="keyboard-mappings">
+          <dt>t</dt>
+          <dd>Activates the file finder</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>l</dt>
+          <dd>Jump to line</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>w</dt>
+          <dd>Switch branch/tag</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>y</dt>
+          <dd>Expand URL to its canonical form</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="js-hidden-pane" style="display:none">
+    <div class="rule"></div>
+    <div class="columns threecols">
+      <div class="column first">
+        <h3>Browsing Commits</h3>
+        <dl class="keyboard-mappings">
+          <dt><span class="platform-mac">⌘</span><span class="platform-other">ctrl</span> <em>+</em> enter</dt>
+          <dd>Submit comment</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>escape</dt>
+          <dd>Close form</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>p</dt>
+          <dd>Parent commit</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>o</dt>
+          <dd>Other parent commit</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="js-hidden-pane" style="display:none">
+    <div class="rule"></div>
+    <h3>Notifications</h3>
+
+    <div class="columns threecols">
+      <div class="column first">
+        <dl class="keyboard-mappings">
+          <dt>j</dt>
+          <dd>Move selection down</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>k</dt>
+          <dd>Move selection up</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>o <em>or</em> enter</dt>
+          <dd>Open notification</dd>
+        </dl>
+      </div><!-- /.column.first -->
+
+      <div class="column second">
+        <dl class="keyboard-mappings">
+          <dt>e <em>or</em> shift i <em>or</em> y</dt>
+          <dd>Mark as read</dd>
+        </dl>
+        <dl class="keyboard-mappings">
+          <dt>shift m</dt>
+          <dd>Mute thread</dd>
+        </dl>
+      </div><!-- /.column.first -->
+    </div>
+  </div>
+
+</div>
+
+    <div id="markdown-help" class="instapaper_ignore readability-extra">
+  <h2>Markdown Cheat Sheet</h2>
+
+  <div class="cheatsheet-content">
+
+  <div class="mod">
+    <div class="col">
+      <h3>Format Text</h3>
+      <p>Headers</p>
+      <pre># This is an &lt;h1&gt; tag
+## This is an &lt;h2&gt; tag
+###### This is an &lt;h6&gt; tag</pre>
+     <p>Text styles</p>
+     <pre>*This text will be italic*
+_This will also be italic_
+**This text will be bold**
+__This will also be bold__
+
+*You **can** combine them*
+</pre>
+    </div>
+    <div class="col">
+      <h3>Lists</h3>
+      <p>Unordered</p>
+      <pre>* Item 1
+* Item 2
+  * Item 2a
+  * Item 2b</pre>
+     <p>Ordered</p>
+     <pre>1. Item 1
+2. Item 2
+3. Item 3
+   * Item 3a
+   * Item 3b</pre>
+    </div>
+    <div class="col">
+      <h3>Miscellaneous</h3>
+      <p>Images</p>
+      <pre>![GitHub Logo](/images/logo.png)
+Format: ![Alt Text](url)
+</pre>
+     <p>Links</p>
+     <pre>http://github.com - automatic!
+[GitHub](http://github.com)</pre>
+<p>Blockquotes</p>
+     <pre>As Kanye West said:
+
+&gt; We're living the future so
+&gt; the present is our past.
+</pre>
+    </div>
+  </div>
+  <div class="rule"></div>
+
+  <h3>Code Examples in Markdown</h3>
+  <div class="col">
+      <p>Syntax highlighting with <a href="http://github.github.com/github-flavored-markdown/" title="GitHub Flavored Markdown" target="_blank">GFM</a></p>
+      <pre>```javascript
+function fancyAlert(arg) {
+  if(arg) {
+    $.facebox({div:'#foo'})
+  }
+}
+```</pre>
+    </div>
+    <div class="col">
+      <p>Or, indent your code 4 spaces</p>
+      <pre>Here is a Python code example
+without syntax highlighting:
+
+    def foo:
+      if not bar:
+        return true</pre>
+    </div>
+    <div class="col">
+      <p>Inline code for comments</p>
+      <pre>I think you should use an
+`&lt;addr&gt;` element here instead.</pre>
+    </div>
+  </div>
+
+  </div>
+
+
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="mini-icon mini-icon-exclamation"></span>
+      Something went wrong with that request. Please try again.
+      <a href="#" class="mini-icon mini-icon-remove-close ajax-error-dismiss"></a>
+    </div>
+
+    <div id="logo-popup">
+      <h2>Looking for the GitHub logo?</h2>
+      <ul>
+        <li>
+          <h4>GitHub Logo</h4>
+          <a href="http://github-media-downloads.s3.amazonaws.com/GitHub_Logos.zip"><img alt="Github_logo" src="TutorialOrig_files/github_logo.png"></a>
+          <a href="http://github-media-downloads.s3.amazonaws.com/GitHub_Logos.zip" class="minibutton download">Download</a>
+        </li>
+        <li>
+          <h4>The Octocat</h4>
+          <a href="http://github-media-downloads.s3.amazonaws.com/Octocats.zip"><img alt="Octocat" src="TutorialOrig_files/octocat.png"></a>
+          <a href="http://github-media-downloads.s3.amazonaws.com/Octocats.zip" class="minibutton download">Download</a>
+        </li>
+      </ul>
+    </div>
+
+    
+    
+    <span id="server_response_time" data-time="0.07680" data-host="fe13"></span>
+    
+  
+
+
+</body></html>
