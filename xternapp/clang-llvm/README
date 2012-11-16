@@ -23,12 +23,10 @@ build
    [llvm-3.1.src]$ du -sh .
    131M    .
 
-   [llvm-3.1.src]$ df -h .
-   /dev/sda1        11G  7.5G  2.6G  75% /
-
    time make
-
-   ...build start 23:46, finish ...
+   ... build uses 180m ...
+   time make install
+   ... install uses 2m30s ...
 
    [llvm-3.1.src]$ find . -type f -name '*.cpp' | wc
       3221    3221  156044
@@ -36,6 +34,11 @@ build
       1611    1611   73565
    [llvm-3.1.src]$ find . -type f -name '*.h' | wc
       1511    1512   66826
+   [llvm-3.1.src]$ find . -type f -name '*.o' | wc
+      1437    1437   80289
+
+   [llvm-3.1.src]$ du -sh .
+   682M    .
 
 
 files
