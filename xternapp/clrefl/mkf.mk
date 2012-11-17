@@ -1,9 +1,10 @@
 
-# mkf.mk edited from pibfile
-#   check CL_REFLECT_GEN_DIRECTORY
+# mkf.mk derived from pibfile and cmake file
+#   check CL_REFLECT_GEN_DIRECTORY ???
 
 
 #$(warning .VARIABLES $(.VARIABLES))
+#always define TOPROOT for sub build files to use 
 export TOPROOT := $(CURDIR)
 
 
@@ -26,18 +27,18 @@ CLEANDIRS := $(SRCDIRS:%=clean-dirs-%)
 BUILDEXEDIRS := $(EXEDIRS:%=buildexe-dirs-%)
 
 
-.phony: all clean prelink
+.phony: all clean 
 
-all: prelink $(BUILDDIRS) $(BUILDEXEDIRS)
+all: $(BUILDDIRS) $(BUILDEXEDIRS)
 $(BUILDDIRS):
 	@echo '================================================'
-	@echo DIR: $(SRCDIRPREFIX)/$(@:build-dirs-%=%)
+	@echo DIR: build $(SRCDIRPREFIX)/$(@:build-dirs-%=%)
 	@cd $(SRCDIRPREFIX)/$(@:build-dirs-%=%) && \
 	        make SRCDIR=$(@:build-dirs-%=%) -f $(TOPROOT)/mkfsub.mk allsub
 	@echo 
 $(BUILDEXEDIRS):
 	@echo '================================================'
-	@echo DIR: $(SRCDIRPREFIX)/$(@:buildexe-dirs-%=%)
+	@echo DIR: link $(SRCDIRPREFIX)/$(@:buildexe-dirs-%=%)
 	@cd $(SRCDIRPREFIX)/$(@:buildexe-dirs-%=%) && \
 	        make SRCDIR=$(@:buildexe-dirs-%=%) -f $(TOPROOT)/mkfsub.mk allsubexe
 	@echo 
@@ -45,12 +46,9 @@ $(BUILDEXEDIRS):
 clean: $(CLEANDIRS)
 $(CLEANDIRS):
 	@echo '================================================'
-	@echo DIR: $(SRCDIRPREFIX)/$(@:clean-dirs-%=%)
+	@echo DIR: clean $(SRCDIRPREFIX)/$(@:clean-dirs-%=%)
 	@cd $(SRCDIRPREFIX)/$(@:clean-dirs-%=%) && \
 	        make SRCDIR=$(@:clean-dirs-%=%) -f $(TOPROOT)/mkfsub.mk cleansub
 	@echo 
-
-prelink:
-	#if [ ! -d $(OBJDIR) ]; then mkdir -p $(OBJDIR); fi
 
 

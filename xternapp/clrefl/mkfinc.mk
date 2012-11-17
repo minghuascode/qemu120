@@ -32,25 +32,39 @@ SRCOBJDIR := $(OBJDIR)/$(SRCDIR)
 
 
 OBJS := $(SRCS:%.cpp=%.o)
+BINOBJS := $(OBJS:%=$(SRCOBJDIR)/%) 
+BINEXE := $(SRCDIR:%=$(SRCOBJDIR)/%) 
+BINDIR := $(OBJDIR)/bin
+BINEXEINSTALLED := $(BINDIR)/$(SRCDIR) 
 
 
 .phony: allsub allsubexe cleansub
 
-allsub: prelink $(OBJS:%=$(SRCOBJDIR)/%)
+allsub: prelink $(BINOBJS)
 
 $(SRCOBJDIR)/%.o: %.cpp
 	@echo CC: $<
 	g++ $(CFLAGS) -c $< -o $@
 
-allsubexe: prelink $(OBJS:%=$(SRCOBJDIR)/%)
-	@echo EXE: $<
+allsubexe: prelink $(BINOBJS) $(BINEXE) $(BINEXEINSTALLED)
+$(BINEXE):
+	@echo EXE: $@
 	g++ \
 	        $(OBJS:%=$(SRCOBJDIR)/%) \
 	        $(SCANLIBS)  \
 	        $(CFLAGS) \
 	        $(CLANGLIBS) \
 	        $(LDFLAGS) \
-	        -o $(SRCDIR:%=$(SRCOBJDIR)/%) \
+	        -o $@ 
+	@echo
+$(BINEXEINSTALLED): $(BINEXE)
+	@echo BIN: $@
+	@if [ ! -d $(BINDIR) ]; then mkdir -p $(BINDIR); echo MKDIR: $(BINDIR); fi
+	@ls -l $(BINDIR)
+	@cp -a $(BINEXE) $(BINDIR)
+	@ls -l $(BINDIR)
+	@echo
+
 
 cleansub:
 	@echo RM: $(SRCOBJDIR)
@@ -65,25 +79,25 @@ SCANLIBS += $(wildcard $(OBJDIR)/clReflectCpp/*.o)
 #for linking clReflectTest: clReflectUtil
 SCANLIBS += $(wildcard $(OBJDIR)/clReflectUtil/*.o)
 
-#from scan cmake file:
-#CLANGLIBS := -lclangParse
-#CLANGLIBS += -lclangFrontend
-#CLANGLIBS += -lclangSema
-#CLANGLIBS += -lclangAnalysis
-#CLANGLIBS += -lclangLex
-#CLANGLIBS += -lclangBasic
-#CLANGLIBS += -lclangSerialization
-#CLANGLIBS += -lclangDriver
-#CLANGLIBS += -lclangAST
-#CLANGLIBS += -lclangEdit
+#from clReflectScan cmake file:
+CLANGLIBS := -lclangParse
+CLANGLIBS += -lclangFrontend
+CLANGLIBS += -lclangSema
+CLANGLIBS += -lclangAnalysis
+CLANGLIBS += -lclangLex
+CLANGLIBS += -lclangBasic
+CLANGLIBS += -lclangSerialization
+CLANGLIBS += -lclangDriver
+CLANGLIBS += -lclangAST
+CLANGLIBS += -lclangEdit
  
 #from clang/tools/driver/makefile:
+#CLANGLIBS = \
+#  -lclangFrontendTool -lclangFrontend -lclangDriver \
+#  -lclangSerialization -lclangCodeGen -lclangParse \
+#  -lclangSema -lclangStaticAnalyzerFrontend \
+#  -lclangStaticAnalyzerCheckers -lclangStaticAnalyzerCore \
+#  -lclangAnalysis -lclangARCMigrate -lclangRewrite \
+#  -lclangEdit -lclangAST -lclangLex -lclangBasic
 
-CLANGLIBS = \
-  -lclangFrontendTool -lclangFrontend -lclangDriver \
-  -lclangSerialization -lclangCodeGen -lclangParse \
-  -lclangSema -lclangStaticAnalyzerFrontend \
-  -lclangStaticAnalyzerCheckers -lclangStaticAnalyzerCore \
-  -lclangAnalysis -lclangARCMigrate -lclangRewrite \
-  -lclangEdit -lclangAST -lclangLex -lclangBasic
 
