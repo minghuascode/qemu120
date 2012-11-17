@@ -1,0 +1,24 @@
+
+Repackage the source:
+=======================
+
+tar zxf ../dwilliamson-clreflect-bd74c74878bd.tar.gz
+rm dwilliamson-clreflect-bd74c74878bd/release/bin/cl*.exe
+    (removed these files: clexport.exe clmerge.exe clscan.exe)
+tree dwilliamson-clreflect-bd74c74878bd/extern/llvm/ > clreflect-llvm-files
+rm -r dwilliamson-clreflect-bd74c74878bd/extern/llvm/*
+tar zcf clreflect-src.tgz dwilliamson-clreflect-bd74c74878bd/
+
+
+Download clReflect:
+====================
+
+2012-11-16
+
+https://bitbucket.org/dwilliamson/clreflect/get/default.tar.gz
+    follow the gz link on branches tab under downloads page
+    branch: default. commit: bd74c74. date: 2012-10-17
+
+dwilliamson-clreflect-bd74c74878bd.tar.gz
+
+
