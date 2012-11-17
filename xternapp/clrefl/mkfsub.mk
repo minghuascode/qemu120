@@ -3,5 +3,5 @@
 
 SRCS := $(wildcard *.cpp)
 
-include $(TOPROOT)/mkinc.mk
+include $(TOPROOT)/mkfinc.mk
 

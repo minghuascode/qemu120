@@ -21,8 +21,12 @@ SRCOBJDIR := $(OBJDIR)/$(SRCDIR)
 #variables available:
 # SRCDIR  : from toplevel makefile , on sub make command line
 # TOPROOT : from toplevel makefile at the beginning of file
-
+#
 # SRCS  : from the sub makefile before including this file
+
+#variables provided by this inc file:
+# OBJDIR      top/mkobj-dir
+# SRCOBJDIR   top/mkobj-dir/SRCDIR
 
 
 OBJS := $(SRCS:%.cpp=%.o)
@@ -38,7 +42,7 @@ $(SRCOBJDIR)/%.o: %.cpp
 
 cleansub:
 	@echo RM: $(SRCOBJDIR)
-	-rm -r $(SRCOBJDIR)
+	@-rm -r $(SRCOBJDIR)
 
 prelink:
 	@if [ ! -d $(SRCOBJDIR) ]; then mkdir -p $(SRCOBJDIR); echo MKDIR: $(SRCOBJDIR); fi

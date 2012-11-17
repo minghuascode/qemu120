@@ -33,21 +33,24 @@ $(BUILDDIRS):
 	@echo '================================================'
 	@echo DIR: $(SRCDIRPREFIX)/$(@:build-dirs-%=%)
 	@cd $(SRCDIRPREFIX)/$(@:build-dirs-%=%) && \
-	        make SRCDIR=$(@:build-dirs-%=%) -f mkf.mk allsub
+	        make SRCDIR=$(@:build-dirs-%=%) -f $(TOPROOT)/mkfsub.mk allsub
 	@echo 
 $(BUILDEXEDIRS):
 	@echo '================================================'
 	@echo DIR: $(SRCDIRPREFIX)/$(@:buildexe-dirs-%=%)
 	@cd $(SRCDIRPREFIX)/$(@:buildexe-dirs-%=%) && \
-	        make SRCDIR=$(@:buildexe-dirs-%=%) -f mkf.mk allsubexe
+	        make SRCDIR=$(@:buildexe-dirs-%=%) -f $(TOPROOT)/mkfsub.mk allsubexe
 	@echo 
 
 clean: $(CLEANDIRS)
 $(CLEANDIRS):
+	@echo '================================================'
+	@echo DIR: $(SRCDIRPREFIX)/$(@:clean-dirs-%=%)
 	@cd $(SRCDIRPREFIX)/$(@:clean-dirs-%=%) && \
-	        make SRCDIR=$(@:clean-dirs-%=%) -f mkf.mk cleansub
+	        make SRCDIR=$(@:clean-dirs-%=%) -f $(TOPROOT)/mkfsub.mk cleansub
+	@echo 
 
 prelink:
-	if [ ! -d $(OBJDIR) ]; then mkdir -p $(OBJDIR); fi
+	#if [ ! -d $(OBJDIR) ]; then mkdir -p $(OBJDIR); fi
 
 
