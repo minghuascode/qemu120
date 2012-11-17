@@ -64,3 +64,311 @@ Generating a reflection database can be done in any number of different ways wit
 
 There are many tradeoffs with each technique and covering each is beyond the scope of these posts. However, the use-cases should be broad enough to show how varied implementations can be.
 
+
+Basic C++ Reflection API
+
+To introduce the above concepts we’ll need a quick API we can talk about:
+
+    struct Name { int hash; string text; }
+    struct Primitive { Name name; }
+    struct Type : Primitive { int size; }
+    struct EnumConstant : Primitive { int value; }
+    struct Enum : Type { EnumConstant constants[]; }
+    struct Field : Primitive { Type type; int offset; }
+    struct Function : Primitive { Field return_parameter; Field parameters[]; }
+    struct Class : Type { Field fields[]; Function functions[]; }
+    struct Namespace : Primitive { Enum enums[]; Class classes[]; Function functions[]; }
+
+The base type for any entry in the reflection database is a Primitive and will be used below to describe any such entry.
+
+
+Serialisation
+
+The cross-over between serialisation and reflection APIs is quite large and subtle. When you have game objects that you want to load and save from disk, a natural response is to develop a dedicated serialisation API that reads and writes data from within your game types. Reflection can be considered a generalisation of such a serialisation API by presenting a runtime description of all your types and their memory layout. This allows you to write serialisation code separate from your types that can be adapted to suit multiple file formats.
+
+Let’s start with a very basic set of game types:
+
+    struct Vector {
+        float x, y, z;
+    };
+    struct PhysicsComponent {
+        Vector position;
+        Vector velocity;
+        Vector acceleration;
+    };
+    struct GameObject : public Object {
+        PhysicsComponent physics;
+    };
+
+The reflection database can tell you:
+
+    Vector has 3 floating point data members at offsets 0, 4 and 8.
+    PhysicsComponent has 3 data members of type Vector at offsets 0, 12 and 24.
+    GameObject has one PhysicsComponent at offset 0.
+
+Object is a type introduced by the reflection API that all objects must inherit from if they intend to be the root of any serialisation requests. In the code above Vector and PhysicsComponent do not inherit from Object, representing any of your lightweight game types. This means that you can only serialise objects of type GameObject – however, as long as the reflection database contains a description of the Vector/PhysicsObject types, they can be serialised as part of any objects that contain them. This should become apparent when we introduce what Object actually looks like:
+
+    struct Object {
+        Type* type;
+    };
+
+So far that’s all we need. Object simply stores a pointer to the reflection database’s description of whatever type that object is. Some psuedo-code for a save function would be:
+
+    SaveObject(Object* object) {
+        // Types that inherit from Object already know their type so can call
+        // the overloaded SaveObject directly
+        SaveObject(object, object->type);
+    }
+    SaveObject(char* data, Type* type) {
+        // Using the description of the type, iterate over all fields in
+        // the object
+        for (Field* field in type->fields) {
+            // Each field knows its offset so add that to the base address of the
+            // object being saved to get at the individual field data
+            char* field_data = data + field->offset;
+     
+            // If the field type is a known built-in type then we're at leaf nodes of
+            // our object field hierarchies. These can be saved with explicit save
+            // functions that know their type. If not, then we need to further
+            // recurse until we reach a leaf node.
+            Type* field_type = field->type;
+            if (field_type is builtin)
+                SaveBuiltin(field_data, field_type);
+            else
+                SaveObject(field_data, field_type);
+        }
+    }
+    SaveBuiltin(char* data, Type* type) {
+        switch (type) {
+            case (char): SaveChar(data);
+            case (short): SaveShort(data);
+            case (int): SaveInt(data);
+            case (float): SaveFloat(data);
+            // ... etc ...
+        }
+    }
+
+Whether your file format is text XML or binary, the algorithm is the same. The difference is in how you write your known built-in types and how you annotate your output data along the way (e.g. text tags for XML). A nice side-effect of writing your serialisation this way is that for a given file format, your serialisation code is written in one place and can handle any object that can be described by your reflection API – you just have different files for each format implementation.
+
+Containers
+
+Game objects are more complicated than those specified above and will contain containers. This is an umbrella term for any of these:
+
+    C-style Arrays
+    Vectors
+    Linked Lists
+    Sets
+    Key/Value Maps and Hash Maps
+
+For the moment if we assume that our primary goal is to make these serialisable, a simple means of doing so is to extend SaveObject:
+
+    SaveObject(char* data, Type* type)
+    {
+        // ... start of function ...
+     
+        if (field_type is builtin)
+            SaveBuiltin(field_data, field_type);
+        else if (field_type is container)
+            SaveContainer(field_data, field_type);
+        else
+            SaveObject(field_data, field_type);
+     
+        // ... rest of function ...
+    }
+     
+    SaveContainer(char* data, Type* type)
+    {
+        switch (type)
+        {
+            case (vector): SaveVector(data, type);
+            case (list): SaveList(data, type);
+            // ... etc ...
+        }
+    }
+     
+    SaveVector(char* data, Type* type)
+    {
+        // Cast the data to your vector type
+        vector& vec = data cast as vector;
+     
+        Type* stored_type = type->container_value_type;
+     
+        for (int i in vec.count)
+        {
+            char* value_data = data + i * stored_type->size;
+            SaveObject(value_data, stored_type);
+        }
+    }
+
+The first problem we come up against is that, taking SaveVector as an example, the type of the vector changes based on the data it stores. So, std::vector<int> is a different type to std::vector<char> and can’t be cast at compile-time. There are two ways of dealing with this that will be covered in more detail later in the use-case studies. They are: 
+
+
+    The reflection API is entirely runtime-based and when you register a field that is a container, code gets generated using templates that will be used to serialise when needed. This has the benefit that any container becomes easily serialisable without you having to know the memory layout of the container type itself. It has the drawback that it can generate quite a substantial amount of code that can have a negative impact on your memory budget.
+    If you can rely on knowing the memory layout of your container independent of its type, you can use that to iterate over all elements using the type information stored in the reflection database, as above. This has the benefit that there is only one section of your code that is used to serialise all containers of that type. It has the drawback that you may not want to rely on knowing the internal layout of your container because it’s not part of an API that you own/control, e.g. STL.
+
+The second problem you encounter is that if you have N file formats and M types of container, you’re going to have to write M*N functions that handle all your serialisation possibilities. Later discussion covers how to use the reflection database for other purposes, such as walking a pointer graph, and in such cases you’d also have to write specific implementations for each container type.
+
+Obviously that won’t do and you can add a layer of indirection to get around this. The way I deal with this is by introducing the container interface to report basic information about a container, such as its entry count, and read/write iterator interfaces for reading and modifying the containers:
+
+    interface IContainer
+    {
+        Type* GetKeyType() const;
+        Type* GetValueType() const;
+     
+        ReadIterator GetReadIterator();
+        WriteIterator GetWriteIterator();
+    };
+     
+    interface IReadIterator
+    {
+        char* GetKey() const;
+        char* GetValue() const;
+        int GetCount() const;
+     
+        void MoveNext();
+        bool IsValid();
+    };
+     
+    interface IWriteIterator
+    {
+        void SetKey(char* data);
+        void SetValue(char* data);
+     
+        void MoveNext();
+        bool IsValid();
+    };
+    
+If you want to skip ahead, Reflectabit contains a very good example of this.
+
+All container types you support implement these interfaces. Notice that they account for both the key and value of an item in a container, which can be safely ignored for those containers that don’t conceptually have keys. Use is then a simple case of:
+
+    SaveContainer(char* data, Type* type)
+    {
+        ContainerInterface* container = type->GetContainerInterface(data);
+        Type* key_type = container->GetKeyType();
+        Type* value_type = container->GetValueType();<br>
+     
+        Serialise iterator->GetCount();
+     
+        WriteIterator* iterator = container->GetWriteIterator();
+        while (iterator->IsValid())
+        {
+            if (key_type)
+                SaveObject(iterator->GetKey(), key_type);
+     
+            SaveObject(iterator->GetValue(), value_type);
+     
+            iterator->Next();
+        }
+    }
+
+Pointers and the Object Database
+
+Serialising pointers can be a tricky subject and any grizzled console programmer will tell you that a good way to handle the problem is to not serialise them at all! If you can get away with using indices and handles you may find them more comfortable than pointers. With a reflection API and object database, however, serialising pointers is remarkably easy. Not only that, it opens up a whole host of possibilities for future use.
+
+To start you need some means of creating objects from a central source and assigning them a unique ID, so let’s redefine Object and introduce the object database:
+
+    struct Name
+    {
+        u32 id;
+        const char* text;
+    };
+     
+    struct Object
+    {
+        Name name;
+        Type* type;
+    };
+     
+    class ObjectDatabase
+    {
+        Object* CreateObject(const char* type_name);
+    };
+
+Here, the Name type represents the full name of your object, assigned offline by your tools/editor or generated at runtime. It contains a pointer to the text of the name that can be used for debugging and a unique ID that maps to that name – usually a hash of the name. The text can be removed in your release builds or preferrably, not stored at all: it’s pretty simple to create a Visual Studio debugger plugin that can map the ID to a locally stored text database or write network logging tools that only require the ID to print the name. The important point is that your means of generating the ID from the name must be consistent and there must be no collisions.
+
+Given such properties, serialising pointers is a straight-forward case of serialising their ID in place of their pointer:
+
+    if (field_type is pointer)
+    {
+        Object* object = (Object*)field_data;
+        Serialise object->hash as u32
+    }
+    else if (field_type is builtin) ...
+
+Generally you will need a top-level collection of all objects in a level, package or whatever abstraction you choose. The classic example of this is the Unreal Package. When loading these IDs, you generally won’t create them on-demand, but assume they exist and look them up/point to them. For this reason you need to be careful about loading order.
+
+
+......
+
+
+Enumerations
+
+Enumerations can quite easily be serialised as integers but this is quite brittle. If a programmer changes the order of enumerations, changes their value or adds/removes any, all existing data that uses that enum type will likely be invalidated. I have worked on projects that would require rebuilding the entire asset database if you were ever bold enough to try such a move!
+
+A very simple way to avoid this problem is to serialise enumerations as the hash of their name:
+
+    void SaveEnum(char* data, Type* type)
+    {
+        // Cast the type to an enum and retrieve the value
+        Enum* enum_type = type->AsEnum();
+        int enum_value = *(int*)data;
+     
+        // Lookup the constant and save its hash
+        EnumConstant* constant = enum_type->find_constant(enum_value);
+        SaveU32(constant->name.hash);
+    }
+     
+    void LoadEnum(char* data, Type* type)
+    {
+        // Cast the type to an enum and read the constant hash
+        Enum* enum_type = type->AsEnum();
+        int hash = ReadU32();
+     
+        // Lookup the constant and assign the value
+        EnumConstant* constant = enum_type->find_constant(hash);
+        *(int*)data = constant->value;
+    }
+
+You will also have to account for data that stores old enum values, typically handled by leaving the destination untouched and initialised at its default value.
+
+......
+
+
+Conclusion
+
+I hope nothing in the post above implies that specific techniques are the only options available to you. I’ve spent many years researching and implementing alternatives to the above and these are a sampling of the techniques I feel most comfortable with.
+
+To give you an sampling of how diverse the implementations can be, I’ve collected some articles/implementations you may find interesting.
+
+Implementations:
+
+    Helium Reflection – Initially part of the Insomniac Games Nocturnal initiative. It’s an intrusive, registration-based reflection API.
+    Reflex – Can use GCCXML or CINT to parse header files and auto-generate reflection dictionaries.
+    Mirror – Template-based, built using Boost and intended for submission to the project. Offers both compile-time and runtime databases. Contains a separate tool to automatically generate C++ registration code.
+    Qt Meta-Object System – The ubiquitous Qt has its own reflection system that uses a “Meta-Object Compiler” to scan C++ files for custom-marked properties that need reflecting.
+    Xrtti – Uses GCCXML to generate C++ files that register reflection information for you.
+    Galaxy 3 Reflection – Intrusive, manual registration with some added template help.
+    Galaxy 4 Auto-Reflection – Uses a custom pre-processor to scan C++ files for markup, auto-generating the required C++ registration code.
+    CRD – Template-based with heavy STL influences. Implementation mainly in one header file.
+    cppreflect – Intrusive, macro-based manual registration.
+    CAMP – Template-based, manual registration with a minimal DSL-in-C++ approach.
+
+Articles:
+
+    Adventures in Data Compilation – A Scheme DDL is used to generate C++ header files and runtime data files for Naughty Dog’s games.
+    Metaclasses and Reflection in C++ – Classic article, one of the first in-depth C++ community discussions of reflection, describing MOP. This is another manual registration library.
+    Aspects of Reflection in C++ – An introduction intended to kick-off discussion about adding reflection to C++0x.
+    Advanced RTTI in C++ – Extensive documentation of Oops, an inhouse property reflection API that uses macros to manually register property information.
+    Behind the Mirror – Adding Reflection to C++ – Discussion of the Nocturnal reflection API.
+
+Blog posts:
+
+    Static reflection in C++ using minimal repetition – Tries to reduce the inherent instability in registration-based reflection systems by embedding registration with declaration.
+    Reflection in C++ – A system that scans PDB files for all the reflection info it needs and makes the result loadable at runtime. There are a few more posts on the site so hunt around a bit.
+    Class Reflection in the Despair Engine – Uses template-based registration with an attempted DSL-in-C++ approach.
+
+This is a bit of a big post and I’d like to thank everybody who’s reviewed it for me. Special mentions go to Stephen Hill who made several tireless passes and Patrick Duquette, who cleared the road at Ubisoft for me to talk about the SC5 stuff.
+
+
+
