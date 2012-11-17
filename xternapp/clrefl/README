@@ -1,4 +1,17 @@
 
+Build with mkf files:
+=======================
+
+Build llvm 3.1 from source: 
+
+  unpack llvm 3.1, source is in "llvm-3.1.src". 
+  unpack clang 3.1, source is in "clang-3.1.src". move the clang to llvm/tools/clang.
+  cd llvm-3.1.src; ./configure --prefix=$(HOME)/clang/bin-install; make; make install
+
+Copy mkf*.mk files into clreflect source directory. 
+Run "make -f mkf.mk" from the clreflect source directory.
+
+
 Repackage the source:
 =======================
 
