@@ -1,4 +1,10 @@
 
+Run a simple test:
+=======================
+
+See the directory mktests. Run "sh run", output will be named log*.
+
+
 Build with mkf files:
 =======================
 

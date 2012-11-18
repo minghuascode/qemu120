@@ -1,0 +1,12 @@
+namespace outer
+	class outer::inner1_s	
+		Field: int v1
+		Field: int v2
+		enum outer::inner1_s::v1_enum
+			   outer::inner1_s::V1_START = 0x0
+			   outer::inner1_s::V1_START2 = 0x1
+			   outer::inner1_s::V1_START3 = 0x2
+			   outer::inner1_s::V1_START4 = 0x3
+	class outer::inner2_s	
+		Field: int v3
+		Field: outer::inner1_s v4

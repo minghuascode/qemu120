@@ -1,0 +1,3 @@
+
+../mkobj-dir/bin/clReflectScan test.cpp -i "../inc" -output logcsv.csv -ast_log logast.txt -spec_log logspec.txt
+
