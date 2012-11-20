@@ -10,7 +10,7 @@ Build Step by Step:
 Run a simple test:
 =======================
 
-See the directory mktests. 
+See the directory mktests. Put this directory in clReflect directory to build and test. 
 
 Run "sh run", output files are named log* and module*.
 
