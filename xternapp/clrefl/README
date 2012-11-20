@@ -1,8 +1,22 @@
 
+Build Step by Step:
+=======================
+
+[1] Download llvm 3.1 source, and clang 3.1 source. Download clReflect source. 
+    Follow the steps in section "Build with mkf files" to build everything. 
+[2] Follow the section "Run a simple test" to try it out. 
+
+
 Run a simple test:
 =======================
 
-See the directory mktests. Run "sh run", output will be named log*.
+See the directory mktests. 
+
+Run "sh run", output files are named log* and module*.
+
+Or, run "make -f testmk.mk" to generate files and build them. 
+
+To clean up, run "make -f testmk.mk".
 
 
 Build with mkf files:

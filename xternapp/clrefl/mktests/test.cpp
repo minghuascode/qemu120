@@ -20,5 +20,9 @@ namespace outer {
         int v3;
         inner1_t v4;
     } inner2_t;
+    class inner3_c {
+    public:
+        int v5;
+    };
 }
 
