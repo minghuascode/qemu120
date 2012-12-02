@@ -1,0 +1,378 @@
+
+
+Dumping ROM using ADB guide
+==============================
+http://www.freaktab.com/showthread.php?401-Dumping-ROM-using-ADB-guide
+
+
+Dumping ROM using ADB guide
+
+    What you need :
+    a pc, usb cable and, ofc, your android device with sdcard
+
+    What you need to download(if you havent got it yet):
+    Android SDK. here's the link on how to install it and download link.. http://developer.android.com/sdk/installing.html
+
+    USB driver of your device. http://db.tt/2Cm2KUV6
+
+    RKDump file. http://db.tt/plRFmRh6
+
+    Instructions:
+    1. enable USB debugging on the device
+    2. Download and Install android SDK (dont forget JAVA JDK if you havent got it yet)
+    3. now connect your device to your pc, you will see Windows will try to install appropriate driver for your device, if it installed properly then you're lucky, you can proceed to step 4, if not then we need to install the driver using USB driver you downloaded earlier, here's how..
+
+    3a. extract the usb_driver.rar you downloaded.
+
+    3b. open the folder you just extracted and look for android_winusb.inf, right click it and click open with, choose notepad.
+
+    3c. click start menu, and on the search bar, type device manager, then choose device manager on the search result.
+
+    3d. on device manager.. look for a not properly installed driver, on mine its arnova because i have arnova 7b g2 capacitive..
+
+    3e. right click on that driver --> click properties --> click on the details tab --> look for the hardware ids, it usually comes after device description on property section
+
+    3f. on the Value section, right click the shorter value and copy it. mine is like this... USB\VID_0E79&PID_143B&MI_01
+
+    3g. on the open notepad editing android_winusb.inf, look for this entries... there's 2 entries like this..
+    1 on [Google.NTx86] area and 1 on [Google.NTamd64].
+
+    ;Arnova 7b g2
+    %SingleAdbInterface% = USB_Install, USB\VID_0E79&PID_143B
+    %CompositeAdbInterface% = USB_Install, USB\VID_0E79&PID_143B&MI_01
+
+    3h. change Anova 7b g2 to your device name or whatever you want, im sure it doesnt matter as its just a comment .. on %CompositeAdbInterface% entry, erase all value after "=" sign and then press ctrl+v(paste)... same on %SingleAdbInterface% entry but delete the "&" sign and any letters after it.
+    you need to do this on [Google.NTx86] and [Google.NTamd64] part. SAVE it and close notepad.
+
+    3i. on device manager, right click on not properly installed driver for your device and click update driver software, then choose browse my computer for driver software --> locate the folder usb_driver then just click next etc etc..until you finish installing the driver. ok so thats the hard part.. the rest is just easy..
+
+    now for the adb part..
+    4. copy RKdump file you downloaded on the same folder as ADB.exe, usually its in folder Program Files (x86)/android/android-sdk/platform-tools
+    5. click menu and on search bar, type cmd, right click cmd.exe and run as administrator.
+    6. on the cmd command prompt, type "cd\program files (x86)/android/android-sdk/platform-tools" without the quote.
+    7. type
+
+    adb devices
+
+    there should be 1 device on the list. otherwise review previous steps.
+
+    8. type
+
+    adb push rkdump /data/
+
+    if no error then proceed, otherwise, review step 4
+
+    9. type
+
+    adb shell
+    *if you see a "#" sign and a cursor next to it then we're good to go.. otherwise.. review all above steps as you might somehow got the previous steps wrong.
+
+    10. type
+
+    chmod 755 /data/rkdump
+
+    *this will make RKDump executable
+
+    11. type
+
+    /data/rkdump /dev/block/mtdblock5 /sdcard/update.img
+
+    *this will copy update.img on your sdcard which most dev needed to cook rom
+
+    the end.
+
+    note: if you want to copy any other part of your device partition.. look in here http://androtab.info/rockchip/devel/rkutils/ 
+
+
+
+Dev approach 
+==============================
+
+Thread: one ROM dev's approach
+ 900supersport
+11-09-2012, 03:04 PM
+
+
+one ROM dev's approach
+
+    Just a quick post. I often see people trying to go straight to attempting a fully modified ROM, I think this is a mistake and would advise the following, based around working RK ROMs.
+
+        Take small steps
+        use the rkAndroid flash tool we use on FreakTab, if possible find a rom already in this form and start with this and maybe a stock system.img
+        test your work often
+        script the steps you take, if not at least take good notes, you will need to do each step many times possibly with minor changes
+        learn some linux
+        read RockChip ROM Building Tips and Tricks by Finless
+        read it again
+
+    A couple of examples
+
+    system: You want to be able to mount a system.img, modify it,flash it. So to start off
+
+        mount system.img
+        remove 1 apk that you know is not required
+        unmount
+        flash this
+
+    If this boots and the apk you removed has been removed then move onto rooting, full debloat, boot animation, busybox, fixes.
+
+    boot: you want to be able to unpack, modify and repack. This can be difficult, there are plenty of ways to go wrong.
+
+        unpack
+        repack
+        flash
+
+    That's right no changes here you need to get these steps right. If it boots then move on a little
+
+        unpack
+        make a minor edit to build.prop (add a comment)
+        change initlogo.rle
+        repack
+        flash
+
+    Does it boot with your boot screen? If so now do the good stuff, change file system types, mount system rw, add init.d support.
+
+    Brian 
+
+    900Supersport
+
+    2 of 9
+
+    freaktab developer
+
+
+RK ROM Dev tools 
+==============================
+
+Thread: some important tools for RK ROM Devs
+ 900supersport
+11-09-2012, 02:42 PM
+
+http://www.freaktab.com/showthread.php?2070-some-important-tools-for-RK-ROM-Devs
+
+some important tools for RK ROM Devs
+
+    I've been meaning to post this for a while.
+
+    As so far I've only worked rk chipsets this is rk dominated but thought I'd post this. It's a basic start, each of these tools could probably have a post or even a thread of it's own. I'll try and revisit this and extend the commentary on each tool and add more as appropriate.
+
+    I hope it's of some use, you never know it may stop me asking Bob the same question repeatedly as I've forgotten (it's a bugger getting old).
+
+
+    rkunpack use this to unpack backup.img files. A component of rkutils.
+
+    Usage
+    rkunpack backupfile
+
+    link to post with download of rkutils
+
+
+    unpack_all.sh use this to unpack an update.img file. A component of rkutils.
+
+    Usage
+    unpack_all.sh update.img destinationfolder
+
+
+    rkcrc add an rk cyclic redundancy check to the beginning of a file. A part of rkutils.
+
+    usage
+    rkcrc -k sourcefile destfile
+
+
+    split_bootimg.pl Splits an image into kernel and one or more ramdisks. Needed for some Boot and recovery img files
+
+    usage
+    split_bootimg.pl boot.img
+
+    download here
+
+
+    rkflashtool flash, read, write or reboot your tab, units are blocks of 512
+
+    Usage
+    rkflashtool r offset length >destfile
+    rkflashtool w offset length <sourcefile
+    rkflashtool b
+
+    examples (read a kernel, write a kernel and reboot)
+    rkflashtool r 0x4000 0x4000 >kernel.img
+    rkflashtool w 0x4000 0x4000 <kernel.img
+    rkflashtool b
+
+    NB while these are the same values used in the parameter file the order is switched
+
+    See this thread on XDA-Developers for the source and some good info on using it.
+
+    http://forum.xda-developers.com/showthread.php?t=1286305
+
+    Oh and lot's of linux, shell scipting, a bit of python, perl and java would come in handy.
+
+    I hope it's of some use, you never know it may stop me asking Bob the same question repeatedly as I've forgotten (it's a bugger getting old). 
+
+    900Supersport
+
+    2 of 9
+
+    freaktab developer
+
+
+
+rkutils
+==============================
+
+25th November 2011, 09:30 AM
+(Last edited by fun_; 25th November 2011 at 10:52 AM.)
+fun_
+
+http://forum.xda-developers.com/showpost.php?p=19681205&postcount=17
+downloaded 2012-12-1
+
+
+ I pushed latest my rkutils to https://github.com/naobsd/rkutils
+
+rkunpack can unpack RKFW image used in RK2918 ROM, RKAF image (update.img), KRNL/PARM image used in some single partition image. unpack will be done recursively.
+
+rkcrc can make KRNL/PARM images with -k/-p.
+
+rkafpack can make RKAF image. (I need to write docs/howtos...)
+
+little off-topic,
+latest RK2918 ROMs which is based on "SDK2.0", new format for boot.img/recovery.img is introduced. it's almost same as common boot.img format for android. unpackbootimg/mkbootimg can be used to unpack/repack it with one exception...
+there is SHA1 hash value in header of boot.img (offset 0x240 bytes). Rockchip changes it by some unknown way. normal mkbootimg can't generate same hash value as Rockchip, so we can't make custom boot.img with new format
+fortunately, we can split new boot.img, and we can make separate kernel.img and boot.img(ramdisk) like as pre-SDK2.0 RK2918 ROMs, which is loadable with new bootloader in SDK2.0 ROMs.
+
+--
+btw I just found interesting one: https://github.com/jhonxie/rk2918_tools
+http://androtab.info/ 
+
+
+
+rkflashtool
+==============================
+
+[TOOL] rkflashtool for Linux and rk2808, rk2818 and rk2918 based tablets
+2nd October 2011, 09:37 PM
+ivop
+(Last edited by ivop; 29th December 2011 at 12:56 AM.) 
+
+http://forum.xda-developers.com/showthread.php?t=1286305
+downloaded 2012-12-1
+
+
+Hi,
+
+Because I don't run Windows nor NetBSD, I rewrote rkflash from scratch with the use of libusb-1.0, so you can now read and write your rk2818-based tablet's flash memory under Linux (also w/o the need to root your tablet). Credit for reverse-engineering the protocol goes to the original author of rkflash (see source).
+
+Small guide
+
+- unzip the file
+- compile
+
+Linux (Debian, Ubuntu, ...)
+Code:
+
+sudo apt-get install libusb-1.0-0-dev
+gcc -o rkflashtool rkflashtool.c -lusb-1.0 -O2 -W -Wall -s
+
+Mac OS X (thanks to surfer63, binary here)
+Code:
+
+sudo port install libusb
+gcc -I/opt/local/include -I/opt/local/include/libusb-1.0 \
+-L/opt/local/lib -o rkflashtool rkflashtool.c -lusb-1.0 -O2 -W -Wall
+
+Preparation
+- powerdown your tablet
+- disconnect all cables
+
+To get into flash mode differs for many tablets. Google around or use trial and error
+
+- insert the USB cable in computer
+- hold vol+ (or put on/off/locked-switch in the locked position)
+- insert the other end of your cable in the tablet
+- wait a few seconds
+- release vol+
+
+Now if you run lsusb, the following line should appear:
+
+Bus 001 Device 044: ID 2207:281a (290a for rk2918 based tablets)
+
+Bus and device number may be different. The screen of your tablet stays black.
+
+The USB device must be readable and writable for the user running rkflashtool. If that's not the case, you'll see an error like this:
+
+Code:
+
+$ ./rkflashtool b
+libusb couldn't open USB device /dev/bus/usb/001/048: Permission denied.
+libusb requires write access to USB device nodes.
+rkflashtool: fatal: cannot open device
+
+This can be fixed in several ways (chmod, run as root, udev rules) but that's beyond the scope of this posting. For now, chmod 666 the device mentioned in the error message.
+
+Usage of rkflashtool
+
+Code:
+
+$ ./rkflashtool
+rkflashtool: fatal: usage:
+	rkflashtool b                   	reboot device
+	rkflashtool r offset size >file 	read flash
+	rkflashtool w offset size <file 	write flash
+
+	offset and size are in units of 512 bytes
+
+On my tablet, the boot partition starts at offset 0x8000 (in blocks of 512 bytes)
+Its size is 0x2000 blocks
+To backup the partition, issue:
+
+Code:
+
+$ ./rkflashtool r 0x8000 0x2000 >boot.img.backup
+rkflashtool: info: interface claimed
+rkflashtool: info: reading flash memory at offset 0x00008000
+rkflashtool: info: reading flash memory at offset 0x00008020
+.......
+rkflashtool: info: reading flash memory at offset 0x00009fe0
+
+To write a new boot.img or an old backup back to the device:
+
+Code:
+
+$ ./rkflashtool w 0x8000 0x2000 <boot.img.backup
+rkflashtool: info: interface claimed
+rkflashtool: info: writing flash memory at offset 0x00008000
+rkflashtool: info: writing flash memory at offset 0x00008020
+.......
+rkflashtool: info: writing flash memory at offset 0x00009fe0
+
+You can find a list of all partitions of your tablet in the HWDEF file, which is inside the update.img for your tablet. If no such file is available, you can also look at /proc/cmdline on a running device (either through adb or a terminal app running on the device itself). Depending on the tablet, you might need root access to view /proc/cmdline. Another option is dumping the first 0x2000 blocks of nand flash by issuing rkflashtool r 0x0000 0x2000 >parm. View the file with hexedit, xxd, or a similar program. The kernel parameters contain a description of several mtd partitions (sizes and offsets).
+
+After reading and writing at will, you can reboot your tablet by issuing
+./rkflashtool b
+
+Note that if your tablet has an on/off/locked-switch and it is still in the locked position, rebooting won't work.
+
+If the file you are writing is smaller than the specified size, the rest is padded with zeroes. If it's bigger, it will be truncated. This is different from rkflash, which will overwrite blocks beyond the partition size.
+rkflashtool does not support flashing a new bootloader directly.
+If you have a different tablet, please try rkflashtool b and r first before flashing (w) something new.
+Standard DISCLAIMER with regard to bricking your tablet applies.
+
+Enjoy!
+
+
+EDIT: better build instructions, clean up text
+EDIT2: works on rk2918 tablets too (tested on Arnova 7 G2) if you change the USB product id from 0x281a to 0x290a before compilation
+EDIT3: released version 2 of rkflashtool. now supports rk2918 tablets out of the box. if it doesn't find one, it falls back to rk2808/rk2818. also, updated the wording a bit.
+EDIT4: new mac osx binary
+EDIT5: more ways to find offsets and sizes of partitions on your tablet
+
+
+EDIT6: small emphasis changes above and...
+
+version 1 is here ONLY for archival purposes or if version 2 does not work on your rk28xx tablet. In all other cases, you need to download rkflashtool-v2.zip
+Attached Files
+File Type: zip 	rkflashtool.zip - [Click for QR Code] (2.4 KB, 1203 views)
+File Type: zip 	rkflashtool-v2.zip - [Click for QR Code] (2.4 KB, 2319 views)
+
+
