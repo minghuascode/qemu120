@@ -1,0 +1,193 @@
+
+http://android-dls.com/wiki/index.php?title=HOWTO:_Unpack%2C_Edit%2C_and_Re-Pack_Boot_Images
+
+
+HOWTO: Unpack, Edit, and Re-Pack Boot Images
+
+Several people have already figured out the details on their own, but I have gotten requests to do a more comprehensive tutorial on how the boot and recovery images are structured, and how you can edit them.
+Contents
+[hide]
+
+    1 Background
+    2 Structure of boot and recovery images
+    3 Unpacking, Editing, and Re-Packing the images
+        3.1 Alternative Method
+    4 Flashing your new image back onto the phone
+    5 Something fun to do with your new found power
+    6 This is not the same thing as applying an update.zip
+
+Background
+
+Your phone has several devices which hold different parts of the filesystem:
+
+#cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00040000 00020000 "misc"
+mtd1: 00500000 00020000 "recovery"
+mtd2: 00280000 00020000 "boot"
+mtd3: 04380000 00020000 "system"
+mtd4: 04380000 00020000 "cache"
+mtd5: 04ac0000 00020000 "userdata"
+
+Note that the order is different for different phones! Check yours to make sure you use the right device.
+
+In this tutorial, we will deal with "recovery" and "boot". "system" holds everything that gets mounted in your system/ directory, and userdata/ is everything that shows up in data/ (this is all the apps you've installed, your preferences, etc).
+
+The recovery and boot partitions are at /dev/mtd/mtd1 and /dev/mtd/mtd2, and before you do anything else you should back these up:
+
+# cat /dev/mtd/mtd1 > /sdcard/mtd1.img
+# cat /dev/mtd/mtd2 > /sdcard/mtd2.img
+
+(Note added by lxrose: These commands don't work if your phone is not rooted and the permissions are not set.)
+
+The other thing you should do is put your favorite update.zip file into the root directory of your sd card so that if you screw up your boot partition you can boot into recovery mode and re-apply the update. You probably want one of the pre-rooted recovery images found elsewhere on the forums.
+
+There is also another important file you should know about. In /system/recovery.img there is a full copy of everything that is loaded on mtd1. This file is automatically flashed onto mtd1 every time you shut down. That means two things: 1. Any changes you make directly to /dev/mtd/mtd1 get blown away on reboot and 2. If you want to change /dev/mtd/mtd1 you're probably better off just sticking the image in /system/recovery.img and rebooting. When creating your own custom update.zip files (especially when adapting the stock images), you can get tripped up if you forget to replace /system/recovery.img and it ends up overwriting /dev/mtd/mtd1 unbeknownst to you. Watch out.
+
+Source(s): Android solutions
+Structure of boot and recovery images
+
+The boot and recovery images are not proper filesystems. Instead, they are a custom android format consisting of a 2k header, followed by a gzipped kernel, followed by a ramdisk, followed by a second stage loader (optional, we have not seen these in the wild yet - except on Sanyo Zio). This structure is outlined in mkbootimg.h:
+
++-----------------+ 
+| boot header     | 1 page
++-----------------+
+| kernel          | n pages  
++-----------------+
+| ramdisk         | m pages  
++-----------------+
+| second stage    | o pages
++-----------------+
+
+n = (kernel_size + page_size - 1) / page_size
+m = (ramdisk_size + page_size - 1) / page_size
+o = (second_size + page_size - 1) / page_size
+
+0. all entities are page_size aligned in flash
+1. kernel and ramdisk are required (size != 0)
+2. second is optional (second_size == 0 -> no second)
+
+A ramdisk is basically a small filesystem containing the core files needed to initialize the system. It includes the critical init process, as well as init.rc, which is where you can set many system-wide properties. If you really want to know more about it, here is the documentation. Here's a list of files on a typical ramdisk:
+
+./init.trout.rc
+./default.prop
+./proc
+./dev
+./init.rc
+./init
+./sys
+./init.goldfish.rc
+./sbin
+./sbin/adbd
+./system
+./data
+
+The recovery image typically has a few extra files, which constitute the recovery binary and supporting files (the application that gets run if you hold down home+power when rebooting). These files are:
+
+./res
+./res/images
+./res/images/progress_bar_empty_left_round.bmp
+./res/images/icon_firmware_install.bmp
+./res/images/indeterminate3.bmp
+./res/images/progress_bar_fill.bmp
+./res/images/progress_bar_left_round.bmp
+./res/images/icon_error.bmp
+./res/images/indeterminate1.bmp
+./res/images/progress_bar_empty_right_round.bmp
+./res/images/icon_firmware_error.bmp
+./res/images/progress_bar_right_round.bmp
+./res/images/indeterminate4.bmp
+./res/images/indeterminate5.bmp
+./res/images/indeterminate6.bmp
+./res/images/progress_bar_empty.bmp
+./res/images/indeterminate2.bmp
+./res/images/icon_unpacking.bmp
+./res/images/icon_installing.bmp
+./sbin/recovery
+
+Source(s): Android solutions
+Unpacking, Editing, and Re-Packing the images
+
+Note: below I give you the details for unpacking and repacking manually, but I created two perl scripts that do most of this for you ([1]).
+
+If you are good with a hex editor, you can open up any of these images and strip off the first 2k of data. Then, look for a bunch of zeroes followed by the hex 1F 8B (which is the magic number of a gzip file). Copy everything from the first line of the file, through the zeroes, and stopping at the 1F 8B. That is the kernel. Everything from the 1F 8B through the end is the ramdisk. You could save each of these files separately. In order to see the contents of the ramdisk, you need to un-gzip it and then un-cpio it. You could use a command like this (ideally after creating a new directory and cd'ing into it):
+
+gunzip -c ../your-ramdisk-file | cpio -i
+
+That will place all of the files from the ramdisk in your working directory. You can now edit them.
+
+In order to re-create the ramdisk, you need to re-cpio them and re-gzip those files, with a command like the following (remember, cpio will include everything in the current working directory, so you probably want to remove any other cruft you might have in there):
+
+find . | cpio -o -H newc | gzip > ../newramdisk.cpio.gz
+
+The final step is to combine the kernel and your new ramdisk into the full image, using the mkbootimg program (which you should download and compile from the git repository):
+
+mkbootimg --cmdline 'no_console_suspend=1 console=null' --kernel your-kernel-file --ramdisk newramdisk.cpio.gz -o mynewimage.img
+
+Now, there's a lot of hassle in pulling apart files in hex editors and remembering all of these commands, so I wrote unpack and repack perl scripts for you. Hooray.
+Alternative Method
+
+Download split_bootimg.zip . This Zip file contains one Perl file, split_bootimg.pl, which reads the boot.img header (according to the bootimg.h of the Android source code) to extract the kernel and ramdisk. The script also outputs the kernel command line and board name (if specified).
+
+(Note: Do not use a boot.img image extracted directly from /dev/mtd/mtd2. This image may become corrupted during the read process.)
+
+The following example uses the boot.img from the full TC4-RC28 update:
+
+% ./split_bootimg.pl boot.img 
+Page size: 2048 (0x00000800)
+Kernel size: 1388548 (0x00153004)
+Ramdisk size: 141518 (0x000228ce)
+Second size: 0 (0x00000000)
+Board name: 
+Command line: no_console_suspend=1
+Writing boot.img-kernel ... complete.
+Writing boot.img-ramdisk.gz ... complete.
+
+Extract the ramdisk.
+
+% mkdir ramdisk
+% cd ramdisk
+% gzip -dc ../boot.img-ramdisk.gz | cpio -i
+% cd ..
+
+Make any changes necessary (e.g., set ro.secure=0 in default.prop).
+
+Recreate the cpio archive using the mkbootfs binary produced from building the Android source code (The cpio utility in OS X does not recognize the newc format, therefore mkbootfs is the best option for OS X users).
+
+% mkbootfs ./ramdisk | gzip > ramdisk-new.gz
+
+Recreate the image file using the mkbootimg binary produced from building the Android source code.
+
+% mkbootimg --cmdline 'no_console_suspend=1 console=null' --kernel boot.img-kernel --ramdisk ramdisk-new.gz -o boot-new.img
+
+For Nexus One : Add --base 0x20000000 to mkbootimg command-line.
+
+
+(Note: the console=null command line option was introduced in the TC4-RC30 boot images to remove the root shell (TODO: add link))
+Flashing your new image back onto the phone
+
+You will probably only ever be flashing boot images directly to the phone, given the fact that /system/recovery.img automatically flashes the recovery device for you (as noted above). If you have created a new recovery image, just stick it in /system/recovery.img and reboot. If you are flashing a boot image, stick it on your phone via adb (a tool included in the Android SDK):
+
+adb push ./mynewimage.img /sdcard
+
+Then, open a shell to your phone via 'adb shell', get root, and do the following two commands to flash your new boot image:
+
+# cat /dev/zero > /dev/mtd/mtd2
+   write: No space left on device [this is ok, you can ignore]
+# flash_image boot /sdcard/mynewimage.img
+
+Reboot.
+
+If your phone starts all the way up, congratulations. If not, you did something wrong and you'll need to boot into recovery mode and apply your update.zip file (reboot while holding down home+power, when you get the recovery screen press alt+L and then alt+S).
+Something fun to do with your new found power
+
+If you place a file titled initlogo.rle in the root directory of your boot image, the phone will display this image upon boot (after the "G1" image and before the Android animation). In order to create this file, you need to create a 320x480 image in Photoshop or Gimp and save it as a "raw image" file. You then need to compress that image with the program to565. More details on that here.
+This is not the same thing as applying an update.zip
+
+You will see other places on the forums that describe how to create customized update.zip files, as well as update.zip files that people are sharing. For example, there is a recent update.zip which is a modified version of rc30 (with the anti-root aspects disabled). The update.zip files include new boot images, recovery images, and typically replacements for the entire system/ directory as well as other updates. If you are creating a custom boot or recovery image, it is typically a good idea to start with the image distributed with the most recent update you have applied (flashing an image from an older release could have unintended consequences).
+
+
+Questions?
+
+Source(s): Android solutions 
+
