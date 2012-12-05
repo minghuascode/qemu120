@@ -1,0 +1,35 @@
+
+http://android-dls.com/wiki/index.php?title=Build_a_custom_recovery_image
+
+
+Build a custom recovery image
+
+To explane how to create a custom recovery will spend so much time, I will 
+only give you a brief guide here.
+
+To build a custom recovery, you need to prepare a linux PC.
+
+    You need checkout the android sdk from android offical git repository 
+into ~/android/.
+    The recovery source code is in the ~/android/bootable/recovery folder, 
+you can enter "make recovery" to build your recovery application.
+    The output file is in ~/android/out/target/product/generic/system/bin/recovery
+    In this step, you need copy the recovery file to your recovery partition 
+in your mobile.
+(Ref:http://android-dls.com/wiki/index.php?title=HOWTO:_Unpack%2C_Edit%2C_and_Re-Pack_Boot_Images)
+        Dump your recovery.img from your mobile.
+        Un-pack your recovery.img into ~/recovery folder
+        Replace old recovery file in ~/recovery/sbin/recovery with new 
+one(~/android/out/target/product/generic/system/bin/recovery), and use 
+"chmod a+x ~/recovery/sbin/recovery" command to set file mode.
+        Pack your recovery.img 
+    Finally, you should switch your mobile to fastboot mode, and use 
+"fastboot flash recovery recovery.img" command to flash the new recovery file. 
+
+Beside, the recovery file in the android sdk is very basic example.
+
+To build your recovery you can download Amon RA's Recovery Image, and 
+develop recovery image base on his recovery source code.
+
+http://forum.xda-developers.com/showthread.php?t=530492 
+

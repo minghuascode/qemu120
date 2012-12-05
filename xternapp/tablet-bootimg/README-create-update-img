@@ -1,0 +1,89 @@
+
+http://forum.xda-developers.com/showthread.php?t=1610121
+
+
+[TUTORIAL] Create your own UPDATE.ZIP
+
+This is a guide about the creation of a simple UPDATE.ZIP to flash on your 
+Android phone, in recovery mode.
+
+I've created a repository on GITHUB where you can download the "update.zip" 
+that we'll use and modify.
+(https://github.com/mackief/update.zip--for-Android-Devices-)
+
+So, this is the repository: update.zip--for-Android-Devices-
+You can download it as ZIP archive and rename it as update.zip .
+
+So, we have now the most important file, that we're going to modify:
+
+All the apps that you want to insert in the archive and install on the phone, 
+must have the .apk estension and you have to put them in /data/app . Then, 
+if you want also the app data files, you have to take these files from your 
+phone, going with a rooted file manager (i suggest Root_Explorer) to 
+/data/data , copying the app folder and pasting it in /data/data of the 
+UPDATE.ZIP.
+
+So we have all the apps and datas that we want. Now, we have to write the 
+script.
+
+Let's go to META-INF/com/google/android/ and open 'updater-script' with a 
+simple text editor.
+
+The only lines that you have to modify are:
+Code:
+
+set_perm(1000, 1000, 0644, "/data/app/[PACKAGE].apk");
+set_perm_recursive(1000, 1000, 0777, 0777, "/data/data/PACKAGE_DATA_FOLDER");
+delete("/data/dalvik-cache/data@app@[PACKAGE].apk@classes.dex");
+
+For each app you have to write these lines. This is an example if you want 
+to put ROOT_EXPLORER.APK in the UPDATE.ZIP:
+
+Code:
+
+set_perm(1000, 1000, 0644, "/data/app/ROOT_EXPLORER.APK");
+set_perm_recursive(1000, 1000, 0777, 0777, "/data/data/ROOT_EXPLORER_DATA_FOLDER");
+delete("/data/dalvik-cache/data@app@ROOT EXPLORER@classes.dex");
+
+
+That' all. But if you want to delete some apps from your phone, you have to 
+write between
+Code:
+
+ui_print("| 80%  Installing Applications |");
+
+and
+Code:
+
+package_extract_dir("data", "/data");
+
+this line:
+Code:
+
+delete("/APK_DIR/APP.APK");
+
+IT'S IMPORTANT TO LEAVE AN EMPTY LINE AT THE END OF THE SCRIPT, OTHERWISE 
+THE ZIP WON'T WORK!
+
+You can easily find the name of the app going with Root Explorer to 
+/system/app and searching the same app.
+
+If you also want to add your modified Apps, you've to sign them with a 
+simple app: Auto-Sign, putting them in /auto-sign/update/app and renaming 
+it to Launcher.apk .
+
+You can download AUTO-SIGN from the attachements!
+
+With it you can sign your apks or your zip. So, finally, when you'll finish .
+your zip, you'll have to put it in Auto-Sign folder ("/auto-sign").
+
+Then, open Auto-Sign, choose your zip or apk, and click AUTO-SIGN. It will 
+create a new apk or zip, name as SIGNED-apk/zip.
+
+Now, you only have to put the update.zip on your sd-card and flash it! Have 
+fun guys!
+
+Attached Files
+File Type: zip 	Auto-Sign.zip - [Click for QR Code] (80.3 KB, 2171 views)
+
+
