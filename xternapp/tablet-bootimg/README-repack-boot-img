@@ -16,6 +16,7 @@ Contents
     5 Something fun to do with your new found power
     6 This is not the same thing as applying an update.zip
 
+
 Background
 
 Your phone has several devices which hold different parts of the filesystem:
@@ -45,6 +46,8 @@ The other thing you should do is put your favorite update.zip file into the root
 There is also another important file you should know about. In /system/recovery.img there is a full copy of everything that is loaded on mtd1. This file is automatically flashed onto mtd1 every time you shut down. That means two things: 1. Any changes you make directly to /dev/mtd/mtd1 get blown away on reboot and 2. If you want to change /dev/mtd/mtd1 you're probably better off just sticking the image in /system/recovery.img and rebooting. When creating your own custom update.zip files (especially when adapting the stock images), you can get tripped up if you forget to replace /system/recovery.img and it ends up overwriting /dev/mtd/mtd1 unbeknownst to you. Watch out.
 
 Source(s): Android solutions
+
+
 Structure of boot and recovery images
 
 The boot and recovery images are not proper filesystems. Instead, they are a custom android format consisting of a 2k header, followed by a gzipped kernel, followed by a ramdisk, followed by a second stage loader (optional, we have not seen these in the wild yet - except on Sanyo Zio). This structure is outlined in mkbootimg.h:
@@ -106,9 +109,13 @@ The recovery image typically has a few extra files, which constitute the recover
 ./sbin/recovery
 
 Source(s): Android solutions
+
+
 Unpacking, Editing, and Re-Packing the images
 
 Note: below I give you the details for unpacking and repacking manually, but I created two perl scripts that do most of this for you ([1]).
+
+(see https://github.com/beide/Bootimg-scripts)
 
 If you are good with a hex editor, you can open up any of these images and strip off the first 2k of data. Then, look for a bunch of zeroes followed by the hex 1F 8B (which is the magic number of a gzip file). Copy everything from the first line of the file, through the zeroes, and stopping at the 1F 8B. That is the kernel. Everything from the 1F 8B through the end is the ramdisk. You could save each of these files separately. In order to see the contents of the ramdisk, you need to un-gzip it and then un-cpio it. You could use a command like this (ideally after creating a new directory and cd'ing into it):
 
@@ -125,6 +132,8 @@ The final step is to combine the kernel and your new ramdisk into the full image
 mkbootimg --cmdline 'no_console_suspend=1 console=null' --kernel your-kernel-file --ramdisk newramdisk.cpio.gz -o mynewimage.img
 
 Now, there's a lot of hassle in pulling apart files in hex editors and remembering all of these commands, so I wrote unpack and repack perl scripts for you. Hooray.
+
+
 Alternative Method
 
 Download split_bootimg.zip . This Zip file contains one Perl file, split_bootimg.pl, which reads the boot.img header (according to the bootimg.h of the Android source code) to extract the kernel and ramdisk. The script also outputs the kernel command line and board name (if specified).
@@ -164,6 +173,8 @@ For Nexus One : Add --base 0x20000000 to mkbootimg command-line.
 
 
 (Note: the console=null command line option was introduced in the TC4-RC30 boot images to remove the root shell (TODO: add link))
+
+
 Flashing your new image back onto the phone
 
 You will probably only ever be flashing boot images directly to the phone, given the fact that /system/recovery.img automatically flashes the recovery device for you (as noted above). If you have created a new recovery image, just stick it in /system/recovery.img and reboot. If you are flashing a boot image, stick it on your phone via adb (a tool included in the Android SDK):
@@ -176,12 +187,15 @@ Then, open a shell to your phone via 'adb shell', get root, and do the following
    write: No space left on device [this is ok, you can ignore]
 # flash_image boot /sdcard/mynewimage.img
 
+
 Reboot.
 
 If your phone starts all the way up, congratulations. If not, you did something wrong and you'll need to boot into recovery mode and apply your update.zip file (reboot while holding down home+power, when you get the recovery screen press alt+L and then alt+S).
 Something fun to do with your new found power
 
 If you place a file titled initlogo.rle in the root directory of your boot image, the phone will display this image upon boot (after the "G1" image and before the Android animation). In order to create this file, you need to create a 320x480 image in Photoshop or Gimp and save it as a "raw image" file. You then need to compress that image with the program to565. More details on that here.
+
+
 This is not the same thing as applying an update.zip
 
 You will see other places on the forums that describe how to create customized update.zip files, as well as update.zip files that people are sharing. For example, there is a recent update.zip which is a modified version of rc30 (with the anti-root aspects disabled). The update.zip files include new boot images, recovery images, and typically replacements for the entire system/ directory as well as other updates. If you are creating a custom boot or recovery image, it is typically a good idea to start with the image distributed with the most recent update you have applied (flashing an image from an older release could have unintended consequences).
