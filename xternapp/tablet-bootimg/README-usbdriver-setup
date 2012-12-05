@@ -1,0 +1,28 @@
+
+http://www.freaktab.com/showthread.php?601-Nextbook-Premium-7-SE-w-ICS/page2
+See post #27
+
+
+Tablet USB Driver
+================
+Try this
+
+1. Determine the Hardware Ids for your device (Device Manager, properties, 
+details, property)
+USB\VID_2207&PID_0000&REV_0222&MI_01
+USB\VID_2207&PID_0000&MI_01
+
+2. Add the vendor to adb_usb.ini (C:\Users\username\.android).
+In our case, simply type 0x2207, don't copy/paste
+
+3. Add the lines below to android_winusb.inf 
+(AndroidSDK\extras\google\usb_driver) for both x86/64bit.
+
+;Nextbook
+%SingleAdbInterface% = USB_Install, USB\VID_2207&PID_0000
+%CompositeAdbInterface% = USB_Install, USB\VID_2207&PID_0000&MI_01
+
+Depending on file location, you may have to save as and replace the file 
+with admin. permissions. Execute adb kill-server before testing. 
+
+
