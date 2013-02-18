@@ -16,19 +16,17 @@ Chapter 5 External Applications and Documents
 Chapter 5 External Applications and Documents
 
   xterndoc: 
-    clang-reflect/ clang-transform/ clang-tutorial/
+    clang-reflect/  clang-transform/ clang-tutorial/
     embedded-linux/ free-electrons/
     README
 
   xternapp: 
-    clang-llvm/ clang-transform/ clang-tutorial/
-    clrefl/ ethmcrtx.cpp*
-    kernel-min/ kernel-nand/
-    mpd560/
-    netsnmp570/
+    clang-llvm/     clang-transform/ clang-tutorial/
+    clrefl/         ethmcrtx.cpp*
+    kernel-min/     kernel-nand/
+    mpd560/         netsnmp570/
     reflcpp.tar.gz
-    tablet-bootimg/
-    tablet-rkflashtool/
+    tablet-bootimg/ tablet-rkflashtool/
 
 
 =================================================
