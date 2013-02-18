@@ -1,0 +1,33 @@
+
+Example:
+
+New USB device found, idVendor=1b8e, idProduct=c003
+New USB device strings: Mfr=1, Product=2, SerialNumber=3
+Product: M3-CHIP
+usb 1-2: Manufacturer: Amlogic
+usb 1-2: SerialNumber: 20110406
+
+
+
+Windows Virtual Box Setting shows:
+9710:7720[0100]
+
+convert to hex:
+25ee:1e28
+
+;Nextbook
+%SingleAdbInterface% = USB_Install, USB\VID_25EE&PID_1E28
+%CompositeAdbInterface% = USB_Install, USB\VID_25EE&PID_1E28&MI_01
+
+dev:    size   erasesize  name
+mtd0: 00400000 00100000 "bootloader"
+mtd1: 00800000 00200000 "logo"
+mtd2: 00800000 00200000 "aml_logo"
+mtd3: 00800000 00200000 "recovery"
+mtd4: 00800000 00200000 "boot"
+mtd5: 20000000 00200000 "system"
+mtd6: 08000000 00200000 "cache"
+mtd7: 20000000 00200000 "userdata"
+mtd8: b5400000 00200000 "NFTL_Part"
+
+
