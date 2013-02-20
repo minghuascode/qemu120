@@ -25,6 +25,7 @@ Chapter 5 External Applications and Documents
     clrefl/         ethmcrtx.cpp*
     kernel-min/     kernel-nand/
     mpd560/         netsnmp570/
+    perl-recdescent/
     reflcpp.tar.gz
     tablet-bootimg/ tablet-rkflashtool/
 
