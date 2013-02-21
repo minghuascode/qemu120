@@ -142,15 +142,15 @@ arrayfields: arrayfield[""](s /,/)
                 push @{$r}, ["field", "$arg[0].[$i]", $a[1].$a[2]];
  #               printf(" array %s[%d]\n", $arg[0], $i);
             } elsif ( $a[0] =~ m"field" ) {
-                push @{$r}, ["field", "$arg[0].[$i].$a[1]", $a[2]];
- #               printf(" array %s[%d].%s\n", $arg[0], $i, $a[1]);
+                push @{$r}, ["field", "$arg[0]..[$i].$a[1]", $a[2]];
+                printf(" array %s..[%d].%s\n", $arg[0], $i, $a[1]);
             } elsif ( $a[0] =~ m"block" ) {
                 my @b = @{$a[1]};
                 for (my $j=0; $j < scalar(@b); $j++) {
                     my @aa = @{$b[$j]};
                     if ( $aa[0] =~ m"field" ) {
-                        push @{$r}, ["field", "$arg[0].[$i].$aa[1]", $aa[2]];
- #                       printf(" array %s[%d].%s\n", $arg[0], $i, $aa[1]);
+                        push @{$r}, ["field", "$arg[0]...[$i].$aa[1]", $aa[2]];
+                        printf(" array %s...[%d].%s\n", $arg[0], $i, $aa[1]);
                     } else {
                         print "Error unknown $aa[0] in array block\n";
                         die "Error\n";
