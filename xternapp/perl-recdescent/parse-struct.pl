@@ -48,19 +48,20 @@ my $gramm = q {
     }
 }
 
-startrule: '$1' '=' block["top"]
+startrule: '$1' '=' block["top", $item[0]]
     { print "$item[0]:\n"; 
       my $v = $item[3];
       prta($v, " ", 1);
     }
 
-block: '{' fields[$arg[0]] '}'
+block: '{' fields[$arg[0], "$arg[1].$item[0]"] '}'
     { #print " block \n"; 
       my $v = $item[2];
       #prta($v, " ", 1);
       $return = $item[2]; }
 
-fields: valuefields[$arg[0]] | arrayfields[$arg[0]]
+fields: valuescope[$arg[0], "$arg[1].$item[0]"] 
+      | arrayscope[$arg[0], "$arg[1].$item[0]"]
     { 
         my $v = $item[1];
         my $r = [];
@@ -76,7 +77,7 @@ fields: valuefields[$arg[0]] | arrayfields[$arg[0]]
         $return = $v;
     }
 
-valuefields: valuefield[$arg[0]](s /,/)
+valuescope: valuefield[$arg[0], "$arg[1].$item[0]"](s /,/)
     {
         my $v = $item[1];
         my $r = [];
@@ -108,8 +109,8 @@ valuefields: valuefield[$arg[0]](s /,/)
         $return = ["block", $r]; 
     }
 
-valuefield: identifier '=' value[$arg[0].".$item[1]"]
-    {
+valuefield: identifier '=' value[$arg[0].".$item[1]", "$arg[1].$item[0]]"]
+    { #print " valuefield: $arg[0].$item[1] $arg[1]\n";
         my $v = $item[3];
         if ( ref($v) ne "ARRAY" ) {
             print "Error: not array ref: prefix $arg[0]\n";
@@ -127,7 +128,7 @@ valuefield: identifier '=' value[$arg[0].".$item[1]"]
         }
     }
 
-arrayfields: arrayfield[""](s /,/)
+arrayscope: arrayfield[$arg[0], "$arg[1].$item[0]"](s /,/)
     {   
         my $v = $item[1];
         my $r = [];
@@ -139,18 +140,30 @@ arrayfields: arrayfield[""](s /,/)
           for(my $i=0; $i < scalar(@arrs); $i++) {
             my @a = @{$arrs[$i]};
             if ( $a[0] =~ m"scalar" ) {
-                push @{$r}, ["field", "$arg[0].[$i]", $a[1].$a[2]];
+                push @{$r}, ["field", "$arg[0]"."[$i]", $a[1].$a[2]];
  #               printf(" array %s[%d]\n", $arg[0], $i);
             } elsif ( $a[0] =~ m"field" ) {
                 push @{$r}, ["field", "$arg[0]..[$i].$a[1]", $a[2]];
-                printf(" array %s..[%d].%s\n", $arg[0], $i, $a[1]);
+ #               printf(" array %s..[%d].%s\n", $arg[0], $i, $a[1]);
             } elsif ( $a[0] =~ m"block" ) {
                 my @b = @{$a[1]};
                 for (my $j=0; $j < scalar(@b); $j++) {
                     my @aa = @{$b[$j]};
                     if ( $aa[0] =~ m"field" ) {
-                        push @{$r}, ["field", "$arg[0]...[$i].$aa[1]", $aa[2]];
-                        printf(" array %s...[%d].%s\n", $arg[0], $i, $aa[1]);
+                        #push @{$r}, ["field", "$arg[0]...[$i].$aa[1]", $aa[2]];
+                        #printf(" array %s...[%d].%s\n", $arg[0], $i, $aa[1]);
+                        my $n = $arg[0];
+                        my $m = $aa[1];
+                        my $len1 = length($n);
+                        my $s = substr($m, 0, $len1);
+                        if ( $s eq $n ) {
+                            my $u = substr($m, $len1);
+                            push @{$r}, ["field", "$s"."[$i]"."$u", $aa[2]];
+ #                           printf(" array %s...[%d].%s\n", $s, $i, $u);
+                        } else {
+                            print "Error array field arg0 work-around fixed.\n";
+                            die "Error\n";
+                        }
                     } else {
                         print "Error unknown $aa[0] in array block\n";
                         die "Error\n";
@@ -165,10 +178,12 @@ arrayfields: arrayfield[""](s /,/)
         $return = ["block", $r]; 
     }
 
-arrayfield: value[$arg[0]]
-    { $return = $item[1]; }
+arrayfield: value[$arg[0], "$arg[1].$item[0]"]
+    { #print " arrayfield: $arg[0] $arg[1]\n";
+      $return = $item[1]; }
 
-value: charvalue | datavalue | stringvalue | block | enumvalue
+value: charvalue | datavalue | stringvalue 
+     | block[$arg[0], "$arg[1].$item[0]"] | enumvalue
     { $return = $item[1]; }
 
 datavalue: /[019]/
