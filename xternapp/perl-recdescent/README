@@ -10,3 +10,12 @@ http://search.cpan.org/CPAN/authors/id/J/JT/JTBRAUN/Parse-RecDescent-1.967009.ta
 test: the command uses the module in Parse/  
   ./parse-struct.pl testdata > testdata-result
 
+files:
+  doc-cpan.tar.gz  -- the htmp documentation page
+  Parse-RecDescent-1.967009.tar.gz   -- original tarball
+  Parse/           -- the perl module directory
+  parse-struct.pl  -- the parser
+  README           -- this file
+  testdata         -- test data to be parsed
+  testdata-result  -- test result
+
