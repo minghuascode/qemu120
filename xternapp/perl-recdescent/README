@@ -19,3 +19,13 @@ files:
   testdata         -- test data to be parsed
   testdata-result  -- test result
 
+use the instance field:
+  size:    sizeof(x.field)
+  offset:  ((u32)&x.field) - ((u32)&x) 
+  field:   #x
+  type:
+        #include <cxxabi.h>
+        #include <typeinfo>
+        int status;
+        abi::__cxa_demangle( typeid(x.field).name(), 0, 0, &status)
+
