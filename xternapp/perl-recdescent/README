@@ -7,3 +7,6 @@ http://search.cpan.org/CPAN/authors/id/J/JT/JTBRAUN/Parse-RecDescent-1.967009.ta
 2013-2-19
 
 
+test: the command uses the module in Parse/  
+  ./parse-struct.pl testdata > testdata-result
+

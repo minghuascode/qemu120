@@ -1,0 +1,258 @@
+
+$1 = {
+  h1hdr1 = {
+    h2hdr1 = {
+      setting = 1,
+      load = 9,
+      pad3 = 0
+    },
+    h2hdr2 = {
+      h3hdr = {
+        zone = 0,
+        sn = '\000' <repeats 19 times>,
+        targetType = Enums::Target_Unknown,
+        envType = Enums::Env_Unknown,
+        count = 0,
+        select = {Enums::Select_Unknown, Enums::Select_Unknown, Enums::Select_Unknown},
+        selectSize = "\000\000\000",
+        hourlyrange = {{
+            low = 0,
+            high = 0,
+            centre = 0
+          }, {
+            low = 0,
+            high = 0,
+            centre = 0
+          }, {
+            low = 0,
+            high = 0,
+            centre = 0
+          }},
+        dailyrange = {{
+            low = 0,
+            high = 0,
+            centre = 0
+          }, {
+            low = 0,
+            high = 0,
+            centre = 0
+          }, {
+            low = 0,
+            high = 0,
+            centre = 0
+          }},
+        hoursample = {0, 0, 0, 0},
+        daysample = {0, 0, 0, 0},
+        statmask = 0,
+        reportType = Enums::Repoort_Unknown,
+        documentType = Enums::Document_Unknown,
+        reftime = '\000' <repeats 31 times>,
+        survey = 0
+      },
+      transportType = {EnumsS1::Air, EnumsS1::Air, EnumsS1::Air, EnumsS1::Air, EnumsS1::Air}
+    },
+    h2hdr3 = {
+      h3hdr1 = {
+        node = {
+          bellType = SysEnums::Bell_No,
+          tableCount = 0 '\000',
+          deskVer = '\000' <repeats 19 times>,
+          targetType = Enums::Target_Unknown,
+          masks = 0,
+          lightingType = Enums::Lighting_Unknown,
+          power10x = 0,
+          backpack = {
+            boxes = 0 '\000',
+            books = 0 '\000',
+            pens = 0,
+            glasses = 0
+          }
+        },
+        shop = 0
+      },
+      h3hdr2 = {{
+          doorType = SysEnums::Door_195
+        }, {
+          doorType = SysEnums::Door_195
+        }}
+    },
+    h2hdr4 = {{
+        windowType = SysEnums::Simple
+      }, {
+        windowType = SysEnums::Simple
+      }, {
+        windowType = SysEnums::Simple
+      }, {
+        windowType = SysEnums::Simple
+      }}
+  },
+  h1hdr2 = {
+    h2hdr1 = {
+      h3hdr1 = {
+        handle = 0,
+        nose = 0,
+        nametag = '\000' <repeats 31 times>,
+        serviceplan = 0 '\000',
+        radio = 0,
+        clockType = SysEnums::ClockUnknown,
+        skyline = 0
+      },
+      h3hdr2 = {{
+          chairs = {
+            lowest = 0,
+            highest = 0,
+            middlest = 0
+          },
+          benches = {
+            lowest = 0,
+            highest = 0,
+            middlest = 0
+          },
+          core = 0,
+          edge = 0,
+          glueData = {{
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }, {
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }, {
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }},
+          hammer = {
+            fork = 0 '\000',
+            spoon = 0 '\000',
+            shadow = 0 '\000'
+          },
+          pipeName = '\000' <repeats 31 times>,
+          volve = 0 '\000'
+        }, {
+          chairs = {
+            lowest = 0,
+            highest = 0,
+            middlest = 0
+          },
+          benches = {
+            lowest = 0,
+            highest = 0,
+            middlest = 0
+          },
+          core = 0,
+          edge = 0,
+          glueData = {{
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }, {
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }, {
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }},
+          hammer = {
+            fork = 0 '\000',
+            spoon = 0 '\000',
+            shadow = 0 '\000'
+          },
+          pipeName = '\000' <repeats 31 times>,
+          volve = 0 '\000'
+        }, {
+          chairs = {
+            lowest = 0,
+            highest = 0,
+            middlest = 0
+          },
+          benches = {
+            lowest = 0,
+            highest = 0,
+            middlest = 0
+          },
+          core = 0,
+          edge = 0,
+          glueData = {{
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }, {
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }, {
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }},
+          hammer = {
+            fork = 0 '\000',
+            spoon = 0 '\000',
+            shadow = 0 '\000'
+          },
+          pipeName = '\000' <repeats 31 times>,
+          volve = 0 '\000'
+        }, {
+          chairs = {
+            lowest = 0,
+            highest = 0,
+            middlest = 0
+          },
+          benches = {
+            lowest = 0,
+            highest = 0,
+            middlest = 0
+          },
+          core = 0,
+          edge = 0,
+          glueData = {{
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }, {
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }, {
+              nails = {
+                tip = 0
+              },
+              stem = 0
+            }},
+          hammer = {
+            fork = 0 '\000',
+            spoon = 0 '\000',
+            shadow = 0 '\000'
+          },
+          pipeName = '\000' <repeats 31 times>,
+          volve = 0 '\000'
+        }}
+    },
+    tailhook = {
+      ball = 0
+    },
+    trailer = {{
+        width = 0 '\000',
+        height = 0 '\000'
+      }, {
+        width = 0 '\000',
+        height = 0 '\000'
+      }}
+  }
+}
+
