@@ -10,7 +10,8 @@ $::RD_HINT = 1;
 # grammar
 my $gramm = q {
 
-{
+{   sub err{ print "Error @_"; die "Error\n"; }
+    sub dbg{ printf(@_) if ( 1 ); }
     sub dbg1{printf("dbg1 %s\n", shift);}
     sub dbg2{printf("dbg2 %s %s\n", shift, substr(shift,0,10));}
     sub prta {
@@ -31,7 +32,9 @@ my $gramm = q {
                   ${$v}[0] eq "field" ) {
             printf("--field:  ");
             for (my $k=0; $k< 4*$depth; $k++) { print " "; }
-            print " ${$v}[0]  ${$v}[1]  ${$v}[2] \n";
+            my $tail = "${$v}[2]";
+            $tail =~ s/ARRAY\([0-9a-fx]+\)/ARRAYtail/;
+            print " ${$v}[0]  ${$v}[1]  $tail \n";
         } elsif ( $t eq "ARRAY" ) {
             printf("--ARRAY+: ");
             for (my $k=0; $k< 4*$depth; $k++) { print " "; }
@@ -57,52 +60,42 @@ startrule: '$1' '=' block["top", $item[0]]
 block: '{' fields[$arg[0], "$arg[1].$item[0]"] '}'
     { #print " block \n"; 
       my $v = $item[2];
-      #prta($v, " ", 1);
-      $return = $item[2]; }
+      $return = $v; }
 
 fields: valuescope[$arg[0], "$arg[1].$item[0]"] 
       | arrayscope[$arg[0], "$arg[1].$item[0]"]
     { 
-        my $v = $item[1];
-        my $r = [];
+        my ($v, $r) = ($item[1], []);
         if ( ref($v) ne "ARRAY" ) {
-            print "Error: not array ref: prefix $arg[0]\n";
-            die "Error\n";
-        } else {
-            #print "Ref: ", ref($v), "\n";
-            #my @a = @{$v};
-            #print " fields: ", scalar(@{$v}), " \n"; 
+            err " fields: not array ref: prefix $arg[0]\n";
         }
-        #prta($v, " ", 1);
         $return = $v;
     }
 
 valuescope: valuefield[$arg[0], "$arg[1].$item[0]"](s /,/)
     {
-        my $v = $item[1];
-        my $r = [];
+        my ($v, $r) = ($item[1], []);
         if ( ref($v) ne "ARRAY" ) {
-            print "Error: not array ref: prefix $arg[0]\n";
-            die "Error\n";
-        } else {
-            my @a = @{$v};
-            for(my $i=0; $i<=$#a; $i++) {
-                my @aa = @{$a[$i]};
-                if ( $aa[0] eq "field" ) {
-                    push @{$r}, ["field", sprintf("%s", $aa[1]), $aa[2]];
-#                    printf(" value %s\n", $aa[1]);
-                } elsif ( $aa[0] eq "block" ) {
-                    my @b = @{$aa[1]};
-                    for (my $j=0; $j < scalar(@b); $j++) {
-                        my @bb = @{$b[$j]};
-                        if ( $bb[0] eq "field" ) {
-                            push @{$r}, ["field", "$bb[1]", $bb[2]];
-#                            printf(" field %s\n", $bb[1]);
-                        } else {
-                            print "Error unknown $bb[0] in field block\n";
-                            die "Error\n";
-                        }
+            err " valuescope: not array ref: prefix $arg[0]\n";
+        }
+        my @a = @{$v};
+        for(my $i=0; $i<=$#a; $i++) {
+            my @aa = @{$a[$i]};
+            if ( $aa[0] ne "field" && $aa[0] ne "block" ) {
+                err " valuescope: unknown aa0 $aa[0]\n";
+            }
+            if ( $aa[0] eq "field" ) {
+                push @{$r}, ["field", sprintf("%s", $aa[1]), $aa[2]];
+#                dbg(" value %s\n", $aa[1]);
+            } else { # "block"
+                my @b = @{$aa[1]};
+                for (my $j=0; $j < scalar(@b); $j++) {
+                    my @bb = @{$b[$j]};
+                    if ( $bb[0] ne "field" ) {
+                        err " valuescope block: unknown bb0 $bb[0]\n";
                     }
+                    push @{$r}, ["field", "$bb[1]", $bb[2]];
+#                    dbg(" valuescope block field: %s %s\n", $arg[0], $bb[1]);
                 }
             }
         }
@@ -113,74 +106,58 @@ valuefield: identifier '=' value[$arg[0].".$item[1]", "$arg[1].$item[0]]"]
     { #print " valuefield: $arg[0].$item[1] $arg[1]\n";
         my $v = $item[3];
         if ( ref($v) ne "ARRAY" ) {
-            print "Error: not array ref: prefix $arg[0]\n";
-            die "Error\n";
+            err " valuefield: not array ref: prefix $arg[0]\n";
+        }
+        my @a = @{$v};
+        if ( $a[0] eq "scalar" ) {
+            $return = ["field", "$arg[0].$item[1]", "$v"]; 
+        } elsif ( $a[0] eq "block" ) {
+            $return = $v;
         } else {
-            my @a = @{$v};
-            if ( $a[0] eq "scalar" ) {
-                $return = ["field", "$arg[0].$item[1]", "$v"]; 
-            } elsif ( $a[0] eq "block" ) {
-                $return = $v;
-            } else {
-                print "Error unknown $a[0] in field\n";
-                $return = ["field", "Error unknown $a[0] in field", ""];
-            }
+            err " valuefield: unknown a0 $a[0]\n";
         }
     }
 
-arrayscope: arrayfield[$arg[0], "$arg[1].$item[0]"](s /,/)
+arrayscope: value[$arg[0], "$arg[1].$item[0]"](s /,/)
     {   
-        my $v = $item[1];
-        my $r = [];
+        my ($v, $r) = ($item[1], []);
         if ( ref($v) ne "ARRAY" ) {
-            print "Error: not array ref: prefix $arg[0]\n";
-            die "Error\n";
-        } else {
-          my @arrs = @{$item[1]};
-          for(my $i=0; $i < scalar(@arrs); $i++) {
+            err " arrayscope: not array ref: prefix $arg[0]\n";
+        }
+        my @arrs = @{$v};
+        for(my $i=0; $i < scalar(@arrs); $i++) {
             my @a = @{$arrs[$i]};
-            if ( $a[0] =~ m"scalar" ) {
+            if ( $a[0] ne "scalar" && $a[0] ne "block" ) {
+                err " arrayscope: unknown a0 $a[0]\n";
+            }
+            if ( $a[0] eq "scalar" ) {
                 push @{$r}, ["field", "$arg[0]"."[$i]", $a[1].$a[2]];
- #               printf(" array %s[%d]\n", $arg[0], $i);
-            } elsif ( $a[0] =~ m"field" ) {
-                push @{$r}, ["field", "$arg[0]..[$i].$a[1]", $a[2]];
- #               printf(" array %s..[%d].%s\n", $arg[0], $i, $a[1]);
-            } elsif ( $a[0] =~ m"block" ) {
+#                dbg(" array %s[%d]\n", $arg[0], $i);
+            } else { # "block"
                 my @b = @{$a[1]};
                 for (my $j=0; $j < scalar(@b); $j++) {
                     my @aa = @{$b[$j]};
-                    if ( $aa[0] =~ m"field" ) {
-                        #push @{$r}, ["field", "$arg[0]...[$i].$aa[1]", $aa[2]];
-                        #printf(" array %s...[%d].%s\n", $arg[0], $i, $aa[1]);
-                        my $n = $arg[0];
-                        my $m = $aa[1];
-                        my $len1 = length($n);
-                        my $s = substr($m, 0, $len1);
-                        if ( $s eq $n ) {
-                            my $u = substr($m, $len1);
-                            push @{$r}, ["field", "$s"."[$i]"."$u", $aa[2]];
- #                           printf(" array %s...[%d].%s\n", $s, $i, $u);
-                        } else {
-                            print "Error array field arg0 work-around fixed.\n";
-                            die "Error\n";
-                        }
-                    } else {
-                        print "Error unknown $aa[0] in array block\n";
-                        die "Error\n";
+                    if ( $aa[0] ne "field" ) {
+                        err " arrayscope block: unknown aa0 $aa[0]\n";
                     }
+                    #when pasing down "" instead of $arg[0], use the two lines.
+                    #push @{$r}, ["field", "$arg[0]...[$i].$aa[1]", $aa[2]];
+                    #printf(" array %s...[%d].%s\n", $arg[0], $i, $aa[1]);
+
+                    my ($n, $m) = ($arg[0], $aa[1]);
+                    my $len1 = length($n);
+                    my $s = substr($m, 0, $len1);
+                    if ( $s ne $n ) {
+                        err " arrayscope: arg0 work-around fixed.\n";
+                    }
+                    my $u = substr($m, $len1);
+                    push @{$r}, ["field", "$s"."[$i]"."$u", $aa[2]];
+#                    dbg(" array %s...[%d].%s\n", $s, $i, $u);
                 }
-            } else {
-                print "Error unknown $a[0] in array\n";
-                die "Error\n";
             }
-          }
-        }
+        } #for
         $return = ["block", $r]; 
     }
-
-arrayfield: value[$arg[0], "$arg[1].$item[0]"]
-    { #print " arrayfield: $arg[0] $arg[1]\n";
-      $return = $item[1]; }
 
 value: charvalue | datavalue | stringvalue 
      | block[$arg[0], "$arg[1].$item[0]"] | enumvalue
@@ -224,7 +201,6 @@ if ( ! defined($parser) ) {
 
 #===========================================================
 # input
-
 my @inlines = <>;
 printf("Inputed %d lines.\n", scalar(@inlines));
 my $text = "@inlines";
