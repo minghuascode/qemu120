@@ -22,6 +22,30 @@ use strict;
 
     $rv = calc( 100 * 1000, $apr, $pmt, 0, 500); 
 
+    #amortization pmt:
+    my $pm = armpmt(100*1000, $apr, $periods);
+    printf("\n amortization pmt %.2f\n", $pm);
+
+    my $loan = armloan(457.08, $apr, $periods);
+    printf("\n amortization loan %.2f\n", $loan);
+
+  sub armloan {
+    my ($pmt, $apr, $n) = @_;
+    my $r = apr2mon($apr);
+    my $s = exp( $n * log( 1/(1 + $r)) );
+    my $loan = $pmt * (1-$s) / $r;
+    return $loan;
+  }
+
+  sub armpmt {
+    my ($p, $apr, $n) = @_;
+    my $r = apr2mon($apr);
+    #my $r = $apr/12;
+    my $s = exp( $n * log(1 + $r) );
+    my $a = $p * $r * $s / ($s - 1);
+    return $a;
+  }
+
   sub calc {
     my ($mort, $apr, $pmt, $fee, $sqft) = @_;
     my $r = apr2mon($apr);
