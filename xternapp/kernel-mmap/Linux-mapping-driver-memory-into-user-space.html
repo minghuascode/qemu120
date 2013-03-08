@@ -1,0 +1,787 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>Linux: mapping driver memory into user space</title>
+<link rel="StyleSheet" href="Linux-mapping-driver-memory-into-user-space-style.css" type="text/css" media="screen">
+    <link rel="StyleSheet" href="Linux-mapping-driver-memory-into-user-space-style.css" type="text/css" media="print">
+</head>
+
+<body bgcolor="#ffffff">
+<p> search for vmalloc user space <br /> page from http://www.scs.ch/~frey/linux/memorymap.html </p>
+<h1>Linux Memory Mapping</h1>
+<h2>Purpose</h2>
+The following examples demonstrates how to map a driver 
+allocated buffer from kernel into user space. It has been tested with Linux 
+kernel 2.2.18 and 2.4.0 on Intel (uni processor only) and Alpha 
+platform (COMPAQ Personal Workstation 500au (uni processor), DS20 and ES40 (SMP).
+<h2>Memory Mappings</h2>
+The Linux kernel works with different memory mappings.
+One mapping, called <b>kernel virtual mapping</b> provides a direct 1 to 1 mapping of 
+physical addresses to virtual addresses. Conversion between physical and virtual 
+addresses can be made with <code>phys_to_virt()</code> and <code>virt_to_phys()</code> for the translation 
+virtual to physical.<br>
+The translation from IO bus addresses into kernel 
+virtual addresses uses also the kernel virutal mapping. An contiguous address area in 
+the kernel segment is also contigous in physical memory.<br>
+<h2>Memory Allocation in the Kernel</h2>
+<code>kmalloc()</code> returns a memory area in the 
+kernel virtual mapping. Therefore, the area is physical contigous, and can be translated to a 
+physical address with <code>virt_to_phys()</code> or to a IO bus address with 
+<code>virt_to_bus()</code>.<br>
+<code>vmalloc()</code> creates a new memory area, puts several physically 
+non-contigous pages into the area and enters the new area into the memory map
+of the kernel. Such 
+addresses cannot be converted into physical or IO bus addresses with the 
+functions described above. 
+<h2>Translation Virtual to Kernel Virtual Address</h2>
+Before translating into a 
+physical address or into a IO bus address, a general kernel virtual address, e.g. 
+returned by <code>vmalloc()</code>, must be converted to a kernel virtual address. 
+This can be achieved e.g. with the following steps: 
+<ul>
+<li>Check whether the address is already in the kernel virtual mapping<br>
+On Linux 2.2.x the direct kernel virtual mapping starts just at the
+begin of the kernels memory space (i.e. starting at <code>PAGE_OFFSET</code>). The
+pageframe number can be derived using the <code>MAP_NR</code> macro. The variable
+<code>max_mapnr</code> identifies the highest available pageframe. Therefore if
+<code>MAP_NR(address)</code> is smaller than <code>max_mapnr</code> the address is part of the
+direct kernel virtual mapping:<br>
+<code>if (MAP_NR(address) &lt; max_mapnr)</code>
+<br>
+Linux &gt; 2.2.x supports more physical memory than the virtual address
+space can cover, and supports physical memory layouts with holes
+in it. Therefore we cannot just compare with a maximum pageframe number.
+In our example we treat addresses already in the direct kernel virtual
+mapping the same way as other pages.
+</li>
+<li>
+Linux has a three level page table. We need to make three lookups therefore:
+	  <ul>
+	  	  <li>page directory<br>
+		  	For the lookup of the page directory we need to know which
+			memory map we want to look at and the address. For a general
+			lookup we can use <code>pgd_offset()</code>, for a lookup
+			in the kernel memory map we use the macro <code>pgd_offset_k</code></li>
+		  <li>page middle directory<br>
+		    With the page directory pointer we lookup the page middle directory.
+			Before doing so, we need to validate whether the page directory
+			has a valid entry. Assuming <code>pgd</code> is our page directory
+			pointer, we can check the entry with:<br>
+			<code>if (!pgd_none(*pgd))</code><br>
+			The lookup finally is done with <code>pmd = pmd_offset(pgd, address)</code>
+		  </li>
+		  <li>page table<br>
+		    The page middle directory pointer needs to be checked as well. The
+			lookup is done with <code>ptep = pte_offset(pmd, address)</code><br>
+		  </li>
+	  </ul>
+</li>
+<li><code>ptep</code> contains now a pointer to a page table entry. Whether
+the entry contains a page can be checked with <code>pte_present(*ptep)</code>
+</li>
+<li>On Linux 2.2.x <code>pte_page(*ptep)</code> returns us the kernel virtual
+address of the corresponding page table entry.<br>
+On Linux 2.4.x <code>pte_page(*ptep)</code> returns us the pointer to a <code>page</code>
+structure. The kernel virtual address of the page is read out of the page structure
+with <code>page_address()</code>
+</li>
+</ul>
+Note: the function performs the translation for the *one* page, where 
+address is in. Since vmalloc'd areas do not have to be physical contigous, the 
+next page may have a complete different offset!<br>
+Note: the parsing of the page table as described above works when they do
+not change during the parsing. For memory areas allocated with <code>vmalloc()</code>
+this is the case. If you want to translate an address belong to a process which
+can get swapped out, you need to protect the code with the corresponding locks.
+See e.g. <code>sys_mlock()</code> how this can be done.
+<h2>Mapping Kernel Virtual Addresses into User Space</h2>
+<h3>2.2 and 2.4 Kernel</h3>
+Mapping addresses which are in 
+the kernel virtual mapping into user space is straight foreward: 
+<ul>
+  <li>Implement a mmap method for your driver</li>
+  <li>Set the reserved bit on the pages you are mapping into user space
+  </li><li>set the <code>VM_LOCKED</code> flag on your memory area. This will
+  	prevent the swapper fromm swapping the pages out:<br>
+	<code>vma-&gt;flags |= VM_LOCKED</code>
+  </li>
+  <li>Call remap_page_range() to map the physical address of your buffer to the 
+  user space address </li>
+  </ul>Example: 
+  <pre>  vma-&gt;flags |= VM_LOCKED;
+  if (remap_page_range(vma-&gt;vm_start,
+                     virt_to_phys((void*)((unsigned long)kmalloc_area)),
+                     size,
+                     PAGE_SHARED))
+{
+     printk("remap page range failed\n");
+     return -ENXIO;
+}
+</pre>
+Note: on Linux 2.4.x <code>remap_page_range()</code> needs to be called with the
+mm semaphore hold. The semaphore is grabed by the syscall, so within
+your mmap method you are safe. If you call <code>remap_page_range</code> in
+other contexts, you need to grab the semaphore first (e.g.
+<code>down(&amp;current-&gt;mm-&gt;mmap_sem)</code>).
+<h3>2.6 Kernel</h3>
+On 2.6 things got even simpler. The <code>remap_pfn_range</code> function sets the
+correct flags in the vm_area. <code>remap_pfn_range</code> can be called for
+a set of physically contiguous pages. Do map the pages you therefore have to:
+<ul>
+	<li>Implement a mmap method for your driver
+  	</li><li>Set the reserved bit on the pages you are mapping into user space
+	</li><li>Call <code>remap_pfn_range</code> to map your buffer into user space
+</li></ul>
+Example:<br>
+<pre>	if (remap_pfn_range(vma,
+			    vma-&gt;vm_start,
+			    virt_to_phys((void *)kmalloc_area) &gt;&gt; PAGE_SHIFT,
+			    size,
+			    vma-&gt;vm_page_prot)) &lt; 0) {
+		printk("remap_pfn_range failed\n");
+		return -EIO;
+	}
+</pre>
+The arguments of the <code>remap_pfn_range</code> function are:
+<ul>
+	<li><code>vma</code>: vm_area_struct has passed to the mmap method
+	</li><li><code>vma-&gt;vm_start</code>: start of mapping user address space
+	</li><li><code>virt_to_phys((void *)kmalloc_area) &gt;&gt; PAGE_SHIFT</code>: page frame number of first page
+	</li><li><code>size</code>: length of mapping in bytes
+	</li><li><code>vma-&gt;&gt;vm_page_prot</code>: protection bits, here passed along received from application
+</li></ul>
+
+<h2>Mapping non-kernel Virtual Addresses into User Space</h2>
+Mapping addresses e.g. 
+returned by vmalloc() into user space is a little bit more tricky, since each 
+page has a different address translation.<br>
+A very elegant method to create 
+such mappings is the usage of the nopage method of the virtual memory area 
+functions. The methods are attached to the virtual memory area in the mmap 
+method of the device. Each time than the user space process accesses a page that 
+has not yet been translated, a page fault occurs and our nopage handler is 
+called. The nopage handler has to increment the usage count of the page.
+On Linux 2.2.x it has to return the kernel virtual address of the page the application wants to 
+access, on Linux 2.4.x it has to return the pointer to the page structure.<br>
+Example for a nopage handler:<br>
+Note: <code>virt_to_kseg()</code> is an implementation of the function described
+above to parse the page table.
+<pre>/* page fault handler (for Linux 2.2.x) */
+unsigned long mmap_drv_vmmap(struct vm_area_struct *vma, unsigned long address, int no_share)
+{
+        unsigned long offset;
+        unsigned long virt_addr;
+
+         /* determine the offset within the vmalloc'd area  */
+        offset = address - vma-&gt;vm_start + vma-&gt;vm_offset;
+
+        /* calculate the kseg virtual address */
+        virt_addr = (unsigned long)virt_to_kseg(&amp;vmalloc_area[offset/sizeof(int)]);
+
+        /* increment the usage count of the page */
+        atomic_inc(&amp;mem_map[MAP_NR(virt_addr)].count);
+        
+        printk("mmap_drv: page fault for offset 0x%lx (kseg x%lx)\n",
+               offset, virt_addr);
+
+        /* return the kseg virtual address, *not* the physical address as stated
+           in some wrong examples.
+        */
+        return(virt_addr);
+}
+</pre>
+<h3>2.6 Kernel</h3>
+On 2.6 there is no need for a driver specific page fault handler since <code>remap_pfn_range</code>
+can be called for every page individually. To map a vmalloc'd area you simply have
+to loop over all pages and call <code>remap_pfn_range</code>:
+<pre>        while (length &gt; 0) {
+                pfn = vmalloc_to_pfn(vmalloc_area_ptr);
+                if ((ret = remap_pfn_range(vma, start, pfn, PAGE_SIZE,
+                                           PAGE_SHARED)) &lt; 0) {
+                        return ret;
+                }
+                start += PAGE_SIZE;
+                vmalloc_area_ptr += PAGE_SIZE;
+                length -= PAGE_SIZE;
+        }
+</pre>
+<h2>Setting the Reserved Bit</h2>
+Before a page can be exported into user space, 
+the reserved bit must be set. This is done on Linux 2.2.x with e.g.:<br>
+<code>mem_map_reserve(MAP_NR(virt_to_kseg((void *)virt_addr)))</code>
+Note: <code>mem_map_reserve()</code> (and its counterpart <code>mem_map_unreserve()</code>) take the 
+map number of the page as argument. The map number is calculated out of the kernel 
+virtual address with the <code>MAP_NR()</code> macro.<br>
+On Linux 2.4.x <code>mem_map_reserve()</code> takes a pointer to a page
+structure as argument. The page structure pointer is derived from the
+kernel virtual address with <code>virt_to_page()</code>.
+<h2>Putting the Parts together</h2>
+The example below shows a device driver, that 
+allocates two memory area: one with vmalloc(), the other with kmalloc(). It 
+implements both mapping methods described above to export the memory to user 
+space.<br>
+Please read the explanations in the example program source code on how to
+run the test program.
+<h3>Linux 2.6 Device Driver</h3>
+With Linux 2.6 a new build process is used. This and the amount of changes
+made me split the example from the 2.2 and 2.4 code. Please download it
+from <a href="http://www.scs.ch/%7Efrey/linux/mmap.example.tar">here</a>.<br>
+A pure BSD licensed version of the code can be fetched from <a href="http://www.scs.ch/%7Efrey/linux/mmap.example-bsd.tar.gz">here</a>.
+
+
+<h3>Linux 2.2 and 2.4 Device Driver</h3>
+The example has been tested with Linux 2.2.18 and 2.4.0, on Intel and Alpha 
+platform. 
+(File mmap_drv.c)
+<pre>#include &lt;linux/config.h&gt;
+#include &lt;linux/version.h&gt;
+#include &lt;linux/module.h&gt;
+#if defined(MODVERSIONS)
+#include &lt;linux/modversions.h&gt;
+#endif
+
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/fs.h&gt;
+#include &lt;linux/string.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/errno.h&gt;
+
+#include &lt;linux/mm.h&gt;
+#include &lt;linux/vmalloc.h&gt;
+#include &lt;linux/mman.h&gt;
+#include &lt;linux/wrapper.h&gt;
+#include &lt;linux/slab.h&gt;
+#include &lt;asm/io.h&gt;
+
+#define LEN (64*1024)
+
+/* device open */
+int mmapdrv_open(struct inode *inode, struct file *file);
+/* device close */
+int mmapdrv_release(struct inode *inode, struct file *file);
+/* device mmap */
+int mmapdrv_mmap(struct file *file, struct vm_area_struct *vma);
+
+/* open handler for vm area */
+void mmap_drv_vopen(struct vm_area_struct *vma);
+/* close handler form vm area */
+void mmap_drv_vclose(struct vm_area_struct *vma);
+/* page fault handler for callback of vmalloc area */
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+unsigned long mmap_drv_vmmap(struct vm_area_struct *vma, unsigned long address, int write_access);
+#else
+struct page *mmap_drv_vmmap(struct vm_area_struct *vma, unsigned long address, int write_access);
+#endif
+
+/* the ordinary device operations */
+static struct file_operations mmapdrv_fops =
+{
+#if LINUX_VERSION_CODE &gt;= KERNEL_VERSION(2,4,0)
+  owner:   THIS_MODULE,
+#endif
+  mmap:    mmapdrv_mmap,
+  open:    mmapdrv_open,
+  release: mmapdrv_release,
+};
+
+/* memory handler functions */
+static struct vm_operations_struct mmap_drv_vm_ops = {
+  open:    mmap_drv_vopen, /* mmap-open */
+  close:  mmap_drv_vclose,/* mmap-close */
+  nopage: mmap_drv_vmmap, /* no-page fault handler */
+};
+
+/* pointer to page aligned area */
+static int *vmalloc_area = NULL;
+/* pointer to unaligend area */
+static int *vmalloc_ptr  = NULL;
+/* pointer to page aligned area */
+static int *kmalloc_area = NULL;
+/* pointer to unaligned area */
+static int *kmalloc_ptr = NULL;
+/* major number of device */
+static int major;
+
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+/* Converts a kernel virtual address into a kernel virtual
+   address that is part of the direct mapping between
+   virtual and physical address. If you e.g. allocated
+   memory with vmalloc(), you get virtual addresses part
+   of an own area. By converting such an address, 
+   you receive a kernel virtual address that you can
+   e.g. feed into virt_to_phys() or MAP_NR().
+   Note: the function below works for one page. If you
+   have a set of pages, in a vmalloc allocated area,
+  each page may have a different virtual address in
+   the direct mapping.
+   Return 0 if no mapping found.
+*/
+volatile void *virt_to_kseg(volatile void *address)
+{
+        pgd_t *pgd; pmd_t *pmd; pte_t *ptep, pte;
+        unsigned long ret=0UL;
+	
+        /* if we are below the max direct mappings, we use the
+           direct conversion function
+        */ 
+        if (MAP_NR(address) &lt; max_mapnr)
+                return(address);
+
+        /* else we really have to parse the page table to get the map nr */
+
+	/* get the page global directory out of the kernel memory map. */
+	pgd = pgd_offset_k((unsigned long)address);
+
+	/* check whether we found an entry */
+	if (!pgd_none(*pgd))
+        {
+	       /* get the page middle directory */
+	       pmd = pmd_offset(pgd, (unsigned long)address);
+	       /* check for a valid entry */
+	       if (!pmd_none(*pmd))
+               {
+		    /* get a pointer to the page table entry */
+	            ptep = pte_offset(pmd, (unsigned long)address);
+		    /* get the page table entry itself */
+	            pte = *ptep;
+		    /* check for a valid page */
+	            if (pte_present(pte))
+                    {
+		      /* get the kseg address of the page */
+		      ret = (unsigned long)pte_page(pte);
+		      /* add the offset within the page to the page address */
+		      ret |= ((unsigned long)address &amp; (PAGE_SIZE - 1));
+		    }
+	       }
+	}
+        return((volatile void *)ret);
+}
+#else
+/* we parse the page tables in order to find the direct mapping of
+   the page. This works only without holding any locks for pages we
+   are sure that they do not move in memory.
+   Annother example achieving the same can be found in the
+   bttv-driver (drivers/media/video).
+*/
+volatile void *virt_to_kseg(volatile void *address)
+{
+        pgd_t *pgd; pmd_t *pmd; pte_t *ptep, pte;
+	unsigned long va, ret = 0UL;
+	
+	va=VMALLOC_VMADDR((unsigned long)address);
+	
+	/* get the page directory. Use the kernel memory map. */
+	pgd = pgd_offset_k(va);
+
+	/* check whether we found an entry */
+	if (!pgd_none(*pgd))
+        {
+	      /* get the page middle directory */
+	      pmd = pmd_offset(pgd, va);
+	      /* check whether we found an entry */
+	      if (!pmd_none(*pmd))
+              {
+		  /* get a pointer to the page table entry */
+	          ptep = pte_offset(pmd, va);
+	          pte = *ptep;
+		  /* check for a valid page */
+	          if (pte_present(pte))
+                  {
+		        /* get the address the page is refering to */
+		        ret = (unsigned long)page_address(pte_page(pte));
+			/* add the offset within the page to the page address */
+			ret |= (va &amp; (PAGE_SIZE -1));
+		  }
+	      }
+	}
+	return((volatile void *)ret);
+}
+#endif
+
+/* load the module */
+int init_module(void)
+{
+        int i;
+        unsigned long virt_addr;
+        
+        if ((major=register_chrdev(0, "mmapdrv", &amp;mmapdrv_fops))&lt;0) {
+                printk("mmapdrv: unable to register character device\n");
+                return (-EIO);
+        }
+
+        /* get a memory area with kmalloc and aligned it to a page. This area
+           will be physically contigous */
+        kmalloc_ptr=kmalloc(LEN+2*PAGE_SIZE, GFP_KERNEL);
+        kmalloc_area=(int *)(((unsigned long)kmalloc_ptr + PAGE_SIZE -1) &amp; PAGE_MASK);
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+       for(i=MAP_NR(kmalloc_area); i&lt;=MAP_NR((void *)kmalloc_area+LEN);i++)
+       {
+                /* reserve all pages to make them remapable */
+                mem_map_reserve(i);
+       }
+#else
+       for (virt_addr=(unsigned long)kmalloc_area; virt_addr&lt;(unsigned long)kmalloc_area+LEN;
+	    virt_addr+=PAGE_SIZE)
+       {
+	        /* reserve all pages to make them remapable */
+	        mem_map_reserve(virt_to_page(virt_addr));
+       }
+#endif
+
+        /* get a memory area that is only virtual contigous. */
+        vmalloc_ptr=vmalloc(LEN+2*PAGE_SIZE);
+        vmalloc_area=(int *)(((unsigned long)vmalloc_ptr + PAGE_SIZE -1) &amp; PAGE_MASK);
+        for (virt_addr=(unsigned long)vmalloc_area;
+	     virt_addr&lt;(unsigned long)(&amp;(vmalloc_area[LEN/sizeof(int)]));
+             virt_addr+=PAGE_SIZE)
+        {
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+                /* reserve all pages to make them remapable. */
+                mem_map_reserve(MAP_NR(virt_to_kseg((void *)virt_addr)));
+#else
+		mem_map_reserve(virt_to_page(virt_to_kseg((void *)virt_addr)));
+#endif
+        }
+        
+        for (i=0; i&lt;(LEN/sizeof(int)); i+=2)
+        {
+                /* initialise with some dummy values to compare later */
+                vmalloc_area[i]=(0xaffe&lt;&lt;16) + i;
+                vmalloc_area[i+1]=(0xbeef&lt;&lt;16) + i;
+                kmalloc_area[i]=(0xdead&lt;&lt;16) +i;
+                kmalloc_area[i+1]=(0xbeef&lt;&lt;16) + i;
+        }
+
+        /* and tell the world what we did */
+        printk("vmalloc_area at 0x%p (phys 0x%lx)\n", vmalloc_area,
+               virt_to_phys((void *)virt_to_kseg(vmalloc_area)));
+        printk("kmalloc_area at 0x%p (phys 0x%lx)\n", kmalloc_area,
+               virt_to_phys((void *)virt_to_kseg(kmalloc_area)));
+
+        return(0);
+}
+
+/* remove the module */
+void cleanup_module(void)
+{
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+        int i;
+#endif
+        unsigned long virt_addr;
+
+        /* unreserve all pages */
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+        for(i=MAP_NR(kmalloc_area); i&lt;=MAP_NR((void *)kmalloc_area+LEN);i++)
+        {
+                mem_map_unreserve(i);
+        }
+#else
+        for(virt_addr=(unsigned long)kmalloc_area; virt_addr&lt;(unsigned long)kmalloc_area+LEN;
+	    virt_addr+=PAGE_SIZE)
+        {
+                mem_map_unreserve(virt_to_page(virt_addr));
+        }
+#endif
+        for (virt_addr=(unsigned long)vmalloc_area;
+	     virt_addr&lt;(unsigned long)(&amp;(vmalloc_area[LEN/sizeof(int)]));
+             virt_addr+=PAGE_SIZE)
+        {
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+                mem_map_unreserve(MAP_NR(virt_to_kseg((void *)virt_addr)));
+#else
+		mem_map_unreserve(virt_to_page(virt_to_kseg((void *)virt_addr)));
+#endif
+        }
+
+        /* and free the two areas */
+        if (vmalloc_ptr)
+                vfree(vmalloc_ptr);
+        if (kmalloc_ptr)
+                kfree(kmalloc_ptr);
+
+        /* unregister the device */
+        unregister_chrdev(major, "mmapdrv");
+        return;
+}
+
+/* device open method */
+int mmapdrv_open(struct inode *inode, struct file *file)
+{
+        MOD_INC_USE_COUNT;
+        return(0);
+}
+
+/* device close method */
+int mmapdrv_release(struct inode *inode, struct file *file)
+{
+        MOD_DEC_USE_COUNT;
+        return(0);
+}
+
+/* device memory map method */
+/* 2.4.x: this method is called from do_mmap_pgoff, from
+   do_mmap, from the syscall. The caller of do_mmap grabs
+   the mm semaphore. So we are protected from races here.
+*/
+int mmapdrv_mmap(struct file *file, struct vm_area_struct *vma)
+{
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+        unsigned long offset = vma-&gt;vm_offset;
+#else
+	unsigned long offset = vma-&gt;vm_pgoff&lt;&lt;PAGE_SHIFT;
+#endif
+        unsigned long size = vma-&gt;vm_end - vma-&gt;vm_start;
+        
+        if (offset &amp; ~PAGE_MASK)
+        {
+                printk("offset not aligned: %ld\n", offset);
+                return -ENXIO;
+        }
+        
+        if (size&gt;LEN)
+        {
+                printk("size too big\n");
+                return(-ENXIO);
+        }
+        
+	/* we only support shared mappings. Copy on write mappings are
+	   rejected here. A shared mapping that is writeable must have the
+	   shared flag set.
+	*/
+	if ((vma-&gt;vm_flags &amp; VM_WRITE) &amp;&amp; !(vma-&gt;vm_flags &amp; VM_SHARED))
+	{
+	     printk("writeable mappings must be shared, rejecting\n");
+	     return(-EINVAL);
+	}
+
+	/* we do not want to have this area swapped out, lock it */
+	vma-&gt;vm_flags |= VM_LOCKED;
+        
+        /* there are two different mapping options implemented here:
+           for the virtual contiguous memory area, we install a page fault handler.
+           The page fault handler calculates the right physical page on first
+           access of the application to the page.
+           (method 1 is used for vmalloc'd memory, offset 0..LEN)
+           The second way works only for a physical contigous range of pages:
+           we create a mapping between the physical pages and the virtual
+           addresses of the application with remap_page_range.
+           (method 2 is used for kmalloc'd memory, offset LEN..2*LEN)
+        */
+        if (offset == 0)
+        {
+                /* method 1: install a page handler */
+                vma-&gt;vm_ops = &amp;mmap_drv_vm_ops;
+                /* call the open routine to increment the usage count */
+                mmap_drv_vopen(vma);
+        } else if (offset == LEN)
+        {
+                /* method 2: enter pages into mapping of application */
+                if (remap_page_range(vma-&gt;vm_start,
+                                     virt_to_phys((void*)((unsigned long)kmalloc_area)),
+                                     size,
+                                     PAGE_SHARED))
+                {
+                        printk("remap page range failed\n");
+                        return -ENXIO;
+                }
+        } else
+        {
+                printk("offset out of range\n");
+                return -ENXIO;
+        }
+        return(0);
+}
+
+/* open handler for vm area */
+void mmap_drv_vopen(struct vm_area_struct *vma)
+{
+        /* needed to prevent the unloading of the module while
+           somebody still has memory mapped */
+        MOD_INC_USE_COUNT;
+}
+
+/* close handler form vm area */
+void mmap_drv_vclose(struct vm_area_struct *vma)
+{
+        MOD_DEC_USE_COUNT;
+}
+
+/* page fault handler */
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+unsigned long mmap_drv_vmmap(struct vm_area_struct *vma, unsigned long address, int write_access)
+#else
+struct page *mmap_drv_vmmap(struct vm_area_struct *vma, unsigned long address, int write_access)
+#endif
+{
+        unsigned long offset;
+        unsigned long virt_addr;
+
+         /* determine the offset within the vmalloc'd area  */
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+        offset = address - vma-&gt;vm_start + vma-&gt;vm_offset;
+#else
+        offset = address - vma-&gt;vm_start + (vma-&gt;vm_pgoff&lt;&lt;PAGE_SHIFT);
+#endif
+
+        /* calculate the kseg virtual address */
+        virt_addr = (unsigned long)virt_to_kseg(&amp;vmalloc_area[offset/sizeof(int)]);
+
+	/* check whether we found a translation */
+	if (virt_addr == 0UL)
+	{
+	       printk("page fault out of range\n");
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+	       return(virt_addr);
+#else
+	       return((struct page *)0UL);
+#endif
+	}
+
+        /* increment the usage count of the page */
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+        atomic_inc(&amp;mem_map[MAP_NR(virt_addr)].count);
+#else
+	atomic_inc(&amp;(virt_to_page(virt_addr)-&gt;count));
+#endif
+        
+        printk("mmap_drv: page fault for offset 0x%lx (kseg x%lx)\n",
+               offset, virt_addr);
+
+#if LINUX_VERSION_CODE &lt; KERNEL_VERSION(2,4,0)
+        /* return the kseg virtual address, *not* the physical address as stated
+           in some wrong examples.
+        */
+        return(virt_addr);
+#else
+	/* return the page pointer */
+	return(virt_to_page(virt_addr));
+#endif
+}
+</pre>
+<h3>Test Application</h3>
+(File mmap.c)
+<pre>#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/mman.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+
+#define LEN (64*1024)
+
+/* this is a test program that opens the mmap_drv.
+   It reads out values of the kmalloc() and vmalloc()
+   allocated areas and checks for correctness.
+   You need a device special file to access the driver.
+   The device special file is called 'node' and searched
+   in the current directory.
+   To create it
+   - load the driver
+     'insmod mmap_mod.o'
+   - find the major number assigned to the driver
+     'grep mmapdrv /proc/devices'
+   - and create the special file (assuming major number 254)
+     'mknod node c 254 0'
+*/
+
+int main(void)
+{
+  int fd;
+  unsigned int *vadr;
+  unsigned int *kadr;
+
+  if ((fd=open("node", O_RDWR))&lt;0)
+    {
+      perror("open");
+      exit(-1);
+    }
+  vadr = mmap(0, LEN, PROT_READ, MAP_SHARED, fd, 0);
+  
+  if (vadr == MAP_FAILED)
+  {
+          perror("mmap");
+          exit(-1);
+  }
+  if ((vadr[0]!=0xaffe0000) || (vadr[1]!=0xbeef0000)
+      || (vadr[LEN/sizeof(int)-2]!=(0xaffe0000+LEN/sizeof(int)-2))
+      || (vadr[LEN/sizeof(int)-1]!=(0xbeef0000+LEN/sizeof(int)-2)))
+  {
+       printf("0x%x 0x%x\n", vadr[0], vadr[1]);
+       printf("0x%x 0x%x\n", vadr[LEN/sizeof(int)-2], vadr[LEN/sizeof(int)-1]);
+  }
+
+  kadr = mmap(0, LEN, PROT_READ, MAP_SHARED, fd, LEN);
+  
+  if (kadr == MAP_FAILED)
+  {
+          perror("mmap");
+          exit(-1);
+  }
+  if ((kadr[0]!=0xdead0000) || (kadr[1]!=0xbeef0000)
+      || (kadr[LEN/sizeof(int)-2]!=(0xdead0000+LEN/sizeof(int)-2))
+      || (kadr[LEN/sizeof(int)-1]!=(0xbeef0000+LEN/sizeof(int)-2)))
+  {
+      printf("0x%x 0x%x\n", kadr[0], kadr[1]);
+      printf("0x%x 0x%x\n", kadr[LEN/sizeof(int)-2], kadr[LEN/sizeof(int)-1]);
+  }
+  
+  close(fd);
+  return(0);
+}
+</pre>
+<h3>Makefile</h3>
+When copy-pasting this makefile, remember the tabs on the start of the line!<br>
+Edit the first line of the makefile to adjust to your kernel source tree.
+You need to configure the kernel tree (e.g. make config) before to have
+a .config file created an have the symbolic links set up right.
+<pre># set to your kernel tree
+KERNEL  = /usr/src/linux-2.4.0
+#KERNEL  = /usr/src/linux-2.2.18
+
+# get the Linux architecture. Needed to find proper include file for CFLAGS
+ARCH=$(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/)
+# set default flags to compile module
+CFLAGS = -D__KERNEL__ -DMODULE -I$(KERNEL)/include
+CFLAGS+= -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer -fno-strict-aliasing
+
+all:	mmap_mod.o mmap
+
+# get configuration of kernel
+include $(KERNEL)/.config
+# modify CFLAGS with architecture specific flags
+include $(KERNEL)/arch/${ARCH}/Makefile
+
+# enable the module versions, if configured in kernel source tree
+ifdef CONFIG_MODVERSIONS
+CFLAGS+= -DMODVERSIONS -include $(KERNEL)/include/linux/modversions.h
+endif
+# enable SMP, if configured in kernel source tree
+ifdef CONFIG_SMP
+CFLAGS+= -D__SMP__
+endif
+
+# note: we are compiling the driver object file and then linking
+# we link it into the module. With just one object file as in
+# this example this is not needed. We can just load the object
+# file produced by gcc 
+
+# link the mmap driver module
+mmap_mod.o:	mmap_drv.o
+	ld -r -o mmap_mod.o mmap_drv.o
+
+# compile the mmap driver
+mmap_drv.o:	mmap_drv.c
+	gcc $(CFLAGS) -c mmap_drv.c
+# compile and link the test program
+mmap:	mmap.c
+	gcc -o mmap mmap.c
+
+clean:
+	rm -f *.o mmap
+</pre>
+<h2>Comments, Corrections</h2>
+Please send comments, corrections etc. to the 
+address below. 
+<hr>
+<a href="mailto:frey@scs.ch"><img src="Linux-mapping-driver-memory-into-user-space-mailbox_tr.gif" border="0"> 
+<i>frey@scs.ch</i></a> 
+</body></html>

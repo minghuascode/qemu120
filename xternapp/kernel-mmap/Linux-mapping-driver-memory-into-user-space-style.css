@@ -1,0 +1,147 @@
+<STYLE TYPE="text/css"> 
+<!--
+
+BODY, P, DL, TABLE, UL, OL, LI, TR, FONT {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+    	color : black;
+	background-color : white;
+}
+
+P.small {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 8pt;
+	color : black;
+	background-color : white;
+}
+
+TH, TD.head, TD.headblue, TD.headlight {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+	vertical-align:text-top;
+	color : black;
+	font-weight : bold;
+	background-color : #A0D0F0;
+}
+
+TD.headwhite_old {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+	vertical-align:text-top;
+	color : black;
+	font-weight : bold;
+	background-color : white;
+}
+
+TD.head_old {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 12pt;
+	vertical-align:text-top;
+	color : black;
+	font-weight : bold;
+	font-style:italic;
+	background-color : #F0C0C0;
+}
+
+TD.headblue_old {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 12pt;
+	vertical-align:text-top;
+	color : black;
+    font-weight : bold;
+	font-style:italic;
+	background-color : #9090F0;
+}
+
+TD.headwhite_old {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 12pt;
+	vertical-align:text-top;
+	color : black;
+	font-weight : bold;
+	font-style:italic;
+	background-color : white;
+}
+
+TD {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+	vertical-align:text-top;
+	color : black;
+	background-color : #D0D0D0;
+}
+
+TD.yellow {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+	vertical-align:text-top;
+	color : black;
+	background-color : #F0F0C0;
+}
+
+TD.white {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 10pt;
+	vertical-align:text-top;
+	color : black;
+	background-color : white;
+}
+
+H1 {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	text-decoration : none;
+	font-weight : bold;
+	color : #002060;
+	font-size : 20pt;
+}
+
+H2 {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	text-decoration : none;
+	font-weight : bold;
+	color : #004080;
+	font-size : 16pt;
+}
+
+H3 {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	text-decoration : none;
+	font-weight : bold;
+	color : #2060A0;
+	font-size : 12pt;
+}
+
+H4 {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+	font-size : 10pt;
+	color : #4080C0;
+	text-decoration : none;
+}
+
+A:link {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+	text-decoration : none;
+	font-size : 10pt;
+	color : #002090;
+}
+
+A:visited {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+	text-decoration : none;
+	font-size : 10pt;
+	color : #0040C0;
+}
+
+A:active, A:hover {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-weight : bold;
+	text-decoration : underline;
+	font-size : 10pt;
+	color : #0060F0;
+}
+
+-->
+</STYLE>
