@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" itemscope="" itemtype="http://schema.org/"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<script async="" src="DeveloperMode_files/cbgapi.loaded_0"></script><script src="DeveloperMode_files/analytics.js" async=""></script><script type="text/javascript">/* Copyright 2008 Google. */ (function() { var b=window,e="tick",f="wtsrt_",g="tbsd_",h="tbnd_",k="start",m="_wtsrt",n="_tbnd";(function(){function l(a){this.t={};this.tick=function(a,c,d){this.t[a]=[void 0!=d?d:(new Date).getTime(),c]};this[e](k,null,a)}var a=new l;b.jstiming={Timer:l,load:a};if(b.performance&&b.performance.timing){var a=b.performance.timing,c=b.jstiming.load,d=a.navigationStart,a=a.responseStart;0<d&&a>=d&&(c[e](m,void 0,d),c[e](f,m,a),c[e](g,f))}try{a=null,b.chrome&&b.chrome.csi&&(a=Math.floor(b.chrome.csi().pageT),c&&0<d&&(c[e](n,void 0,b.chrome.csi().startE),c[e](h,n,d))),null==a&&b.gtbExternal&&(a=
+b.gtbExternal.pageT()),null==a&&b.external&&(a=b.external.pageT,c&&0<d&&(c[e](n,void 0,b.external.startE),c[e](h,n,d))),a&&(b.jstiming.pt=a)}catch(p){}})(); })()
+</script>
+<link rel="shortcut icon" href="http://www.chromium.org/_/rsrc/1354323194313/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="http://www.gstatic.com/sites/p/229b45/system/app/images/apple-touch-icon.png" type="image/png">
+<script type="text/javascript">/* Copyright 2008 Google. */ (function() { var d=window,e="length",h="",k="__duration__",l="function";function m(c){return document.getElementById(c)}d.byId=m;function n(c){return c.replace(/^\s+|\s+$/g,h)}d.trim=n;var p=[],q=0;d.JOT_addListener=function(c,a,b){var f=new String(q++);c={eventName:c,handler:a,compId:b,key:f};p.push(c);return f};d.JOT_removeListenerByKey=function(c){for(var a=0;a<p[e];a++)if(p[a].key==c){p.splice(a,1);break}};d.JOT_removeAllListenersForName=function(c){for(var a=0;a<p[e];a++)p[a].eventName==c&&p.splice(a,1)};
+d.JOT_postEvent=function(c,a,b){var f={eventName:c,eventSrc:a||{},payload:b||{}};if(d.JOT_fullyLoaded){a=p[e];for(b=0;b<a&&b<p[e];b++){var g=p[b];g&&g.eventName==c&&(f.listenerCompId=g.compId||h,(g=typeof g.handler==l?g.handler:d[g.handler])&&g(f))}}else d.JOT_delayedEvents.push({eventName:c,eventSrc:a,payload:b})};d.JOT_delayedEvents=[];d.JOT_fullyLoaded=!1;
+d.JOT_formatRelativeToNow=function(c,a){var b=((new Date).getTime()-c)/6E4;if(1440<=b||0>b)return null;var f=0;60<=b&&(b/=60,f=2);2<=b&&f++;return a?d.JOT_siteRelTimeStrs[f].replace(k,Math.floor(b)):d.JOT_userRelTimeStrs[f].replace(k,Math.floor(b))}; })()
+</script>
+<script>
+
+
+var webspace = {"scottyUrl":"/_/upload","isConsumer":false,"canPublishScriptToAnyone":true,"serverFlags":{"cajaBaseUrl":"//www.gstatic.com/caja","cajaDebugMode":false},"sharingUrlPrefix":"/_/sharing","csiReportUri":"http://csi.gstatic.com/csi","sharingPolicy":"OPENED_WITH_INDICATOR","analyticsAccountId":"UA-5484340-1","baseUri":"","name":"dev","domain":"chromium.org","features":{"asyncPermanentDelete":false,"folderEmbed":true,"docosHideNotificationSettings":true,"siteChromeInPlaceEditingProdLaunchPromo":true,"scottyForTrogImageUpload":false,"pdfEmbedSupport":false,"siteChromeSidebarWidgetsEditDialog":true,"canonicalLinkTagInHead":false,"siteChromeDialogsToolbar":true,"plusBadge":false,"siteChromeHorizontalNavigationDialog":true,"siteChromeSystemFooterDialog":true,"plusOneButtonOptions":true,"plusOneButton":true,"htmlEmbed":true,"siteChromeHeaderDialog":true,"siteChromeCustomFooterDialog":true,"colorsAndFontsRefactor":false,"photoAlbumsInOnePick":true},"adsensePublisherId":null,"gvizVersion":1,"siteTitle":"The Chromium Projects","pageSharingId":"jotspot_page","plusPageId":"","termsUrl":"http://www.google.com/a/help/intl/en/users/terms.html","enableAnalytics":true,"isPublic":true,"plusPageUrl":"","homePath":"/","sharingId":"jotspot","isAdsenseEnabled":true,"adsensePromoClickedOrSiteIneligible":true,"isStartPageEnabled":true,"domainAnalyticsAccountId":""};
+
+
+
+webspace.gadgets = {"baseUri":"/system/app/pages/gadgets"};
+
+
+webspace.user = {"uid":"","renderMobile":false,"primaryEmail":"guest","sessionIndex":"","namespaceUser":false,"displayNameOrEmail":"guest","namespace":"","hasAdminAccess":false,"guest_":true,"keyboardShortcuts":true,"domain":"","hasWriteAccess":false,"dasherUser":false,"userName":"guest"};
+
+webspace.page = {"canDeleteWebspace":null,"locale":"en","state":"","wuid":"wuid:gx:b74b4e116c3383d","pageInheritsPermissions":null,"timeZone":"America/Los_Angeles","properties":{},"type":"text","canChangePath":true,"parentWuid":"wuid:gx:2eb69dd73ece341e","revision":7,"title":"Developer Mode","isRtlLocale":false,"bidiEnabled":false,"siteLocale":"en","name":"developer-mode","path":"/chromium-os/chromiumos-design-docs/developer-mode","openMoreActionMenu":null,"isSiteRtlLocale":false,"parentPath":"/chromium-os/chromiumos-design-docs"};
+webspace.page.breadcrumbs = [{"title":"Chromium OS","dir":"ltr","path":"/chromium-os","deleted":false},{"title":"Design Documents","dir":"ltr","path":"/chromium-os/chromiumos-design-docs","deleted":false},{"title":"Developer Mode","dir":"ltr","path":"/chromium-os/chromiumos-design-docs/developer-mode","deleted":false}];
+
+
+webspace.editorResources = {
+  text: [
+    'http://www.gstatic.com/sites/p/229b45/system/js/codemirror.js',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/codemirror_css.css',
+    'http://www.gstatic.com/sites/p/229b45/system/js/trog_edit__en.js',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/trogedit.css',
+    '/_/rsrc/1364510364000/system/app/css/editor.css',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/codeeditor.css',
+    '/_/rsrc/1364510364000/system/app/css/camelot/editor-jfk.css'
+  ],
+  sitelayout: [
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/sitelayouteditor.css'
+  ]
+};
+
+var JOT_clearDotPath = 'http://www.gstatic.com/sites/p/229b45/system/app/images/cleardot.gif';
+
+
+var JOT_userRelTimeStrs = ["a minute ago","__duration__ minutes ago","an hour ago","__duration__ hours ago"];
+
+
+webspace.siteTemplateId = false;
+
+
+webspace.page.currentTemplate = {"title":"Web Page","path":"/system/app/pagetemplates/text"};
+
+
+
+var JOT_siteRelTimeStrs = ["a minute ago","__duration__ minutes ago","an hour ago","__duration__ hours ago"];
+
+</script>
+<script type="text/javascript">
+                window.jstiming.load.tick('scl');
+              </script>
+<meta name="title" content="Developer Mode - The Chromium Projects">
+<meta itemprop="name" content="Developer Mode - The Chromium Projects">
+<meta property="og:title" content="Developer Mode - The Chromium Projects">
+<meta name="description" content="Home of the Chromium Open Source Project">
+<meta itemprop="description" content="Home of the Chromium Open Source Project">
+<meta id="meta-tag-description" property="og:description" content="Home of the Chromium Open Source Project">
+<meta itemprop="image" content="/_/rsrc/1302286216006/config/customLogo.gif?revision=2">
+<meta property="og:image" content="/_/rsrc/1302286216006/config/customLogo.gif?revision=2">
+<style type="text/css">
+</style>
+<link rel="stylesheet" type="text/css" href="DeveloperMode_files/standard-css-beigeandblue-ltr-ltr.css">
+<link rel="stylesheet" type="text/css" href="DeveloperMode_files/overlay.css">
+<link rel="stylesheet" type="text/css" href="DeveloperMode_files/symbolfont.css">
+<link rel="stylesheet" type="text/css" href="DeveloperMode_files/allthemes-view.css">
+<!--[if IE]>
+          <link rel="stylesheet" type="text/css" href="/system/app/css/camelot/allthemes%2die.css" />
+        <![endif]-->
+<title>Developer Mode - The Chromium Projects</title>
+<script type="text/javascript">
+                window.jstiming.load.tick('cl');
+              </script>
+<script src="DeveloperMode_files/js" charset="UTF-8" type="text/javascript"></script><link href="http://www.chromium.org/chromium-os/chromiumos-design-docs/developer-mode" rel="canonical"><style>.dcs-n-dcs-mf-dcs-nf{position:relative;display:-moz-inline-box;display:inline-block}* html .dcs-n-dcs-mf-dcs-nf{display:inline}*:first-child+html .dcs-n-dcs-mf-dcs-nf{display:inline}.dcs-i-dcs-tb{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;cursor:default;font-size:11px;font-weight:bold;text-align:center;white-space:nowrap;margin-right:16px;height:27px;line-height:27px;min-width:54px;outline:0px;padding:0 8px}.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:0 1px 1px rgba(0,0,0,.1);-moz-box-shadow:0 1px 1px rgba(0,0,0,.1);box-shadow:0 1px 1px rgba(0,0,0,.1)}.dcs-i-dcs-tb-dcs-wd{-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1)}.dcs-i-dcs-tb .dcs-i-dcs-tb-dcs-he{margin-top:-3px;vertical-align:middle}.dcs-i-dcs-tb-dcs-ef{margin-left:5px}.dcs-i-dcs-tb-dcs-jc{min-width:34px;padding:0}.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:1}.dcs-i-dcs-tb-dcs-kc-dcs-lc.dcs-i-dcs-tb-dcs-nd{z-index:0}.dcs-i-dcs-tb-dcs-sc.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-sc.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:2}.dcs-i-dcs-tb-dcs-kc-dcs-lc:focus,.dcs-i-dcs-tb-dcs-kc-dcs-df:focus,.dcs-i-dcs-tb-dcs-dg.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-dg.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:3}.dcs-i-dcs-tb-dcs-kc-dcs-lc{margin-left:-1px;-moz-border-radius-bottomleft:0;-moz-border-radius-topleft:0;-webkit-border-bottom-left-radius:0;-webkit-border-top-left-radius:0;border-bottom-left-radius:0;border-top-left-radius:0}.dcs-i-dcs-tb-dcs-kc-dcs-df{margin-right:0px;-moz-border-radius-topright:0;-moz-border-radius-bottomright:0;-webkit-border-top-right-radius:0;-webkit-border-bottom-right-radius:0;border-top-right-radius:0;border-bottom-right-radius:0}.dcs-i-dcs-tb.dcs-i-dcs-tb-dcs-nd:active{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}.dcs-i-dcs-tb-dcs-ub{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#357ae8;background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);border:1px solid #2f5bb7;border-bottom-color:#2f5bb7}.dcs-i-dcs-tb-dcs-ub:focus{-webkit-box-shadow:inset 0 0 0 1px #fff;-moz-box-shadow:inset 0 0 0 1px #fff;box-shadow:inset 0 0 0 1px #fff;border:1px solid #fff;border:1px solid rgba(0,0,0,0);outline:1px solid #4d90fe;outline:0 rgba(0,0,0,0)}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-qe-dcs-re{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:none}.dcs-i-dcs-tb-dcs-ub:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);background:#357ae8;border:1px solid #2f5bb7;border-top:1px solid #2f5bb7}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-nd{background:#4d90fe;filter:alpha(opacity=50);opacity:0.5}.dcs-i-dcs-tb-dcs-pd{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);color:#444;border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1)}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #c6c6c6;color:#333}.dcs-i-dcs-tb-dcs-pd:active,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background:#f8f8f8}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-wd,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-wd{background-color:#eee;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #ccc;color:#333}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-sc,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-sc{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background-color:#eee;background-image:-webkit-linear-gradient(top,#eee,#e0e0e0);background-image:-moz-linear-gradient(top,#eee,#e0e0e0);background-image:-ms-linear-gradient(top,#eee,#e0e0e0);background-image:-o-linear-gradient(top,#eee,#e0e0e0);background-image:linear-gradient(top,#eee,#e0e0e0);border:1px solid #ccc;color:#333}.dcs-i-dcs-tb-dcs-pd:focus{border:1px solid #4d90fe;outline:none}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re{border:1px solid #dcdcdc;outline:none}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-nd{background:#fff;border:1px solid #f3f3f3;border:1px solid rgba(0,0,0,0.05);color:#b8b8b8}.dcs-i-dcs-tb-dcs-pd .dcs-i-dcs-tb-dcs-he{opacity:.55}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-sc .dcs-i-dcs-tb-dcs-he,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-wd .dcs-i-dcs-tb-dcs-he,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg .dcs-i-dcs-tb-dcs-he{opacity:0.9}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-nd .dcs-i-dcs-tb-dcs-he{filter:alpha(opacity=33);opacity:0.333}.dcs-n-dcs-rf,.dcs-bd-dcs-cd{-webkit-box-shadow:0 4px 16px rgba(0,0,0,.2);-moz-box-shadow:0 4px 16px rgba(0,0,0,.2);box-shadow:0 4px 16px rgba(0,0,0,.2);background:#fff;background-clip:padding-box;border:1px solid #acacac;border:1px solid rgba(0,0,0,.333);outline:0;position:absolute}.dcs-n-dcs-rf-dcs-ad,.dcs-bd-dcs-cd-dcs-ad{background:#fff;left:0;position:absolute;top:0}div.dcs-n-dcs-rf-dcs-ad,div.dcs-bd-dcs-cd-dcs-ad{filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75}.dcs-bd-dcs-cd{color:#000;padding:30px 42px}.dcs-bd-dcs-cd-dcs-zd{background-color:#fff;color:#000;cursor:default;font-size:16px;font-weight:normal;line-height:24px;margin:0 0 16px}.dcs-bd-dcs-cd-dcs-zd-dcs-af{height:11px;opacity:0.7;padding:17px;position:absolute;right:0px;top:0px;width:11px}.dcs-bd-dcs-cd-dcs-zd-dcs-af:after{content:'';background:url(//ssl.gstatic.com/ui/v1/dialog/close-x.png);position:absolute;height:11px;width:11px;right:17px}.dcs-bd-dcs-cd-dcs-zd-dcs-af:hover{opacity:1}.dcs-bd-dcs-cd-dcs-t{background-color:#fff;line-height:1.4em}.dcs-bd-dcs-cd-dcs-gc{margin-top:16px}.dcs-bd-dcs-cd-dcs-gc button{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1);color:#444;cursor:default;font-size:11px;font-weight:bold;height:29px;line-height:27px;margin:0 16px 0 0;min-width:72px;outline:0;padding:0 8px}.dcs-bd-dcs-cd-dcs-gc button:hover,.dcs-bd-dcs-cd-dcs-gc button:active{-webkit-box-shadow:0px 1px 1px rgba(0,0,0,0.1);-moz-box-shadow:0px 1px 1px rgba(0,0,0,0.1);box-shadow:0px 1px 1px rgba(0,0,0,0.1);background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #c6c6c6;color:#333}.dcs-bd-dcs-cd-dcs-gc button:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}.dcs-bd-dcs-cd-dcs-gc button:focus{border:1px solid #4d90fe}.dcs-bd-dcs-cd-dcs-gc button[disabled]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background:#fff;background-image:none;border:1px solid #f3f3f3;border:1px solid rgba(0,0,0,0.05);color:#b8b8b8}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub{background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:hover,.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:active{background-color:#357ae8;background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);border:1px solid #2f5bb7;color:#fff}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);box-shadow:inset 0 1px 2px rgba(0,0,0,0.3)}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:focus{-webkit-box-shadow:inset 0 0 0 1px #fff;-moz-box-shadow:inset 0 0 0 1px #fff;box-shadow:inset 0 0 0 1px #fff;border:1px solid #fff;border:1px solid rgba(0,0,0,0);outline:1px solid #4d90fe;outline:0 rgba(0,0,0,0)}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub[disabled]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background:#4d90fe;color:#fff;filter:alpha(opacity=50);opacity:0.5}.dcs-i-dcs-lf,.dcs-i-dcs-yc,.dcs-i-dcs-j{width:512px}.dcs-n-dcs-oe{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-transition:opacity 0.218s;-moz-transition:opacity 0.218s;-o-transition:opacity 0.218s;transition:opacity 0.218s;background:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,.2);cursor:default;font-size:13px;margin:0;outline:none;padding:6px 0;position:absolute}.dcs-n-dcs-o,.dcs-n-dcs-fg,.dcs-n-dcs-gg{position:relative;color:#333;cursor:pointer;list-style:none;margin:0;padding:6px 8em 6px 30px;white-space:nowrap}.dcs-n-dcs-oe-dcs-hg .dcs-n-dcs-o,.dcs-n-dcs-oe-dcs-ig .dcs-n-dcs-o{padding-left:16px;vertical-align:middle}.dcs-n-dcs-oe-dcs-jg .dcs-n-dcs-o{padding-right:44px}.dcs-n-dcs-o-dcs-nd{cursor:default}.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-cc,.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-t{color:#ccc!important}.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-cb{filter:alpha(opacity=30);opacity:0.3}.dcs-n-dcs-o-dcs-ie,.dcs-n-dcs-o-dcs-dg{background-color:#eee;border-color:#eee;border-style:dotted;border-width:1px 0;padding-top:5px;padding-bottom:5px}.dcs-n-dcs-o-dcs-ie .dcs-n-dcs-o-dcs-t,.dcs-n-dcs-o-dcs-dg .dcs-n-dcs-o-dcs-t{color:#333}.dcs-n-dcs-o-dcs-ee,.dcs-n-dcs-o-dcs-cb{background-repeat:no-repeat;height:21px;left:3px;position:absolute;right:auto;top:3px;vertical-align:middle;width:21px}.dcs-n-dcs-rd-dcs-wd{background-image:url(//ssl.gstatic.com/ui/v1/menu/checkmark.png);background-repeat:no-repeat;background-position:left center}.dcs-n-dcs-rd-dcs-wd .dcs-n-dcs-o-dcs-t,.dcs-n-dcs-rd-dcs-wd .dcs-n-dcs-o-dcs-t{color:#333}.dcs-n-dcs-o-dcs-cc{color:#777;direction:ltr;left:auto;padding:0 6px;position:absolute;right:0;text-align:right}.dcs-n-dcs-o-dcs-dd-dcs-kg{text-decoration:underline}.dcs-n-dcs-o-dcs-dd-dcs-ed{color:#777;font-size:12px;padding-left:4px}.dcs-i-dcs-tf::-webkit-scrollbar{height:16px;overflow:visible;width:16px}.dcs-i-dcs-tf::-webkit-scrollbar-button{height:0;width:0}.dcs-i-dcs-tf::-webkit-scrollbar-track{background-clip:padding-box;border:solid transparent;border-width:0 0 0 4px}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal{border-width:4px 0 0}.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(0,0,0,.05);box-shadow:inset 1px 0 0 rgba(0,0,0,.1)}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:hover{box-shadow:inset 0 1px 0 rgba(0,0,0,.1)}.dcs-i-dcs-tf::-webkit-scrollbar-track:active{background-color:rgba(0,0,0,.05);box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:active{box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(255,255,255,.1);box-shadow:inset 1px 0 0 rgba(255,255,255,.2)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:active{background-color:rgba(255,255,255,.1);box-shadow:inset 1px 0 0 rgba(255,255,255,.25),inset -1px 0 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,.2);background-clip:padding-box;border:solid transparent;border-width:1px 1px 1px 6px;min-height:28px;padding:100px 0 0;box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:6px 1px 1px;padding:0 0 0 100px;box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset -1px 0 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:hover{background-color:rgba(0,0,0,.4);box-shadow:inset 1px 1px 1px rgba(0,0,0,.25)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:active{background-color:rgba(0,0,0,0.5);box-shadow:inset 1px 1px 3px rgba(0,0,0,0.35)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb{background-color:rgba(255,255,255,.3);box-shadow:inset 1px 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.1)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{box-shadow:inset 1px 1px 0 rgba(255,255,255,.15),inset -1px 0 0 rgba(255,255,255,.1)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:hover{background-color:rgba(255,255,255,.6);box-shadow:inset 1px 1px 1px rgba(255,255,255,.37)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:active{background-color:rgba(255,255,255,.75);box-shadow:inset 1px 1px 3px rgba(255,255,255,.5)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track{border-width:0 1px 0 6px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal{border-width:6px 0 1px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(0,0,0,.035);box-shadow:inset 1px 1px 0 rgba(0,0,0,.14),inset -1px -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(255,255,255,.07);box-shadow:inset 1px 1px 0 rgba(255,255,255,.25),inset -1px -1px 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-thumb{border-width:0 1px 0 6px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:6px 0 1px}.dcs-i-dcs-tf::-webkit-scrollbar-corner{background:transparent}body.dcs-i-dcs-tf::-webkit-scrollbar-track-piece{background-clip:padding-box;background-color:#f5f5f5;border:solid #fff;border-width:0 0 0 3px;box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)}body.dcs-i-dcs-tf::-webkit-scrollbar-track-piece:horizontal{border-width:3px 0 0;box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)}body.dcs-i-dcs-tf::-webkit-scrollbar-thumb{border-width:1px 1px 1px 5px}body.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:5px 1px 1px}body.dcs-i-dcs-tf::-webkit-scrollbar-corner{background-clip:padding-box;background-color:#f5f5f5;border:solid #fff;border-width:3px 0 0 3px;box-shadow:inset 1px 1px 0 rgba(0,0,0,.14)}.dcs-bd-dcs-cd{z-index:1001}.dcs-bd-dcs-cd-dcs-ad{z-index:1000}.dcs-bd-dcs-cd-dcs-zd-dcs-af{background-image:none}.dcs-n-dcs-oe{z-index:1001}.dcs-a-dcs-dc-dcs-mb{width:12px;height:12px;vertical-align:baseline}.dcs-a-dcs-dc-dcs-eb{background:none;background-image:none!important;border:none;font-size:10px;height:11px;left:0;margin:auto;position:absolute;top:3px;width:12px}.dcs-a-dcs-dc-dcs-eb-dcs-q-dcs-u,.dcs-a-dcs-dc-dcs-eb-dcs-mb-dcs-u{border:none!important;height:11px;margin:0;padding:0;width:12px}.dcs-a-dcs-dc{padding:3px}.dcs-a-dcs-dc>.dcs-n-dcs-o{padding:3px}.dcs-a-dcs-dc>.dcs-n-dcs-o.dcs-n-dcs-rd-dcs-wd{padding-left:22px}.dcs-a-dcs-dc>.dcs-n-dcs-o-dcs-ie,.dcs-a-dcs-dc>.dcs-n-dcs-o-dcs-dg{padding:2px 3px}.dcs-a-dcs-dc>.dcs-n-dcs-o>.dcs-n-dcs-o-dcs-t{font-size:12px}.dcs-a-dcs-b{background-color:#fff;cursor:pointer;direction:ltr;position:relative;width:210px}.dcs-a-dcs-b:hover,.dcs-a-dcs-vb-dcs-xd.dcs-a-dcs-b{background-color:#f1f1f1!important;border-color:#c6c6c6!important;background:-webkit-gradient(linear,0 0,0 60,from(#f8f8f8),to(#f1f1f1))!important;background:-moz-linear-gradient(top,#f8f8f8 0,#f1f1f1 60px)!important}.dcs-a-dcs-b:focus,.dcs-a-dcs-b:active{outline:0}.dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-b-dcs-de-dcs-mb{display:none}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b:hover{background:#fcfac6!important;border-color:#ffe572!important}.dcs-a-dcs-b-dcs-rb-dcs-tb{display:none;font-size:10px;right:0;padding-left:2px;position:absolute;top:0}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-b-dcs-rb-dcs-tb{display:block;opacity:0.3;filter:alpha(opacity=30)}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b:hover .dcs-a-dcs-b-dcs-rb-dcs-tb{opacity:1;filter:alpha(opacity=100)}.dcs-a-dcs-b-dcs-sf{max-height:inherit;overflow-y:auto}.dcs-a-dcs-b-dcs-t{overflow-y:auto}.dcs-a-dcs-b-dcs-c-dcs-d{border-top:1px solid #f0f0f0;display:none;padding:7px}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-b-dcs-c-dcs-d{border-top:1px solid #feef9c;display:block}.dcs-a-dcs-b-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{height:23px}.dcs-a-dcs-b-dcs-c-dcs-d .dcs-a-dcs-c-dcs-gc{text-align:left}.dcs-a-dcs-xe-dcs-c-dcs-d{border-top:none!important;padding-top:0}.dcs-a-dcs-b .dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb{color:#999;font-size:11px}.dcs-a-dcs-b .dcs-a-dcs-b-dcs-lb{border-top:1px solid #feef9c;bottom:0;left:0;padding-top:6px;position:relative;width:100%}.dcs-a-dcs-b .dcs-a-dcs-lb-dcs-yd{font-weight:bold;margin-right:6px;padding:2px 0}.dcs-a-dcs-e-dcs-zf .dcs-a-dcs-b{border:1px solid #d9d9d9;position:absolute;-moz-user-select:text;z-index:500}.dcs-a-dcs-e-dcs-zf .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b{border:1px solid #ffe764;z-index:501}.dcs-a-dcs-e-dcs-zf-dcs-cg .dcs-a-dcs-b{box-shadow:2px 2px 6px #888}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-b-dcs-de-dcs-mb{height:0;position:absolute;width:0}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-q{border-top:none;border-bottom:14px solid transparent;border-left:none;border-right:14px solid #fcfac6;left:-13px;top:0}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-mb{border-top:none;border-bottom:14px solid transparent;border-left:none;border-right:14px solid #ffe572;left:-15px;top:-1px}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b>.dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-e-dcs-f .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b>.dcs-a-dcs-b-dcs-de-dcs-mb{display:block}.dcs-a-dcs-b-dcs-rb-dcs-tb>.dcs-i-dcs-tb{height:17px;line-height:17px;margin:2px 2px 0 0}.dcs-a-dcs-ab,.dcs-a-dcs-wb{border-top:1px solid #f0f0f0;padding:7px;position:relative;zoom:1}.dcs-a-dcs-ab-dcs-k{left:7px!important}.dcs-a-dcs-ab.dcs-a-dcs-jb-dcs-we{border-top:none!important}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-ab,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-wb{border-top:1px solid #feef9c}.dcs-a-dcs-ab-dcs-ac{font-weight:bold;margin-left:32px}.dcs-a-dcs-ab-dcs-bb{word-wrap:break-word;color:#666;padding-top:3px;padding-bottom:3px}.dcs-a-dcs-ab-dcs-hd{color:#666;font-size:10px;margin:3px 0 0 32px}.dcs-a-dcs-ab .dcs-a-dcs-jb-dcs-sb{display:none}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-jb-dcs-sb,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-wb .dcs-a-dcs-jb-dcs-sb{display:block}.dcs-a-dcs-wb-dcs-xb{word-wrap:break-word;color:#15c}.dcs-a-dcs-wb-dcs-xb:hover,.dcs-a-dcs-b:hover .dcs-a-dcs-wb-dcs-xb{text-decoration:underline}.dcs-a-dcs-zb-dcs-jb{position:relative}.dcs-a-dcs-xb-dcs-jb{height:150px;overflow:hidden}.dcs-a-dcs-gb-dcs-ge,.dcs-a-dcs-gb-dcs-ag{color:#15c;display:none;opacity:1;width:100%}.dcs-a-dcs-gb-dcs-ge{bottom:0;padding-top:16px;position:absolute;right:0}.dcs-a-dcs-gb-dcs-ag{background:#fff;padding:2px 0}.dcs-a-dcs-gb-dcs-ge:hover,.dcs-a-dcs-gb-dcs-ag:hover{text-decoration:underline}.dcs-a-dcs-b.dcs-a-dcs-vb:hover .dcs-a-dcs-gb-dcs-ge{background:#f1f1f1;background:-webkit-gradient(linear,0 0,0 16,from(rgba(241,241,241,0)),to(rgba(241,241,241,1)));background:-moz-linear-gradient(top,rgba(241,241,241,0),#f1f1f1 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, Style=1, StartY=0, FinishY=50, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-gb-dcs-ge,.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd:hover .dcs-a-dcs-gb-dcs-ge{background:#fcfac6;background:-webkit-gradient(linear,0 0,0 16,from(rgba(252,250,198,0)),to(rgba(252,250,198,1)));background:-moz-linear-gradient(top,rgba(252,250,198,0),#fcfac6 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, StartY=0, FinishY=50, Style=1, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-gb-dcs-ge{background:#fff;background:-webkit-gradient(linear,0 0,0 16,from(rgba(255,255,255,0)),to(rgba(255,255,255,1)));background:-moz-linear-gradient(top,rgba(255,255,255,0),#fff 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, StartY=0, FinishY=50, Style=1, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-xb-dcs-jb>.dcs-a-dcs-gb-dcs-ge{display:block!important}.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-gb-dcs-ag{background:#fcfac6!important}.dcs-a-dcs-b:hover .dcs-a-dcs-gb-dcs-ag{background:#f1f1f1}.dcs-a-dcs-l{background:#e0ecff;border:1px solid #666;color:#00c;font-family:Arial;margin:0px 0px;padding:0px 0px 1px 0px;position:absolute;z-index:900}.dcs-a-dcs-l div{cursor:pointer;margin:2px;padding:0px 10px}.dcs-a-dcs-l div b{color:#00f}.dcs-a-dcs-l .dcs-l-dcs-m{height:auto}.dcs-a-dcs-l div.dcs-jd{background:#c3d9ff}.dcs-a-dcs-k{left:0;position:absolute}.dcs-a-dcs-bf-dcs-cf{font:10px/12px Arial;color:#bbb;text-align:right;padding-right:30px}.dcs-a-dcs-bf-dcs-cf a{color:#bbb}.dcs-a-dcs-ec-dcs-fc{width:620px}.dcs-a{color:black;font-family:Arial,sans-serif,sans;font-size:13px;white-space:normal}.dcs-a-dcs-cb{background-image:url(//ssl.gstatic.com/docs/common/d-icons10.png);background-repeat:no-repeat}.dcs-a-dcs-cb-dcs-rb-dcs-wc{background-position:-28px -26;height:37px;position:absolute;width:37px}.dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{background-position:0 -36px;height:27px;position:absolute;width:27px}.dcs-a-dcs-cb-dcs-db-dcs-eb{background-position:0 -11px;height:11px;width:12px}.dcs-a-dcs-cb-dcs-db-dcs-eb:hover,.dcs-n-dcs-oe-dcs-tb-dcs-ke .dcs-a-dcs-cb-dcs-db-dcs-eb{background-position:0 0;height:11px;width:12px}.dcs-a-dcs-c{position:relative;zoom:1}.dcs-a-dcs-c.dcs-a-dcs-c-dcs-hc{display:block!important}.dcs-a-dcs-c-dcs-p-dcs-q{border-top:7px solid transparent;border-right:8px solid #fff;border-bottom:7px solid transparent;height:0;left:-6px;position:absolute;top:3px}.dcs-a-dcs-c-dcs-p-dcs-mb{border-top:7px solid transparent;border-right:8px solid #c8c8c8;border-bottom:7px solid transparent;height:0;left:-7px;position:absolute;top:3px}.dcs-a-dcs-c-dcs-id{border:1px solid #c8c8c8;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;color:#999;font-family:Arial,sans-serif;font-size:13px;margin:0;overflow-x:hidden;overflow-y:hidden;outline-width:0!important;padding:4px;resize:none;width:100%}.dcs-a-dcs-c-dcs-id:disabled{background-color:#eee!important}*:first-child+html .dcs-a-dcs-c-dcs-id{width:95%}.dcs-a-dcs-c-dcs-gc{display:none;zoom:1}.dcs-a-dcs-c-dcs-gc-dcs-se{font-weight:bold}.dcs-a-dcs-c-dcs-mc>.dcs-a-dcs-c-dcs-id{color:#000}.dcs-a-dcs-c-dcs-mc>.dcs-a-dcs-c-dcs-gc{display:block}.dcs-a-dcs-ld-dcs-t{width:500px}.dcs-a-dcs-ld-dcs-ef{padding:0 3px 0 8px}.dcs-a-dcs-ld-dcs-sb{padding-left:3px}.dcs-a-dcs-ld-dcs-ye{position:absolute;right:20px}.dcs-a-dcs-ld-dcs-uf{background-color:#c1d9ff;border:0;color:#c1d9ff;height:1px;margin:10px 0 10px 0}.dcs-a-dcs-ib .dcs-me-dcs-hb-dcs-ib{display:none!important}.dcs-gb-dcs-hb-dcs-ib{display:none}.dcs-a-dcs-ib .dcs-gb-dcs-hb-dcs-ib{display:inline-block!important}.dcs-a-dcs-rb-dcs-ie{border:1px solid rgba(0,0,0,0.2)}.dcs-a-dcs-rb-dcs-gf{-webkit-transition:all 270ms ease-out;-moz-transition:all 270ms ease-out;-o-transition:all 270ms ease-out;transition:all 270ms ease-out;-webkit-transform:scale(0.3);-moz-transform:scale(0.3);-o-transform:scale(0.3);transform:scale(0.3);-webkit-transform-origin:center top;-moz-transform-origin:center top;-o-transform-origin:center top;transform-origin:center top;opacity:0.3}#docos-shadow{background:#000;background:rgba(0,0,0,0.7);color:#fff;position:absolute;z-index:700;left:0;top:0}#docos-shadow,.dcs-a-dcs-v-dcs-w{height:100%;width:100%}#docos-shadow-description{font-weight:bold}#docos-shadow-confirm,#docos-shadow-delete{margin:2px 7px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-gc{padding-bottom:6px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-se{margin:0 4px 0 0}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-fb{background:none}.dcs-a-dcs-g{border-top:1px solid #e8e8e8;font-family:Arial,sans-serif;font-size:12px;padding:18px 0 7px 0;position:relative;outline:none;zoom:1}.dcs-a-dcs-g:last-child{padding-bottom:0}.dcs-a-dcs-g:last-child .dcs-a-dcs-g-dcs-le{padding-bottom:0}.dcs-a-dcs-g .dcs-a-dcs-vb-dcs-eg{min-height:48px}.dcs-a-dcs-jf{margin-right:12px;min-height:51px;padding:0 6px;position:relative;top:-3px}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jf{background-color:#fffbe1}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-jf{background-color:#f6f6f6}.dcs-a-dcs-g-dcs-t{margin-left:60px;position:relative}.dcs-a-dcs-g-dcs-ic{font-weight:bold}.dcs-a-dcs-g-dcs-bb{color:#333;word-wrap:break-word;top:-7px;zoom:1}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-bb{color:#999}.dcs-a-dcs-g .dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{display:none;right:5px;top:-12px}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{display:block}.dcs-a-dcs-g-dcs-hd,.dcs-a-dcs-g-dcs-ue-dcs-ve{font-size:11px;color:#999;padding:0}.dcs-a-dcs-g-dcs-hd,.dcs-a-dcs-g-dcs-kd-dcs-sb{right:2px}.dcs-a-dcs-g-dcs-r{color:#ccc;font-size:12px;line-height:100%;padding:0 2px}.dcs-a-dcs-g-dcs-le{padding:4px 0}.dcs-a-dcs-g-dcs-hd:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-g-dcs-c-dcs-d{padding-right:6px;margin-left:30px}.dcs-a-dcs-g-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{background-color:#fff;border:1px solid #c9d4ec;height:23px;font-size:12px}.dcs-a-dcs-g-dcs-c-dcs-d.dcs-a-dcs-c-dcs-mc .dcs-a-dcs-c-dcs-id{background-color:#fff}.dcs-a-dcs-g-dcs-h-dcs-d .dcs-a-dcs-c-dcs-id{height:36px}.dcs-a-dcs-g-dcs-gd,.dcs-a-dcs-g-dcs-vc{margin:4px 12px 3px 0}.dcs-a-dcs-g-dcs-gd{background-color:#eff2f9;-moz-border-radius:0 0 6px 6px;-webkit-border-radius:0 0 6px 6px;border-radius:0 0 6px 6px;padding:6px 0 2px 6px;position:relative;zoom:1}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-gd{background-color:#f6f6f6}.dcs-a-dcs-g-dcs-td{position:absolute;right:0;top:0}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-td{right:33px}.dcs-a-dcs-g-dcs-lb{background-color:#fe8;bottom:0;left:0;padding:2px 0;position:absolute;width:100%}.dcs-a-dcs-lb-dcs-yd{font-weight:bold;margin:0 6px;padding:2px 0}.dcs-a-dcs-g .dcs-a-dcs-dc-dcs-mb{position:absolute;right:-12px;top:0}.dcs-a-dcs-g-dcs-kd-dcs-sb{display:inline}.dcs-a-dcs-g-dcs-kd-dcs-sb>.dcs-a-dcs-vb-dcs-kd{font-size:11px;color:#15c}.dcs-a-dcs-g-dcs-qd-dcs-sb>.dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-g-dcs-rb-dcs-sb>.dcs-a-dcs-vb-dcs-rb{color:#999;line-height:100%}.dcs-a-dcs-g-dcs-qd-dcs-sb>.dcs-a-dcs-vb-dcs-qd:hover,.dcs-a-dcs-g-dcs-kd-dcs-sb>.dcs-a-dcs-vb-dcs-kd:hover,.dcs-a-dcs-g-dcs-rb-dcs-sb>.dcs-a-dcs-vb-dcs-rb:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-jf:hover .dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-jf:hover .dcs-a-dcs-vb-dcs-rb,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-vb-dcs-rb{color:#15c}.dcs-a-dcs-x-dcs-fe{line-height:140%;outline:none}.dcs-a-dcs-x-dcs-t{padding:0 29px 0 20px;position:relative}.dcs-a-dcs-x-dcs-y{color:#15c;cursor:pointer;font-size:12px;position:absolute;right:0;top:-3px}.dcs-a-dcs-x-dcs-y:hover{text-decoration:underline}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-y{color:#999;cursor:default}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-y:hover{text-decoration:none}.dcs-a-dcs-x-dcs-je{bottom:-10px;color:#15c;cursor:pointer;font-size:12px;padding-right:5px;padding-top:5px;position:absolute;right:5px;text-decoration:none}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-je{display:none}.dcs-a-dcs-x-dcs-nb{color:#333;padding:12px 0}.dcs-a-dcs-x-dcs-z{margin:6px 0 10px 0;position:relative;zoom:1}.dcs-a-dcs-x-dcs-z-dcs-t{margin-left:61px;position:relative;zoom:1}.dcs-a-dcs-x-dcs-ze{font-size:12px;font-weight:bold;margin-bottom:3px;top:-3px}.dcs-a-dcs-x-dcs-zd{font-size:1.2em;margin:20px 5px 2px}.dcs-a-dcs-x-dcs-c-dcs-d{top:-4px}.dcs-a-dcs-x-dcs-c-dcs-d .dcs-a-dcs-c-dcs-se{font-weight:bold}.dcs-a-dcs-x-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{font-size:12px;height:30px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb{color:#666}.dcs-a-dcs-x-dcs-qf{background-color:#dd4b39;border:1px solid #602019;border-radius:4px;color:#fff;margin:6px;padding:6px;text-align:center}.dcs-a-dcs-s{background-color:#eff2f9;color:#666;font-size:12px;padding:6px 6px 0 6px;position:relative;margin-bottom:3px;min-height:24px}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-s{background-color:#f6f6f6}.dcs-a-dcs-s-dcs-k{left:6px}.dcs-a-dcs-s-dcs-t{padding-left:30px}.dcs-a-dcs-s-dcs-ac{color:black;font-weight:bold;left:-2px;margin:0 4px;right:-2px}.dcs-a-dcs-s-dcs-bb{color:#333;margin:0;top:-4px;width:100%;word-wrap:break-word}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-s-dcs-bb{color:#999}.dcs-a-dcs-s-dcs-pe,.dcs-a-dcs-s-dcs-hd{position:relative;top:-3px}.dcs-a-dcs-s-dcs-pe{width:100%}.dcs-a-dcs-s-dcs-hd{color:#999;font-size:11px;white-space:pre}.dcs-a-dcs-g .dcs-a-dcs-s .dcs-a-dcs-jb-dcs-sb{display:none;top:-3px}.dcs-a-dcs-g .dcs-a-dcs-s:hover .dcs-a-dcs-jb-dcs-sb{display:inline}.dcs-a-dcs-s-dcs-h-dcs-d .dcs-a-dcs-c-dcs-id{height:23px}.dcs-a-dcs-g .dcs-a-dcs-jb-dcs-kb{border-left:1px solid #ccc;font-style:italic;padding:3px 10px 3px 10px;position:relative;zoom:1;word-wrap:break-word}.dcs-a-dcs-jb-dcs-kb-dcs-ud{font-size:11px;color:#999;margin-right:2px;padding:0}.dcs-a-dcs-jb-dcs-kb-dcs-xb{overflow:hidden;height:18px}.dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#fff;padding:3px 5px 0 5px;position:absolute;right:0;top:0}.dcs-a-dcs-jb-dcs-kb-dcs-kc,.dcs-a-dcs-jb-dcs-kb-dcs-yb{color:#15c;visibility:hidden}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-kc,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-yb{visibility:visible}.dcs-a-dcs-jb-dcs-kb-dcs-kc{padding-left:3px}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#fffbe1}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#f6f6f6}.dcs-a-dcs-jb-dcs-kb-dcs-kc:hover,.dcs-a-dcs-jb-dcs-kb-dcs-yb:hover{cursor:pointer;text-decoration:underline}.dcs-a-dcs-id{margin:0;padding:2px;font-family:arial,sans-serif;outline-width:0!important;resize:none}.dcs-a-dcs-jb-dcs-zc,.dcs-a-dcs-jb-dcs-h{color:#15c;font-size:11px;margin:0 2px}.dcs-a-dcs-jb-dcs-zc:hover,.dcs-a-dcs-jb-dcs-h:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-c-dcs-fb{margin:2px 0}.dcs-a-dcs-c-dcs-se{margin:2px 7px 2px 0}</style><script gapi_processed="true" src="DeveloperMode_files/api.js" charset="UTF-8" type="text/javascript"></script><script src="DeveloperMode_files/ga.js"></script></head>
+<body xmlns="http://www.google.com/ns/jotspot" id="body" class=" en            ">
+<p>http://www.chromium.org/chromium-os/chromiumos-design-docs/developer-mode</p>
+<script src="DeveloperMode_files/caja.js"> </script>
+<script src="DeveloperMode_files/jot_caja.js"> </script>
+<div id="sites-page-toolbar" class="sites-header-divider">
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-status" class="sites-status" style="display:none;"><div id="sites-notice" class="sites-notice" role="status" aria-live="assertive"> </div></div>
+</div>
+<div id="sites-chrome-everything-scrollbar">
+<div id="sites-chrome-everything">
+<div id="sites-chrome-page-wrapper" style="direction: ltr">
+<div id="sites-chrome-page-wrapper-inside">
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-chrome-header-wrapper" style="height:auto;">
+<table id="sites-chrome-header" class="sites-layout-hbox" style="height:auto;" cellspacing="0">
+<tbody><tr class="sites-header-primary-row" id="sites-chrome-userheader">
+<td id="sites-header-title" class=""><div class="sites-header-cell-buffer-wrapper"><a href="http://sites.google.com/a/chromium.org/dev/" id="sites-chrome-userheader-logo"><img id="logo-img-id" src="DeveloperMode_files/customLogo.png" alt="Logo" class="sites-logo "></a><h2><a href="http://sites.google.com/a/chromium.org/dev/" dir="ltr" id="sites-chrome-userheader-title">The Chromium Projects</a></h2></div></td><td class="sites-layout-searchbox "><div class="sites-header-cell-buffer-wrapper"><form id="sites-searchbox-form" action="/system/app/pages/search"><input id="sites-searchbox-scope" name="scope" value="search-site" type="hidden"><input id="jot-ui-searchInput" name="q" size="20" aria-label="Search this site" type="text"><div id="sites-searchbox-button-set" class="goog-inline-block"><div style="-moz-user-select: none;" role="button" id="sites-searchbox-search-button" class="goog-inline-block jfk-button jfk-button-standard" tabindex="0">Search this site</div></div></form></div></td>
+</tr>
+<tr class="sites-header-secondary-row" id="sites-chrome-horizontal-nav">
+<td colspan="2" id="sites-chrome-header-horizontal-nav-container">
+</td>
+</tr>
+</tbody></table> 
+</div> 
+<div id="sites-chrome-main-wrapper">
+<div id="sites-chrome-main-wrapper-inside">
+<table id="sites-chrome-main" class="sites-layout-hbox" cellpadding="{scmCellpadding}" cellspacing="0" border="0">
+<tbody><tr>
+<td id="sites-chrome-sidebar-left" class="sites-layout-sidebar-left" style="width:150px">
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_7648876402527094" class="sites-embed"><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/chromium-projects" jotid="wuid:gx:10ae433dadbbab13" class="sites-navigation-link">Home</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/Home" jotid="wuid:gx:43582b9d2029d3af" class="sites-navigation-link">Chromium</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/chromium-os" jotid="wuid:gx:83df2ab1f8880ba" class="sites-navigation-link">Chromium OS</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_14720868319272995" class="sites-embed"><h4 class="sites-embed-title">Quick links</h4><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/for-testers/bug-reporting-guidelines" class="sites-navigation-link">Report bugs</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/developers/discussion-groups" class="sites-navigation-link">Discuss</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/system/app/pages/sitemap/hierarchy" jotid="wuid:gx:77027a140381f8dc" class="sites-navigation-link">Sitemap</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_19690813310444355" class="sites-embed"><h4 class="sites-embed-title">Other sites</h4><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://blog.chromium.org/" class="sites-navigation-link">Chromium Blog</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://code.google.com/chrome/extensions/" class="sites-navigation-link">Google Chrome Extensions</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="https://developers.google.com/chrome/chrome-frame/" class="sites-navigation-link">Google Chrome Frame</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_19695218559354544" class="sites-embed"><h4 class="sites-embed-title"></h4><div class="sites-embed-content sites-embed-content-sidebar-textbox"><div dir="ltr"><span style="font-size:x-small">Except as otherwise </span><a href="http://code.google.com/policies.html#restrictions"><span style="font-size:x-small">noted</span></a><span style="font-size:x-small">, the content of this page is licensed under a </span><a href="http://creativecommons.org/licenses/by/2.5/"><span style="font-size:x-small">Creative Commons Attribution 2.5 license</span></a><span style="font-size:x-small">, and examples are licensed under the </span><a href="http://src.chromium.org/viewvc/chrome/trunk/src/LICENSE" target="_blank"><span style="font-size:x-small">BSD License</span></a><span style="font-size:x-small">.<br></span></div></div></div>
+</td>
+<td id="sites-canvas-wrapper">
+<div id="sites-canvas">
+<div id="goog-ws-editor-toolbar-container"> </div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="title-crumbs" style="">
+<a dir="ltr" href="http://www.chromium.org/chromium-os">Chromium OS</a>‎ &gt; ‎<a dir="ltr" href="http://www.chromium.org/chromium-os/chromiumos-design-docs">Design Documents</a>‎ &gt; ‎
+  </div>
+<h3 xmlns="http://www.w3.org/1999/xhtml" id="sites-page-title-header" style="" align="left">
+<span id="sites-page-title" dir="ltr">Developer Mode</span>
+</h3>
+<div id="sites-canvas-main" class="sites-canvas-main">
+<div id="sites-canvas-main-content">
+<table xmlns="http://www.w3.org/1999/xhtml" class="sites-layout-name-one-column sites-layout-hbox" cellspacing="0"><tbody><tr><td class="sites-layout-tile sites-tile-name-content-1"><div dir="ltr"><span style="font-family:Verdana"><div class="sites-embed-align-right-wrapping-on"><div class="sites-embed-border-off sites-embed" style="width:250px;"><div class="sites-embed-content sites-embed-type-toc"><div class="goog-toc sites-embed-toc-maxdepth-6"><p>Contents</p><ol class="goog-toc"><li class="goog-toc"><a href="#TOC-Introduction"><strong>1 </strong>Introduction</a></li><li class="goog-toc"><a href="#_Toc248215923_8803129820153117"><strong>2 </strong>Vulnerabilities</a><ol class="goog-toc"><li class="goog-toc"><a href="#_Toc248215924_0121430046856403_7588140722364187"><strong>2.1 </strong>Attacker with complete physical access</a></li><li class="goog-toc"><a href="#_Toc248215925_125048759393394_"><strong>2.2 </strong>Attacker with casual physical access</a></li><li class="goog-toc"><a href="#Attacker_with_no_physical_acce_11411279905587435"><strong>2.3 </strong>Attacker with no physical access</a></li><li class="goog-toc"><a href="#Developer_borrows_a_device_454_7139797462150455"><strong>2.4 </strong>Developer borrows a device</a></li><li class="goog-toc"><a href="#_Toc248215929_4665314937010407_37114893924444914"><strong>2.5 </strong>Other vulnerabilities</a></li></ol></li><li class="goog-toc"><a href="#Use_cases_to_allow_43935584556"><strong>3 </strong>Use cases to allow</a><ol class="goog-toc"><li class="goog-toc"><a href="#_Toc248215931_5656016152352095"><strong>3.1 </strong>Normal user</a></li><li class="goog-toc"><a href="#_Toc248215932_8072109296917915"><strong>3.2 </strong>Developer</a></li><li class="goog-toc"><a href="#_Toc248215933_7666546516120434"><strong>3.3 </strong>User installs prebuilt OS distribution (other than Google Chrome OS)</a></li><li class="goog-toc"><a href="#Manufacturer_8761296030133963__32800763566046953"><strong>3.4 </strong>Manufacturer</a></li></ol></li><li class="goog-toc"><a href="#_Toc248215934_3490785825997591"><strong>4 </strong>Implementation</a><ol class="goog-toc"><li class="goog-toc"><a href="#Developer_switch_2767844246700"><strong>4.1 </strong>Developer switch</a></li><li class="goog-toc"><a href="#_Toc248215935_5567605430260301"><strong>4.2 </strong>Recovery button always triggers recovery mode</a></li><li class="goog-toc"><a href="#Unsigned_kernel_always_trigger"><strong>4.3 </strong>Unsigned kernel always triggers recovery mode</a></li><li class="goog-toc"><a href="#_Toc248215937_7895837649703026"><strong>4.4 </strong>Recovery boot image</a></li><li class="goog-toc"><a href="#_Toc248215938_3369763251394033_7636734712868929"><strong>4.5 </strong>Boot time warning screen</a></li><li class="goog-toc"><a href="#_Toc248215939_2786365570500493"><strong>4.6 </strong>Google Chrome OS check for developer switch</a></li><li class="goog-toc"><a href="#Manufacturer_hardware_modifica_025306428782641888"><strong>4.7 </strong>Manufacturer hardware modifications&nbsp;</a></li></ol></li><li class="goog-toc"><a href="#_Toc248215940_6743441168218851"><strong>5 </strong>How this design addresses vulnerabilities and use cases</a><ol class="goog-toc"><li class="goog-toc"><a href="#_Toc248215941_4736762922257185"><strong>5.1 </strong>Attacker with complete physical access</a></li><li class="goog-toc"><a href="#_Toc248215942_7427392201498151"><strong>5.2 </strong>Attacker with casual physical access</a></li><li class="goog-toc"><a href="#_Toc248215943_1916042426601052_08223548997193575"><strong>5.3 </strong>Attacker with no physical access</a></li><li class="goog-toc"><a href="#Developer_borrows_a_device_672"><strong>5.4 </strong>Developer borrows a device</a></li><li class="goog-toc"><a href="#_Toc248215946_3512580990791321"><strong>5.5 </strong>Normal user</a></li><li class="goog-toc"><a href="#_Toc248215948_1449832087382674_9122296990826726"><strong>5.6 </strong>Developer</a></li><li class="goog-toc"><a href="#_Toc248215949_6924706334248185"><strong>5.7 </strong>User installs prebuilt OS distribution (other than Google Chrome OS)</a></li><li class="goog-toc"><a href="#Manufacturer_4568967502564192__8691104557365179"><strong>5.8 </strong>Manufacturer</a></li></ol></li><li class="goog-toc"><a href="#TOC-Revision-History"><strong>6 </strong>Revision History</a></li></ol></div></div></div></div><h1 style="font-size:18pt"><a name="TOC-Introduction"></a>Introduction</h1><p style="margin:0px">Google Chrome OS devices must be:</p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">Secure - users must be protected from attackers. This protection should reasonably extend to inexperienced or naive users.</li><li style="margin-top:0px;margin-bottom:0px">Open
+ - developers must be able to install their own builds of a 
+Chromium-based OS, or another operating system (e.g., Ubuntu). 
+Developers should not be significantly impaired from using the full 
+capabilities of the device.</li></ul><p style="margin:0px"><br></p><p style="margin:0px">These
+ two requirements are somewhat at odds. Locking down a device to protect
+ users makes it less useful for developers. Openings for developers to 
+run modified software easily can also be exploited by attackers.&nbsp;<br></p><p style="margin:0px"><br></p><p style="margin:0px">This document describes:</p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">Vulnerabilities to which Google Chrome OS devices may be exposed.</li><li style="margin-top:0px;margin-bottom:0px">Use cases we must allow for normal users and developers.</li><li style="margin-top:0px;margin-bottom:0px">A proposed implementation of developer mode that provides both openness for developers and security for users.</li><li style="margin-top:0px;margin-bottom:0px">How the implementation protects from vulnerabilities while allowing required use cases.</li></ul><br>Note
+ that this document is specifically about the developer mode in Google 
+Chrome OS devices, not about other Chromium OS-based devices. It's 
+focused on developers who want to install a different operating system 
+on a device that initially shipped with Google Chrome OS.&nbsp;<br><h1 style="font-size:18pt"><a name="_Toc248215923_8803129820153117"></a>Vulnerabilities</h1><p style="margin:0px">The following vulnerabilities have been considered in this design.</p><h2 style="font-size:14pt"><a name="_Toc248215924_0121430046856403_7588140722364187"></a>Attacker with complete physical access</h2><p style="margin:0px">An
+ attacker with physical possession of the device over an extended 
+period. The attacker has access to tools including a soldering iron.</p><p style="margin:0px"><br></p><p style="margin:0px">The
+ attacker can remove the EEPROM containing our read-only firmware and 
+replace it with compromised firmware which does not perform signature 
+checks. Alternately, the attacker could simply replace the embedded 
+controller's EEPROM with code implementing a keylogger.</p><p style="margin:0px"><br></p><p style="margin:0px">Based
+ on YouTube videos of speed disassembly and assembly of computers and 
+consumer electronics devices, we believe that a practical attack could 
+be mounted in as little as 5 minutes.</p><p style="margin:0px"><br></p><p style="margin:0px">This attack is unlikely to be made against a large number of devices.</p><p style="margin:0px"><br></p><p style="margin:0px">Subcases:</p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">Evil
+ maid: The attacker modifies a targeted user's netbook so that it 
+captures passwords, etc. The attack can be reversed by the attacker 
+given a second possession of the device, leaving no evidence of the 
+attack.</li><li style="margin-top:0px;margin-bottom:0px">Malicious 
+return: The attacker modifies a device then returns it to a store. It 
+could act as a keylogger, phoning home at a later date with credentials 
+of the next purchaser.</li><li style="margin-top:0px;margin-bottom:0px">Device
+ swap: The attacker purchases the same model of netbook as the targeted 
+user. When the targeted user is distracted, a replacement netbook is 
+swapped for the user's netbook.</li></ul><p style="margin:0px"><br></p><p style="margin:0px">We cannot prevent this attack.</p><h2 style="font-size:14pt"><a name="_Toc248215925_125048759393394_"></a>Attacker with casual physical access</h2><p style="margin:0px">An attacker with short-term access to a device—for example, a netbook briefly left unattended at a conference or coffee shop.<br></p><p style="margin:0px"><br></p><p style="margin:0px">The
+ attacker may be able to insert a USB key and reboot the device, but 
+cannot make extensive physical modifications. The attacker may be able 
+to unscrew a panel and flip a switch.&nbsp;<br></p><p style="margin:0px"><br></p><p style="margin:0px">Subcases:</p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">The attacker attempts to quickly install malicious software on a temporarily-unattended machine.</li><li style="margin-top:0px;margin-bottom:0px">The
+ attacker walks down a row of machines at a trade show or store, 
+installing malicious software on them (password sniffer, keylogger, 
+etc).</li><li style="margin-top:0px;margin-bottom:0px">A store employee attempts to install malicious software on a large number of computers for sale.</li></ul><p style="margin:0px"><br></p><p style="margin:0px">We
+ should protect against this attack by making it as costly as the 
+physical attack, in terms of time required and noticeability to 
+passers-by.</p><h2 style="font-size:14pt"><a name="Attacker_with_no_physical_acce_11411279905587435"></a>Attacker with no physical access</h2><p style="margin:0px">An
+ attacker with no physical access attempts to alter the device to 
+persistently run modified software. This is the most dangerous attack, 
+due to its ability to affect a large number of devices.</p><p style="margin:0px"><br></p><p style="margin:0px">We
+ must prevent this attack. That is, it should not be possible to 
+persistently control a device without first having physical access to 
+it.</p><h2 style="font-size:14pt"><a name="Developer_borrows_a_device_454_7139797462150455"></a>Developer borrows a device</h2><p style="margin:0px">A
+ developer buys or borrows a device, installs their own software, then 
+returns the device without reinstalling Google Chrome OS.</p><p style="margin:0px"><br></p><p style="margin:0px">The
+ custom software installed is unlikely to be intentionally malicious. 
+The primary risk is that developer images may not autoupdate, so the 
+software on the device will not be patched to close vulnerabilities. 
+This risk has manifested recently in smartphones with user-modified 
+('jailbroken') operating systems.&nbsp;</p><p style="margin:0px"><br></p><p style="margin:0px">Subcases:</p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">Return
+ to store: The store may boot the device to make sure it's not broken, 
+but will not generally open the case to check for hardware modification 
+or switch state. The next user buys the device and starts using it. The 
+first time the user boots the device, they're likely to be right in 
+front of it, so will notice (but may not understand) a warning screen.</li><li style="margin-top:0px;margin-bottom:0px">Return
+ to user: It may take several boots for the user to actually be present 
+at the device during boot, but it's very likely the user eventually sees
+ a warning screen.</li></ul><p style="margin:0px"><br></p><p style="margin:0px">We should protect against these cases.</p><h2 style="font-size:14pt"><a name="_Toc248215929_4665314937010407_37114893924444914"></a>Other vulnerabilities</h2><p style="margin:0px">There are other potential data and device vulnerabilities, including:</p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">Data corruption cased by cosmic rays, aborted auto-updates, defective drives, etc.</li><li style="margin-top:0px;margin-bottom:0px">Theft of a device.</li></ul><br><div style="margin-top:0px;margin-bottom:0px">These are outside the scope of this document since they do not relate to developer mode.</div><h1 style="font-size:18pt"><a name="Use_cases_to_allow_43935584556"></a>Use cases to allow</h1><p style="margin:0px">The following use cases have been considered in this design.</p><h2 style="font-size:14pt"><a name="_Toc248215931_5656016152352095"></a>Normal user</h2><p style="margin:0px">A
+ normal user generally runs only Google Chrome OS on their device. They 
+are not generally interested in running any other operating system on 
+the device.&nbsp;<br></p><p style="margin:0px"><br></p><p style="margin:0px">When faced with recovery mode, many users are likely to return the device to the store or call tech support.</p><p style="margin:0px"><br></p><p style="margin:0px">The
+ most naive users may not understand the significance of warning 
+screens. &nbsp;We should not be asking the user to make uninformed or 
+cryptic decisions.</p><p style="margin:0px"><br></p><p style="margin:0px">We must allow this use case.</p><h2 style="font-size:14pt"><a name="_Toc248215932_8072109296917915"></a>Developer</h2><p style="margin:0px">A developer builds Chromium OS or their own OS and wants to install it on a device.<br></p><p style="margin:0px"><br></p><p style="margin:0px">The
+ developer has access to developer tools, the target device, and any 
+documentation which came with the device. They are experienced enough to
+ use a screwdriver to open a panel, but most&nbsp; will not be willing 
+to use a soldering iron to modify the device or void their warranty.</p><p style="margin:0px"><br></p><p style="margin:0px">The
+ developer expects similar performance while using their own OS as they 
+have while using Google Chrome OS. That is, boot time and the boot 
+process should not be significantly impaired from a normal device.</p><p style="margin:0px"><br></p><p style="margin:0px">It
+ is acceptable for the initial install of a developer OS to be slow, as 
+long as it is not painfully slow. Subsequent installs should be fast, so
+ that a developer can do rapid development.</p><p style="margin:0px"><br></p><p style="margin:0px">The
+ developer should be able to go back easily to running Google Chrome OS,
+ at which point they should have access to automatic updates. This case 
+also covers responsible developers who buy or borrow a device, try it 
+out with their own OS, then run recovery mode to restore the device 
+before returning it.</p><p style="margin:0px"><br></p><p style="margin:0px">Subcases:</p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">Chromium
+ OS developer: They will use the device in a manner similar to Google 
+Chrome OS, perhaps with some added capability (shell access, etc). This 
+is a common and valuable developer use case; these developers contribute
+ back to the Chromium OS project.</li><li style="margin-top:0px;margin-bottom:0px">Interactive developer: The developer uses the device like a normal laptop.</li><li style="margin-top:0px;margin-bottom:0px">Remote
+ developer: The developer uses the device as a media server, set-top 
+box, or some other use case where they do not have direct access to the 
+keyboard and primary display.&nbsp;</li></ul><p style="margin:0px"><br></p><p style="margin:0px">We must allow these use cases. If we don't, it is likely developers will hack holes in verified boot to enable them.</p><h2 style="font-size:14pt"><a name="_Toc248215933_7666546516120434"></a>User installs prebuilt OS distribution (other than Google Chrome OS)</h2><p style="margin:0px">This
+ is much the same as the developer use case. The difference is that the 
+user did not build the install. This is probably more common than 
+developer installs, particularly for use cases such as media servers or 
+set-top boxes.</p><p style="margin:0px"><br></p><p style="margin:0px">We should allow this use case.</p><h2 style="font-size:14pt"><a name="Manufacturer_8761296030133963__32800763566046953"></a>Manufacturer</h2><div style="margin-top:0px;margin-bottom:0px">Normally,
+ read-only firmware is fixed, and rewritable firmware is signed by 
+Google. This introduces additional signing steps and delay into board 
+bringup and development.<br></div><br><div style="margin-top:0px;margin-bottom:0px">A
+ vendor involved in manufacturing a device (OEM, ODM, BIOS vendor, 
+component vendor) must be able to develop and debug firmware, including 
+the normally-read-only parts. For example, the vendor must be able to 
+fix bugs in recovery mode.</div><br><div style="margin-top:0px;margin-bottom:0px">The vendor is capable of disassembling a device and making hardware modifications involving soldering.</div><br><div style="margin-top:0px;margin-bottom:0px">It
+ is acceptable for modifying a device to disable write protection to be 
+slow, as long as it is not painfully slow. Subsequent installs should be
+ fast, so that the vendor can do rapid development.</div><br><div style="margin-top:0px;margin-bottom:0px">It
+ is not necessary for the modifications to be reversible easily. For 
+example, removing the modifications can require re-disassembling the 
+device and re-soldering components.</div><br><div style="margin-top:0px;margin-bottom:0px">We must allow this use case, to reduce the time and cost of producing devices for Google Chrome OS.</div><h1 style="font-size:18pt"><a name="_Toc248215934_3490785825997591"></a>Implementation</h1><p style="margin:0px">The
+ following sections describe the implementation we will use. This design
+ supports developers while protecting normal users, and requires no 
+changes to the typical device manufacturing process.</p><h2 style="font-size:14pt"><a name="Developer_switch_2767844246700"></a><font size="4">Developer switch</font></h2><p style="margin:0px">The device will have an on/off developer switch which is not easily accessible by a normal user.<br></p><p style="margin:0px"><br></p><p style="margin:0px">The
+ switch is reversible (that is, it can be turned back off once turned 
+on). It is turned off by default. It must be turned on physically; there
+ must be no way to turn this switch on without physically manipulating 
+the device.</p><p style="margin:0px"><br></p><p style="margin:0px">Approved implementations for this switch:</p><p style="margin:0px"><br></p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">A switch underneath a screw cover. This is the preferred implementation.</li><li style="margin-top:0px;margin-bottom:0px">A switch underneath/behind the battery, such that the battery must be removed to access the switch.</li></ul><br><div style="margin-top:0px;margin-bottom:0px">Other implementations must be approved by Google in advance.</div><br><p style="margin:0px">When
+ the developer switch is off, only code signed by Google will run on the
+ device. Any other code will cause the device to reboot into recovery 
+mode. This protects against remote attack.</p><h2 style="font-size:14pt"><a name="_Toc248215935_5567605430260301"></a>Recovery button always triggers recovery mode</h2><p style="margin:0px">If the recovery button is pressed at boot time, the device always boots in&nbsp;<a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery" title="recovery mode">recovery mode</a>,
+ regardless of the position of the developer mode switch. This provides a
+ path for users and developers to get back to Google Chrome OS, with all
+ its safety and autoupdates.&nbsp;<br></p><h2 style="font-size:14pt"><a name="Unsigned_kernel_always_trigger"></a>Unsigned kernel always triggers recovery mode</h2><p style="margin:0px">The
+ firmware always checks the kernel signature at boot time. If the 
+signature is invalid (that is, the kernel is corrupt), then the firmware
+ checks the backup kernel. If both kernels are bad, the firmware runs 
+recovery mode.&nbsp;<br></p><p style="margin:0px"><br></p><p style="margin:0px">Google will provide a utility for developers to sign their kernels based on a self-generated certificate.&nbsp;<br></p><p style="margin:0px"><br></p><p style="margin:0px">Developer
+ kernel signatures are not tied to a single target device; that would 
+prevent users from installing prebuilt OS distributions.&nbsp;<br></p><h2 style="font-size:14pt"><a name="_Toc248215937_7895837649703026"></a>Recovery boot image</h2><p style="margin:0px"><font><span style="background-color:rgb(255,255,255)">The
+ recovery boot image is Google-signed software on a removable drive. The
+ recovery boot image is what copies new firmware and software from the 
+removable drive to the fixed drive when booted in&nbsp;<a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery" title="recovery mode">recovery mode</a>. Recovery mode firmware will load only Google-signed software from the removable drive.&nbsp;<br></span></font></p><p style="margin:0px"><br></p><p style="margin:0px"><font><span style="background-color:rgb(255,255,255)">If
+ the developer switch is off, the recovery boot image will refuse to 
+copy anything but Google-signed software to the device. This protects 
+against drive-by attacks; the attacker must have time to get to the 
+developer switch. This also protects normal users from a remote attacker
+ who stores a malicious payload on the user's SD card and then attempts 
+to reboot into recovery mode to install that payload.</span></font></p><p style="margin:0px"><br></p><p style="margin:0px"><font><span style="background-color:rgb(255,255,255)">If
+ the developer switch is on, the behavior of the recovery image depends 
+on the keys used to sign the current firmware/kernel/image and the new 
+firmware/kernel/image to be installed.</span></font></p><ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">If the new key is Google-generated, there is no delay. This is a user trying to get back to Google Chrome OS.</li><li style="margin-top:0px;margin-bottom:0px">If the new key matches the current key, there is no delay. This is a developer updating their own system.</li><li style="margin-top:0px;margin-bottom:0px">If the new key is not Google-signed, and is different than the current key, there is a 5-minute delay before copying.<br></li></ul><br>During
+ the delay, the recovery image will display the developer agreement and 
+instructions on how to reinstall Google Chrome OS if you decide you 
+don't like the image you're installing. The goal of this delay is to 
+increase the difficulty of drive-by attacks to the same level as 
+physically compromising the device. (We could optionally play an audio 
+track—perhaps something along the lines of "Help, help, I'm being 
+repressed!"—or require user interaction during this delay, to make it 
+more noticeable if an attacker is attempting to compromise a device in a
+ public place.)<br><br>Note that the delay protects both normal users 
+and developers; an attacker trying to change the image on a developer's 
+machine (for example, at a Linux conference, where Chromium OS machines 
+are likely to be common) will still incur the delay.&nbsp;<br><h2 style="font-size:14pt"><a name="_Toc248215938_3369763251394033_7636734712868929"></a>Boot time warning screen</h2><p style="margin:0px">When
+ the device boots in developer mode (not in recovery mode), it displays a
+ warning so that ordinary users won't accidentally end up in the wrong 
+operating system.&nbsp;<br></p><p style="margin:0px"><br></p><p style="margin:0px">Specifically:
+ at boot time, if the developer switch is on and the kernel is signed, 
+but not by Google, then a warning screen will be displayed by the 
+firmware. UI still to be determined, but may show a message something 
+like this:</p><p style="margin:0px"><br></p><p style="margin:0px;text-align:center" align="center"><b>WARNING!<br>YOUR COMPUTER IS NOT RUNNING GOOGLE CHROME OS!<br>PRESS THE SPACE BAR TO FIX THIS.</b></p><p style="margin:0px"><br></p><p style="margin:0px">This
+ screen should be designed to be a little scary; for example, it should 
+use colors and symbols designed to indicate danger / badness. It must 
+support i18n.&nbsp;<br></p><p style="margin:0px"><br></p><p style="margin:0px">If
+ the user presses the space bar, Enter, or Esc, the device will reboot 
+into recovery mode. These are the most common keys users press when 
+trying to get past a screen.<br></p><p style="margin:0px"><br></p><p style="margin:0px">Upon
+ seeing this screen, normal users will either run recovery mode, call 
+tech support, or give up and return the device. Any of these outcomes 
+protects the user's data.</p><p style="margin:0px"><br></p><p style="margin:0px">If
+ the user presses Control+D, the device will bypass the warning screen 
+waiting period and continue booting the developer-signed code. Note that
+ there is no indication on the warning screen that Control+D is a valid 
+option, so naive users won't be tempted to press it. The Control+D 
+sequence will be documented on the Chromium OS developer website (you're
+ reading it now), where it is easy for developers to discover. We use 
+the Control modifier so that accidentally bumping the keyboard will not 
+trigger it. For interactive developers, this reduces the pain threshold 
+of the warning screen to a single keypress.</p><p style="margin:0px"><br></p><p style="margin:0px">If
+ the user presses a key other than Control+D, space bar, Enter, or Esc, 
+no action is taken. &nbsp;This reduces the annoyance level for 
+developers; accidentally pressing D+Control or Control+S does not reboot
+ into recovery mode.</p><p style="margin:0px"><br></p><p style="margin:0px">After
+ 20 seconds of displaying the warning screen, the device should beep. 
+This will alert a nearby user to look at the screen and see the warning.
+ Interactive developers are likely to press Control+D before this time, 
+so will not be forced to endure the beep.</p><p style="margin:0px"><br></p><p style="margin:0px">If
+ the user waits 30 seconds, the device will continue booting the 
+developer-signed code. This is necessary to support the remote developer
+ subcase above. It does mean that a naïve user could keep ignoring this 
+screen. This is a reasonable tradeoff, given that requiring a keypress 
+invites developers to hack verified boot.</p><h2 style="font-size:14pt"><a name="_Toc248215939_2786365570500493"></a>Google Chrome OS check for developer switch</h2><p style="margin:0px">If
+ the developer switch is on, Google Chrome OS should halt and display a 
+warning screen with instructions on how to turn the switch back off. 
+This check should be performed on both boot and resume-from-suspend, to 
+minimize the duration where a normal user's machine will have the 
+developer switch turned on.&nbsp;<br></p><h2 style="font-size:14pt"><a name="Manufacturer_hardware_modifica_025306428782641888"></a>Manufacturer hardware modifications&nbsp;</h2><div style="margin-top:0px;margin-bottom:0px">The
+ device can be modified to disable the write protection on the firmware.
+ This modification should involve partial device disassembly and 
+soldering, and will void the device warranty. Disassembling the device 
+far enough to make this modification should require destroying a 
+tamper-resistant seal, so that it's obvious the device has been 
+disassembled.</div><br><div style="margin-top:0px;margin-bottom:0px">Once this modification is performed, the manufacturer can reprogram all the firmware.</div><br><div style="margin-top:0px;margin-bottom:0px">On
+ a device where write protection is enabled in hardware (for example, an
+ EEPROM with a write protect enable line), this modification may take 
+the form of removing a resistor which pulls the write protect enable 
+line active, and adding a resistor to another set of pads to pull the 
+write protect enable line to the disabled state.</div><br><div style="margin-top:0px;margin-bottom:0px">On
+ a device where write protection is enabled in software (for example, a 
+NAND flash with a write-once-per-boot instruction which prevents further
+ write instructions that boot), this modification may take the form of 
+an additional input GPIO whose state is controlled by a resistor. The 
+boot stub firmware will read the GPIO state before writing the boot 
+instruction; if the GPIO is asserted, the boot stub firmware will not 
+issue the write instruction to the NAND flash.</div><br><div style="margin-top:0px;margin-bottom:0px">Alternately,
+ the EEPROM, which is normally soldered directly to the motherboard, may
+ be replaced with a socketed EEPROM to facilitate reprogramming via an 
+external programmer.&nbsp;<br></div><br><div style="margin-top:0px;margin-bottom:0px">To
+ prevent devices with disabled write protection from being shipped 
+accidentally to consumers, final manufacturing tests should verify that 
+the modifications have not been made. That is, the tests should attempt 
+to write to the read-only portion of the firmware and/or verify that a 
+write protection GPIO, if any, is asserted.</div><br><div style="margin-top:0px;margin-bottom:0px">Note
+ that a sufficiently advanced developer willing to void the warranty on 
+their device may be able to make the hardware modifications to disable 
+write protection and replace the normal Google Chrome OS firmware with 
+their own firmware. Such a developer would also be able to desolder, 
+remove, and rewrite the EEPROM chip with their own firmware, so 
+including manufacturer support does not represent a significant 
+reduction in security.</div><h1 style="font-size:18pt"><a name="_Toc248215940_6743441168218851"></a>How this design addresses vulnerabilities and use cases</h1><h2 style="font-size:14pt"><a name="_Toc248215941_4736762922257185"></a>Attacker with complete physical access</h2><p style="margin:0px">We cannot prevent this attack.</p><h2 style="font-size:14pt"><a name="_Toc248215942_7427392201498151"></a>Attacker with casual physical access</h2><p style="margin:0px">The attacker must have sufficient control of the machine to turn on the not-easily-accessible developer switch.</p><p style="margin:0px"><br></p><p style="margin:0px">Since
+ the attacker's code is signed with a different key than the existing 
+software on the device, the recovery image will delay installing the new
+ image. The attacker must wait around near the device to interact with 
+the machine during this time. This raises the risk of discovery for the 
+attacker.</p><p style="margin:0px"><br></p><p style="margin:0px">If the 
+attacker has sufficient control of the device that they're not worried 
+about unscrewing a panel, removing the battery, and interacting with the
+ device for 5 minutes, that's tantamount to complete physical access. As
+ with the previous case, an attacker with that level of access cannot be
+ prevented.&nbsp;<br></p><h2 style="font-size:14pt"><a name="_Toc248215943_1916042426601052_08223548997193575"></a>Attacker with no physical access</h2><p style="margin:0px">If
+ there is a vulnerability in Google Chrome, the attacker may be able to 
+obtain temporary control over the device. Users could potentially enter 
+their credentials into this compromised device and run modified/unsafe 
+code.&nbsp;<br></p><p style="margin:0px"><br></p><p style="margin:0px">The
+ attacker will not be able to maintain long-term persistent control over
+ the device. When the device next reboots, the verified boot process 
+will detect the modified software and trigger recovery mode (if the 
+developer mode switch is off) or a warning screen (if the dev mode 
+switch is on).&nbsp;<br></p><h2 style="font-size:14pt"><a name="Developer_borrows_a_device_672"></a>Developer borrows a device</h2><p style="margin:0px">If
+ the developer is a nice developer (and they remember to restore the 
+device), they run recovery mode on the device before returning it.</p><p style="margin:0px"><br></p><p style="margin:0px">If
+ the developer returns the device without running recovery mode or 
+turning the developer switch back off, the device will show a warning 
+screen at boot time.</p><p style="margin:0px"><br></p><p style="margin:0px">Stores
+ should be advised to boot returned Google Chrome OS machines. If they 
+do, they'll notice the warning screen and can refuse the return (at 
+which point the developer will turn off the developer switch and run 
+recovery mode and then successfully return the device).</p><p style="margin:0px"><br></p><p style="margin:0px">If
+ the store does not check a returned device, it could be sold to a user 
+while still containing developer software. The first time a new user 
+boots their device they're likely right in front of it (after all, 
+they'll want to see our 5-second boot time) and will see the warning 
+screen. At that point they'll likely either return/exchange the device, 
+call tech support, or fix it themselves.</p><p style="margin:0px"><br></p><p style="margin:0px">A
+ user who lent their device to a developer will likely notice the 
+warning screen, or that the login screen looks different. At this point 
+they'll complain to the developer ("Hey sonny, what did you do to 
+Grandma's computer?"), who can fix it.</p><p style="margin:0px"><br></p><p style="margin:0px">Note
+ that in all of these cases, the developer software is unlikely to be 
+harmful in itself; the risk is that developer mode disables autoupdate 
+and leaves the user more vulnerable to future hacks.</p><h2 style="font-size:14pt"><a name="_Toc248215946_3512580990791321"></a>Normal user</h2><p style="margin:0px">With
+ the developer mode switch off, a normal user can only run Google Chrome
+ OS. Anything else will behave like the accidental corruption case—the 
+device will either repair itself or trigger recovery mode.</p><h2 style="font-size:14pt"><a name="_Toc248215948_1449832087382674_9122296990826726"></a>Developer</h2><p style="margin:0px">A
+ developer can modify the software on the device, installing their own 
+Chromium OS or other OS. Opening a screw panel and flipping a switch is 
+easy and does not void the device warranty.</p><p style="margin:0px"><br></p><p style="margin:0px">To
+ run an OS which requires legacy BIOS, they can replace the kernel with 
+software which sets up legacy interrupts and then runs something 
+int19h-like to load that OS. This is even easier since we're using GUID 
+partition tables; the legacy OS will only see the partitions described 
+in the legacy MBR which precedes the GUID partition table, so won't see 
+the dedicated kernel partitions.</p><p style="margin:0px"><br></p><p style="margin:0px">A
+ developer using the device interactively needs to press a single key at
+ boot time to dismiss the warning screen. This is minimally invasive; it
+ delays boot time by only a second.</p><p style="margin:0px"><br></p><p style="margin:0px">A
+ developer using the device remotely will need to wait 30 seconds after 
+reboot for the warning screen to time out. This is not likely to be a 
+significant impediment for remote uses; systems like media servers or 
+set top boxes are rebooted infrequently.</p><h2 style="font-size:14pt"><a name="_Toc248215949_6924706334248185"></a>User installs prebuilt OS distribution (other than Google Chrome OS)</h2><p style="margin:0px">Same as Developer case. The modification to enable developer mode is easy, and the device is comparably usable.</p><h2 style="font-size:14pt"><a name="Manufacturer_4568967502564192__8691104557365179"></a>Manufacturer</h2><div style="margin-top:0px;margin-bottom:0px">A
+ manufacturer can modify the device hardware to allow reprogramming the 
+entire firmware. Once the modification has been made, firmware 
+development can proceed at a rate similar to other unprotected devices.</div><h1><a name="TOC-Revision-History"></a>Revision History</h1><div>1.01 (16 Mar 2010) - Clarified language for disabling write protect (previously known as 'manufacturer mode').</div><div>1.0 (15 Mar 2010) - Published to chromium.org.</div><div>0.1 (12 Dec 2009) - Initial version.</div><div><br></div><div><br></div></span></div></td></tr></tbody></table>
+</div> 
+</div> 
+<div id="sites-canvas-bottom-panel">
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_page-subpages"> </div>
+<a xmlns="http://www.w3.org/1999/xhtml" name="page-comments"></a>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_page-comments"><div class="sites-comment-docos-wrapper"><div class="sites-comment-docos"><div class="sites-comment-docos-background"></div><div class="sites-comment-docos-header"><div class="sites-comment-docos-header-title">Comments</div></div><div dir="ltr" style="text-align: left;" id="sites-comment-docos-pane" class="sites-comment-docos-pane"><div tabindex="0" class="dcs-a dcs-a-dcs-x-dcs-fe dcs-a-dcs-ib"><div class="dcs-a-dcs-x-dcs-t"><div class="dcs-a-dcs-x-dcs-z dcs-me-dcs-hb-dcs-ib"><img data-userid="ANONYMOUS_105250506097979753968" src="DeveloperMode_files/silhouette96.png" id="dcs-img-0" class="dcs-a-dcs-k g-hovercard" height="48" width="48"><div class="dcs-a-dcs-x-dcs-z-dcs-t"><div id="___hovercard_0" data-userid="ANONYMOUS_105250506097979753968" class="dcs-a-dcs-x-dcs-ze dcs-n-dcs-mf-dcs-nf g-hovercard">Anonymous</div><div class="dcs-a-dcs-c dcs-a-dcs-x-dcs-c-dcs-d"><textarea maxlength="2048" aria-haspopup="true" class="dcs-a-dcs-c-dcs-id" aria-label="Comment draft" x-webkit-speech="" speech="">Add a comment</textarea><div class="dcs-a-dcs-c-dcs-p-dcs-mb"></div><div class="dcs-a-dcs-c-dcs-p-dcs-q"></div><div class="dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb" style="display: none">Your +mention will add people to this post and send an email.</div><div class="dcs-a-dcs-c-dcs-gc"><div style="-moz-user-select: none;" role="button" class="dcs-n-dcs-mf-dcs-nf dcs-i-dcs-tb dcs-i-dcs-tb-dcs-ub dcs-a-dcs-c-dcs-se" tabindex="0" title="Post comment"><span class="dcs-a-dcs-c-dcs-gc-dcs-se">Comment</span></div><div style="-moz-user-select: none;" role="button" class="dcs-n-dcs-mf-dcs-nf dcs-i-dcs-tb dcs-i-dcs-tb-dcs-pd dcs-a-dcs-c-dcs-fb" tabindex="0" title="Discard comment">Cancel</div></div></div></div></div><div class="dcs-a-dcs-x-dcs-nb dcs-gb-dcs-hb-dcs-ib dcs-n-dcs-mf-dcs-nf">You have no permission to add comments.</div><div class="dcs-a-dcs-ib dcs-a"></div></div><div></div></div></div></div></div></div>
+</div>
+</div> 
+</td> 
+</tr>
+</tbody></table> 
+</div> 
+</div> 
+<div id="sites-chrome-footer-wrapper">
+<div id="sites-chrome-footer-wrapper-inside">
+<div id="sites-chrome-footer">
+</div>
+</div>
+</div>
+</div> 
+</div> 
+<div id="sites-chrome-adminfooter-container">
+<div xmlns="http://www.w3.org/1999/xhtml" class="sites-adminfooter"><p><a class="sites-system-link" href="https://www.google.com/a/UniversalLogin?service=jotspot&amp;continue=http://sites.google.com/a/chromium.org/dev/chromium-os/chromiumos-design-docs/developer-mode">Sign in</a>|<a class="sites-system-link" href="http://www.chromium.org/system/app/pages/reportAbuse" target="_blank">Report Abuse</a>|<a class="sites-system-link" href="javascript:;" onclick="window.open(webspace.printUrl)">Print Page</a>|<a class="sites-system-link" href="http://www.chromium.org/system/app/pages/removeAccess" target="_blank">Remove Access</a>|<span class="sites-system-link">Powered By</span> <b class="powered-by"><a href="http://sites.google.com/">Google Sites</a></b></p></div>
+</div>
+</div> 
+</div> 
+<div id="sites-chrome-onebar-footer">
+</div>
+
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    window.jstiming.load.tick('sjl');
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" src="DeveloperMode_files/jot_min_view__en.js"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    window.jstiming.load.tick('jl');
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+  if (webspace.editorResources['text']) {
+    //<![CDATA[
+webspace.editorResources['text'].unshift('/system/app/css/overlay.css?cb=beigeandblueundefineda100%25%25150goog-ws-left');
+webspace.editorResources['text'].unshift('/_/rsrc/1364510364000/system/app/themes/beigeandblue/standard-css-beigeandblue-ltr-ltr.css');
+//]]>
+
+  }
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+    
+        sites.core.Analytics.createTracker();
+        sites.core.Analytics.trackPageview();
+      
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+                    sites.Searchbox.initialize(
+                        'sites-searchbox-search-button',
+                        {"object":[]}['object'],
+                        'search-site',
+                        {"label":"Configure search options...","url":"/system/app/pages/admin/settings"});
+                  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+      gsites.HoverPopupMenu.createSiteDropdownMenus('sites-header-nav-dropdown', false);
+    </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("7648876402527094", "Navigation", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_7648876402527094');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("14720868319272995", "Quick links", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_14720868319272995');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("19690813310444355", "Other sites", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_19690813310444355');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+              new sites.CommentPane('//docs.google.com/comments/d/AAHRpnXukca4jaDOG9SuQz_G8t7Hlho1vFt52G0v3zhjY-Oo0IbplOkRYIZMo1aXKu9pt3lo_18Vrvd76UXWK0TIGw_acWou4FsHgUvfRorxy_EtIexKSHUzAmF1N6Nr0UahPn8F3Pj7f/api/js?anon=true', true, true,
+                  false, false);
+            </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+                    window.onload = function() {
+                      if (false) {
+                        JOT_setMobilePreview();
+                      }
+                      var loadTimer = window.jstiming.load;
+                      loadTimer.tick("ol");
+                      loadTimer["name"] = "load," + webspace.page.type;
+                      window.jstiming.report(loadTimer, {}, 'http://csi.gstatic.com/csi');
+                    }
+                  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+        JOT_insertAnalyticsCode(false);
+      </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    var maestroRunner = new gsites.pages.view.SitesMaestroRunner(
+        webspace, "en");
+    maestroRunner.initListeners();
+    maestroRunner.installEditRender();
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+  //<![CDATA[
+    // Decorate any fastUI buttons on the page with a class of 'goog-button'.
+    if (webspace.user.hasWriteAccess) {
+      JOT_decorateButtons();
+    }
+
+    // Fires delayed events.
+    (function() {
+      JOT_fullyLoaded = true;
+      var delayedEvents = JOT_delayedEvents;
+      for (var x = 0; x < delayedEvents.length; x++) {
+        var event = delayedEvents[x];
+        JOT_postEvent(event.eventName, event.eventSrc, event.payload);
+      }
+      JOT_delayedEvents = null;
+      JOT_postEvent('pageLoaded');
+    })();
+ //]]>
+</script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    JOT_postEvent('decorateGvizCharts');
+  </script>
+
+<script type="text/javascript">
+              sites.util.Plus.go('sites-chrome-main');
+            </script>
+<div id="server-timer-div" style="display:none"> </div>
+<script>
+          window.jstiming.load.tick('render');
+        </script>
+
+
+<div style="display: none;"><iframe src="DeveloperMode_files/xpc.html" style="height: 100%; width: 100%;" id="xpcpeerS6wk" name="xpcpeerS6wk"></iframe></div></body></html>

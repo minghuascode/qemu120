@@ -1,0 +1,616 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" itemscope="" itemtype="http://schema.org/"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<script async="" src="VerifiedBoot_files/cbgapi.loaded_0"></script><script src="VerifiedBoot_files/analytics.js" async=""></script><script type="text/javascript">/* Copyright 2008 Google. */ (function() { var b=window,e="tick",f="wtsrt_",g="tbsd_",h="tbnd_",k="start",m="_wtsrt",n="_tbnd";(function(){function l(a){this.t={};this.tick=function(a,c,d){this.t[a]=[void 0!=d?d:(new Date).getTime(),c]};this[e](k,null,a)}var a=new l;b.jstiming={Timer:l,load:a};if(b.performance&&b.performance.timing){var a=b.performance.timing,c=b.jstiming.load,d=a.navigationStart,a=a.responseStart;0<d&&a>=d&&(c[e](m,void 0,d),c[e](f,m,a),c[e](g,f))}try{a=null,b.chrome&&b.chrome.csi&&(a=Math.floor(b.chrome.csi().pageT),c&&0<d&&(c[e](n,void 0,b.chrome.csi().startE),c[e](h,n,d))),null==a&&b.gtbExternal&&(a=
+b.gtbExternal.pageT()),null==a&&b.external&&(a=b.external.pageT,c&&0<d&&(c[e](n,void 0,b.external.startE),c[e](h,n,d))),a&&(b.jstiming.pt=a)}catch(p){}})(); })()
+</script>
+<link rel="shortcut icon" href="http://www.chromium.org/_/rsrc/1354323194313/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="http://www.gstatic.com/sites/p/229b45/system/app/images/apple-touch-icon.png" type="image/png">
+<script type="text/javascript">/* Copyright 2008 Google. */ (function() { var d=window,e="length",h="",k="__duration__",l="function";function m(c){return document.getElementById(c)}d.byId=m;function n(c){return c.replace(/^\s+|\s+$/g,h)}d.trim=n;var p=[],q=0;d.JOT_addListener=function(c,a,b){var f=new String(q++);c={eventName:c,handler:a,compId:b,key:f};p.push(c);return f};d.JOT_removeListenerByKey=function(c){for(var a=0;a<p[e];a++)if(p[a].key==c){p.splice(a,1);break}};d.JOT_removeAllListenersForName=function(c){for(var a=0;a<p[e];a++)p[a].eventName==c&&p.splice(a,1)};
+d.JOT_postEvent=function(c,a,b){var f={eventName:c,eventSrc:a||{},payload:b||{}};if(d.JOT_fullyLoaded){a=p[e];for(b=0;b<a&&b<p[e];b++){var g=p[b];g&&g.eventName==c&&(f.listenerCompId=g.compId||h,(g=typeof g.handler==l?g.handler:d[g.handler])&&g(f))}}else d.JOT_delayedEvents.push({eventName:c,eventSrc:a,payload:b})};d.JOT_delayedEvents=[];d.JOT_fullyLoaded=!1;
+d.JOT_formatRelativeToNow=function(c,a){var b=((new Date).getTime()-c)/6E4;if(1440<=b||0>b)return null;var f=0;60<=b&&(b/=60,f=2);2<=b&&f++;return a?d.JOT_siteRelTimeStrs[f].replace(k,Math.floor(b)):d.JOT_userRelTimeStrs[f].replace(k,Math.floor(b))}; })()
+</script>
+<script>
+
+
+var webspace = {"scottyUrl":"/_/upload","isConsumer":false,"canPublishScriptToAnyone":true,"serverFlags":{"cajaBaseUrl":"//www.gstatic.com/caja","cajaDebugMode":false},"sharingUrlPrefix":"/_/sharing","csiReportUri":"http://csi.gstatic.com/csi","sharingPolicy":"OPENED_WITH_INDICATOR","analyticsAccountId":"UA-5484340-1","baseUri":"","name":"dev","domain":"chromium.org","features":{"asyncPermanentDelete":false,"folderEmbed":true,"docosHideNotificationSettings":true,"siteChromeInPlaceEditingProdLaunchPromo":true,"scottyForTrogImageUpload":false,"pdfEmbedSupport":false,"siteChromeSidebarWidgetsEditDialog":true,"canonicalLinkTagInHead":false,"siteChromeDialogsToolbar":true,"plusBadge":false,"siteChromeHorizontalNavigationDialog":true,"siteChromeSystemFooterDialog":true,"plusOneButtonOptions":true,"plusOneButton":true,"htmlEmbed":true,"siteChromeHeaderDialog":true,"siteChromeCustomFooterDialog":true,"colorsAndFontsRefactor":false,"photoAlbumsInOnePick":true},"adsensePublisherId":null,"gvizVersion":1,"siteTitle":"The Chromium Projects","pageSharingId":"jotspot_page","plusPageId":"","termsUrl":"http://www.google.com/a/help/intl/en/users/terms.html","enableAnalytics":true,"isPublic":true,"plusPageUrl":"","homePath":"/","sharingId":"jotspot","isAdsenseEnabled":true,"adsensePromoClickedOrSiteIneligible":true,"isStartPageEnabled":true,"domainAnalyticsAccountId":""};
+
+
+
+webspace.gadgets = {"baseUri":"/system/app/pages/gadgets"};
+
+
+webspace.user = {"uid":"","renderMobile":false,"primaryEmail":"guest","sessionIndex":"","namespaceUser":false,"displayNameOrEmail":"guest","namespace":"","hasAdminAccess":false,"guest_":true,"keyboardShortcuts":true,"domain":"","hasWriteAccess":false,"dasherUser":false,"userName":"guest"};
+
+webspace.page = {"canDeleteWebspace":null,"locale":"en","state":"","wuid":"wuid:gx:26240468701bb12e","pageInheritsPermissions":null,"timeZone":"America/Los_Angeles","properties":{},"type":"text","canChangePath":true,"parentWuid":"wuid:gx:2eb69dd73ece341e","revision":6,"title":"Verified Boot","isRtlLocale":false,"bidiEnabled":false,"siteLocale":"en","name":"verified-boot","path":"/chromium-os/chromiumos-design-docs/verified-boot","openMoreActionMenu":null,"isSiteRtlLocale":false,"parentPath":"/chromium-os/chromiumos-design-docs"};
+webspace.page.breadcrumbs = [{"title":"Chromium OS","dir":"ltr","path":"/chromium-os","deleted":false},{"title":"Design Documents","dir":"ltr","path":"/chromium-os/chromiumos-design-docs","deleted":false},{"title":"Verified Boot","dir":"ltr","path":"/chromium-os/chromiumos-design-docs/verified-boot","deleted":false}];
+
+
+webspace.editorResources = {
+  text: [
+    'http://www.gstatic.com/sites/p/229b45/system/js/codemirror.js',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/codemirror_css.css',
+    'http://www.gstatic.com/sites/p/229b45/system/js/trog_edit__en.js',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/trogedit.css',
+    '/_/rsrc/1364510364000/system/app/css/editor.css',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/codeeditor.css',
+    '/_/rsrc/1364510364000/system/app/css/camelot/editor-jfk.css'
+  ],
+  sitelayout: [
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/sitelayouteditor.css'
+  ]
+};
+
+var JOT_clearDotPath = 'http://www.gstatic.com/sites/p/229b45/system/app/images/cleardot.gif';
+
+
+var JOT_userRelTimeStrs = ["a minute ago","__duration__ minutes ago","an hour ago","__duration__ hours ago"];
+
+
+webspace.siteTemplateId = false;
+
+
+webspace.page.currentTemplate = {"title":"Web Page","path":"/system/app/pagetemplates/text"};
+
+
+
+var JOT_siteRelTimeStrs = ["a minute ago","__duration__ minutes ago","an hour ago","__duration__ hours ago"];
+
+</script>
+<script type="text/javascript">
+                window.jstiming.load.tick('scl');
+              </script>
+<meta name="title" content="Verified Boot - The Chromium Projects">
+<meta itemprop="name" content="Verified Boot - The Chromium Projects">
+<meta property="og:title" content="Verified Boot - The Chromium Projects">
+<meta name="description" content="Home of the Chromium Open Source Project">
+<meta itemprop="description" content="Home of the Chromium Open Source Project">
+<meta id="meta-tag-description" property="og:description" content="Home of the Chromium Open Source Project">
+<meta itemprop="image" content="/_/rsrc/1302286216006/config/customLogo.gif?revision=2">
+<meta property="og:image" content="/_/rsrc/1302286216006/config/customLogo.gif?revision=2">
+<style type="text/css">
+</style>
+<link rel="stylesheet" type="text/css" href="VerifiedBoot_files/standard-css-beigeandblue-ltr-ltr.css">
+<link rel="stylesheet" type="text/css" href="VerifiedBoot_files/overlay.css">
+<link rel="stylesheet" type="text/css" href="VerifiedBoot_files/symbolfont.css">
+<link rel="stylesheet" type="text/css" href="VerifiedBoot_files/allthemes-view.css">
+<!--[if IE]>
+          <link rel="stylesheet" type="text/css" href="/system/app/css/camelot/allthemes%2die.css" />
+        <![endif]-->
+<title>Verified Boot - The Chromium Projects</title>
+<script type="text/javascript">
+                window.jstiming.load.tick('cl');
+              </script>
+<script src="VerifiedBoot_files/js" charset="UTF-8" type="text/javascript"></script><link href="http://www.chromium.org/chromium-os/chromiumos-design-docs/verified-boot" rel="canonical"><style>.dcs-n-dcs-mf-dcs-nf{position:relative;display:-moz-inline-box;display:inline-block}* html .dcs-n-dcs-mf-dcs-nf{display:inline}*:first-child+html .dcs-n-dcs-mf-dcs-nf{display:inline}.dcs-i-dcs-tb{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;cursor:default;font-size:11px;font-weight:bold;text-align:center;white-space:nowrap;margin-right:16px;height:27px;line-height:27px;min-width:54px;outline:0px;padding:0 8px}.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:0 1px 1px rgba(0,0,0,.1);-moz-box-shadow:0 1px 1px rgba(0,0,0,.1);box-shadow:0 1px 1px rgba(0,0,0,.1)}.dcs-i-dcs-tb-dcs-wd{-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1)}.dcs-i-dcs-tb .dcs-i-dcs-tb-dcs-he{margin-top:-3px;vertical-align:middle}.dcs-i-dcs-tb-dcs-ef{margin-left:5px}.dcs-i-dcs-tb-dcs-jc{min-width:34px;padding:0}.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:1}.dcs-i-dcs-tb-dcs-kc-dcs-lc.dcs-i-dcs-tb-dcs-nd{z-index:0}.dcs-i-dcs-tb-dcs-sc.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-sc.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:2}.dcs-i-dcs-tb-dcs-kc-dcs-lc:focus,.dcs-i-dcs-tb-dcs-kc-dcs-df:focus,.dcs-i-dcs-tb-dcs-dg.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-dg.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:3}.dcs-i-dcs-tb-dcs-kc-dcs-lc{margin-left:-1px;-moz-border-radius-bottomleft:0;-moz-border-radius-topleft:0;-webkit-border-bottom-left-radius:0;-webkit-border-top-left-radius:0;border-bottom-left-radius:0;border-top-left-radius:0}.dcs-i-dcs-tb-dcs-kc-dcs-df{margin-right:0px;-moz-border-radius-topright:0;-moz-border-radius-bottomright:0;-webkit-border-top-right-radius:0;-webkit-border-bottom-right-radius:0;border-top-right-radius:0;border-bottom-right-radius:0}.dcs-i-dcs-tb.dcs-i-dcs-tb-dcs-nd:active{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}.dcs-i-dcs-tb-dcs-ub{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#357ae8;background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);border:1px solid #2f5bb7;border-bottom-color:#2f5bb7}.dcs-i-dcs-tb-dcs-ub:focus{-webkit-box-shadow:inset 0 0 0 1px #fff;-moz-box-shadow:inset 0 0 0 1px #fff;box-shadow:inset 0 0 0 1px #fff;border:1px solid #fff;border:1px solid rgba(0,0,0,0);outline:1px solid #4d90fe;outline:0 rgba(0,0,0,0)}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-qe-dcs-re{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:none}.dcs-i-dcs-tb-dcs-ub:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);background:#357ae8;border:1px solid #2f5bb7;border-top:1px solid #2f5bb7}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-nd{background:#4d90fe;filter:alpha(opacity=50);opacity:0.5}.dcs-i-dcs-tb-dcs-pd{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);color:#444;border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1)}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #c6c6c6;color:#333}.dcs-i-dcs-tb-dcs-pd:active,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background:#f8f8f8}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-wd,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-wd{background-color:#eee;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #ccc;color:#333}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-sc,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-sc{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background-color:#eee;background-image:-webkit-linear-gradient(top,#eee,#e0e0e0);background-image:-moz-linear-gradient(top,#eee,#e0e0e0);background-image:-ms-linear-gradient(top,#eee,#e0e0e0);background-image:-o-linear-gradient(top,#eee,#e0e0e0);background-image:linear-gradient(top,#eee,#e0e0e0);border:1px solid #ccc;color:#333}.dcs-i-dcs-tb-dcs-pd:focus{border:1px solid #4d90fe;outline:none}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re{border:1px solid #dcdcdc;outline:none}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-nd{background:#fff;border:1px solid #f3f3f3;border:1px solid rgba(0,0,0,0.05);color:#b8b8b8}.dcs-i-dcs-tb-dcs-pd .dcs-i-dcs-tb-dcs-he{opacity:.55}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-sc .dcs-i-dcs-tb-dcs-he,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-wd .dcs-i-dcs-tb-dcs-he,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg .dcs-i-dcs-tb-dcs-he{opacity:0.9}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-nd .dcs-i-dcs-tb-dcs-he{filter:alpha(opacity=33);opacity:0.333}.dcs-n-dcs-rf,.dcs-bd-dcs-cd{-webkit-box-shadow:0 4px 16px rgba(0,0,0,.2);-moz-box-shadow:0 4px 16px rgba(0,0,0,.2);box-shadow:0 4px 16px rgba(0,0,0,.2);background:#fff;background-clip:padding-box;border:1px solid #acacac;border:1px solid rgba(0,0,0,.333);outline:0;position:absolute}.dcs-n-dcs-rf-dcs-ad,.dcs-bd-dcs-cd-dcs-ad{background:#fff;left:0;position:absolute;top:0}div.dcs-n-dcs-rf-dcs-ad,div.dcs-bd-dcs-cd-dcs-ad{filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75}.dcs-bd-dcs-cd{color:#000;padding:30px 42px}.dcs-bd-dcs-cd-dcs-zd{background-color:#fff;color:#000;cursor:default;font-size:16px;font-weight:normal;line-height:24px;margin:0 0 16px}.dcs-bd-dcs-cd-dcs-zd-dcs-af{height:11px;opacity:0.7;padding:17px;position:absolute;right:0px;top:0px;width:11px}.dcs-bd-dcs-cd-dcs-zd-dcs-af:after{content:'';background:url(//ssl.gstatic.com/ui/v1/dialog/close-x.png);position:absolute;height:11px;width:11px;right:17px}.dcs-bd-dcs-cd-dcs-zd-dcs-af:hover{opacity:1}.dcs-bd-dcs-cd-dcs-t{background-color:#fff;line-height:1.4em}.dcs-bd-dcs-cd-dcs-gc{margin-top:16px}.dcs-bd-dcs-cd-dcs-gc button{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1);color:#444;cursor:default;font-size:11px;font-weight:bold;height:29px;line-height:27px;margin:0 16px 0 0;min-width:72px;outline:0;padding:0 8px}.dcs-bd-dcs-cd-dcs-gc button:hover,.dcs-bd-dcs-cd-dcs-gc button:active{-webkit-box-shadow:0px 1px 1px rgba(0,0,0,0.1);-moz-box-shadow:0px 1px 1px rgba(0,0,0,0.1);box-shadow:0px 1px 1px rgba(0,0,0,0.1);background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #c6c6c6;color:#333}.dcs-bd-dcs-cd-dcs-gc button:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}.dcs-bd-dcs-cd-dcs-gc button:focus{border:1px solid #4d90fe}.dcs-bd-dcs-cd-dcs-gc button[disabled]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background:#fff;background-image:none;border:1px solid #f3f3f3;border:1px solid rgba(0,0,0,0.05);color:#b8b8b8}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub{background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:hover,.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:active{background-color:#357ae8;background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);border:1px solid #2f5bb7;color:#fff}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);box-shadow:inset 0 1px 2px rgba(0,0,0,0.3)}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:focus{-webkit-box-shadow:inset 0 0 0 1px #fff;-moz-box-shadow:inset 0 0 0 1px #fff;box-shadow:inset 0 0 0 1px #fff;border:1px solid #fff;border:1px solid rgba(0,0,0,0);outline:1px solid #4d90fe;outline:0 rgba(0,0,0,0)}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub[disabled]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background:#4d90fe;color:#fff;filter:alpha(opacity=50);opacity:0.5}.dcs-i-dcs-lf,.dcs-i-dcs-yc,.dcs-i-dcs-j{width:512px}.dcs-n-dcs-oe{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-transition:opacity 0.218s;-moz-transition:opacity 0.218s;-o-transition:opacity 0.218s;transition:opacity 0.218s;background:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,.2);cursor:default;font-size:13px;margin:0;outline:none;padding:6px 0;position:absolute}.dcs-n-dcs-o,.dcs-n-dcs-fg,.dcs-n-dcs-gg{position:relative;color:#333;cursor:pointer;list-style:none;margin:0;padding:6px 8em 6px 30px;white-space:nowrap}.dcs-n-dcs-oe-dcs-hg .dcs-n-dcs-o,.dcs-n-dcs-oe-dcs-ig .dcs-n-dcs-o{padding-left:16px;vertical-align:middle}.dcs-n-dcs-oe-dcs-jg .dcs-n-dcs-o{padding-right:44px}.dcs-n-dcs-o-dcs-nd{cursor:default}.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-cc,.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-t{color:#ccc!important}.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-cb{filter:alpha(opacity=30);opacity:0.3}.dcs-n-dcs-o-dcs-ie,.dcs-n-dcs-o-dcs-dg{background-color:#eee;border-color:#eee;border-style:dotted;border-width:1px 0;padding-top:5px;padding-bottom:5px}.dcs-n-dcs-o-dcs-ie .dcs-n-dcs-o-dcs-t,.dcs-n-dcs-o-dcs-dg .dcs-n-dcs-o-dcs-t{color:#333}.dcs-n-dcs-o-dcs-ee,.dcs-n-dcs-o-dcs-cb{background-repeat:no-repeat;height:21px;left:3px;position:absolute;right:auto;top:3px;vertical-align:middle;width:21px}.dcs-n-dcs-rd-dcs-wd{background-image:url(//ssl.gstatic.com/ui/v1/menu/checkmark.png);background-repeat:no-repeat;background-position:left center}.dcs-n-dcs-rd-dcs-wd .dcs-n-dcs-o-dcs-t,.dcs-n-dcs-rd-dcs-wd .dcs-n-dcs-o-dcs-t{color:#333}.dcs-n-dcs-o-dcs-cc{color:#777;direction:ltr;left:auto;padding:0 6px;position:absolute;right:0;text-align:right}.dcs-n-dcs-o-dcs-dd-dcs-kg{text-decoration:underline}.dcs-n-dcs-o-dcs-dd-dcs-ed{color:#777;font-size:12px;padding-left:4px}.dcs-i-dcs-tf::-webkit-scrollbar{height:16px;overflow:visible;width:16px}.dcs-i-dcs-tf::-webkit-scrollbar-button{height:0;width:0}.dcs-i-dcs-tf::-webkit-scrollbar-track{background-clip:padding-box;border:solid transparent;border-width:0 0 0 4px}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal{border-width:4px 0 0}.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(0,0,0,.05);box-shadow:inset 1px 0 0 rgba(0,0,0,.1)}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:hover{box-shadow:inset 0 1px 0 rgba(0,0,0,.1)}.dcs-i-dcs-tf::-webkit-scrollbar-track:active{background-color:rgba(0,0,0,.05);box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:active{box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(255,255,255,.1);box-shadow:inset 1px 0 0 rgba(255,255,255,.2)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:active{background-color:rgba(255,255,255,.1);box-shadow:inset 1px 0 0 rgba(255,255,255,.25),inset -1px 0 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,.2);background-clip:padding-box;border:solid transparent;border-width:1px 1px 1px 6px;min-height:28px;padding:100px 0 0;box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:6px 1px 1px;padding:0 0 0 100px;box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset -1px 0 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:hover{background-color:rgba(0,0,0,.4);box-shadow:inset 1px 1px 1px rgba(0,0,0,.25)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:active{background-color:rgba(0,0,0,0.5);box-shadow:inset 1px 1px 3px rgba(0,0,0,0.35)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb{background-color:rgba(255,255,255,.3);box-shadow:inset 1px 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.1)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{box-shadow:inset 1px 1px 0 rgba(255,255,255,.15),inset -1px 0 0 rgba(255,255,255,.1)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:hover{background-color:rgba(255,255,255,.6);box-shadow:inset 1px 1px 1px rgba(255,255,255,.37)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:active{background-color:rgba(255,255,255,.75);box-shadow:inset 1px 1px 3px rgba(255,255,255,.5)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track{border-width:0 1px 0 6px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal{border-width:6px 0 1px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(0,0,0,.035);box-shadow:inset 1px 1px 0 rgba(0,0,0,.14),inset -1px -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(255,255,255,.07);box-shadow:inset 1px 1px 0 rgba(255,255,255,.25),inset -1px -1px 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-thumb{border-width:0 1px 0 6px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:6px 0 1px}.dcs-i-dcs-tf::-webkit-scrollbar-corner{background:transparent}body.dcs-i-dcs-tf::-webkit-scrollbar-track-piece{background-clip:padding-box;background-color:#f5f5f5;border:solid #fff;border-width:0 0 0 3px;box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)}body.dcs-i-dcs-tf::-webkit-scrollbar-track-piece:horizontal{border-width:3px 0 0;box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)}body.dcs-i-dcs-tf::-webkit-scrollbar-thumb{border-width:1px 1px 1px 5px}body.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:5px 1px 1px}body.dcs-i-dcs-tf::-webkit-scrollbar-corner{background-clip:padding-box;background-color:#f5f5f5;border:solid #fff;border-width:3px 0 0 3px;box-shadow:inset 1px 1px 0 rgba(0,0,0,.14)}.dcs-bd-dcs-cd{z-index:1001}.dcs-bd-dcs-cd-dcs-ad{z-index:1000}.dcs-bd-dcs-cd-dcs-zd-dcs-af{background-image:none}.dcs-n-dcs-oe{z-index:1001}.dcs-a-dcs-dc-dcs-mb{width:12px;height:12px;vertical-align:baseline}.dcs-a-dcs-dc-dcs-eb{background:none;background-image:none!important;border:none;font-size:10px;height:11px;left:0;margin:auto;position:absolute;top:3px;width:12px}.dcs-a-dcs-dc-dcs-eb-dcs-q-dcs-u,.dcs-a-dcs-dc-dcs-eb-dcs-mb-dcs-u{border:none!important;height:11px;margin:0;padding:0;width:12px}.dcs-a-dcs-dc{padding:3px}.dcs-a-dcs-dc>.dcs-n-dcs-o{padding:3px}.dcs-a-dcs-dc>.dcs-n-dcs-o.dcs-n-dcs-rd-dcs-wd{padding-left:22px}.dcs-a-dcs-dc>.dcs-n-dcs-o-dcs-ie,.dcs-a-dcs-dc>.dcs-n-dcs-o-dcs-dg{padding:2px 3px}.dcs-a-dcs-dc>.dcs-n-dcs-o>.dcs-n-dcs-o-dcs-t{font-size:12px}.dcs-a-dcs-b{background-color:#fff;cursor:pointer;direction:ltr;position:relative;width:210px}.dcs-a-dcs-b:hover,.dcs-a-dcs-vb-dcs-xd.dcs-a-dcs-b{background-color:#f1f1f1!important;border-color:#c6c6c6!important;background:-webkit-gradient(linear,0 0,0 60,from(#f8f8f8),to(#f1f1f1))!important;background:-moz-linear-gradient(top,#f8f8f8 0,#f1f1f1 60px)!important}.dcs-a-dcs-b:focus,.dcs-a-dcs-b:active{outline:0}.dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-b-dcs-de-dcs-mb{display:none}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b:hover{background:#fcfac6!important;border-color:#ffe572!important}.dcs-a-dcs-b-dcs-rb-dcs-tb{display:none;font-size:10px;right:0;padding-left:2px;position:absolute;top:0}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-b-dcs-rb-dcs-tb{display:block;opacity:0.3;filter:alpha(opacity=30)}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b:hover .dcs-a-dcs-b-dcs-rb-dcs-tb{opacity:1;filter:alpha(opacity=100)}.dcs-a-dcs-b-dcs-sf{max-height:inherit;overflow-y:auto}.dcs-a-dcs-b-dcs-t{overflow-y:auto}.dcs-a-dcs-b-dcs-c-dcs-d{border-top:1px solid #f0f0f0;display:none;padding:7px}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-b-dcs-c-dcs-d{border-top:1px solid #feef9c;display:block}.dcs-a-dcs-b-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{height:23px}.dcs-a-dcs-b-dcs-c-dcs-d .dcs-a-dcs-c-dcs-gc{text-align:left}.dcs-a-dcs-xe-dcs-c-dcs-d{border-top:none!important;padding-top:0}.dcs-a-dcs-b .dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb{color:#999;font-size:11px}.dcs-a-dcs-b .dcs-a-dcs-b-dcs-lb{border-top:1px solid #feef9c;bottom:0;left:0;padding-top:6px;position:relative;width:100%}.dcs-a-dcs-b .dcs-a-dcs-lb-dcs-yd{font-weight:bold;margin-right:6px;padding:2px 0}.dcs-a-dcs-e-dcs-zf .dcs-a-dcs-b{border:1px solid #d9d9d9;position:absolute;-moz-user-select:text;z-index:500}.dcs-a-dcs-e-dcs-zf .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b{border:1px solid #ffe764;z-index:501}.dcs-a-dcs-e-dcs-zf-dcs-cg .dcs-a-dcs-b{box-shadow:2px 2px 6px #888}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-b-dcs-de-dcs-mb{height:0;position:absolute;width:0}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-q{border-top:none;border-bottom:14px solid transparent;border-left:none;border-right:14px solid #fcfac6;left:-13px;top:0}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-mb{border-top:none;border-bottom:14px solid transparent;border-left:none;border-right:14px solid #ffe572;left:-15px;top:-1px}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b>.dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-e-dcs-f .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b>.dcs-a-dcs-b-dcs-de-dcs-mb{display:block}.dcs-a-dcs-b-dcs-rb-dcs-tb>.dcs-i-dcs-tb{height:17px;line-height:17px;margin:2px 2px 0 0}.dcs-a-dcs-ab,.dcs-a-dcs-wb{border-top:1px solid #f0f0f0;padding:7px;position:relative;zoom:1}.dcs-a-dcs-ab-dcs-k{left:7px!important}.dcs-a-dcs-ab.dcs-a-dcs-jb-dcs-we{border-top:none!important}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-ab,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-wb{border-top:1px solid #feef9c}.dcs-a-dcs-ab-dcs-ac{font-weight:bold;margin-left:32px}.dcs-a-dcs-ab-dcs-bb{word-wrap:break-word;color:#666;padding-top:3px;padding-bottom:3px}.dcs-a-dcs-ab-dcs-hd{color:#666;font-size:10px;margin:3px 0 0 32px}.dcs-a-dcs-ab .dcs-a-dcs-jb-dcs-sb{display:none}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-jb-dcs-sb,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-wb .dcs-a-dcs-jb-dcs-sb{display:block}.dcs-a-dcs-wb-dcs-xb{word-wrap:break-word;color:#15c}.dcs-a-dcs-wb-dcs-xb:hover,.dcs-a-dcs-b:hover .dcs-a-dcs-wb-dcs-xb{text-decoration:underline}.dcs-a-dcs-zb-dcs-jb{position:relative}.dcs-a-dcs-xb-dcs-jb{height:150px;overflow:hidden}.dcs-a-dcs-gb-dcs-ge,.dcs-a-dcs-gb-dcs-ag{color:#15c;display:none;opacity:1;width:100%}.dcs-a-dcs-gb-dcs-ge{bottom:0;padding-top:16px;position:absolute;right:0}.dcs-a-dcs-gb-dcs-ag{background:#fff;padding:2px 0}.dcs-a-dcs-gb-dcs-ge:hover,.dcs-a-dcs-gb-dcs-ag:hover{text-decoration:underline}.dcs-a-dcs-b.dcs-a-dcs-vb:hover .dcs-a-dcs-gb-dcs-ge{background:#f1f1f1;background:-webkit-gradient(linear,0 0,0 16,from(rgba(241,241,241,0)),to(rgba(241,241,241,1)));background:-moz-linear-gradient(top,rgba(241,241,241,0),#f1f1f1 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, Style=1, StartY=0, FinishY=50, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-gb-dcs-ge,.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd:hover .dcs-a-dcs-gb-dcs-ge{background:#fcfac6;background:-webkit-gradient(linear,0 0,0 16,from(rgba(252,250,198,0)),to(rgba(252,250,198,1)));background:-moz-linear-gradient(top,rgba(252,250,198,0),#fcfac6 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, StartY=0, FinishY=50, Style=1, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-gb-dcs-ge{background:#fff;background:-webkit-gradient(linear,0 0,0 16,from(rgba(255,255,255,0)),to(rgba(255,255,255,1)));background:-moz-linear-gradient(top,rgba(255,255,255,0),#fff 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, StartY=0, FinishY=50, Style=1, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-xb-dcs-jb>.dcs-a-dcs-gb-dcs-ge{display:block!important}.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-gb-dcs-ag{background:#fcfac6!important}.dcs-a-dcs-b:hover .dcs-a-dcs-gb-dcs-ag{background:#f1f1f1}.dcs-a-dcs-l{background:#e0ecff;border:1px solid #666;color:#00c;font-family:Arial;margin:0px 0px;padding:0px 0px 1px 0px;position:absolute;z-index:900}.dcs-a-dcs-l div{cursor:pointer;margin:2px;padding:0px 10px}.dcs-a-dcs-l div b{color:#00f}.dcs-a-dcs-l .dcs-l-dcs-m{height:auto}.dcs-a-dcs-l div.dcs-jd{background:#c3d9ff}.dcs-a-dcs-k{left:0;position:absolute}.dcs-a-dcs-bf-dcs-cf{font:10px/12px Arial;color:#bbb;text-align:right;padding-right:30px}.dcs-a-dcs-bf-dcs-cf a{color:#bbb}.dcs-a-dcs-ec-dcs-fc{width:620px}.dcs-a{color:black;font-family:Arial,sans-serif,sans;font-size:13px;white-space:normal}.dcs-a-dcs-cb{background-image:url(//ssl.gstatic.com/docs/common/d-icons10.png);background-repeat:no-repeat}.dcs-a-dcs-cb-dcs-rb-dcs-wc{background-position:-28px -26;height:37px;position:absolute;width:37px}.dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{background-position:0 -36px;height:27px;position:absolute;width:27px}.dcs-a-dcs-cb-dcs-db-dcs-eb{background-position:0 -11px;height:11px;width:12px}.dcs-a-dcs-cb-dcs-db-dcs-eb:hover,.dcs-n-dcs-oe-dcs-tb-dcs-ke .dcs-a-dcs-cb-dcs-db-dcs-eb{background-position:0 0;height:11px;width:12px}.dcs-a-dcs-c{position:relative;zoom:1}.dcs-a-dcs-c.dcs-a-dcs-c-dcs-hc{display:block!important}.dcs-a-dcs-c-dcs-p-dcs-q{border-top:7px solid transparent;border-right:8px solid #fff;border-bottom:7px solid transparent;height:0;left:-6px;position:absolute;top:3px}.dcs-a-dcs-c-dcs-p-dcs-mb{border-top:7px solid transparent;border-right:8px solid #c8c8c8;border-bottom:7px solid transparent;height:0;left:-7px;position:absolute;top:3px}.dcs-a-dcs-c-dcs-id{border:1px solid #c8c8c8;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;color:#999;font-family:Arial,sans-serif;font-size:13px;margin:0;overflow-x:hidden;overflow-y:hidden;outline-width:0!important;padding:4px;resize:none;width:100%}.dcs-a-dcs-c-dcs-id:disabled{background-color:#eee!important}*:first-child+html .dcs-a-dcs-c-dcs-id{width:95%}.dcs-a-dcs-c-dcs-gc{display:none;zoom:1}.dcs-a-dcs-c-dcs-gc-dcs-se{font-weight:bold}.dcs-a-dcs-c-dcs-mc>.dcs-a-dcs-c-dcs-id{color:#000}.dcs-a-dcs-c-dcs-mc>.dcs-a-dcs-c-dcs-gc{display:block}.dcs-a-dcs-ld-dcs-t{width:500px}.dcs-a-dcs-ld-dcs-ef{padding:0 3px 0 8px}.dcs-a-dcs-ld-dcs-sb{padding-left:3px}.dcs-a-dcs-ld-dcs-ye{position:absolute;right:20px}.dcs-a-dcs-ld-dcs-uf{background-color:#c1d9ff;border:0;color:#c1d9ff;height:1px;margin:10px 0 10px 0}.dcs-a-dcs-ib .dcs-me-dcs-hb-dcs-ib{display:none!important}.dcs-gb-dcs-hb-dcs-ib{display:none}.dcs-a-dcs-ib .dcs-gb-dcs-hb-dcs-ib{display:inline-block!important}.dcs-a-dcs-rb-dcs-ie{border:1px solid rgba(0,0,0,0.2)}.dcs-a-dcs-rb-dcs-gf{-webkit-transition:all 270ms ease-out;-moz-transition:all 270ms ease-out;-o-transition:all 270ms ease-out;transition:all 270ms ease-out;-webkit-transform:scale(0.3);-moz-transform:scale(0.3);-o-transform:scale(0.3);transform:scale(0.3);-webkit-transform-origin:center top;-moz-transform-origin:center top;-o-transform-origin:center top;transform-origin:center top;opacity:0.3}#docos-shadow{background:#000;background:rgba(0,0,0,0.7);color:#fff;position:absolute;z-index:700;left:0;top:0}#docos-shadow,.dcs-a-dcs-v-dcs-w{height:100%;width:100%}#docos-shadow-description{font-weight:bold}#docos-shadow-confirm,#docos-shadow-delete{margin:2px 7px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-gc{padding-bottom:6px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-se{margin:0 4px 0 0}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-fb{background:none}.dcs-a-dcs-g{border-top:1px solid #e8e8e8;font-family:Arial,sans-serif;font-size:12px;padding:18px 0 7px 0;position:relative;outline:none;zoom:1}.dcs-a-dcs-g:last-child{padding-bottom:0}.dcs-a-dcs-g:last-child .dcs-a-dcs-g-dcs-le{padding-bottom:0}.dcs-a-dcs-g .dcs-a-dcs-vb-dcs-eg{min-height:48px}.dcs-a-dcs-jf{margin-right:12px;min-height:51px;padding:0 6px;position:relative;top:-3px}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jf{background-color:#fffbe1}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-jf{background-color:#f6f6f6}.dcs-a-dcs-g-dcs-t{margin-left:60px;position:relative}.dcs-a-dcs-g-dcs-ic{font-weight:bold}.dcs-a-dcs-g-dcs-bb{color:#333;word-wrap:break-word;top:-7px;zoom:1}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-bb{color:#999}.dcs-a-dcs-g .dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{display:none;right:5px;top:-12px}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{display:block}.dcs-a-dcs-g-dcs-hd,.dcs-a-dcs-g-dcs-ue-dcs-ve{font-size:11px;color:#999;padding:0}.dcs-a-dcs-g-dcs-hd,.dcs-a-dcs-g-dcs-kd-dcs-sb{right:2px}.dcs-a-dcs-g-dcs-r{color:#ccc;font-size:12px;line-height:100%;padding:0 2px}.dcs-a-dcs-g-dcs-le{padding:4px 0}.dcs-a-dcs-g-dcs-hd:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-g-dcs-c-dcs-d{padding-right:6px;margin-left:30px}.dcs-a-dcs-g-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{background-color:#fff;border:1px solid #c9d4ec;height:23px;font-size:12px}.dcs-a-dcs-g-dcs-c-dcs-d.dcs-a-dcs-c-dcs-mc .dcs-a-dcs-c-dcs-id{background-color:#fff}.dcs-a-dcs-g-dcs-h-dcs-d .dcs-a-dcs-c-dcs-id{height:36px}.dcs-a-dcs-g-dcs-gd,.dcs-a-dcs-g-dcs-vc{margin:4px 12px 3px 0}.dcs-a-dcs-g-dcs-gd{background-color:#eff2f9;-moz-border-radius:0 0 6px 6px;-webkit-border-radius:0 0 6px 6px;border-radius:0 0 6px 6px;padding:6px 0 2px 6px;position:relative;zoom:1}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-gd{background-color:#f6f6f6}.dcs-a-dcs-g-dcs-td{position:absolute;right:0;top:0}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-td{right:33px}.dcs-a-dcs-g-dcs-lb{background-color:#fe8;bottom:0;left:0;padding:2px 0;position:absolute;width:100%}.dcs-a-dcs-lb-dcs-yd{font-weight:bold;margin:0 6px;padding:2px 0}.dcs-a-dcs-g .dcs-a-dcs-dc-dcs-mb{position:absolute;right:-12px;top:0}.dcs-a-dcs-g-dcs-kd-dcs-sb{display:inline}.dcs-a-dcs-g-dcs-kd-dcs-sb>.dcs-a-dcs-vb-dcs-kd{font-size:11px;color:#15c}.dcs-a-dcs-g-dcs-qd-dcs-sb>.dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-g-dcs-rb-dcs-sb>.dcs-a-dcs-vb-dcs-rb{color:#999;line-height:100%}.dcs-a-dcs-g-dcs-qd-dcs-sb>.dcs-a-dcs-vb-dcs-qd:hover,.dcs-a-dcs-g-dcs-kd-dcs-sb>.dcs-a-dcs-vb-dcs-kd:hover,.dcs-a-dcs-g-dcs-rb-dcs-sb>.dcs-a-dcs-vb-dcs-rb:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-jf:hover .dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-jf:hover .dcs-a-dcs-vb-dcs-rb,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-vb-dcs-rb{color:#15c}.dcs-a-dcs-x-dcs-fe{line-height:140%;outline:none}.dcs-a-dcs-x-dcs-t{padding:0 29px 0 20px;position:relative}.dcs-a-dcs-x-dcs-y{color:#15c;cursor:pointer;font-size:12px;position:absolute;right:0;top:-3px}.dcs-a-dcs-x-dcs-y:hover{text-decoration:underline}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-y{color:#999;cursor:default}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-y:hover{text-decoration:none}.dcs-a-dcs-x-dcs-je{bottom:-10px;color:#15c;cursor:pointer;font-size:12px;padding-right:5px;padding-top:5px;position:absolute;right:5px;text-decoration:none}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-je{display:none}.dcs-a-dcs-x-dcs-nb{color:#333;padding:12px 0}.dcs-a-dcs-x-dcs-z{margin:6px 0 10px 0;position:relative;zoom:1}.dcs-a-dcs-x-dcs-z-dcs-t{margin-left:61px;position:relative;zoom:1}.dcs-a-dcs-x-dcs-ze{font-size:12px;font-weight:bold;margin-bottom:3px;top:-3px}.dcs-a-dcs-x-dcs-zd{font-size:1.2em;margin:20px 5px 2px}.dcs-a-dcs-x-dcs-c-dcs-d{top:-4px}.dcs-a-dcs-x-dcs-c-dcs-d .dcs-a-dcs-c-dcs-se{font-weight:bold}.dcs-a-dcs-x-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{font-size:12px;height:30px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb{color:#666}.dcs-a-dcs-x-dcs-qf{background-color:#dd4b39;border:1px solid #602019;border-radius:4px;color:#fff;margin:6px;padding:6px;text-align:center}.dcs-a-dcs-s{background-color:#eff2f9;color:#666;font-size:12px;padding:6px 6px 0 6px;position:relative;margin-bottom:3px;min-height:24px}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-s{background-color:#f6f6f6}.dcs-a-dcs-s-dcs-k{left:6px}.dcs-a-dcs-s-dcs-t{padding-left:30px}.dcs-a-dcs-s-dcs-ac{color:black;font-weight:bold;left:-2px;margin:0 4px;right:-2px}.dcs-a-dcs-s-dcs-bb{color:#333;margin:0;top:-4px;width:100%;word-wrap:break-word}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-s-dcs-bb{color:#999}.dcs-a-dcs-s-dcs-pe,.dcs-a-dcs-s-dcs-hd{position:relative;top:-3px}.dcs-a-dcs-s-dcs-pe{width:100%}.dcs-a-dcs-s-dcs-hd{color:#999;font-size:11px;white-space:pre}.dcs-a-dcs-g .dcs-a-dcs-s .dcs-a-dcs-jb-dcs-sb{display:none;top:-3px}.dcs-a-dcs-g .dcs-a-dcs-s:hover .dcs-a-dcs-jb-dcs-sb{display:inline}.dcs-a-dcs-s-dcs-h-dcs-d .dcs-a-dcs-c-dcs-id{height:23px}.dcs-a-dcs-g .dcs-a-dcs-jb-dcs-kb{border-left:1px solid #ccc;font-style:italic;padding:3px 10px 3px 10px;position:relative;zoom:1;word-wrap:break-word}.dcs-a-dcs-jb-dcs-kb-dcs-ud{font-size:11px;color:#999;margin-right:2px;padding:0}.dcs-a-dcs-jb-dcs-kb-dcs-xb{overflow:hidden;height:18px}.dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#fff;padding:3px 5px 0 5px;position:absolute;right:0;top:0}.dcs-a-dcs-jb-dcs-kb-dcs-kc,.dcs-a-dcs-jb-dcs-kb-dcs-yb{color:#15c;visibility:hidden}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-kc,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-yb{visibility:visible}.dcs-a-dcs-jb-dcs-kb-dcs-kc{padding-left:3px}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#fffbe1}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#f6f6f6}.dcs-a-dcs-jb-dcs-kb-dcs-kc:hover,.dcs-a-dcs-jb-dcs-kb-dcs-yb:hover{cursor:pointer;text-decoration:underline}.dcs-a-dcs-id{margin:0;padding:2px;font-family:arial,sans-serif;outline-width:0!important;resize:none}.dcs-a-dcs-jb-dcs-zc,.dcs-a-dcs-jb-dcs-h{color:#15c;font-size:11px;margin:0 2px}.dcs-a-dcs-jb-dcs-zc:hover,.dcs-a-dcs-jb-dcs-h:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-c-dcs-fb{margin:2px 0}.dcs-a-dcs-c-dcs-se{margin:2px 7px 2px 0}</style><script gapi_processed="true" src="VerifiedBoot_files/api.js" charset="UTF-8" type="text/javascript"></script><script src="VerifiedBoot_files/ga.js"></script></head>
+<body xmlns="http://www.google.com/ns/jotspot" id="body" class=" en            ">
+<script src="VerifiedBoot_files/caja.js"> </script>
+<script src="VerifiedBoot_files/jot_caja.js"> </script>
+<div id="sites-page-toolbar" class="sites-header-divider">
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-status" class="sites-status" style="display:none;"><div id="sites-notice" class="sites-notice" role="status" aria-live="assertive"> </div></div>
+</div>
+<div id="sites-chrome-everything-scrollbar">
+<div id="sites-chrome-everything">
+<div id="sites-chrome-page-wrapper" style="direction: ltr">
+<div id="sites-chrome-page-wrapper-inside">
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-chrome-header-wrapper" style="height:auto;">
+<table id="sites-chrome-header" class="sites-layout-hbox" style="height:auto;" cellspacing="0">
+<tbody><tr class="sites-header-primary-row" id="sites-chrome-userheader">
+<td id="sites-header-title" class=""><div class="sites-header-cell-buffer-wrapper"><a href="http://sites.google.com/a/chromium.org/dev/" id="sites-chrome-userheader-logo"><img id="logo-img-id" src="VerifiedBoot_files/customLogo.png" alt="Logo" class="sites-logo "></a><h2><a href="http://sites.google.com/a/chromium.org/dev/" dir="ltr" id="sites-chrome-userheader-title">The Chromium Projects</a></h2></div></td><td class="sites-layout-searchbox "><div class="sites-header-cell-buffer-wrapper"><form id="sites-searchbox-form" action="/system/app/pages/search"><input id="sites-searchbox-scope" name="scope" value="search-site" type="hidden"><input id="jot-ui-searchInput" name="q" size="20" aria-label="Search this site" type="text"><div id="sites-searchbox-button-set" class="goog-inline-block"><div style="-moz-user-select: none;" role="button" id="sites-searchbox-search-button" class="goog-inline-block jfk-button jfk-button-standard" tabindex="0">Search this site</div></div></form></div></td>
+</tr>
+<tr class="sites-header-secondary-row" id="sites-chrome-horizontal-nav">
+<td colspan="2" id="sites-chrome-header-horizontal-nav-container">
+</td>
+</tr>
+</tbody></table> 
+</div> 
+<div id="sites-chrome-main-wrapper">
+<div id="sites-chrome-main-wrapper-inside">
+<table id="sites-chrome-main" class="sites-layout-hbox" cellpadding="{scmCellpadding}" cellspacing="0" border="0">
+<tbody><tr>
+<td id="sites-chrome-sidebar-left" class="sites-layout-sidebar-left" style="width:150px">
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_7648876402527094" class="sites-embed"><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/chromium-projects" jotid="wuid:gx:10ae433dadbbab13" class="sites-navigation-link">Home</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/Home" jotid="wuid:gx:43582b9d2029d3af" class="sites-navigation-link">Chromium</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/chromium-os" jotid="wuid:gx:83df2ab1f8880ba" class="sites-navigation-link">Chromium OS</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_14720868319272995" class="sites-embed"><h4 class="sites-embed-title">Quick links</h4><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/for-testers/bug-reporting-guidelines" class="sites-navigation-link">Report bugs</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/developers/discussion-groups" class="sites-navigation-link">Discuss</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/system/app/pages/sitemap/hierarchy" jotid="wuid:gx:1d50c9e952c62cdc" class="sites-navigation-link">Sitemap</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_19690813310444355" class="sites-embed"><h4 class="sites-embed-title">Other sites</h4><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://blog.chromium.org/" class="sites-navigation-link">Chromium Blog</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://code.google.com/chrome/extensions/" class="sites-navigation-link">Google Chrome Extensions</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="https://developers.google.com/chrome/chrome-frame/" class="sites-navigation-link">Google Chrome Frame</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_19695218559354544" class="sites-embed"><h4 class="sites-embed-title"></h4><div class="sites-embed-content sites-embed-content-sidebar-textbox"><div dir="ltr"><span style="font-size:x-small">Except as otherwise </span><a href="http://code.google.com/policies.html#restrictions"><span style="font-size:x-small">noted</span></a><span style="font-size:x-small">, the content of this page is licensed under a </span><a href="http://creativecommons.org/licenses/by/2.5/"><span style="font-size:x-small">Creative Commons Attribution 2.5 license</span></a><span style="font-size:x-small">, and examples are licensed under the </span><a href="http://src.chromium.org/viewvc/chrome/trunk/src/LICENSE" target="_blank"><span style="font-size:x-small">BSD License</span></a><span style="font-size:x-small">.<br></span></div></div></div>
+</td>
+<td id="sites-canvas-wrapper">
+<div id="sites-canvas">
+<div id="goog-ws-editor-toolbar-container"> </div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="title-crumbs" style="">
+<a dir="ltr" href="http://www.chromium.org/chromium-os">Chromium OS</a>‎ &gt; ‎<a dir="ltr" href="http://www.chromium.org/chromium-os/chromiumos-design-docs">Design Documents</a>‎ &gt; ‎
+  </div>
+<h3 xmlns="http://www.w3.org/1999/xhtml" id="sites-page-title-header" style="" align="left">
+<span id="sites-page-title" dir="ltr">Verified Boot</span>
+</h3>
+<div id="sites-canvas-main" class="sites-canvas-main">
+<div id="sites-canvas-main-content">
+<table xmlns="http://www.w3.org/1999/xhtml" class="sites-layout-name-one-column sites-layout-hbox" cellspacing="0"><tbody><tr><td class="sites-layout-tile sites-tile-name-content-1"><div dir="ltr"><div class="sites-embed-align-right-wrapping-on"><div class="sites-embed-border-off sites-embed" style="width:250px;"><div class="sites-embed-content sites-embed-type-toc"><div class="goog-toc sites-embed-toc-maxdepth-6"><p>Contents</p><ol class="goog-toc"><li class="goog-toc"><a href="#TOC-Abstract"><strong>1 </strong>Abstract</a></li><li class="goog-toc"><a href="#TOC-Goals-of-verified-boot"><strong>2 </strong>Goals of verified boot</a></li><li class="goog-toc"><a href="#TOC-Getting-to-the-kernel-safely"><strong>3 </strong>Getting to the kernel safely</a></li><li class="goog-toc"><a href="#TOC-Extending-verification-from-the-ker"><strong>4 </strong>Extending verification from the kernel on upward</a></li><li class="goog-toc"><a href="#TOC-Mitigating-potential-bottlenecks"><strong>5 </strong>Mitigating potential bottlenecks</a></li><li class="goog-toc"><a href="#TOC-Handling-updates"><strong>6 </strong>Handling updates</a></li><li class="goog-toc"><a href="#TOC-The-implementation"><strong>7 </strong>The implementation</a></li><li class="goog-toc"><a href="#TOC-Other-issues-ideas-and-notes"><strong>8 </strong>Other issues, ideas, and notes</a></li><li class="goog-toc"><a href="#TOC-Attack-cases"><strong>9 </strong>Attack cases</a></li></ol></div></div></div></div>
+<h2><a name="TOC-Abstract"></a>Abstract</h2>
+<div style="margin-top:0px;margin-bottom:0px">
+<ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px"><span style="font-family:arial,sans-serif;border-collapse:collapse">The
+ Chromium OS team is implementing a verified boot solution that strives 
+to ensure that users feel secure when logging into a Chromium OS device.
+ Verified boot starts with a read-only portion of firmware, which only 
+executes the next chunk of boot code after verification.</span></li>
+<li style="margin-top:0px;margin-bottom:0px"><span style="font-family:arial,sans-serif;border-collapse:collapse">Verified
+ boot strives to ensure that all executed code comes from the Chromium 
+OS source tree, rather than from an attacker or corruption.</span></li>
+<li style="margin-top:0px;margin-bottom:0px">Verified boot is focused on
+ stopping the opportunistic attacker. While verified boot is not 
+expected to detect every attack, the goal is to be a significant 
+deterrent which will be improved upon iteratively.</li>
+<li style="margin-top:0px;margin-bottom:0px">Verification during boot is
+ performed on-the-fly to avoid delaying system start up. &nbsp;It uses 
+stored cryptographic hashes and may be compatible with any trusted 
+kernel.</li></ul>
+</div>
+<p>This document extends and expands on the <a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery">Firmware Boot and Recovery</a>&nbsp;and <a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/verified-boot-crypto">Verified Boot Crypto</a> documents.</p>
+Verified
+Boot should provide a mechanism that aids the user in detecting when
+their system is in need of recovery due to boot path changes. In particular, it should meet these requirements:<br>
+<ul><li>Detect non-volatile memory changes from expected state (rw firmware)</li>
+<li>Detect file system changes relevant to system boot (kernel, init, modules, fs metadata, policies)<br>
+</li>
+<li>Support functionality upgrades in the field<br>
+</li></ul>
+This
+feature is not expected to provide 100% detection of attacks. Instead,
+it is meant to raise the attack bar significantly and in a way that can
+be improved upon iteratively.<br>
+<br>
+It is important to note that
+restraining the boot path to only Chromium-project-supplied code is not a
+goal. The focus is to ensure that when code is run that is not
+provided for or maintained by upstream, that the user will have the
+option to immediately reset the device to a known-good state. Along
+these lines, there is no dependence on remote attestation or other
+external authorization. Users will always own their computers.<br>
+<h2><a name="TOC-Goals-of-verified-boot"></a>Goals of verified boot<br>
+</h2>
+The primary attacker in this model is an opportunistic attacker. This means that the attacker has accessed the system using:<br>
+<ul><li>a remote vector, such as the Chromium-based browser or a browser plugin<br>
+</li>
+<li>a local vector, such as booting to a USB drive and changing files (but <b>not</b> by replacing the write-protected firmware)<br>
+</li></ul>
+If we assume attackers access the system via a remote vector and bypass 
+all run-time defenses, then they will have access to modify the root 
+partition (kernel, modules, browser, ...), update read-write firmware, 
+inject code into SMRAM, and so on. In addition,
+the attacker can now access any data in the currently-logged-in user's
+account such as locally stored media and website cookies. The attacker
+may collect passwords when typed by the user into the Chromium-based 
+browser or the
+screenlocker.<br>
+<br>
+An opportunistic <i>local</i> attacker will have a completely different 
+level of access. Access will be achieved using a USB boot drive, or 
+other out-of-band bootable material supported by the firmware. Once the 
+system is running the attacker's operating system, she will be able to 
+modify the root file system and encrypted user-data blobs. She won't 
+have any visibility into the encrypted information but may copy it or 
+modify it.<br>
+<br>
+While Chromium OS
+does as much as possible to guard against such remote and local breaches, no software
+system is impervious to successful attacks. Therefore, it is important
+that the attacker cannot continue to "own" a machine through permanent, local changes. To that end, on
+boot, the firmware and other accessible regions of the system
+internals are verified to be in a known good state. If they aren't,
+then the firmware recovery process will be initiated (or the user can
+request permission to proceed, which would make sense in the case of a development install, for example).<br>
+<br>
+The
+important factor to consider with the attackers considered above is that
+ if
+an attacker gains access via the Chromium browser, they can presumably 
+modify the Chromium browser's startup (or bookmarks or server-side 
+settings) to re-attack
+the machine at next reboot. This is why it is important to be able to
+ensure that a safe recovery/reinstall is possible outside of what can
+be done by an attacker on the machine. (Obviously, this is no
+deterrent for a <b>determined</b> attacker willing to modify the system physically.)<br>
+<h2><a name="TOC-Getting-to-the-kernel-safely"></a>Getting to the kernel safely<br>
+</h2>
+As
+outlined in the Firmware Boot and Recovery document, verification will
+occur in several places. Initially, the small read-only stub code will
+compute a SHA-2 hash (either with internal code or using a provided
+SHA-2 accelerator) of the read-write portion of the firmware. An RSA
+signature of this hash will then be verified using a permanently
+stored public key (of, <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57-Part1-revised2_Mar08-2007.pdf" title="ideally">ideally</a>, 2048 bits or more).<br>
+<br>
+The
+read-write firmware is then responsible for computing hashes of any
+other non-volatile memory and the kernel that will be executed. It will contain its own <i>subkey</i>
+ and a list of cryptographic hashes for the data to be verified: kernel,
+ initrd, master boot record, and so on. These additional hashes will be 
+signed by the subkey so that they may be updated without requiring the 
+write-protected key to be used for every update. (Note, the 
+kernel+initrd signed hashes may be stored with the kernel+initrd on disk
+ to avoid needing a firmware update when they change.)<br>
+<br>
+Once we're in the kernel, we've successfully performed a verified boot.<br>
+<h2><a name="TOC-Extending-verification-from-the-ker"></a>Extending verification from the kernel on upward<br>
+</h2>
+In
+general, once we're running, integrity measurements become less
+useful. We can ensure that the Chromium browser that we execute has not been
+tampered with, but we can't guarantee that the same attack that
+compromised it the first time won't compromise it a second time
+without updating.<br>
+<br>
+To ensure that an update is possible, the executables, modules, and 
+configuration files that allow the system to receive updates must be 
+authentic and untampered with. Getting to that point requires network 
+access and a running autoupdater. Given that Chromium OS keeps a very 
+minimal root file system, it's easier to just verify everything on it.<br>
+<br>
+While that sounds great in theory, in practice it is hard to guarantee 
+an intact file system without paying the cost for upfront checks. If the
+ read-write firmware were to verify the entire root partition before 
+proceeding to boot, it would add at least 5 seconds to the boot-time on 
+current netbooks. This delay is untenable.<br>
+<br>
+Instead of performing full file system verification in advance, it can 
+be done on demand from a verified kernel. A transparent block device 
+will be layered between the run-time system and all running processes. 
+It will be configured during kernel startup using either in-kernel code 
+changes or from a firmware-verified initial ramdisk image. Each block 
+that is accessed via the transparent block device layer will be checked 
+against a cryptographic hash which is stored in a central collection of 
+hashes for the verifiable block device.&nbsp; This may be in a 
+standalone partition or trailing the filesystem on the verifiable block 
+device.<br>
+<br>
+Initially, blocks will be 4KB in size. For a root file system of roughly
+ ~75MB, there will be roughly 19,200 SHA-1 hashes. On current x86 and 
+ARM based systems, computing the SHA-1 hash of 4KB takes between 0.2ms 
+and 0.5ms. There will be additional overhead (TBD) incurred by accessing
+ the correct block hash and comparing the cryptographic digests.&nbsp; 
+Once verified, blocks should live in the page cache above the block 
+layer. This will mean that verification does not occur on every read 
+event. To further amortize time-costs, the block hashes will be 
+segmented into logical bundles of block hashes. Each bundle will be 
+hashed. The subsequent list of bundle hashes will then be hashed. This 
+layering can be repeated as needed to build a tree. &nbsp;The final, 
+single hash will be hard coded into the kernel or supplied through a 
+device interface from a trusted initial RAM disk.<br>
+<br>
+<div style="display:block;margin-top:5px;margin-right:auto;margin-bottom:0pt;text-align:left"><br>
+<div style="display:block;text-align:center;margin-right:auto;margin-left:auto"><a href="http://sites.google.com/a/chromium.org/dev/chromium-os/chromiumos-design-docs/verified-boot/diag2.png?attredirects=0" imageanchor="1"></a>
+<div style="display:block;text-align:center;margin-right:auto;margin-left:auto"><a href="http://sites.google.com/a/chromium.org/dev/chromium-os/chromiumos-design-docs/verified-boot/diag2.png?attredirects=0" imageanchor="1"><img src="VerifiedBoot_diag2png.bin" border="0"></a></div>
+<br>
+</div>
+<br>
+</div>
+<br>
+<br>
+Note that SHA-1 is considered to be <a href="http://csrc.nist.gov/groups/ST/toolkit/secure_hashing.html" target="_blank">unsafe after 2010 by NIST</a>&nbsp;for
+ general use. The biggest risk here is that specific block collisions 
+can be found and made such that they provide an alternate execution 
+path. We could use any hashing algorithm supported by the Linux kernel 
+in our implementation. SHA-1 is just a specific example.<br>
+<div>
+<h2><a name="TOC-Mitigating-potential-bottlenecks"></a>Mitigating potential bottlenecks<br>
+</h2>
+Loading hashes off the same disk as the data for each block would affect
+ performance during a read. Right now, the plan is to read in signed 
+bundles of hashes as blocks in that bundle range are accessed. Once a 
+bundle is loaded into memory, it is kept there. If we assume that we're 
+looking at something like 20k-hashes, then that will require around 
+400KB of memory. Even if the needed hashes grow to twice that, 
+allocating 1MB of kernel memory doesn't seem too onerous. In addition, 
+keeping the block hashes in memory will provide for easy linear 
+addressing of the hashes since they will be in block-order.<br>
+<h2><a name="TOC-Handling-updates"></a>Handling updates<br>
+</h2>
+For Chromium OS, the autoupdater will update the collection of hashes 
+specific to the partition it is updating.&nbsp; In general, the complete
+ collection of hashes for a specific partition will be generated by 
+running a lightweight utility directly on the filesystem image. It will 
+walk the origin block device and emit an image file that
+contains the properly formatted hash collection. In addition, it will
+emit the SHA-1 hash of the bundle hashes. This will be the
+authoritative hash that will need to be either signed or stored in a
+signed/verified location, such as in the kernel. The resulting file can 
+either be appended to the filesystem image or stored in a standalone 
+partition (hash partition).&nbsp;&nbsp;&nbsp; On update, a direct 
+difference of the new hash collection can be taken using bsdiff against 
+the last versions.&nbsp; However, it may be that more efficient 
+difference generation approaches may be used as long as the end result 
+is the same.<br>
+<h2><a name="TOC-The-implementation"></a>The implementation</h2>
+Post-firmware verified boot will most likely be implemented as a device 
+mapper target. It will provide the transparent, verifying block layer. 
+Initially, it will be assumed that there will be a verified initrd that 
+can be used to set up the root partition using the dm device. A simple 
+utility tool will be written that will directly hash a given block 
+device and emit a compatible binary blob that contains the collection of
+ hashes. It will take the format:</div>
+<div><span style="font-family:courier new,monospace"><font face="&amp;apos;trebuchet ms&amp;apos;"><br>
+</font>
+&nbsp;&nbsp; hash</span><sub style="font-family:courier new,monospace">block_1</sub><span style="font-family:courier new,monospace"> . . . hash</span><sub style="font-family:courier new,monospace">block_n</sub><span style="font-family:courier new,monospace"><br>
+&nbsp;&nbsp; </span><span style="font-family:courier new,monospace">hash</span><sub style="font-family:courier new,monospace">bundle_1</sub><span style="font-family:courier new,monospace">. . . </span><span style="font-family:courier new,monospace">hash</span><sub style="font-family:courier new,monospace">bundle_m</sub><span style="font-family:courier new,monospace"><br>
+</span><br>
+This data will live either in its own partition or be appended to the 
+verified partition (aligned on a block boundary). Its location, the hash
+ algorithm used, and the hash of bundle hashes should be passed in as 
+arguments to the device mapper setup process (either using dmsetup from 
+an initrd or directly in the kernel).<br>
+</div><div><br></div><div>Living implementation documentation can be found <a href="http://git.chromium.org/gitweb/?p=chromiumos/third_party/kernel.git;a=blob;f=Documentation/device-mapper/dm-verity.txt">here</a> and <a href="http://git.chromium.org/gitweb/?p=chromiumos/third_party/kernel.git;a=blob;f=Documentation/device-mapper/dm-bht.txt">here</a>.</div>
+<h2><a name="TOC-Other-issues-ideas-and-notes"></a>Other issues, ideas, and notes<br>
+</h2>
+<ul><li>All
+verification performed after the kernel is running should be
+independent of the firmware verification. This allows for developers
+to run their own builds as well as for the boot-time verification to be
+compatible with a TCG-style boot.
+</li>
+<li>The partition table should be validated to some extent by the 
+read-write firmware, but if there are any kernel/firmware partition 
+parsing bugs, we may be able to catch them with audits as well.<br>
+</li>
+<li>Verified Boot can play nicely with the
+TPM. Once a signed kernel is up, it can initialize the TPM's PCR
+registers and use those for measurement tracking. In particular, we
+have the option of using it (Linux-IMA style) to perform disk
+encryption key protection and possibly even other pre-login state
+protection where the key becomes available&nbsp;only&nbsp;if we've booted without
+modification.</li>
+<li>The hash partition will be subject to
+replay attack unless the kernel version that pairs with it is included
+in the file and the kernel is upgraded when the hashes are. However,
+the kernel+initrd will suffer the same attack for the next level up.
+Avoiding replay/rollback attacks is non-trivial since the firmware can't
+ guarantee the local clock is not changed. A local TPM tickstamp
+blob would need to be included in the signed hash payloads to solve the 
+problem to some degree. If autoupdates
+were customized per-download, this may be possible, but at present,
+this is not planned.<br>
+</li>
+<li>Key management is of utmost importance for the key used to sign the 
+read-only firmware. That key should only be used on the R/W firmware 
+which should be
+updated much less frequently than the rest of the system. If possible,
+this key should never be exposed on a network-enabled machine, but that 
+is out of scope for this design.</li>
+<li>Having a fully tamper-evident root file system means that if 
+desired, a manifest of service-specific public keys/certificates could 
+be stored on the root partition. These keys could then be used to verify
+ the authenticity and integrity any data stored on the stateful 
+partition that was signed by a remote server (Google or another 
+provider).</li>
+<li>There is no plan to support any remote inspection of whether a 
+Chromium OS installation is using a 'verified boot' or a development 
+version.</li>
+<li>The autoupdate process currently has a file-centric view. This means
+ that it could be possible for file system layout to diverge across 
+machines. If this is the case, block hashes may still be used, but a 
+more file-centric view may be needed. If the updater moves towards file 
+system image differencing, this design will work as is.</li></ul>
+<h2><a name="TOC-Attack-cases"></a>Attack cases</h2>
+<p>This
+section only discusses the current threat model, but many of the
+attacks can be generalized to other attack vectors. In addition, these
+scenarios ignore all other attack mitigation techniques not included in
+the document above. In reality, various system-level and Chromium-level
+defenses should aid in making run-time attacks difficult and unreliable.</p>
+<p><i>Vector</i>: Opportunistic local attacker with a USB stick or bootable SD card.<br>
+<i>Scenario</i>:
+Attacker boots the system off of an external boot device. The attacker then changes files and copies the entire system.<br>
+<i>Coverage</i>: Verified Boot will detect this tampering. Encrypted user data will still be protected.<br>
+<i>Exposure: </i>None. User will need to recover their system.</p>
+<p><i>Scenario</i>:
+Attacker boots the system off of an external boot device and leaves the system running a "fake" Chromium OS to phish user data.<br>
+<i>Coverage</i>: Verified Boot will not impact this <i>unless<u> </u></i>the user reboots the system before logging in.<br>
+<i>Exposure: </i>None to complete depending on if the user reboots prior
+ to logging in. If the user left the machine at the screenlocker, a fake
+ screenlocker could be used in the phishing OS since it is unlikely a 
+user will reboot before unlocking. This may be addressed in the future 
+with clever authentication use (PCR+TPM, ?). However, a paranoid user 
+that left their machine in an unsafe place may just want to reboot to be
+ safe.</p>
+<p><i>Vector</i>: Determined local attacker with a USB drive and a toolkit<br>
+<i>Scenario</i>:
+Attacker opens the system up and enables the write-pin on the 
+write-protected firmware. The attacker then boots the system off of an 
+external boot device. The root file system is changed along with the 
+formerly write-protected and read-write firmware.<br>
+<i>Coverage</i>: Verified Boot will operate normally and will not detect any variance.<br>
+<i>Exposure: </i>Complete; a determined attacker that will physically 
+modify the machine cannot be easily stopped. They may also install 
+hardware keyboard sniffers, microphones, cameras, etc.</p>
+<p><i>Vector</i>: Chromium or a Chromium plugin<br>
+<i>Scenario</i>:
+No superuser privileges are gained, but the attacker can modify Chromium
+ data. The attacker changes bookmarks, starting pages, marks their
+pages as ok for popups, and disables safe browsing. In addition,
+cookies and stored passwords are harvested and posted to a remote
+server.<br>
+<i>Coverage</i>: Verified Boot has no impact.<br>
+<i>Exposure: </i>Only the initially compromised user is exposed.</p>
+<p><i>Scenario</i>:
+Attacker gains superuser privileges. The attacker remounts root partition read-write directly. The attacker then replaces
+/usr/bin/chromeos-chrome with their own build of Chromium that includes
+malware/illegal ad revenue and password/credit card sniffing.<br>
+<i>Coverage</i>: Verified Boot will detect after the next reboot (not after a suspend to RAM).<br>
+<i>Exposure: </i>Until reboot, any user that logs in is exposed (password, cookies, encrypted data).</p>
+<p><i>Scenario</i>: Attacker gains superuser privileges. The
+attacker remounts root partition read-write directly. The attacker then adds a kernel
+module in the form of a rootkit for the system to load on next reboot.<br>
+<i>Coverage</i>: Verified Boot will detect after the next reboot.<br>
+<i>Exposure: </i>Until reboot, any user that logs in is exposed (password, cookies, encrypted data).</p>
+<p><i>Scenario</i>: Attacker gains superuser privileges. The attacker 
+then modifies the encrypted file system metadata which exploits a file 
+system bug in the kernel on next login.<br>
+<i>Coverage</i>: Verified Boot has no direct impact. However, if the auotupdater runs before next login, the vulnerability may be patched.<br>
+<i>Exposure</i>: On next login, the tampered with encrypted file system metadata attack will trigger.</p>
+<p><i>Scenario</i>:
+Attacker gains superuser privileges. The attacker then
+replaces the hash-partition with an older version and replaces system 
+image with one that has known vulnerabilities (which may be easier
+to exploit reliably than the vector used for attack). The attacker
+will then change the current user's configuration to auto-open an
+attack URL to re-exploit the system immediately after reboot. If the
+attacker can gain superuser privileges repeatedly, then it will be 
+difficult for autoupdate to repair.<br>
+<i>Coverage</i>: Verified Boot will not be able to detect hash-partition
+replay attacks easily. It may be possible to retroactively detect then
+by the autoupdater after the network is up, but an attacker will always
+be able to the system appear to just be out-of-date.<br>
+<i>Exposure</i>: Any user that logs in is exposed across reboots.<br>
+<i>Notes</i>: Downgrade/replay attacks of this nature will be less
+dangerous if autoupdater is able to run prior to Chromium starting, but
+there will most likely be a race between the two. It may make sense to
+include a version check early in the Chromium startup process to detect
+seriously out-of-date browsers/systems prior to their opening dangerous
+pages.</p>
+<p><i>Exposure summary:</i></p>
+<ul><li>Run-time attacks against unsignable data: Chromium configuration</li>
+<li>Persisted attacks by defaulting Chromium to launch the attack site on next start</li>
+<li>Logged-in user data is exposed immediately after compromise.<br>
+</li>
+<ul><li>With partial signing, a Chromium replacement would result in cross-user exposure after reboot.</li>
+<li>With full signing, other system users would be notified prior to exposure<br>
+</li></ul>
+<li>Metadata attacks against the kernel will not be caught by signing per-file.</li>
+<li>Downgraded
+manifest file attacks are difficult to detect since there is no current
+way to encoded tamperproof system time into manifest files.</li></ul></div></td></tr></tbody></table>
+</div> 
+</div> 
+<div id="sites-canvas-bottom-panel">
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_page-subpages"> </div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-attachments">
+<div class="sites-attachments-row"><div class="sites-attachments-icon" style="left:0px;"><div class="sites-translucent sites-symbol">Č</div></div></div><div class="sites-attachments-separator"></div>
+<div id="attachment-wuid:gx:a8f7719f99cd816"><div class="sites-attachments-row"><div class="sites-attachments-icon" style="left:5px"><div class="sites-translucent sites-symbol">ċ</div></div><a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/verified-boot/diag2png?attredirects=0&amp;d=1" title="Download"><div id="attachment-download-wuid:gx:a8f7719f99cd816" class="sites-attachments-icon" style="right:0px"><span class="sites-symbol">ď</span></div></a><div class="sites-attachments-version"><a href="http://www.chromium.org/system/app/pages/admin/revisions?wuid=wuid:gx:a8f7719f99cd816">v.1</a></div><div class="sites-attachments-inner-div"><div class="sites-attachments-name">diag2png <div class="sites-translucent">(60k)</div></div><div class="sites-attachments-author">Jed Hartman, <div class="sites-translucent">Nov 19, 2009, 9:03 AM</div></div></div></div><div class="sites-attachments-separator"></div></div>
+<div style="height: 10px"></div>
+</div>
+<a xmlns="http://www.w3.org/1999/xhtml" name="page-comments"></a>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_page-comments"><div class="sites-comment-docos-wrapper"><div class="sites-comment-docos"><div class="sites-comment-docos-background"></div><div class="sites-comment-docos-header"><div class="sites-comment-docos-header-title">Comments</div></div><div dir="ltr" style="text-align: left;" id="sites-comment-docos-pane" class="sites-comment-docos-pane"><div tabindex="0" class="dcs-a dcs-a-dcs-x-dcs-fe dcs-a-dcs-ib"><div class="dcs-a-dcs-x-dcs-t"><div class="dcs-a-dcs-x-dcs-z dcs-me-dcs-hb-dcs-ib"><img data-userid="ANONYMOUS_105250506097979753968" src="VerifiedBoot_files/silhouette96.png" id="dcs-img-0" class="dcs-a-dcs-k g-hovercard" height="48" width="48"><div class="dcs-a-dcs-x-dcs-z-dcs-t"><div id="___hovercard_0" data-userid="ANONYMOUS_105250506097979753968" class="dcs-a-dcs-x-dcs-ze dcs-n-dcs-mf-dcs-nf g-hovercard">Anonymous</div><div class="dcs-a-dcs-c dcs-a-dcs-x-dcs-c-dcs-d"><textarea maxlength="2048" aria-haspopup="true" class="dcs-a-dcs-c-dcs-id" aria-label="Comment draft" x-webkit-speech="" speech="">Add a comment</textarea><div class="dcs-a-dcs-c-dcs-p-dcs-mb"></div><div class="dcs-a-dcs-c-dcs-p-dcs-q"></div><div class="dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb" style="display: none">Your +mention will add people to this post and send an email.</div><div class="dcs-a-dcs-c-dcs-gc"><div style="-moz-user-select: none;" role="button" class="dcs-n-dcs-mf-dcs-nf dcs-i-dcs-tb dcs-i-dcs-tb-dcs-ub dcs-a-dcs-c-dcs-se" tabindex="0" title="Post comment"><span class="dcs-a-dcs-c-dcs-gc-dcs-se">Comment</span></div><div style="-moz-user-select: none;" role="button" class="dcs-n-dcs-mf-dcs-nf dcs-i-dcs-tb dcs-i-dcs-tb-dcs-pd dcs-a-dcs-c-dcs-fb" tabindex="0" title="Discard comment">Cancel</div></div></div></div></div><div class="dcs-a-dcs-x-dcs-nb dcs-gb-dcs-hb-dcs-ib dcs-n-dcs-mf-dcs-nf">You have no permission to add comments.</div><div class="dcs-a-dcs-ib dcs-a"></div></div><div></div></div></div></div></div></div>
+</div>
+</div> 
+</td> 
+</tr>
+</tbody></table> 
+</div> 
+</div> 
+<div id="sites-chrome-footer-wrapper">
+<div id="sites-chrome-footer-wrapper-inside">
+<div id="sites-chrome-footer">
+</div>
+</div>
+</div>
+</div> 
+</div> 
+<div id="sites-chrome-adminfooter-container">
+<div xmlns="http://www.w3.org/1999/xhtml" class="sites-adminfooter"><p><a class="sites-system-link" href="https://www.google.com/a/UniversalLogin?service=jotspot&amp;continue=http://sites.google.com/a/chromium.org/dev/chromium-os/chromiumos-design-docs/verified-boot">Sign in</a>|<a class="sites-system-link" href="http://www.chromium.org/system/app/pages/reportAbuse" target="_blank">Report Abuse</a>|<a class="sites-system-link" href="javascript:;" onclick="window.open(webspace.printUrl)">Print Page</a>|<a class="sites-system-link" href="http://www.chromium.org/system/app/pages/removeAccess" target="_blank">Remove Access</a>|<span class="sites-system-link">Powered By</span> <b class="powered-by"><a href="http://sites.google.com/">Google Sites</a></b></p></div>
+</div>
+</div> 
+</div> 
+<div id="sites-chrome-onebar-footer">
+</div>
+
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    window.jstiming.load.tick('sjl');
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" src="VerifiedBoot_files/jot_min_view__en.js"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    window.jstiming.load.tick('jl');
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+  if (webspace.editorResources['text']) {
+    //<![CDATA[
+webspace.editorResources['text'].unshift('/system/app/css/overlay.css?cb=beigeandblueundefineda100%25%25150goog-ws-left');
+webspace.editorResources['text'].unshift('/_/rsrc/1364510364000/system/app/themes/beigeandblue/standard-css-beigeandblue-ltr-ltr.css');
+//]]>
+
+  }
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+    
+        sites.core.Analytics.createTracker();
+        sites.core.Analytics.trackPageview();
+      
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+                    sites.Searchbox.initialize(
+                        'sites-searchbox-search-button',
+                        {"object":[]}['object'],
+                        'search-site',
+                        {"label":"Configure search options...","url":"/system/app/pages/admin/settings"});
+                  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+      gsites.HoverPopupMenu.createSiteDropdownMenus('sites-header-nav-dropdown', false);
+    </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("7648876402527094", "Navigation", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_7648876402527094');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("14720868319272995", "Quick links", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_14720868319272995');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("19690813310444355", "Other sites", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_19690813310444355');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+              new sites.CommentPane('//docs.google.com/comments/d/AAHRpnXvrAwjAfmld0ObrebBiGRq9hqxn8sD_Mf-YDr_AFUWPFmIIxHjvk631MCELt4e7E0pZtWO2BPeFrlDg1fmrqD5CCOQMMnOArGDJ74ZWWRfXLGxRvsiXG-j02pkSXYacCGuMS50O/api/js?anon=true', true, true,
+                  false, false);
+            </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+                    window.onload = function() {
+                      if (false) {
+                        JOT_setMobilePreview();
+                      }
+                      var loadTimer = window.jstiming.load;
+                      loadTimer.tick("ol");
+                      loadTimer["name"] = "load," + webspace.page.type;
+                      window.jstiming.report(loadTimer, {}, 'http://csi.gstatic.com/csi');
+                    }
+                  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+        JOT_insertAnalyticsCode(false);
+      </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    var maestroRunner = new gsites.pages.view.SitesMaestroRunner(
+        webspace, "en");
+    maestroRunner.initListeners();
+    maestroRunner.installEditRender();
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+  //<![CDATA[
+    // Decorate any fastUI buttons on the page with a class of 'goog-button'.
+    if (webspace.user.hasWriteAccess) {
+      JOT_decorateButtons();
+    }
+
+    // Fires delayed events.
+    (function() {
+      JOT_fullyLoaded = true;
+      var delayedEvents = JOT_delayedEvents;
+      for (var x = 0; x < delayedEvents.length; x++) {
+        var event = delayedEvents[x];
+        JOT_postEvent(event.eventName, event.eventSrc, event.payload);
+      }
+      JOT_delayedEvents = null;
+      JOT_postEvent('pageLoaded');
+    })();
+ //]]>
+</script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    JOT_postEvent('decorateGvizCharts');
+  </script>
+
+<script type="text/javascript">
+              sites.util.Plus.go('sites-chrome-main');
+            </script>
+<div id="server-timer-div" style="display:none"> </div>
+<script>
+          window.jstiming.load.tick('render');
+        </script>
+
+
+<div style="display: none;"><iframe src="VerifiedBoot_files/xpc.html" style="height: 100%; width: 100%;" id="xpcpeeroQSy" name="xpcpeeroQSy"></iframe></div></body></html>

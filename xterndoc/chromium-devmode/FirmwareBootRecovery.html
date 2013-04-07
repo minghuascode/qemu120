@@ -1,0 +1,1158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" itemscope="" itemtype="http://schema.org/"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<script async="" src="FirmwareBootRecovery_files/cbgapi.loaded_0"></script><script src="FirmwareBootRecovery_files/analytics.js" async=""></script><script type="text/javascript">/* Copyright 2008 Google. */ (function() { var b=window,e="tick",f="wtsrt_",g="tbsd_",h="tbnd_",k="start",m="_wtsrt",n="_tbnd";(function(){function l(a){this.t={};this.tick=function(a,c,d){this.t[a]=[void 0!=d?d:(new Date).getTime(),c]};this[e](k,null,a)}var a=new l;b.jstiming={Timer:l,load:a};if(b.performance&&b.performance.timing){var a=b.performance.timing,c=b.jstiming.load,d=a.navigationStart,a=a.responseStart;0<d&&a>=d&&(c[e](m,void 0,d),c[e](f,m,a),c[e](g,f))}try{a=null,b.chrome&&b.chrome.csi&&(a=Math.floor(b.chrome.csi().pageT),c&&0<d&&(c[e](n,void 0,b.chrome.csi().startE),c[e](h,n,d))),null==a&&b.gtbExternal&&(a=
+b.gtbExternal.pageT()),null==a&&b.external&&(a=b.external.pageT,c&&0<d&&(c[e](n,void 0,b.external.startE),c[e](h,n,d))),a&&(b.jstiming.pt=a)}catch(p){}})(); })()
+</script>
+<link rel="shortcut icon" href="http://www.chromium.org/_/rsrc/1354323194313/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="http://www.gstatic.com/sites/p/229b45/system/app/images/apple-touch-icon.png" type="image/png">
+<script type="text/javascript">/* Copyright 2008 Google. */ (function() { var d=window,e="length",h="",k="__duration__",l="function";function m(c){return document.getElementById(c)}d.byId=m;function n(c){return c.replace(/^\s+|\s+$/g,h)}d.trim=n;var p=[],q=0;d.JOT_addListener=function(c,a,b){var f=new String(q++);c={eventName:c,handler:a,compId:b,key:f};p.push(c);return f};d.JOT_removeListenerByKey=function(c){for(var a=0;a<p[e];a++)if(p[a].key==c){p.splice(a,1);break}};d.JOT_removeAllListenersForName=function(c){for(var a=0;a<p[e];a++)p[a].eventName==c&&p.splice(a,1)};
+d.JOT_postEvent=function(c,a,b){var f={eventName:c,eventSrc:a||{},payload:b||{}};if(d.JOT_fullyLoaded){a=p[e];for(b=0;b<a&&b<p[e];b++){var g=p[b];g&&g.eventName==c&&(f.listenerCompId=g.compId||h,(g=typeof g.handler==l?g.handler:d[g.handler])&&g(f))}}else d.JOT_delayedEvents.push({eventName:c,eventSrc:a,payload:b})};d.JOT_delayedEvents=[];d.JOT_fullyLoaded=!1;
+d.JOT_formatRelativeToNow=function(c,a){var b=((new Date).getTime()-c)/6E4;if(1440<=b||0>b)return null;var f=0;60<=b&&(b/=60,f=2);2<=b&&f++;return a?d.JOT_siteRelTimeStrs[f].replace(k,Math.floor(b)):d.JOT_userRelTimeStrs[f].replace(k,Math.floor(b))}; })()
+</script>
+<script>
+
+
+var webspace = {"scottyUrl":"/_/upload","isConsumer":false,"canPublishScriptToAnyone":true,"serverFlags":{"cajaBaseUrl":"//www.gstatic.com/caja","cajaDebugMode":false},"sharingUrlPrefix":"/_/sharing","csiReportUri":"http://csi.gstatic.com/csi","sharingPolicy":"OPENED_WITH_INDICATOR","analyticsAccountId":"UA-5484340-1","baseUri":"","name":"dev","domain":"chromium.org","features":{"asyncPermanentDelete":false,"folderEmbed":true,"docosHideNotificationSettings":true,"siteChromeInPlaceEditingProdLaunchPromo":true,"scottyForTrogImageUpload":false,"pdfEmbedSupport":false,"siteChromeSidebarWidgetsEditDialog":true,"canonicalLinkTagInHead":false,"siteChromeDialogsToolbar":true,"plusBadge":false,"siteChromeHorizontalNavigationDialog":true,"siteChromeSystemFooterDialog":true,"plusOneButtonOptions":true,"plusOneButton":true,"htmlEmbed":true,"siteChromeHeaderDialog":true,"siteChromeCustomFooterDialog":true,"colorsAndFontsRefactor":false,"photoAlbumsInOnePick":true},"adsensePublisherId":null,"gvizVersion":1,"siteTitle":"The Chromium Projects","pageSharingId":"jotspot_page","plusPageId":"","termsUrl":"http://www.google.com/a/help/intl/en/users/terms.html","enableAnalytics":true,"isPublic":true,"plusPageUrl":"","homePath":"/","sharingId":"jotspot","isAdsenseEnabled":true,"adsensePromoClickedOrSiteIneligible":true,"isStartPageEnabled":true,"domainAnalyticsAccountId":""};
+
+
+
+webspace.gadgets = {"baseUri":"/system/app/pages/gadgets"};
+
+
+webspace.user = {"uid":"","renderMobile":false,"primaryEmail":"guest","sessionIndex":"","namespaceUser":false,"displayNameOrEmail":"guest","namespace":"","hasAdminAccess":false,"guest_":true,"keyboardShortcuts":true,"domain":"","hasWriteAccess":false,"dasherUser":false,"userName":"guest"};
+
+webspace.page = {"canDeleteWebspace":null,"locale":"en","state":"","wuid":"wuid:gx:418ed39a3963e742","pageInheritsPermissions":null,"timeZone":"America/Los_Angeles","properties":{},"type":"text","canChangePath":true,"parentWuid":"wuid:gx:2eb69dd73ece341e","revision":10,"title":"Firmware Boot and Recovery","isRtlLocale":false,"bidiEnabled":false,"siteLocale":"en","name":"firmware-boot-and-recovery","path":"/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery","openMoreActionMenu":null,"isSiteRtlLocale":false,"parentPath":"/chromium-os/chromiumos-design-docs"};
+webspace.page.breadcrumbs = [{"title":"Chromium OS","dir":"ltr","path":"/chromium-os","deleted":false},{"title":"Design Documents","dir":"ltr","path":"/chromium-os/chromiumos-design-docs","deleted":false},{"title":"Firmware Boot and Recovery","dir":"ltr","path":"/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery","deleted":false}];
+
+
+webspace.editorResources = {
+  text: [
+    'http://www.gstatic.com/sites/p/229b45/system/js/codemirror.js',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/codemirror_css.css',
+    'http://www.gstatic.com/sites/p/229b45/system/js/trog_edit__en.js',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/trogedit.css',
+    '/_/rsrc/1364510364000/system/app/css/editor.css',
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/codeeditor.css',
+    '/_/rsrc/1364510364000/system/app/css/camelot/editor-jfk.css'
+  ],
+  sitelayout: [
+    'http://www.gstatic.com/sites/p/229b45/system/app/css/sitelayouteditor.css'
+  ]
+};
+
+var JOT_clearDotPath = 'http://www.gstatic.com/sites/p/229b45/system/app/images/cleardot.gif';
+
+
+var JOT_userRelTimeStrs = ["a minute ago","__duration__ minutes ago","an hour ago","__duration__ hours ago"];
+
+
+webspace.siteTemplateId = false;
+
+
+webspace.page.currentTemplate = {"title":"Web Page","path":"/system/app/pagetemplates/text"};
+
+
+
+var JOT_siteRelTimeStrs = ["a minute ago","__duration__ minutes ago","an hour ago","__duration__ hours ago"];
+
+</script>
+<script type="text/javascript">
+                window.jstiming.load.tick('scl');
+              </script>
+<meta name="title" content="Firmware Boot and Recovery - The Chromium Projects">
+<meta itemprop="name" content="Firmware Boot and Recovery - The Chromium Projects">
+<meta property="og:title" content="Firmware Boot and Recovery - The Chromium Projects">
+<meta name="description" content="Home of the Chromium Open Source Project">
+<meta itemprop="description" content="Home of the Chromium Open Source Project">
+<meta id="meta-tag-description" property="og:description" content="Home of the Chromium Open Source Project">
+<meta itemprop="image" content="/_/rsrc/1302286216006/config/customLogo.gif?revision=2">
+<meta property="og:image" content="/_/rsrc/1302286216006/config/customLogo.gif?revision=2">
+<style type="text/css">
+</style>
+<link rel="stylesheet" type="text/css" href="FirmwareBootRecovery_files/standard-css-beigeandblue-ltr-ltr.css">
+<link rel="stylesheet" type="text/css" href="FirmwareBootRecovery_files/overlay.css">
+<link rel="stylesheet" type="text/css" href="FirmwareBootRecovery_files/symbolfont.css">
+<link rel="stylesheet" type="text/css" href="FirmwareBootRecovery_files/allthemes-view.css">
+<!--[if IE]>
+          <link rel="stylesheet" type="text/css" href="/system/app/css/camelot/allthemes%2die.css" />
+        <![endif]-->
+<title>Firmware Boot and Recovery - The Chromium Projects</title>
+<script type="text/javascript">
+                window.jstiming.load.tick('cl');
+              </script>
+<script src="FirmwareBootRecovery_files/js" charset="UTF-8" type="text/javascript"></script><link href="http://www.chromium.org/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery" rel="canonical"><style>.dcs-n-dcs-mf-dcs-nf{position:relative;display:-moz-inline-box;display:inline-block}* html .dcs-n-dcs-mf-dcs-nf{display:inline}*:first-child+html .dcs-n-dcs-mf-dcs-nf{display:inline}.dcs-i-dcs-tb{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;cursor:default;font-size:11px;font-weight:bold;text-align:center;white-space:nowrap;margin-right:16px;height:27px;line-height:27px;min-width:54px;outline:0px;padding:0 8px}.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:0 1px 1px rgba(0,0,0,.1);-moz-box-shadow:0 1px 1px rgba(0,0,0,.1);box-shadow:0 1px 1px rgba(0,0,0,.1)}.dcs-i-dcs-tb-dcs-wd{-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1)}.dcs-i-dcs-tb .dcs-i-dcs-tb-dcs-he{margin-top:-3px;vertical-align:middle}.dcs-i-dcs-tb-dcs-ef{margin-left:5px}.dcs-i-dcs-tb-dcs-jc{min-width:34px;padding:0}.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:1}.dcs-i-dcs-tb-dcs-kc-dcs-lc.dcs-i-dcs-tb-dcs-nd{z-index:0}.dcs-i-dcs-tb-dcs-sc.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-sc.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:2}.dcs-i-dcs-tb-dcs-kc-dcs-lc:focus,.dcs-i-dcs-tb-dcs-kc-dcs-df:focus,.dcs-i-dcs-tb-dcs-dg.dcs-i-dcs-tb-dcs-kc-dcs-lc,.dcs-i-dcs-tb-dcs-dg.dcs-i-dcs-tb-dcs-kc-dcs-df{z-index:3}.dcs-i-dcs-tb-dcs-kc-dcs-lc{margin-left:-1px;-moz-border-radius-bottomleft:0;-moz-border-radius-topleft:0;-webkit-border-bottom-left-radius:0;-webkit-border-top-left-radius:0;border-bottom-left-radius:0;border-top-left-radius:0}.dcs-i-dcs-tb-dcs-kc-dcs-df{margin-right:0px;-moz-border-radius-topright:0;-moz-border-radius-bottomright:0;-webkit-border-top-right-radius:0;-webkit-border-bottom-right-radius:0;border-top-right-radius:0;border-bottom-right-radius:0}.dcs-i-dcs-tb.dcs-i-dcs-tb-dcs-nd:active{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}.dcs-i-dcs-tb-dcs-ub{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#357ae8;background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);border:1px solid #2f5bb7;border-bottom-color:#2f5bb7}.dcs-i-dcs-tb-dcs-ub:focus{-webkit-box-shadow:inset 0 0 0 1px #fff;-moz-box-shadow:inset 0 0 0 1px #fff;box-shadow:inset 0 0 0 1px #fff;border:1px solid #fff;border:1px solid rgba(0,0,0,0);outline:1px solid #4d90fe;outline:0 rgba(0,0,0,0)}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-qe-dcs-re{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:none}.dcs-i-dcs-tb-dcs-ub:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);background:#357ae8;border:1px solid #2f5bb7;border-top:1px solid #2f5bb7}.dcs-i-dcs-tb-dcs-ub.dcs-i-dcs-tb-dcs-nd{background:#4d90fe;filter:alpha(opacity=50);opacity:0.5}.dcs-i-dcs-tb-dcs-pd{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);color:#444;border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1)}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-dg{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #c6c6c6;color:#333}.dcs-i-dcs-tb-dcs-pd:active,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background:#f8f8f8}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-wd,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-wd{background-color:#eee;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #ccc;color:#333}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-sc,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re.dcs-i-dcs-tb-dcs-sc{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background-color:#eee;background-image:-webkit-linear-gradient(top,#eee,#e0e0e0);background-image:-moz-linear-gradient(top,#eee,#e0e0e0);background-image:-ms-linear-gradient(top,#eee,#e0e0e0);background-image:-o-linear-gradient(top,#eee,#e0e0e0);background-image:linear-gradient(top,#eee,#e0e0e0);border:1px solid #ccc;color:#333}.dcs-i-dcs-tb-dcs-pd:focus{border:1px solid #4d90fe;outline:none}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-qe-dcs-re{border:1px solid #dcdcdc;outline:none}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-nd{background:#fff;border:1px solid #f3f3f3;border:1px solid rgba(0,0,0,0.05);color:#b8b8b8}.dcs-i-dcs-tb-dcs-pd .dcs-i-dcs-tb-dcs-he{opacity:.55}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-sc .dcs-i-dcs-tb-dcs-he,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-wd .dcs-i-dcs-tb-dcs-he,.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-dg .dcs-i-dcs-tb-dcs-he{opacity:0.9}.dcs-i-dcs-tb-dcs-pd.dcs-i-dcs-tb-dcs-nd .dcs-i-dcs-tb-dcs-he{filter:alpha(opacity=33);opacity:0.333}.dcs-n-dcs-rf,.dcs-bd-dcs-cd{-webkit-box-shadow:0 4px 16px rgba(0,0,0,.2);-moz-box-shadow:0 4px 16px rgba(0,0,0,.2);box-shadow:0 4px 16px rgba(0,0,0,.2);background:#fff;background-clip:padding-box;border:1px solid #acacac;border:1px solid rgba(0,0,0,.333);outline:0;position:absolute}.dcs-n-dcs-rf-dcs-ad,.dcs-bd-dcs-cd-dcs-ad{background:#fff;left:0;position:absolute;top:0}div.dcs-n-dcs-rf-dcs-ad,div.dcs-bd-dcs-cd-dcs-ad{filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75}.dcs-bd-dcs-cd{color:#000;padding:30px 42px}.dcs-bd-dcs-cd-dcs-zd{background-color:#fff;color:#000;cursor:default;font-size:16px;font-weight:normal;line-height:24px;margin:0 0 16px}.dcs-bd-dcs-cd-dcs-zd-dcs-af{height:11px;opacity:0.7;padding:17px;position:absolute;right:0px;top:0px;width:11px}.dcs-bd-dcs-cd-dcs-zd-dcs-af:after{content:'';background:url(//ssl.gstatic.com/ui/v1/dialog/close-x.png);position:absolute;height:11px;width:11px;right:17px}.dcs-bd-dcs-cd-dcs-zd-dcs-af:hover{opacity:1}.dcs-bd-dcs-cd-dcs-t{background-color:#fff;line-height:1.4em}.dcs-bd-dcs-cd-dcs-gc{margin-top:16px}.dcs-bd-dcs-cd-dcs-gc button{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1);color:#444;cursor:default;font-size:11px;font-weight:bold;height:29px;line-height:27px;margin:0 16px 0 0;min-width:72px;outline:0;padding:0 8px}.dcs-bd-dcs-cd-dcs-gc button:hover,.dcs-bd-dcs-cd-dcs-gc button:active{-webkit-box-shadow:0px 1px 1px rgba(0,0,0,0.1);-moz-box-shadow:0px 1px 1px rgba(0,0,0,0.1);box-shadow:0px 1px 1px rgba(0,0,0,0.1);background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #c6c6c6;color:#333}.dcs-bd-dcs-cd-dcs-gc button:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}.dcs-bd-dcs-cd-dcs-gc button:focus{border:1px solid #4d90fe}.dcs-bd-dcs-cd-dcs-gc button[disabled]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background:#fff;background-image:none;border:1px solid #f3f3f3;border:1px solid rgba(0,0,0,0.05);color:#b8b8b8}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub{background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:hover,.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:active{background-color:#357ae8;background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);border:1px solid #2f5bb7;color:#fff}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);box-shadow:inset 0 1px 2px rgba(0,0,0,0.3)}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub:focus{-webkit-box-shadow:inset 0 0 0 1px #fff;-moz-box-shadow:inset 0 0 0 1px #fff;box-shadow:inset 0 0 0 1px #fff;border:1px solid #fff;border:1px solid rgba(0,0,0,0);outline:1px solid #4d90fe;outline:0 rgba(0,0,0,0)}.dcs-bd-dcs-cd-dcs-gc .dcs-n-dcs-vd-dcs-ub[disabled]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background:#4d90fe;color:#fff;filter:alpha(opacity=50);opacity:0.5}.dcs-i-dcs-lf,.dcs-i-dcs-yc,.dcs-i-dcs-j{width:512px}.dcs-n-dcs-oe{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-transition:opacity 0.218s;-moz-transition:opacity 0.218s;-o-transition:opacity 0.218s;transition:opacity 0.218s;background:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,.2);cursor:default;font-size:13px;margin:0;outline:none;padding:6px 0;position:absolute}.dcs-n-dcs-o,.dcs-n-dcs-fg,.dcs-n-dcs-gg{position:relative;color:#333;cursor:pointer;list-style:none;margin:0;padding:6px 8em 6px 30px;white-space:nowrap}.dcs-n-dcs-oe-dcs-hg .dcs-n-dcs-o,.dcs-n-dcs-oe-dcs-ig .dcs-n-dcs-o{padding-left:16px;vertical-align:middle}.dcs-n-dcs-oe-dcs-jg .dcs-n-dcs-o{padding-right:44px}.dcs-n-dcs-o-dcs-nd{cursor:default}.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-cc,.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-t{color:#ccc!important}.dcs-n-dcs-o-dcs-nd .dcs-n-dcs-o-dcs-cb{filter:alpha(opacity=30);opacity:0.3}.dcs-n-dcs-o-dcs-ie,.dcs-n-dcs-o-dcs-dg{background-color:#eee;border-color:#eee;border-style:dotted;border-width:1px 0;padding-top:5px;padding-bottom:5px}.dcs-n-dcs-o-dcs-ie .dcs-n-dcs-o-dcs-t,.dcs-n-dcs-o-dcs-dg .dcs-n-dcs-o-dcs-t{color:#333}.dcs-n-dcs-o-dcs-ee,.dcs-n-dcs-o-dcs-cb{background-repeat:no-repeat;height:21px;left:3px;position:absolute;right:auto;top:3px;vertical-align:middle;width:21px}.dcs-n-dcs-rd-dcs-wd{background-image:url(//ssl.gstatic.com/ui/v1/menu/checkmark.png);background-repeat:no-repeat;background-position:left center}.dcs-n-dcs-rd-dcs-wd .dcs-n-dcs-o-dcs-t,.dcs-n-dcs-rd-dcs-wd .dcs-n-dcs-o-dcs-t{color:#333}.dcs-n-dcs-o-dcs-cc{color:#777;direction:ltr;left:auto;padding:0 6px;position:absolute;right:0;text-align:right}.dcs-n-dcs-o-dcs-dd-dcs-kg{text-decoration:underline}.dcs-n-dcs-o-dcs-dd-dcs-ed{color:#777;font-size:12px;padding-left:4px}.dcs-i-dcs-tf::-webkit-scrollbar{height:16px;overflow:visible;width:16px}.dcs-i-dcs-tf::-webkit-scrollbar-button{height:0;width:0}.dcs-i-dcs-tf::-webkit-scrollbar-track{background-clip:padding-box;border:solid transparent;border-width:0 0 0 4px}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal{border-width:4px 0 0}.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(0,0,0,.05);box-shadow:inset 1px 0 0 rgba(0,0,0,.1)}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:hover{box-shadow:inset 0 1px 0 rgba(0,0,0,.1)}.dcs-i-dcs-tf::-webkit-scrollbar-track:active{background-color:rgba(0,0,0,.05);box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:active{box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(255,255,255,.1);box-shadow:inset 1px 0 0 rgba(255,255,255,.2)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:active{background-color:rgba(255,255,255,.1);box-shadow:inset 1px 0 0 rgba(255,255,255,.25),inset -1px 0 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,.2);background-clip:padding-box;border:solid transparent;border-width:1px 1px 1px 6px;min-height:28px;padding:100px 0 0;box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:6px 1px 1px;padding:0 0 0 100px;box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset -1px 0 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:hover{background-color:rgba(0,0,0,.4);box-shadow:inset 1px 1px 1px rgba(0,0,0,.25)}.dcs-i-dcs-tf::-webkit-scrollbar-thumb:active{background-color:rgba(0,0,0,0.5);box-shadow:inset 1px 1px 3px rgba(0,0,0,0.35)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb{background-color:rgba(255,255,255,.3);box-shadow:inset 1px 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.1)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{box-shadow:inset 1px 1px 0 rgba(255,255,255,.15),inset -1px 0 0 rgba(255,255,255,.1)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:hover{background-color:rgba(255,255,255,.6);box-shadow:inset 1px 1px 1px rgba(255,255,255,.37)}.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:active{background-color:rgba(255,255,255,.75);box-shadow:inset 1px 1px 3px rgba(255,255,255,.5)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track{border-width:0 1px 0 6px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track:horizontal{border-width:6px 0 1px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(0,0,0,.035);box-shadow:inset 1px 1px 0 rgba(0,0,0,.14),inset -1px -1px 0 rgba(0,0,0,.07)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf-dcs-lg.dcs-i-dcs-tf::-webkit-scrollbar-track:hover{background-color:rgba(255,255,255,.07);box-shadow:inset 1px 1px 0 rgba(255,255,255,.25),inset -1px -1px 0 rgba(255,255,255,.15)}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-thumb{border-width:0 1px 0 6px}.dcs-i-dcs-tf-dcs-mg.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:6px 0 1px}.dcs-i-dcs-tf::-webkit-scrollbar-corner{background:transparent}body.dcs-i-dcs-tf::-webkit-scrollbar-track-piece{background-clip:padding-box;background-color:#f5f5f5;border:solid #fff;border-width:0 0 0 3px;box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)}body.dcs-i-dcs-tf::-webkit-scrollbar-track-piece:horizontal{border-width:3px 0 0;box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)}body.dcs-i-dcs-tf::-webkit-scrollbar-thumb{border-width:1px 1px 1px 5px}body.dcs-i-dcs-tf::-webkit-scrollbar-thumb:horizontal{border-width:5px 1px 1px}body.dcs-i-dcs-tf::-webkit-scrollbar-corner{background-clip:padding-box;background-color:#f5f5f5;border:solid #fff;border-width:3px 0 0 3px;box-shadow:inset 1px 1px 0 rgba(0,0,0,.14)}.dcs-bd-dcs-cd{z-index:1001}.dcs-bd-dcs-cd-dcs-ad{z-index:1000}.dcs-bd-dcs-cd-dcs-zd-dcs-af{background-image:none}.dcs-n-dcs-oe{z-index:1001}.dcs-a-dcs-dc-dcs-mb{width:12px;height:12px;vertical-align:baseline}.dcs-a-dcs-dc-dcs-eb{background:none;background-image:none!important;border:none;font-size:10px;height:11px;left:0;margin:auto;position:absolute;top:3px;width:12px}.dcs-a-dcs-dc-dcs-eb-dcs-q-dcs-u,.dcs-a-dcs-dc-dcs-eb-dcs-mb-dcs-u{border:none!important;height:11px;margin:0;padding:0;width:12px}.dcs-a-dcs-dc{padding:3px}.dcs-a-dcs-dc>.dcs-n-dcs-o{padding:3px}.dcs-a-dcs-dc>.dcs-n-dcs-o.dcs-n-dcs-rd-dcs-wd{padding-left:22px}.dcs-a-dcs-dc>.dcs-n-dcs-o-dcs-ie,.dcs-a-dcs-dc>.dcs-n-dcs-o-dcs-dg{padding:2px 3px}.dcs-a-dcs-dc>.dcs-n-dcs-o>.dcs-n-dcs-o-dcs-t{font-size:12px}.dcs-a-dcs-b{background-color:#fff;cursor:pointer;direction:ltr;position:relative;width:210px}.dcs-a-dcs-b:hover,.dcs-a-dcs-vb-dcs-xd.dcs-a-dcs-b{background-color:#f1f1f1!important;border-color:#c6c6c6!important;background:-webkit-gradient(linear,0 0,0 60,from(#f8f8f8),to(#f1f1f1))!important;background:-moz-linear-gradient(top,#f8f8f8 0,#f1f1f1 60px)!important}.dcs-a-dcs-b:focus,.dcs-a-dcs-b:active{outline:0}.dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-b-dcs-de-dcs-mb{display:none}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b:hover{background:#fcfac6!important;border-color:#ffe572!important}.dcs-a-dcs-b-dcs-rb-dcs-tb{display:none;font-size:10px;right:0;padding-left:2px;position:absolute;top:0}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-b-dcs-rb-dcs-tb{display:block;opacity:0.3;filter:alpha(opacity=30)}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b:hover .dcs-a-dcs-b-dcs-rb-dcs-tb{opacity:1;filter:alpha(opacity=100)}.dcs-a-dcs-b-dcs-sf{max-height:inherit;overflow-y:auto}.dcs-a-dcs-b-dcs-t{overflow-y:auto}.dcs-a-dcs-b-dcs-c-dcs-d{border-top:1px solid #f0f0f0;display:none;padding:7px}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-b-dcs-c-dcs-d{border-top:1px solid #feef9c;display:block}.dcs-a-dcs-b-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{height:23px}.dcs-a-dcs-b-dcs-c-dcs-d .dcs-a-dcs-c-dcs-gc{text-align:left}.dcs-a-dcs-xe-dcs-c-dcs-d{border-top:none!important;padding-top:0}.dcs-a-dcs-b .dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb{color:#999;font-size:11px}.dcs-a-dcs-b .dcs-a-dcs-b-dcs-lb{border-top:1px solid #feef9c;bottom:0;left:0;padding-top:6px;position:relative;width:100%}.dcs-a-dcs-b .dcs-a-dcs-lb-dcs-yd{font-weight:bold;margin-right:6px;padding:2px 0}.dcs-a-dcs-e-dcs-zf .dcs-a-dcs-b{border:1px solid #d9d9d9;position:absolute;-moz-user-select:text;z-index:500}.dcs-a-dcs-e-dcs-zf .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b{border:1px solid #ffe764;z-index:501}.dcs-a-dcs-e-dcs-zf-dcs-cg .dcs-a-dcs-b{box-shadow:2px 2px 6px #888}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-b-dcs-de-dcs-mb{height:0;position:absolute;width:0}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-q{border-top:none;border-bottom:14px solid transparent;border-left:none;border-right:14px solid #fcfac6;left:-13px;top:0}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-b-dcs-de-dcs-mb{border-top:none;border-bottom:14px solid transparent;border-left:none;border-right:14px solid #ffe572;left:-15px;top:-1px}.dcs-a-dcs-e-dcs-f .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b>.dcs-a-dcs-b-dcs-de-dcs-q,.dcs-a-dcs-e-dcs-f .dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b>.dcs-a-dcs-b-dcs-de-dcs-mb{display:block}.dcs-a-dcs-b-dcs-rb-dcs-tb>.dcs-i-dcs-tb{height:17px;line-height:17px;margin:2px 2px 0 0}.dcs-a-dcs-ab,.dcs-a-dcs-wb{border-top:1px solid #f0f0f0;padding:7px;position:relative;zoom:1}.dcs-a-dcs-ab-dcs-k{left:7px!important}.dcs-a-dcs-ab.dcs-a-dcs-jb-dcs-we{border-top:none!important}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-ab,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-wb{border-top:1px solid #feef9c}.dcs-a-dcs-ab-dcs-ac{font-weight:bold;margin-left:32px}.dcs-a-dcs-ab-dcs-bb{word-wrap:break-word;color:#666;padding-top:3px;padding-bottom:3px}.dcs-a-dcs-ab-dcs-hd{color:#666;font-size:10px;margin:3px 0 0 32px}.dcs-a-dcs-ab .dcs-a-dcs-jb-dcs-sb{display:none}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-b .dcs-a-dcs-jb-dcs-sb,.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-wb .dcs-a-dcs-jb-dcs-sb{display:block}.dcs-a-dcs-wb-dcs-xb{word-wrap:break-word;color:#15c}.dcs-a-dcs-wb-dcs-xb:hover,.dcs-a-dcs-b:hover .dcs-a-dcs-wb-dcs-xb{text-decoration:underline}.dcs-a-dcs-zb-dcs-jb{position:relative}.dcs-a-dcs-xb-dcs-jb{height:150px;overflow:hidden}.dcs-a-dcs-gb-dcs-ge,.dcs-a-dcs-gb-dcs-ag{color:#15c;display:none;opacity:1;width:100%}.dcs-a-dcs-gb-dcs-ge{bottom:0;padding-top:16px;position:absolute;right:0}.dcs-a-dcs-gb-dcs-ag{background:#fff;padding:2px 0}.dcs-a-dcs-gb-dcs-ge:hover,.dcs-a-dcs-gb-dcs-ag:hover{text-decoration:underline}.dcs-a-dcs-b.dcs-a-dcs-vb:hover .dcs-a-dcs-gb-dcs-ge{background:#f1f1f1;background:-webkit-gradient(linear,0 0,0 16,from(rgba(241,241,241,0)),to(rgba(241,241,241,1)));background:-moz-linear-gradient(top,rgba(241,241,241,0),#f1f1f1 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, Style=1, StartY=0, FinishY=50, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-gb-dcs-ge,.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd:hover .dcs-a-dcs-gb-dcs-ge{background:#fcfac6;background:-webkit-gradient(linear,0 0,0 16,from(rgba(252,250,198,0)),to(rgba(252,250,198,1)));background:-moz-linear-gradient(top,rgba(252,250,198,0),#fcfac6 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, StartY=0, FinishY=50, Style=1, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-gb-dcs-ge{background:#fff;background:-webkit-gradient(linear,0 0,0 16,from(rgba(255,255,255,0)),to(rgba(255,255,255,1)));background:-moz-linear-gradient(top,rgba(255,255,255,0),#fff 16px);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, StartY=0, FinishY=50, Style=1, StartX=0, FinishX=0)";filter:alpha(Opacity=0,FinishOpacity=100,Style=1,StartY=0,FinishY=50,StartX=0,FinishX=0)}.dcs-a-dcs-xb-dcs-jb>.dcs-a-dcs-gb-dcs-ge{display:block!important}.dcs-a-dcs-b.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-gb-dcs-ag{background:#fcfac6!important}.dcs-a-dcs-b:hover .dcs-a-dcs-gb-dcs-ag{background:#f1f1f1}.dcs-a-dcs-l{background:#e0ecff;border:1px solid #666;color:#00c;font-family:Arial;margin:0px 0px;padding:0px 0px 1px 0px;position:absolute;z-index:900}.dcs-a-dcs-l div{cursor:pointer;margin:2px;padding:0px 10px}.dcs-a-dcs-l div b{color:#00f}.dcs-a-dcs-l .dcs-l-dcs-m{height:auto}.dcs-a-dcs-l div.dcs-jd{background:#c3d9ff}.dcs-a-dcs-k{left:0;position:absolute}.dcs-a-dcs-bf-dcs-cf{font:10px/12px Arial;color:#bbb;text-align:right;padding-right:30px}.dcs-a-dcs-bf-dcs-cf a{color:#bbb}.dcs-a-dcs-ec-dcs-fc{width:620px}.dcs-a{color:black;font-family:Arial,sans-serif,sans;font-size:13px;white-space:normal}.dcs-a-dcs-cb{background-image:url(//ssl.gstatic.com/docs/common/d-icons10.png);background-repeat:no-repeat}.dcs-a-dcs-cb-dcs-rb-dcs-wc{background-position:-28px -26;height:37px;position:absolute;width:37px}.dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{background-position:0 -36px;height:27px;position:absolute;width:27px}.dcs-a-dcs-cb-dcs-db-dcs-eb{background-position:0 -11px;height:11px;width:12px}.dcs-a-dcs-cb-dcs-db-dcs-eb:hover,.dcs-n-dcs-oe-dcs-tb-dcs-ke .dcs-a-dcs-cb-dcs-db-dcs-eb{background-position:0 0;height:11px;width:12px}.dcs-a-dcs-c{position:relative;zoom:1}.dcs-a-dcs-c.dcs-a-dcs-c-dcs-hc{display:block!important}.dcs-a-dcs-c-dcs-p-dcs-q{border-top:7px solid transparent;border-right:8px solid #fff;border-bottom:7px solid transparent;height:0;left:-6px;position:absolute;top:3px}.dcs-a-dcs-c-dcs-p-dcs-mb{border-top:7px solid transparent;border-right:8px solid #c8c8c8;border-bottom:7px solid transparent;height:0;left:-7px;position:absolute;top:3px}.dcs-a-dcs-c-dcs-id{border:1px solid #c8c8c8;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;color:#999;font-family:Arial,sans-serif;font-size:13px;margin:0;overflow-x:hidden;overflow-y:hidden;outline-width:0!important;padding:4px;resize:none;width:100%}.dcs-a-dcs-c-dcs-id:disabled{background-color:#eee!important}*:first-child+html .dcs-a-dcs-c-dcs-id{width:95%}.dcs-a-dcs-c-dcs-gc{display:none;zoom:1}.dcs-a-dcs-c-dcs-gc-dcs-se{font-weight:bold}.dcs-a-dcs-c-dcs-mc>.dcs-a-dcs-c-dcs-id{color:#000}.dcs-a-dcs-c-dcs-mc>.dcs-a-dcs-c-dcs-gc{display:block}.dcs-a-dcs-ld-dcs-t{width:500px}.dcs-a-dcs-ld-dcs-ef{padding:0 3px 0 8px}.dcs-a-dcs-ld-dcs-sb{padding-left:3px}.dcs-a-dcs-ld-dcs-ye{position:absolute;right:20px}.dcs-a-dcs-ld-dcs-uf{background-color:#c1d9ff;border:0;color:#c1d9ff;height:1px;margin:10px 0 10px 0}.dcs-a-dcs-ib .dcs-me-dcs-hb-dcs-ib{display:none!important}.dcs-gb-dcs-hb-dcs-ib{display:none}.dcs-a-dcs-ib .dcs-gb-dcs-hb-dcs-ib{display:inline-block!important}.dcs-a-dcs-rb-dcs-ie{border:1px solid rgba(0,0,0,0.2)}.dcs-a-dcs-rb-dcs-gf{-webkit-transition:all 270ms ease-out;-moz-transition:all 270ms ease-out;-o-transition:all 270ms ease-out;transition:all 270ms ease-out;-webkit-transform:scale(0.3);-moz-transform:scale(0.3);-o-transform:scale(0.3);transform:scale(0.3);-webkit-transform-origin:center top;-moz-transform-origin:center top;-o-transform-origin:center top;transform-origin:center top;opacity:0.3}#docos-shadow{background:#000;background:rgba(0,0,0,0.7);color:#fff;position:absolute;z-index:700;left:0;top:0}#docos-shadow,.dcs-a-dcs-v-dcs-w{height:100%;width:100%}#docos-shadow-description{font-weight:bold}#docos-shadow-confirm,#docos-shadow-delete{margin:2px 7px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-gc{padding-bottom:6px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-se{margin:0 4px 0 0}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-fb{background:none}.dcs-a-dcs-g{border-top:1px solid #e8e8e8;font-family:Arial,sans-serif;font-size:12px;padding:18px 0 7px 0;position:relative;outline:none;zoom:1}.dcs-a-dcs-g:last-child{padding-bottom:0}.dcs-a-dcs-g:last-child .dcs-a-dcs-g-dcs-le{padding-bottom:0}.dcs-a-dcs-g .dcs-a-dcs-vb-dcs-eg{min-height:48px}.dcs-a-dcs-jf{margin-right:12px;min-height:51px;padding:0 6px;position:relative;top:-3px}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jf{background-color:#fffbe1}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-jf{background-color:#f6f6f6}.dcs-a-dcs-g-dcs-t{margin-left:60px;position:relative}.dcs-a-dcs-g-dcs-ic{font-weight:bold}.dcs-a-dcs-g-dcs-bb{color:#333;word-wrap:break-word;top:-7px;zoom:1}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-bb{color:#999}.dcs-a-dcs-g .dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{display:none;right:5px;top:-12px}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-cb-dcs-rb-dcs-wc-dcs-xc{display:block}.dcs-a-dcs-g-dcs-hd,.dcs-a-dcs-g-dcs-ue-dcs-ve{font-size:11px;color:#999;padding:0}.dcs-a-dcs-g-dcs-hd,.dcs-a-dcs-g-dcs-kd-dcs-sb{right:2px}.dcs-a-dcs-g-dcs-r{color:#ccc;font-size:12px;line-height:100%;padding:0 2px}.dcs-a-dcs-g-dcs-le{padding:4px 0}.dcs-a-dcs-g-dcs-hd:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-g-dcs-c-dcs-d{padding-right:6px;margin-left:30px}.dcs-a-dcs-g-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{background-color:#fff;border:1px solid #c9d4ec;height:23px;font-size:12px}.dcs-a-dcs-g-dcs-c-dcs-d.dcs-a-dcs-c-dcs-mc .dcs-a-dcs-c-dcs-id{background-color:#fff}.dcs-a-dcs-g-dcs-h-dcs-d .dcs-a-dcs-c-dcs-id{height:36px}.dcs-a-dcs-g-dcs-gd,.dcs-a-dcs-g-dcs-vc{margin:4px 12px 3px 0}.dcs-a-dcs-g-dcs-gd{background-color:#eff2f9;-moz-border-radius:0 0 6px 6px;-webkit-border-radius:0 0 6px 6px;border-radius:0 0 6px 6px;padding:6px 0 2px 6px;position:relative;zoom:1}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-gd{background-color:#f6f6f6}.dcs-a-dcs-g-dcs-td{position:absolute;right:0;top:0}.dcs-a-dcs-g.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-g-dcs-td{right:33px}.dcs-a-dcs-g-dcs-lb{background-color:#fe8;bottom:0;left:0;padding:2px 0;position:absolute;width:100%}.dcs-a-dcs-lb-dcs-yd{font-weight:bold;margin:0 6px;padding:2px 0}.dcs-a-dcs-g .dcs-a-dcs-dc-dcs-mb{position:absolute;right:-12px;top:0}.dcs-a-dcs-g-dcs-kd-dcs-sb{display:inline}.dcs-a-dcs-g-dcs-kd-dcs-sb>.dcs-a-dcs-vb-dcs-kd{font-size:11px;color:#15c}.dcs-a-dcs-g-dcs-qd-dcs-sb>.dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-g-dcs-rb-dcs-sb>.dcs-a-dcs-vb-dcs-rb{color:#999;line-height:100%}.dcs-a-dcs-g-dcs-qd-dcs-sb>.dcs-a-dcs-vb-dcs-qd:hover,.dcs-a-dcs-g-dcs-kd-dcs-sb>.dcs-a-dcs-vb-dcs-kd:hover,.dcs-a-dcs-g-dcs-rb-dcs-sb>.dcs-a-dcs-vb-dcs-rb:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-jf:hover .dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-jf:hover .dcs-a-dcs-vb-dcs-rb,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-vb-dcs-qd,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-vb-dcs-rb{color:#15c}.dcs-a-dcs-x-dcs-fe{line-height:140%;outline:none}.dcs-a-dcs-x-dcs-t{padding:0 29px 0 20px;position:relative}.dcs-a-dcs-x-dcs-y{color:#15c;cursor:pointer;font-size:12px;position:absolute;right:0;top:-3px}.dcs-a-dcs-x-dcs-y:hover{text-decoration:underline}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-y{color:#999;cursor:default}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-y:hover{text-decoration:none}.dcs-a-dcs-x-dcs-je{bottom:-10px;color:#15c;cursor:pointer;font-size:12px;padding-right:5px;padding-top:5px;position:absolute;right:5px;text-decoration:none}.dcs-a-dcs-xf .dcs-a-dcs-x-dcs-je{display:none}.dcs-a-dcs-x-dcs-nb{color:#333;padding:12px 0}.dcs-a-dcs-x-dcs-z{margin:6px 0 10px 0;position:relative;zoom:1}.dcs-a-dcs-x-dcs-z-dcs-t{margin-left:61px;position:relative;zoom:1}.dcs-a-dcs-x-dcs-ze{font-size:12px;font-weight:bold;margin-bottom:3px;top:-3px}.dcs-a-dcs-x-dcs-zd{font-size:1.2em;margin:20px 5px 2px}.dcs-a-dcs-x-dcs-c-dcs-d{top:-4px}.dcs-a-dcs-x-dcs-c-dcs-d .dcs-a-dcs-c-dcs-se{font-weight:bold}.dcs-a-dcs-x-dcs-c-dcs-d .dcs-a-dcs-c-dcs-id{font-size:12px;height:30px}.dcs-a-dcs-x .dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb{color:#666}.dcs-a-dcs-x-dcs-qf{background-color:#dd4b39;border:1px solid #602019;border-radius:4px;color:#fff;margin:6px;padding:6px;text-align:center}.dcs-a-dcs-s{background-color:#eff2f9;color:#666;font-size:12px;padding:6px 6px 0 6px;position:relative;margin-bottom:3px;min-height:24px}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-s{background-color:#f6f6f6}.dcs-a-dcs-s-dcs-k{left:6px}.dcs-a-dcs-s-dcs-t{padding-left:30px}.dcs-a-dcs-s-dcs-ac{color:black;font-weight:bold;left:-2px;margin:0 4px;right:-2px}.dcs-a-dcs-s-dcs-bb{color:#333;margin:0;top:-4px;width:100%;word-wrap:break-word}.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-s-dcs-bb{color:#999}.dcs-a-dcs-s-dcs-pe,.dcs-a-dcs-s-dcs-hd{position:relative;top:-3px}.dcs-a-dcs-s-dcs-pe{width:100%}.dcs-a-dcs-s-dcs-hd{color:#999;font-size:11px;white-space:pre}.dcs-a-dcs-g .dcs-a-dcs-s .dcs-a-dcs-jb-dcs-sb{display:none;top:-3px}.dcs-a-dcs-g .dcs-a-dcs-s:hover .dcs-a-dcs-jb-dcs-sb{display:inline}.dcs-a-dcs-s-dcs-h-dcs-d .dcs-a-dcs-c-dcs-id{height:23px}.dcs-a-dcs-g .dcs-a-dcs-jb-dcs-kb{border-left:1px solid #ccc;font-style:italic;padding:3px 10px 3px 10px;position:relative;zoom:1;word-wrap:break-word}.dcs-a-dcs-jb-dcs-kb-dcs-ud{font-size:11px;color:#999;margin-right:2px;padding:0}.dcs-a-dcs-jb-dcs-kb-dcs-xb{overflow:hidden;height:18px}.dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#fff;padding:3px 5px 0 5px;position:absolute;right:0;top:0}.dcs-a-dcs-jb-dcs-kb-dcs-kc,.dcs-a-dcs-jb-dcs-kb-dcs-yb{color:#15c;visibility:hidden}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-kc,.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-yb{visibility:visible}.dcs-a-dcs-jb-dcs-kb-dcs-kc{padding-left:3px}.dcs-a-dcs-vb-dcs-jd .dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#fffbe1}.dcs-a-dcs-vb-dcs-jd.dcs-a-dcs-vb-dcs-wf .dcs-a-dcs-jb-dcs-kb-dcs-yb{background:#f6f6f6}.dcs-a-dcs-jb-dcs-kb-dcs-kc:hover,.dcs-a-dcs-jb-dcs-kb-dcs-yb:hover{cursor:pointer;text-decoration:underline}.dcs-a-dcs-id{margin:0;padding:2px;font-family:arial,sans-serif;outline-width:0!important;resize:none}.dcs-a-dcs-jb-dcs-zc,.dcs-a-dcs-jb-dcs-h{color:#15c;font-size:11px;margin:0 2px}.dcs-a-dcs-jb-dcs-zc:hover,.dcs-a-dcs-jb-dcs-h:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-c-dcs-fb{margin:2px 0}.dcs-a-dcs-c-dcs-se{margin:2px 7px 2px 0}</style><script gapi_processed="true" src="FirmwareBootRecovery_files/api.js" charset="UTF-8" type="text/javascript"></script><script src="FirmwareBootRecovery_files/ga.js"></script></head>
+<body xmlns="http://www.google.com/ns/jotspot" id="body" class=" en            ">
+<script src="FirmwareBootRecovery_files/caja.js"> </script>
+<script src="FirmwareBootRecovery_files/jot_caja.js"> </script>
+<div id="sites-page-toolbar" class="sites-header-divider">
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-status" class="sites-status" style="display:none;"><div id="sites-notice" class="sites-notice" role="status" aria-live="assertive"> </div></div>
+</div>
+<div id="sites-chrome-everything-scrollbar">
+<div id="sites-chrome-everything">
+<div id="sites-chrome-page-wrapper" style="direction: ltr">
+<div id="sites-chrome-page-wrapper-inside">
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-chrome-header-wrapper" style="height:auto;">
+<table id="sites-chrome-header" class="sites-layout-hbox" style="height:auto;" cellspacing="0">
+<tbody><tr class="sites-header-primary-row" id="sites-chrome-userheader">
+<td id="sites-header-title" class=""><div class="sites-header-cell-buffer-wrapper"><a href="http://sites.google.com/a/chromium.org/dev/" id="sites-chrome-userheader-logo"><img id="logo-img-id" src="FirmwareBootRecovery_files/customLogo.png" alt="Logo" class="sites-logo "></a><h2><a href="http://sites.google.com/a/chromium.org/dev/" dir="ltr" id="sites-chrome-userheader-title">The Chromium Projects</a></h2></div></td><td class="sites-layout-searchbox "><div class="sites-header-cell-buffer-wrapper"><form id="sites-searchbox-form" action="/system/app/pages/search"><input id="sites-searchbox-scope" name="scope" value="search-site" type="hidden"><input id="jot-ui-searchInput" name="q" size="20" aria-label="Search this site" type="text"><div id="sites-searchbox-button-set" class="goog-inline-block"><div style="-moz-user-select: none;" role="button" id="sites-searchbox-search-button" class="goog-inline-block jfk-button jfk-button-standard" tabindex="0">Search this site</div></div></form></div></td>
+</tr>
+<tr class="sites-header-secondary-row" id="sites-chrome-horizontal-nav">
+<td colspan="2" id="sites-chrome-header-horizontal-nav-container">
+</td>
+</tr>
+</tbody></table> 
+</div> 
+<div id="sites-chrome-main-wrapper">
+<div id="sites-chrome-main-wrapper-inside">
+<table id="sites-chrome-main" class="sites-layout-hbox" cellpadding="{scmCellpadding}" cellspacing="0" border="0">
+<tbody><tr>
+<td id="sites-chrome-sidebar-left" class="sites-layout-sidebar-left" style="width:150px">
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_7648876402527094" class="sites-embed"><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/chromium-projects" jotid="wuid:gx:10ae433dadbbab13" class="sites-navigation-link">Home</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/Home" jotid="wuid:gx:43582b9d2029d3af" class="sites-navigation-link">Chromium</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/chromium-os" jotid="wuid:gx:83df2ab1f8880ba" class="sites-navigation-link">Chromium OS</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_14720868319272995" class="sites-embed"><h4 class="sites-embed-title">Quick links</h4><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/for-testers/bug-reporting-guidelines" class="sites-navigation-link">Report bugs</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/developers/discussion-groups" class="sites-navigation-link">Discuss</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://www.chromium.org/system/app/pages/sitemap/hierarchy" jotid="wuid:gx:7ba7686b79c23a88" class="sites-navigation-link">Sitemap</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_19690813310444355" class="sites-embed"><h4 class="sites-embed-title">Other sites</h4><div class="sites-embed-content sites-sidebar-nav"><ul jotid="navList"><li class="nav-first "><div dir="ltr" style="padding-left: 5px;"><a href="http://blog.chromium.org/" class="sites-navigation-link">Chromium Blog</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="http://code.google.com/chrome/extensions/" class="sites-navigation-link">Google Chrome Extensions</a></div></li><li class=""><div dir="ltr" style="padding-left: 5px;"><a href="https://developers.google.com/chrome/chrome-frame/" class="sites-navigation-link">Google Chrome Frame</a></div></li></ul></div></div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_19695218559354544" class="sites-embed"><h4 class="sites-embed-title"></h4><div class="sites-embed-content sites-embed-content-sidebar-textbox"><div dir="ltr"><span style="font-size:x-small">Except as otherwise </span><a href="http://code.google.com/policies.html#restrictions"><span style="font-size:x-small">noted</span></a><span style="font-size:x-small">, the content of this page is licensed under a </span><a href="http://creativecommons.org/licenses/by/2.5/"><span style="font-size:x-small">Creative Commons Attribution 2.5 license</span></a><span style="font-size:x-small">, and examples are licensed under the </span><a href="http://src.chromium.org/viewvc/chrome/trunk/src/LICENSE" target="_blank"><span style="font-size:x-small">BSD License</span></a><span style="font-size:x-small">.<br></span></div></div></div>
+</td>
+<td id="sites-canvas-wrapper">
+<div id="sites-canvas">
+<div id="goog-ws-editor-toolbar-container"> </div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="title-crumbs" style="">
+<a dir="ltr" href="http://www.chromium.org/chromium-os">Chromium OS</a>‎ &gt; ‎<a dir="ltr" href="http://www.chromium.org/chromium-os/chromiumos-design-docs">Design Documents</a>‎ &gt; ‎
+  </div>
+<h3 xmlns="http://www.w3.org/1999/xhtml" id="sites-page-title-header" style="" align="left">
+<span id="sites-page-title" dir="ltr">Firmware Boot and Recovery</span>
+</h3>
+<div id="sites-canvas-main" class="sites-canvas-main">
+<div id="sites-canvas-main-content">
+<table xmlns="http://www.w3.org/1999/xhtml" class="sites-layout-name-one-column sites-layout-hbox" cellspacing="0"><tbody><tr><td class="sites-layout-tile sites-tile-name-content-1"><div dir="ltr"><div>
+<div class="sites-embed-align-right-wrapping-on"><div class="sites-embed-border-off sites-embed" style="width:250px;"><div class="sites-embed-content sites-embed-type-toc"><div class="goog-toc sites-embed-toc-maxdepth-6"><p>Contents</p><ol class="goog-toc"><li class="goog-toc"><a href="#TOC-Abstract"><strong>1 </strong>Abstract</a></li><li class="goog-toc"><a href="#Potential_Problems_06602847948"><strong>2 </strong>Potential problems</a><ol class="goog-toc"><li class="goog-toc"><a href="#Firmware_6345705660060048_1740"><strong>2.1 </strong>Firmware</a></li></ol></li><li class="goog-toc"><a href="#Design_Decisions_8644751217216"><strong>3 </strong>Design decisions</a><ol class="goog-toc"><li class="goog-toc"><a href="#Boot_needs_to_start_securely_5"><strong>3.1 </strong>Boot needs to start securely</a></li><li class="goog-toc"><a href="#Writable_firmware_should_have__7966560075305942"><strong>3.2 </strong>Writable firmware should have a backup</a></li><li class="goog-toc"><a href="#Recovery_firmware_should_be_re_024671708017260596"><strong>3.3 </strong>Recovery firmware must be read-only</a></li><li class="goog-toc"><a href="#Recovery_firmware_does_not_nee_43765456105130307"><strong>3.4 </strong>Recovery firmware does not need to access the network</a></li><li class="goog-toc"><a href="#Recovery_firmware_should_tell_"><strong>3.5 </strong>Recovery firmware should tell the user how to recover</a></li><li class="goog-toc"><a href="#Users_should_be_able_to_manual"><strong>3.6 </strong>Users must be able to manually trigger recovery mode</a></li><li class="goog-toc"><a href="#Support_developers_l33t_users_"><strong>3.7 </strong>Support developers / l33t users installing their own software</a></li></ol></li><li class="goog-toc"><a href="#EEPROM_Map_19483716413378716_0_8527987941869014"><strong>4 </strong>EEPROM map</a></li><li class="goog-toc"><a href="#TOC-Firmware-block-descriptions"><strong>5 </strong>Firmware block descriptions</a><ol class="goog-toc"><li class="goog-toc"><a href="#Boot_Stub_2175902035087347_738"><strong>5.1 </strong>Boot stub</a></li><li class="goog-toc"><a href="#Firmware_A_B_Setup_41671303566"><strong>5.2 </strong>Firmware (A/B) setup</a></li><li class="goog-toc"><a href="#Firmware_A_B_Bootstrap_6854730_9843585162384771"><strong>5.3 </strong>Firmware (A/B) boot loader</a></li><li class="goog-toc"><a href="#Boot_Log_909660461358726_02223_241900222824606"><strong>5.4 </strong>Boot log</a></li><li class="goog-toc"><a href="#Recovery_Firmware_325963526964_9310128691004004"><strong>5.5 </strong>Recovery firmware</a></li></ol></li><li class="goog-toc"><a href="#Recovery_Image_999069100245833_9862531434570179"><strong>6 </strong>Recovery image</a><ol class="goog-toc"><li class="goog-toc"><a href="#Recovery_via_Chrome_OS_2183209_6000941713093587"><strong>6.1 </strong>Recovery via Chromium OS</a></li><li class="goog-toc"><a href="#Making_Recovery_Images_Read_On"><strong>6.2 </strong>Making recovery images read-only</a></li><li class="goog-toc"><a href="#Using_Recovery_Mode_to_load_De"><strong>6.3 </strong>Using recovery mode to load developer mode firmware/software</a></li></ol></li><li class="goog-toc"><a href="#Boot_Flowchart_033826657570898"><strong>7 </strong>Boot flowchart</a></li><li class="goog-toc"><a href="#TOC-Other-notes"><strong>8 </strong>Other notes</a><ol class="goog-toc"><li class="goog-toc"><a href="#Verification_of_the_Rest_of_ro"><strong>8.1 </strong>Verification of the rest of /rootfs</a></li><li class="goog-toc"><a href="#When_to_Verify_the_Boot_Proces"><strong>8.2 </strong>When to verify the boot process</a></li><li class="goog-toc"><a href="#Handling_Returned_Netbooks_578"><strong>8.3 </strong>Handling returned systems</a></li><li class="goog-toc"><a href="#Testing_17694905913316072_043226863012933325"><strong>8.4 </strong>Testing</a></li></ol></li><li class="goog-toc"><a href="#Open_Issues_6727640628814697_9"><strong>9 </strong>Open issues</a><ol class="goog-toc"><li class="goog-toc"><a href="#What_Else_Do_We_Need_To_Verify"><strong>9.1 </strong>What else do we need to verify?</a></li><li class="goog-toc"><a href="#Can_we_log_firmware_crashes_54_8565273169739532"><strong>9.2 </strong>Can we log firmware crashes?</a></li><li class="goog-toc"><a href="#Chain_of_verification_on_ARM_2_45279574090983055"><strong>9.3 </strong>Chain of verification on ARM?</a></li><li class="goog-toc"><a href="#Support_for_Trusted_Platform_M_472807140635382"><strong>9.4 </strong>Support for Trusted Platform Module (TPM)?</a></li></ol></li></ol></div></div></div></div>
+<h2><a name="TOC-Abstract"></a>Abstract</h2>
+<div style="margin-top:0px;margin-bottom:0px">
+<ul style="margin-top:0px;margin-bottom:0px"><li style="margin-top:0px;margin-bottom:0px">The layout and structure of firmware for Chromium OS is designed for security (see <a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/verified-boot">Verified Boot</a> documentation), recovery and development.</li>
+<li style="margin-top:0px;margin-bottom:0px">All firmware will contain a
+ recovery code path, which will restore the machine to its original 
+Chromium OS state. This recovery code path will be initiated either when
+ any chain in the boot path is not verified or when a user manually 
+triggers recovery mode, likely via an explicit recovery button on the 
+device.</li>
+<li style="margin-top:0px;margin-bottom:0px">Chromium OS wants to 
+support developers as well. Developers are provided with a means of 
+running alternate software. In the alternate boot paths, the user is 
+notified that they are not running a boot path provided as part of 
+Chromium OS.</li>
+<li style="margin-top:0px;margin-bottom:0px">The boot and recovery procedures outlined will be implemented and required for both x86 and ARM platforms.</li></ul></div></div>
+<p>
+</p>
+<p>
+  This document describes the firmware boot process, including detection and recovery of corrupted or hacked firmware/software.
+</p>
+<h2><a name="Potential_Problems_06602847948"></a>
+   Potential problems
+</h2>
+<div>
+  The firmware boot process must be able to detect the following problems and, if possible, repair them.
+</div>
+<h3><a name="Firmware_6345705660060048_1740"></a>
+   Firmware
+</h3>
+<div>
+<ol>
+<li>Incomplete update: An update of the firmware is interrupted. This 
+leaves the portion of the firmware which was being updated in an unknown
+ or corrupt state. For example, if the update is interrupted after a 
+firmware block is erased but before it is reprogrammed, that block is 
+empty.
+    </li>
+<li>Attack: An attacker compromises the software and is able to 
+reprogram the firmware. For example, an exploit of an unpatched kernel 
+vulnerability. In this case, both the main and backup firmware may be 
+compromised.
+    </li>
+<li>Corruption: The EEPROM holding the firmware becomes corrupted in the sectors containing writable/updatable firmware.
+    </li>
+</ol>
+</div>
+<div>
+<b>Software</b>
+</div>
+<div>
+<ol>
+<li>Incomplete update: An update of the software on the drive is interrupted. This leaves the rootfs partition in an unknown state.
+    </li>
+<li>Attack: An attacker compromises the software and is able to rewrite the data on the drive (rootfs or partition table).
+    </li>
+<li>Malicious user: A malicious user installs developer mode onto the device, leaving behind a trojan, then returns the device.
+    </li>
+<li>Corruption: The drive becomes corrupted in the partition table or rootfs partition.
+    </li>
+<li>Crash: Device crashes on boot due to bad software. For example, the 
+device is updated with the wrong image. This prevents the normal 
+autoupdate process from running.</li>
+</ol>
+<div>
+<b>Out of scope</b>
+</div>
+</div>
+<div>
+<br>
+</div>
+<div>
+  The following problems are outside the scope of this document in its current form:
+</div>
+<div>
+<ol>
+<li>
+      An attacker with physical access to the device opens the device and alters its innards. This includes:
+    </li>
+<ul>
+<li>
+        Jumpering the EEPROM to gain write access to the read-only portion.
+      </li>
+<li>
+        Replacing the EEPROM.
+      </li>
+<li>
+        Otherwise altering the circuit board (adding piggyback chips, etc).
+      </li>
+</ul>
+<li>
+      Exploits involving the normally-writable data partition. 
+    </li>
+<ul>
+<li>
+        Changing bookmarks to point to sites which download HTML5 malware, etc.
+      </li>
+<li>
+        Malformed bookmarks file or image which causes a buffer overrun when parsed
+      </li>
+<li>
+        Changing the preferred wireless network to a malicious one which logs/alters packets
+      </li></ul>
+<li>Exploits involving other processors (embedded controller, modem processor, etc.)</li>
+<ul>
+</ul>
+<ul>
+</ul>
+</ol>
+<h2><a name="Design_Decisions_8644751217216"></a>
+     Design decisions
+  </h2>
+<h3><a name="Boot_needs_to_start_securely_5"></a>
+     Boot needs to start securely
+  </h3>
+</div>
+<div>In order to attempt a secure boot, the initial boot stub needs to 
+perform a minimum level of initialization to verify the next piece of 
+boot code before handing off to that code.
+</div>
+<div><br>
+</div>
+<div>
+  To prevent accidental or intentional corruption of the known-good boot
+ stub, this code must be in a portion of memory which is not 
+field-writable. Many EEPROM devices have an external pin (<u>WP</u>) which can be pulled low to write protect the upper portion of the EEPROM. This has a number of benefits:
+</div>
+<ul>
+<li>
+    Devices are writable at time of manufacture (as opposed to true ROMs, which are fixed at time of ROM manufacture).
+  </li>
+<li>
+    Devices can be made writable for firmware development by simple hardware modification.
+  </li>
+<li>
+    Both readable and read-only ROM are provided by a single device. Simpler board design, fewer parts, lower cost.
+  </li>
+<li>
+    Any attacker who can open the case and modify the hardware to write 
+to the protected upper portion of ROM could also simply replace a true 
+ROM with a reprogrammed part, so this isn't significantly less secure 
+than a true ROM.
+  </li>
+</ul>
+<div>
+  On ARM platforms, the inital boot ROM may be in the same package as 
+the processor. This is even more secure compared to a separate EEPROM.</div>
+<h3><a name="Writable_firmware_should_have__7966560075305942"></a>
+   Writable firmware should have a backup
+</h3>
+<div>
+  To protect against a failed firmware update, the writable portion of 
+the firmware (responsible for doing the remainder of chipset and storage
+ setup and then bootstrapping the kernel off the storage device) should 
+exist in two copies. In the event the first copy is corrupt, the device 
+can boot normally off the second copy. This is similar to the design for
+ the <a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/filesystem-autoupdate">file system</a>, which has two copies of the root partition.</div>
+<h3><a name="Recovery_firmware_should_be_re_024671708017260596"></a>
+   Recovery firmware must be read-only
+</h3>
+<div>
+  Recovery firmware must be able to take over the boot process if the 
+boot stub determines that the normal writable firmware is corrupt, or if
+ the user manually boots the device into recovery mode.</div>
+<div>
+<br>
+</div>
+<div>
+  To prevent the recovery firmware from being corrupted by a firmware 
+update or a software-based attack, it must be in the same read-only 
+portion of the EEPROM as the boot stub.
+</div>
+<h3><a name="Recovery_firmware_does_not_nee_43765456105130307"></a>
+   Recovery firmware does not need to access the network
+</h3>
+<div>
+  The recovery process should not require firmware-level network access 
+by the device being recovered. &nbsp;The recovery procedure can involve a
+ second computer, which is used to create recovery media (for example, a
+ USB drive or SD card). It is assumed that second computer has network 
+access.</div>
+<div>
+<br>
+</div>
+<div>
+  This simplifies the recovery process, since the recovery firmware only
+ needs to bring up enough of the system to bootstrap a Linux image from 
+local storage. That image can then take care of reflashing the EEPROM 
+and reimaging. 
+</div>
+<div>
+<br>
+</div>
+<div>
+  It is not necessary to implement a full network stack with WiFi 
+configuration in the recovery firmware to support PXE boot. PXE boot 
+introduces a number of complications:</div>
+<div>
+<ul><li>Need to initialize more hardware to bring up wireless, keyboard, etc.</li>
+<li>Need to implement a full network stack.</li>
+<li>Makes recovery an interactive process, including the user entering their SSID and WPA key, which the user may not know.</li>
+<li>Unlikely to work for public WiFi access points; these often redirect
+ http access to a login screen, navigation of which which would 
+necessitate a full browser in the recovery firmware.</li>
+<li>Unlikely to work for 3G, if that requires more complicated drivers or configuration.</li></ul>
+<div>All of these issues would need to be resolved, and the resulting 
+firmware must be correct at the time the device ships, because recovery 
+mode firmware can't be updated in the field. It is unacceptable to ship a
+ mostly-working PXE solution, assuming that the user can fall back on a 
+second computer in the event PXE recovery fails. The only time the user 
+would discover PXE recovery didn't work is when the user is relying on 
+it to repair their computer.</div>
+<div><br>
+</div>
+</div>
+<div>More information on wireless network boot is here:&nbsp;<a href="http://etherboot.org/wiki/wirelessboot">http://etherboot.org/wiki/wirelessboot</a>.<br>
+<div>
+<h3><a name="Recovery_firmware_should_tell_"></a>
+    Recovery firmware should tell the user how to recover
+  </h3>
+<div>
+    If the recovery firmware finds a USB drive/SD card with a good 
+recovery image on it, it should boot it and use that to recover. The 
+software in that recovery image will have its own user interface to 
+guide the user through recovery.</div>
+<div>
+<br>
+</div>
+<div>
+    If the recovery firmware does not find a good recovery image, it 
+needs to tell the user how to use a second computer to build that 
+recovery image.
+  </div>
+<div>
+<div>
+<br>
+</div>
+<div>The preferred way to do this is to initialize the screen and show 
+recovery instructions to the user, including a URL to go to in that 
+second computer's web browser.&nbsp;Note that recovery instructions need
+ to be displayed in the correct language for the user.</div>
+</div>
+</div>
+</div>
+<div>
+<p>It is desirable for the recovery instructions and/or recovery URL to 
+include a code for the device model. This allows the destination website
+ to:</p>
+<div>
+<div>
+<div>
+<ul><li>Provide the proper recovery image for that device model.</li>
+<li>Describe the recovery procedure specific to that device model. For 
+example, if the device has a SD card but no USB port, the recovery 
+procedure would indicate that a SD card is necessary, and would not 
+discuss the possibility of recovering using USB.</li>
+<li>Display graphics appropriate for the device model. For example, showing the location of the USB or SD card port.</li></ul>
+</div>
+</div>
+<h3><a name="Users_should_be_able_to_manual"></a>
+     Users must be able to manually trigger recovery mode</h3>
+<div>
+    If the writable firmware and/or rootfs have valid signatures but 
+don't work (for example, the user somehow managed to get an ARM kernel 
+on an x86 device), the user needs to be able to force recovery mode to 
+run.
+  </div>
+<div>
+<br>
+</div>
+<div>
+    This can be done by having a physical reset button somewhere on the 
+device. When this button is pressed during power-on, the device goes 
+straight to the recovery firmware without even looking at the writable 
+firmware or file system.</div>
+<div><br>
+</div>
+<div>Some options for the recovery button:</div>
+<div>
+<ul><li>It could be a button attached to a GPIO on the main processor. 
+In this case, the boot stub would initialize the GPIO and read its state
+ at boot time.</li>
+<li>It could be a button attached to a subprocessor such as the Embedded
+ Controller (EC). In this case, the boot stub would need to request the 
+button state from the EC at boot time.</li>
+<li>It could be one of the keys on the keyboard, though this creates 
+the&nbsp;undesirable&nbsp;possibility of&nbsp;accidentally&nbsp;entering
+ recovery mode. </li>
+<ul><li>This is undesirable if the only interface to the keyboard is 
+USB, because USB firmware is more complex and the USB hardware interface
+ can take a significant amount of time to initialize. </li>
+<li>Some devices use a subprocessor to read the keyboard. In this case, initiating recovery mode is much like the previous option.</li>
+<li>The keyboard could bring out the press-state of one of its keys to a
+ separate I/O line, which could be attached to a GPIO on the processor 
+or to a subprocessor.</li></ul></ul>
+<div>Since the recoverability of Chromium OS is one of its key features, we seek to have a dedicated "recovery mode" button.</div>
+</div>
+<h3><a name="Support_developers_l33t_users_"></a>
+     Support developers / l33t users installing their own software
+  </h3>
+</div>
+<div>
+  To provide a relatively trustable boot for the majority of users, we 
+need to control all the read-only firmware at the beginning of the boot 
+process.
+</div>
+<br>
+<div>
+  To support developers, at some point during the boot process, we need to hand off to code self-signed by someone else.</div>
+<div><br>
+</div>
+<div>The initial devices will allow handoff at the point the kernel is 
+loaded and its embedded signature is checked. &nbsp;This can produce one
+ of three results:</div>
+<div>
+<ul><li>Trusted kernel: The kernel has a valid signature, and the 
+signing key is known to the firmware. &nbsp;This is the normal case for 
+production devices.</li>
+<li>Developer kernel: The kernel has a valid signature, but the key used
+ to sign the kernel is not known to the firmware. &nbsp;This is the case
+ when a developer builds and self-signs their own kernel.</li>
+<li>Corrupt kernel: The kernel fails its signature check.</li></ul>
+<div>Once the chain of trust departs from the standard Chromium OS boot 
+chain, we need to indicate this clearly to the user of the device. This 
+prevents malicious attackers from giving users a modified version of 
+Chromium OS without the user knowing. We likely will need to show a 
+warning screen which includes the following elements:</div>
+</div>
+</div>
+<div style="margin-top:0px;margin-bottom:0px">
+<ul style="margin-top:0px;margin-bottom:0px"><li>A warning that the standard image of Chromium OS is not running</li>
+<li>A means of reverting back to the standard Chromium OS image</li>
+<li>A means of allowing the user/developer to proceed down the "untrusted" path</li></ul>
+<div><br>
+</div>
+<div>It is desirable for the warning screen to have a timeout, so that 
+Chromium OS devices with developer images can be used in unattended 
+applications (for example, as a media server). &nbsp;The timeout should 
+be sufficiently long that a user can read and respond to it - for 
+example, at least 30 seconds.</div>
+<div><br>
+</div>
+<div>Since language settings will not be available at this stage of the 
+boot process, any messaging will likely need to be internationalized and
+ displayed in all possible languages.</div>
+</div>
+<div>
+<div>
+<h2><a name="EEPROM_Map_19483716413378716_0_8527987941869014"></a>
+    EEPROM map
+  </h2>
+<a name="EEPROM_Map"></a>
+<div>Here is an early guess at sizes and layout of the EEPROM. These sizes may change as we progress with implementation.<br>
+<br>
+<div style="display:block;text-align:left"><a href="http://sites.google.com/a/chromium.org/dev/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery/eeprom-map.png?attredirects=0" imageanchor="1"><img src="FirmwareBootRecovery_eprom-mappng.bin" border="0"></a></div>
+</div>
+<div><h2><a name="TOC-Firmware-block-descriptions"></a>Firmware block descriptions</h2>
+</div>
+<h3><a name="Boot_Stub_2175902035087347_738"></a>
+     Boot stub
+  </h3>
+<div>
+    Must be at the top of EEPROM, since most processors jump to the top of memory (0xFFFFFFF0) after internal initialization.
+  </div>
+<div>
+<br>
+</div>
+<div>
+    Contains the "root key" - the official public key used to verify the
+ signature of the next stage of firmware. The private key is not 
+contained on the device, and must be protected from all unauthorized 
+access. To reduce exposure of the private root key, the private root key
+ will be used to sign a second date-limited or numbered key stored in 
+the rewritable firmware, which is then used to sign that firmware. 
+Validation of the date or key number could be done via a TPM module.<br>
+</div>
+<div>
+<br>
+</div>
+<div>
+<b>Pseudocode:</b>
+</div>
+<div>
+<ol>
+<li>
+        Initialize processor and RAM (and implicitly, those parts of the
+ north bridge necessary to initialize RAM), using conservative timings.
+      </li>
+<li>
+        If user-forced recovery mode, skip to attempt loading recovery 
+firmware. (The recovery button asserts an I/O line that can be measured 
+by the firmware.)
+      </li>
+<li>Check the non-volatile register or memory region for a recovery mode
+ cookie value. &nbsp;If this is set, some later stage of the boot 
+process must have failed and requested recovery mode, so skip to attempt
+ loading recovery firmware.</li>
+<li>
+        Attempt loading Firmware A.</li>
+<ol>
+<li>
+          Copy Firmware A to RAM.
+        </li>
+<li>
+          Verify signature of Firmware A using public key stored in boot stub.</li>
+<li>
+          If signature is valid, jump to Firmware A Setup.
+        </li>
+</ol>
+<li>
+        Firmware A is bad. Repeat for Firmware B.
+      </li>
+<li>
+        Both A and B are bad. Attempt loading recovery firmware to RAM 
+and verify signature. If valid, jump to recovery firmware.
+      </li>
+<li>
+        All recovery options have been exhausted. Catch fire / emit POST code / etc.</li>
+</ol>
+<h3><a name="Firmware_A_B_Setup_41671303566"></a>
+       Firmware (A/B) setup</h3>
+<div>This firmware sets up a minimal set of hardware components so that 
+the boot loader can load the kernel from the normal boot drive. 
+&nbsp;For example, the SATA or eMMC controller.</div>
+<div><br>
+</div>
+<div><b>Pseudocode:</b></div>
+</div>
+<ol>
+<li>Initialize chipset / file system sufficiently to jump to Boot Loader code.</li>
+<li>
+      Jump to Boot Loader code.</li>
+</ol>
+<div>
+<div>
+</div>
+</div>
+<h3><a name="Firmware_A_B_Bootstrap_6854730_9843585162384771"></a>
+     Firmware (A/B) boot loader</h3>
+<div>
+    The boot loader is only designed to load Chromium OS. We can go 
+directly from firmware bootstrap to the kernel in the file system.</div>
+<div><br>
+</div>
+<div>
+<b>Pseudocode:</b>
+</div>
+<div><b>
+<ol style="list-style-type:decimal"><li><span style="font-weight:normal">Verify the partition table on the filesystem looks sane.</span></li>
+<li><span style="font-weight:normal">Load kernel A from the filesystem.</span></li>
+<li><span style="font-weight:normal">Verify signature of kernel.</span></li>
+<li><span style="font-weight:normal">If signature is invalid:</span></li>
+<ol style="list-style-type:decimal"><li><span style="font-weight:normal">If this is kernel A, retry with kernel B.<br></span>
+</li>
+<li><span style="font-weight:normal">Else this is kernel B. &nbsp;Both 
+kernels are bad, so set the recovery-mode cookie non-volatile register 
+and reboot into recovery firmware.<br></span>
+</li>
+</ol>
+<li><span style="font-weight:normal">If kernel was signed with a public key not known to the boot loader, this is a developer kernel:</span></li>
+<ol style="list-style-type:decimal"><li><span style="font-weight:normal">Initialize the display.</span></li>
+<li><span style="font-weight:normal">Display scary developer mode warning to user. For example: "Google Chrome OS is not installed. &nbsp;Press space bar to repair."</span></li>
+<li><span style="font-weight:normal">Wait for keypress or 30-second delay before continuing.</span></li>
+<li><span style="font-weight:normal">If key pressed was Space bar, Enter, or Esc, jump to Recovery Firmware.</span></li><li><span style="font-weight:normal">If key pressed was Control+D, dismiss screen.</span></li><li><span style="font-weight:normal">Ignore other key presses.</span></li>
+</ol>
+<li><span style="font-weight:normal">Continue booting the kernel.</span></li>
+</ol>
+</b></div>
+<h3><a name="Boot_Log_909660461358726_02223_241900222824606"></a>Boot log</h3>
+<div>A boot log will be stored at the bottom of the writable section of firmware. This will store the following types of events:
+  </div>
+<div>
+<ul><li>Each time recovery firmware is run, with information on what triggered it (manual, bad firmware, bad root filesystem, etc.).</li>
+<li>When a recovery completes, including which actions were taken.</li></ul>
+<div>It does not store information on successful boots. This removes the
+ need to support EEPROM writing in the normal boot process, and 
+conserves space for log entries dealing with real errors.</div>
+<div><br>
+</div>
+<div>The boot log can be uploaded as part of the autoupdate process. It can then be cleared and reused for new log entries.</div>
+</div>
+<h3><a name="Recovery_Firmware_325963526964_9310128691004004"></a>
+     Recovery firmware
+  </h3>
+<div>
+    This firmware attempts to recover from bad firmware or /rootfs by loading a recovery image off an external storage device.
+  </div>
+<div>
+<br>
+</div>
+<b>
+  Pseudocode:</b><br>
+<ol>
+<li>Write a log entry to the boot log indicating why recovery mode was 
+activated (manual, bad writable firmware, user triggers recovery mode, 
+etc.)</li>
+<li>
+      Initialize enough of the chipset to be able to access a storage device (USB drive, SD card, etc.)
+    </li>
+<li>Check for an inserted storage device. &nbsp;If no storage device is present, skip to displaying recovery instructions.</li>
+<li>Verify the signature of the recovery image, using a public key 
+stored in the recovery firmware. &nbsp;If the signature is invalid, skip
+ to displaying recovery instructions.</li>
+<li>Load and run the recovery image.</li>
+<li>If we're still here, either no storage device was inserted, or the 
+storage device did not contain a valid image. &nbsp;Display recovery 
+instructions:</li>
+<ol><li>Initialize the display.</li>
+<li>Display instructions. &nbsp;These instructions must be 
+internationalized and rendered in multiple languages. &nbsp;The 
+instructions must include:</li>
+</ol>
+<ul>
+<ul><li>A warning that the computer is in recovery mode</li>
+<li>How to obtain a trusted recovery image (for example, instructions to
+ go to a second computer and browse to a specified URL for further 
+instructions)</li><li>An indication if an already-inserted storage device does not contain a valid recovery image (sorry, try again).</li></ul></ul>
+<li>Wait for a storage device to be inserted, then go back to step 3.</li>
+</ol>
+</div>
+<div>Most of the recovery work is left to the recovery image loaded from
+ the storage device. This allows for publishing updated recovery images 
+and instructions. Because the recovery firmware is etched in stone 
+(well, as electrons in floating gates) at the time the device is 
+launched, it needs to be as simple and robust as possible.</div>
+<div>
+<h2><a name="Recovery_Image_999069100245833_9862531434570179"></a>
+     Recovery image
+  </h2>
+<a name="Recovery_Image"></a>
+<div>
+    This is the software loaded onto a storage device (USB drive, SD card, etc.) which does the bulk of the recovery work.
+  </div>
+<div>
+<br>
+</div>
+<div>The recovery image will be available for download. </div>
+<div><br>
+</div>
+<div>We will need to provide a downloadable installer for users to use 
+to install the recovery image on the storage device. This installer 
+should be supplied for all popular operating systems (Chromium OS, 
+Windows, Mac OS X, Ubuntu Linux). The installer will:</div>
+<div>
+<ul><li>Prompt the user to select a destination for the recovery image<br>
+</li>
+<ul><li>Ideally, the user will only be able to select destination 
+devices appropriate for recovery of the laptop model they are attempting
+ to recover.</li><li>Also, the user should only be able to select removable devices. We don't want them trashing their hard disk.</li></ul>
+<li>Warn the user that this will erase whatever is on that destination, and prompt for confirmation</li>
+<li>Reformat the destination storage device</li>
+<li>Install the recovery image on the storage device</li>
+<li>Prompt the user to insert the storage device into the Chromium OS device</li></ul>
+<div>Ideally, the installer would be able to back up the current data on
+ the destination device, before reformatting and writing the recovery 
+image. When recovery is complete, the user could re-insert the 
+destination device and have the original contents restored.</div>
+<div><br>
+</div>
+</div>
+<div>The recovery image should contain an entire clean copy of the 
+firmware and /rootfs. This way, a user can make a recovery device ahead 
+of time. For example, if a user is going to be somewhere with poor 
+connectivity, they could make a recovery USB drive at home and keep it 
+in their bag. Alternately, the system could come with a recovery device 
+(though users might end up reformatting it and filling it with images of
+ kittens).</div>
+<div>
+<div>
+<div>
+<br>
+</div>
+<div>
+        The recovery image on the storage device would do something like the following:
+      </div>
+<div>
+<ol>
+<li>
+            Initialize the display and tell the user what's going on. 
+Reassure them that their Chromium OS system is trying to recover.
+          </li>
+<li>
+            If developer firmware is detected, give the user a choice of
+ "JUST FIX IT" or "Scary Settings for L33t H4x0rs". If the user picks 
+the latter:
+          </li>
+<ol>
+<li>
+              Give the developer more control over each stage in the rest of the recovery. 
+            </li>
+<li>
+              For example, a developer might not want to wipe and 
+replace /rootfs or /data, or might want to make a backup of that data.
+            </li>
+</ol>
+<li>
+            Run system tests. It's possible that the boot problems are due to bad hardware. Now's the time to detect that.
+          </li>
+<ol><li>If hardware is sufficiently bad that the rest of recovery can't be run, show the user information on how to return it.</li>
+</ol>
+<li>
+            Verify both firmware A and firmware B are up-to-date and valid. Load known good firmware as needed.
+          </li>
+<li>
+            Verify /rootfs-A and /rootfs-B are up-to-date and valid. Load known good /rootfs images as needed.
+          </li>
+<li>Wipe /data. Anything the user cares about should be in the cloud 
+anyway. If the user's been hacked, wiping /data will put the device back
+ in a known good state.
+          </li>
+<ol><li>Optionally, it can inform the user that data on the system will be erased.</li>
+<li>This message should emphasize that most data is saved to the cloud, so that the user is more likely to proceed with recovery.</li>
+<li>It is less desirable to give the user a choice whether or not to 
+delete /data. Most users would pick the less scary but also less secure 
+option of NOT deleting data - but this leaves them vulnerable to 
+persistent hacks on the data partition, such as manipulating their 
+/etc/hosts file or bookmarks.</li>
+</ol>
+<li>If recovery mode was manually triggered, ask the user why they're running it.</li>
+<ol><li>Couldn't even log in; crash during boot</li>
+<li>Kept crashing after boot</li>
+<li>Worried my system was hacked</li>
+<li>Hey, what's this button do?</li>
+</ol>
+<li>Write an entry to the boot log describing repairs performed.</li>
+</ol>
+</div>
+<div>
+<h3><a name="Recovery_via_Chrome_OS_2183209_6000941713093587"></a>Recovery via Chromium OS</h3>
+<div>The recovery installer should run on a healthy Chromium OS system. 
+That is, it should be able to download the recovery image, reformat the 
+storage device, and copy the recovery image to it. </div>
+<div>
+<ul><li>This enables a healthy Chromium OS system to create its own recovery device in advance. </li>
+<ul><li>Perhaps we should periodically advise users to update their recovery device?</li></ul>
+<li>It also enables one Chromium OS system to download a recovery image 
+for a different model. (A user has a corrupt system, so they go to their
+ friend's house and use the friend's Chromium OS system to make a 
+recovery image).</li></ul>
+</div>
+<h3><a name="Making_Recovery_Images_Read_On"></a>
+           Making recovery images read-only
+        </h3>
+<div>
+          If the recovery image is inserted into a powered-on and hacked
+ system, the hacked software could delete or corrupt it. This won't 
+cause the recovery firmware to load that corrupt image, because the 
+corrupt image will fail the signature check. It will be annoying to the 
+user, who will need to reflash the storage device.</div>
+<div><br>
+</div>
+<div>
+          This is more of an issue if we want to include an internal 
+recovery image (for example, on an internal storage device).
+        </div>
+<div>
+<br>
+</div>
+<div>
+          The SD standard specifies a physical write-protect notch for 
+SD cards, similar to those on a 3.5" floppy disk. Unfortunately, the 
+implementation of the write-protection is purely software, so pwned 
+drivers can choose to ignore the write-protect detect signal.
+        </div>
+<div>
+<br>
+</div>
+</div>
+</div>
+</div>
+  Some USB drives have a write-protect switch on them. In this case, the protection is handled by the USB drive itself.
+</div>
+<div>
+<br>
+</div>
+<div>
+  Some eMMC chips&nbsp;have a number of protection mechanisms including:</div>
+<div>
+<ul>
+<li>
+      an external LOCK# pin which can be used to make the device read-only
+    </li>
+<li>
+      a write-once bit which makes the device read-only until reboot
+    </li>
+</ul>
+</div>
+<div>
+  Since these chips come in sizes up to 2GB (~$10 at stores), they 
+provide a possible place to store a recovery image. Some system 
+architectures may be able to use the eMMC drive to hold the main 
+firmware image also.<br>
+<div>
+<br>
+</div>
+<div>
+    If we have an internal storage device, it's possible we could wire 
+it so it's only enabled if the recovery button is pressed at boot time. 
+For example, we could use that button to latch up a circuit which powers
+ that device, so that it will remain powered during that boot only.
+  </div>
+<h3><a name="Using_Recovery_Mode_to_load_De"></a>Using recovery mode to load developer mode firmware/software</h3>
+<div>If the rootfs image on the SD card is signed by someone else, the 
+recovery image will display a screen similar to the Developer Mode 
+screen. &nbsp;Instructions on this screen should include:</div>
+<div>
+<ul><li>Notice that the recovery image is signed by someone else</li>
+<li>How to obtain a trusted recovery mode image</li>
+<li>Instructions on installing a trusted recovery image</li>
+<li>A means of allowing the user/developer to proceed down the "untrusted" path</li></ul>
+</div>
+<div>
+<div>Note that this screen must also be internationalized / rendered in 
+multiple languages. This is potentially much easier, since by the time 
+we're doing this the recovery image has booted a full OS with GUI.</div>
+</div>
+<h2><a name="Boot_Flowchart_033826657570898"></a>Boot flowchart</h2>
+<div>The three main downward flows in this chart show:</div>
+<div>
+<ul><li>Start of boot in read-only firmware</li>
+<li>Normal continuation of boot, loading kernel from internal drive</li>
+<li>Recovery mode</li></ul><div style="display:block;text-align:left"><a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery/ChromeOSFirmwareBootandRecoveryPUBLISHED.png?attredirects=0" imageanchor="1"><img src="FirmwareBootRecovery_PUBLISHED.png" border="0"></a></div><br>
+<div style="display:block;text-align:left"></div><h2><a name="TOC-Other-notes"></a>Other notes</h2>
+</div>
+<h3><a name="Verification_of_the_Rest_of_ro"></a>
+     Verification of the rest of /rootfs
+  </h3>
+<div>
+    The firmware boot process above describes a way to verify all code from the start of boot through handoff to the kernel. 
+  </div>
+<div>
+<br>
+</div>
+<div>
+    The kernel is responsible for verifying the rest of the data in 
+/rootfs - for example, user-mode drivers. If the kernel determines that 
+/rootfs has been compromised, it can force recovery mode to run by 
+setting the recovery mode cookie in a non-volatile register and 
+rebooting into recovery mode.</div>
+<div><br>
+</div>
+<div>Alternately, a kernel which determines its rootfs is corrupt can 
+commit suicide by marking its partition as inactive and then rebooting. 
+The next boot will do one of the following:</div>
+<div>
+<ul><li>If the other root partition is good, the boot loader will run the other root partition.</li>
+<li>If neither root partition is good, the boot loader will trigger the 
+recovery mode firmware, which can put /rootfs back in a known state.</li></ul>
+</div>
+<div>
+<h3><a name="When_to_Verify_the_Boot_Proces"></a>
+      When to verify the boot process
+    </h3>
+<div>We should develop under the initial assumption that we can verify every boot, since this provides the most security. </div>
+<div><br>
+</div>
+<div>Signature-checking code does impact startup time. However, this is 
+likely not an issue for the firmware (&lt; 1 MB) and kernel (&lt; 10 MB)
+ than it is for the remainder of /rootfs. We assume that we will verify 
+the entire firmware and kernel every boot.</div>
+</div>
+</div>
+<h3><a name="Handling_Returned_Netbooks_578"></a>Handling returned systems</h3>
+When a Chromium OS system is returned to the store, the store should check to make sure it still boots.</div>
+<div>
+<ul><li>If it boots normally, the store can follow their standard process for dealing with returns.</li>
+<li>If it displays the Scary Dev Mode screen, the store can either run 
+recovery mode or refuse the return (in which case the original owner can
+ go home and run recovery mode, then come back and returns the system 
+again).</li>
+<li>If it fails to boot, it gets shipped back to the manufacturer.<br>
+</li></ul>
+<div>Note that it's advisable for stores to run recovery mode on 
+returned computers anyway, to put them back into a clean state and 
+destroy any user data still on the device.</div>
+<h3><a name="Testing_17694905913316072_043226863012933325"></a>Testing</h3>
+</div>
+<div>The comprehensive test suite for Chromium OS should include tests 
+of each stage of the verification process and the recovery procedure, 
+including all decision points in the pseudocode/flowchart. This will 
+require actual hardware for each firmware image being tested.</div>
+<div><br>
+</div>
+<div>Testing should also attempt to write to the read-only portion of the EEPROM, to ensure that it is in fact not writable.</div>
+<div>
+<h2><a name="Open_Issues_6727640628814697_9"></a>Open issues</h2>
+<h3><a name="What_Else_Do_We_Need_To_Verify"></a>
+  What else do we need to verify?
+</h3>
+<div>
+  This document describes verifying the following:
+</div>
+<div>
+<ul>
+<li>
+      Firmware in the main EEPROM
+    </li>
+<li>
+      Partition table
+    </li>
+<li>
+      /rootfs (kernel only)
+    </li>
+</ul>
+</div>
+<div>
+  It explicitly does not discuss verifying:
+</div>
+<div>
+<ul>
+<li>
+      /rootfs (anything after the handoff to the kernel)
+    </li>
+<li>
+      /data</li>
+</ul>
+</div>
+<div>
+  Are there other locations for persistent storage we should be verifying? For example:
+</div>
+<div>
+<ul>
+<li>
+      Firmware in other components?
+    </li>
+<ul>
+<li>
+        File system</li>
+<li>
+        NIC
+      </li>
+<li>
+        3G modem
+      </li>
+<li>Embedded controller</li>
+<li>Modem processor (on ARM systems)</li>
+<li>
+        Keyboard (<a href="http://www.engadget.com/2009/08/04/apple-keyboard-gets-hacked-like-a-ripe-papaya-perp-caught-on-vi" target="_blank" title="this apparently is an attack surface on some systems">this apparently is an attack surface on some systems</a>)
+      </li>
+<li>(we disallow option ROMs in the hardware spec, so we don't need to worry about those)</li>
+</ul>
+<li>Removable user media</li>
+</ul>
+</div>
+<h3><a name="Can_we_log_firmware_crashes_54_8565273169739532"></a>Can we log firmware crashes? </h3>
+<div>
+<ul><li>Crashes in boot stub (i.e., north bridge / RAM init) likely aren't loggable at all. Not enough of the system is running.<br>
+</li>
+<li>Other crashes in the firmware could write a cookie into a particular address in SDRAM. </li>
+<ul><li>When the system boots next, it could check that address for a valid crash cookie. </li>
+<li>If so, assume the current firmware is bad; try the backup firmware, or go to recovery mode.</li>
+<li>Downside: Intermittent crashes which would be mildly annoying now 
+prevent the system from attempting to boot at all, since it would tend 
+to go into recovery mode.</li></ul>
+<li>Crashes in the kernel can be logged to the stateful partition.</li></ul>
+</div>
+<h3><a name="Chain_of_verification_on_ARM_2_45279574090983055"></a>Chain of verification on ARM?</h3>
+<div>Some ARM SOCs contain a modem processor and an application 
+processor. On boot, only the modem processor is running; its firmware 
+then sets up and starts the application processor. If the modem firmware
+ is writable, we could be hacked before the first instruction of our 
+firmware executes. We need a way to secure the modem firmware. (This is 
+true regardless of the boot order, if the modem firmware has access to 
+the registers or RAM used by the application processor).&nbsp;<br>
+</div>
+<div><br>
+</div>
+<div>Such systems could use a Memory Protection Unit or similar such 
+hardware solution, to prevent the modem and application processors from 
+reading/writing each other's firmware or memory space, except for 
+specific portions of the memory space used for inter-processor 
+communication. We are still investigating what solutions can be used for
+ verified boot.</div>
+</div>
+<h3><a name="Support_for_Trusted_Platform_M_472807140635382"></a>Support for Trusted Platform Module (TPM)?</h3>
+<div>A TPM is not required for key verification for the firmware boot 
+and recovery process described in this document. There's no point in the
+ verification key being more secure than the code in ROM used to do the 
+verification. &nbsp;If an attacker can crack the ROM code, they can just
+ make it bypass the TPM check.</div>
+<div><br>
+</div>
+If the boot stub contains a secondary key which is date-limited, it is 
+desirable to use the TPM to verify the date-limited key is valid. Many 
+TPM modules contain their own clock/counter, so can be used to defend 
+against turn-back-the-clock attacks. &nbsp;Similarly, if we use numbered
+ or sequential secondary keys, storing the highest-seen key number in 
+the TPM can protect against rollback attacks.
+<div><br>
+<div>There may be some firmware requirements to set up the TPM so that 
+subsequent activities (3G authentication, etc.) can get access to the 
+keys stored in the TPM.</div>
+</div></div></td></tr></tbody></table>
+</div> 
+</div> 
+<div id="sites-canvas-bottom-panel">
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_page-subpages"> </div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-attachments">
+<div class="sites-attachments-row"><div class="sites-attachments-icon" style="left:0px;"><div class="sites-translucent sites-symbol">Č</div></div></div><div class="sites-attachments-separator"></div>
+<div id="attachment-wuid:gx:7f73bd1c4434d399"><div class="sites-attachments-row"><div class="sites-attachments-icon" style="left:5px"><div class="sites-translucent sites-symbol">ċ</div></div><a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery/eeprom-mappng?attredirects=0&amp;d=1" title="Download"><div id="attachment-download-wuid:gx:7f73bd1c4434d399" class="sites-attachments-icon" style="right:0px"><span class="sites-symbol">ď</span></div></a><div class="sites-attachments-version"><a href="http://www.chromium.org/system/app/pages/admin/revisions?wuid=wuid:gx:7f73bd1c4434d399">v.1</a></div><div class="sites-attachments-inner-div"><div class="sites-attachments-name">eeprom-mappng <div class="sites-translucent">(15k)</div></div><div class="sites-attachments-author">Jed Hartman, <div class="sites-translucent">Nov 19, 2009, 9:03 AM</div></div></div></div><div class="sites-attachments-separator"></div></div>
+<div id="attachment-wuid:gx:65e9b5dbe8fecb77"><div class="sites-attachments-row"><div class="sites-attachments-icon" style="left:5px"><div class="sites-translucent sites-symbol">ċ</div></div><a href="http://www.chromium.org/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery/flowchart1png?attredirects=0&amp;d=1" title="Download"><div id="attachment-download-wuid:gx:65e9b5dbe8fecb77" class="sites-attachments-icon" style="right:0px"><span class="sites-symbol">ď</span></div></a><div class="sites-attachments-version"><a href="http://www.chromium.org/system/app/pages/admin/revisions?wuid=wuid:gx:65e9b5dbe8fecb77">v.1</a></div><div class="sites-attachments-inner-div"><div class="sites-attachments-name">flowchart1png <div class="sites-translucent">(60k)</div></div><div class="sites-attachments-author">Jed Hartman, <div class="sites-translucent">Nov 19, 2009, 9:03 AM</div></div></div></div><div class="sites-attachments-separator"></div></div>
+<div style="height: 10px"></div>
+</div>
+<a xmlns="http://www.w3.org/1999/xhtml" name="page-comments"></a>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_page-comments"><div class="sites-comment-docos-wrapper"><div class="sites-comment-docos"><div class="sites-comment-docos-background"></div><div class="sites-comment-docos-header"><div class="sites-comment-docos-header-title">Comments</div></div><div dir="ltr" style="text-align: left;" id="sites-comment-docos-pane" class="sites-comment-docos-pane"><div tabindex="0" class="dcs-a dcs-a-dcs-x-dcs-fe dcs-a-dcs-ib"><div class="dcs-a-dcs-x-dcs-t"><div class="dcs-a-dcs-x-dcs-z dcs-me-dcs-hb-dcs-ib"><img data-userid="ANONYMOUS_105250506097979753968" src="FirmwareBootRecovery_files/silhouette96.png" id="dcs-img-0" class="dcs-a-dcs-k g-hovercard" height="48" width="48"><div class="dcs-a-dcs-x-dcs-z-dcs-t"><div id="___hovercard_0" data-userid="ANONYMOUS_105250506097979753968" class="dcs-a-dcs-x-dcs-ze dcs-n-dcs-mf-dcs-nf g-hovercard">Anonymous</div><div class="dcs-a-dcs-c dcs-a-dcs-x-dcs-c-dcs-d"><textarea maxlength="2048" aria-haspopup="true" class="dcs-a-dcs-c-dcs-id" aria-label="Comment draft" x-webkit-speech="" speech="">Add a comment</textarea><div class="dcs-a-dcs-c-dcs-p-dcs-mb"></div><div class="dcs-a-dcs-c-dcs-p-dcs-q"></div><div class="dcs-a-dcs-c-dcs-ob-dcs-pb-dcs-qb" style="display: none">Your +mention will add people to this post and send an email.</div><div class="dcs-a-dcs-c-dcs-gc"><div style="-moz-user-select: none;" role="button" class="dcs-n-dcs-mf-dcs-nf dcs-i-dcs-tb dcs-i-dcs-tb-dcs-ub dcs-a-dcs-c-dcs-se" tabindex="0" title="Post comment"><span class="dcs-a-dcs-c-dcs-gc-dcs-se">Comment</span></div><div style="-moz-user-select: none;" role="button" class="dcs-n-dcs-mf-dcs-nf dcs-i-dcs-tb dcs-i-dcs-tb-dcs-pd dcs-a-dcs-c-dcs-fb" tabindex="0" title="Discard comment">Cancel</div></div></div></div></div><div class="dcs-a-dcs-x-dcs-nb dcs-gb-dcs-hb-dcs-ib dcs-n-dcs-mf-dcs-nf">You have no permission to add comments.</div><div class="dcs-a-dcs-ib dcs-a"></div></div><div></div></div></div></div></div></div>
+</div>
+</div> 
+</td> 
+</tr>
+</tbody></table> 
+</div> 
+</div> 
+<div id="sites-chrome-footer-wrapper">
+<div id="sites-chrome-footer-wrapper-inside">
+<div id="sites-chrome-footer">
+</div>
+</div>
+</div>
+</div> 
+</div> 
+<div id="sites-chrome-adminfooter-container">
+<div xmlns="http://www.w3.org/1999/xhtml" class="sites-adminfooter"><p><a class="sites-system-link" href="https://www.google.com/a/UniversalLogin?service=jotspot&amp;continue=http://sites.google.com/a/chromium.org/dev/chromium-os/chromiumos-design-docs/firmware-boot-and-recovery">Sign in</a>|<a class="sites-system-link" href="http://www.chromium.org/system/app/pages/reportAbuse" target="_blank">Report Abuse</a>|<a class="sites-system-link" href="javascript:;" onclick="window.open(webspace.printUrl)">Print Page</a>|<a class="sites-system-link" href="http://www.chromium.org/system/app/pages/removeAccess" target="_blank">Remove Access</a>|<span class="sites-system-link">Powered By</span> <b class="powered-by"><a href="http://sites.google.com/">Google Sites</a></b></p></div>
+</div>
+</div> 
+</div> 
+<div id="sites-chrome-onebar-footer">
+</div>
+
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    window.jstiming.load.tick('sjl');
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" src="FirmwareBootRecovery_files/jot_min_view__en.js"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    window.jstiming.load.tick('jl');
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+  if (webspace.editorResources['text']) {
+    //<![CDATA[
+webspace.editorResources['text'].unshift('/system/app/css/overlay.css?cb=beigeandblueundefineda100%25%25150goog-ws-left');
+webspace.editorResources['text'].unshift('/_/rsrc/1364510364000/system/app/themes/beigeandblue/standard-css-beigeandblue-ltr-ltr.css');
+//]]>
+
+  }
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+    
+        sites.core.Analytics.createTracker();
+        sites.core.Analytics.trackPageview();
+      
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+                    sites.Searchbox.initialize(
+                        'sites-searchbox-search-button',
+                        {"object":[]}['object'],
+                        'search-site',
+                        {"label":"Configure search options...","url":"/system/app/pages/admin/settings"});
+                  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+      gsites.HoverPopupMenu.createSiteDropdownMenus('sites-header-nav-dropdown', false);
+    </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("7648876402527094", "Navigation", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_7648876402527094');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("14720868319272995", "Quick links", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_14720868319272995');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("19690813310444355", "Other sites", false);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_19690813310444355');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+              new sites.CommentPane('//docs.google.com/comments/d/AAHRpnXvrAwjAfmld0ObrebBiGRq9Il2j4ikTIhxQh2PFo6eo2FxZf1rcHIg7dK9stLuX99P8rwRKi-jpDIQHu9LAL-WLiKFUqhLJZp1oT20nZ1_mYhGxXAtAmln6E9Bq7uaVnCf8af-u/api/js?anon=true', true, true,
+                  false, false);
+            </script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+                    window.onload = function() {
+                      if (false) {
+                        JOT_setMobilePreview();
+                      }
+                      var loadTimer = window.jstiming.load;
+                      loadTimer.tick("ol");
+                      loadTimer["name"] = "load," + webspace.page.type;
+                      window.jstiming.report(loadTimer, {}, 'http://csi.gstatic.com/csi');
+                    }
+                  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+        JOT_insertAnalyticsCode(false);
+      </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    var maestroRunner = new gsites.pages.view.SitesMaestroRunner(
+        webspace, "en");
+    maestroRunner.initListeners();
+    maestroRunner.installEditRender();
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+  //<![CDATA[
+    // Decorate any fastUI buttons on the page with a class of 'goog-button'.
+    if (webspace.user.hasWriteAccess) {
+      JOT_decorateButtons();
+    }
+
+    // Fires delayed events.
+    (function() {
+      JOT_fullyLoaded = true;
+      var delayedEvents = JOT_delayedEvents;
+      for (var x = 0; x < delayedEvents.length; x++) {
+        var event = delayedEvents[x];
+        JOT_postEvent(event.eventName, event.eventSrc, event.payload);
+      }
+      JOT_delayedEvents = null;
+      JOT_postEvent('pageLoaded');
+    })();
+ //]]>
+</script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    JOT_postEvent('decorateGvizCharts');
+  </script>
+
+<script type="text/javascript">
+              sites.util.Plus.go('sites-chrome-main');
+            </script>
+<div id="server-timer-div" style="display:none"> </div>
+<script>
+          window.jstiming.load.tick('render');
+        </script>
+
+
+<div style="display: none;"><iframe src="FirmwareBootRecovery_files/xpc.html" style="height: 100%; width: 100%;" id="xpcpeerR9jv" name="xpcpeerR9jv"></iframe></div></body></html>
