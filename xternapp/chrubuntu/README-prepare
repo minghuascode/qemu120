@@ -1,0 +1,19 @@
+
+http://arstechnica.com/gadgets/2012/12/how-to-install-ubuntu-on-acers-199-c7-chromebook/
+(also http://liliputing.com/2012/11/how-to-install-ubuntu-12-04-on-the-199-acer-c7-chromebook.html)
+
+Preparing the Chromebook
+
+Our first step toward getting ChrUbuntu on the C7 is to put it in developer mode. This is a multi-step process: first, turn your Chromebook off, and then press the power button while holding the Refresh (F3) and Esc keys simultaneously. This will boot the Chromebook into Recovery mode (which you'll also need to use to reload Chrome OS if you replace the hard drive—Google's instructions for creating Chrome OS recovery media are here).
+
+If you booted into Recovery mode properly, you should see a screen telling you to insert recovery media. Instead, you'll want to press Crtl+D to toggle developer mode. This will prompt a reboot and a wait of several minutes while your Chromebook is reset. This will also erase any data on your drive, so proceed with caution if you've got anything you want to keep stored on the Chromebook itself.
+
+After entering developer mode, your Chromebook will boot to a scary screen telling you that OS verification has been disabled. You can either wait until this screen disappears, at which point the laptop will boot into Chrome OS, or you can press Ctrl+D again to bypass it. After loading in developer mode, connect to a wired or wireless network, but don't log in—you still have to install the developer mode BIOS before you can install an alternate OS.
+
+At the login screen, press Ctrl+Alt and the Forward (F2) button to bring up the Developer Console command prompt. At the "localhost login" prompt, enter chronos and press Enter. Type sudo bash and press enter, and then chromeos-firmwareupdate --mode=todev. If you see a message telling you that you can press Ctrl+U to run your own self-signed OS kernels, you're ready to install ChrUbuntu!
+Installing ChrUbuntu
+
+Type exit to take a step back to the chronos user command prompt. Now, we'll need to download and install the ChrUbuntu files. As of this writing, you'll need to type wget http://goo.gl/i817v; sudo bash i817v and press enter to initiate the setup process, but you may want to check the ChrUbuntu blog to make sure a newer version hasn't been released.
+
+...
+
