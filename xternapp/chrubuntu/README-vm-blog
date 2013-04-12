@@ -1,0 +1,44 @@
+
+
+http://chromeos-cr48.blogspot.ca/2012/10/how-to-run-chrome-os-not-chromium-os-on.html
+
+Thursday, October 11, 2012
+How to run Chrome OS (not Chromium OS) on a Virtual Machine
+As part of my job, I often want to be able to demo Chrome OS to clients so that they can see how simple it is or to show them a concept such as enterprise enrollment. However, since Chromebooks aren't compatible with common screen-sharing applications like GoToMeeting.com or WebEx, it's not possible. Google+ Hangouts do work on Chrome OS but you have to have a user logged into the Chromebook, no demoing the login screen or enrollment process.
+
+So I set out to find a way to run Chrome OS (the official code) on a virtual machine. Even before Chromebook hardware was available, Chromium OS, the open source base for Chrome OS has been able to run on virtual machines (see Hexxeh's nice nightly builds http://chromeos.hexxeh.net/) but I didn't want to deal with the rabbit trail of Chromium OS vs. Chrome OS when presenting to clients, I wanted them to see exactly what they'd see on a Chromebook. So with a little scripting, I've managed to get Chrome OS running on VMWare workstation (should work on VMWare Player and Fusion also though I haven't tested). Here are the instructions:
+
+Disclaimer: None of this is official or supported. I'm not responsible if Chrome or Chromium OS breaks your physical or virtual machine, destroys your data or re-elects Obama. The risk is entirely your own.
+
+    Download this VMWare image (http://cr-48-ubuntu.googlecode.com/files/cros-vm.tar.bz2). It's an unofficial, 200mb Chromium OS image. We'll use it as the base image, overwriting the Chromium OS filesystem and kernel with Chrome OS. The image is .tar.bz2 compressed. Windows users may need to download 7-Zip to decompress.
+    Once decompressed, open the .vmx file in VMWare and boot the machine. You'll see Chromium OS boot up. Your VM should have Ethernet setup so the image automatically has Internet connectivity, no need to run through setup since we'll be blowing things away shortly.
+    Press CTRL+ALT+spacebar. Release the spacebar but hold CTRL+ALT down and press F2. This switches us to the virtual console on Chromium OS (the spacebar is needed to make sure the VMWare guest and not the host OS pick up the CTRL+ALT key combo).
+    Login as user chronos password chronos. We'll want Chrome OS to start with a fresh stateful partition as soon as we first boot it so run:
+
+    sudo touch /mnt/stateful_partition/.developer_mode                   (password is chronos again)
+
+
+    this tells Chrome OS that the system has been in developer mode and should be wiped when it next boots up. Since we're running on a VM, there's really no such thing as a developer switch like there is on a real Chrome OS device but Chrome OS assumes it's not in developer mode so it does the wipe for us.
+    Now we're ready to download Chrome OS and overwrite Chromium OS. This step is pretty easy. Just run:
+
+    wget http://goo.gl/4suhf; sudo bash 4suhf
+
+    this will download a script and run it. The script takes care of downloading Chrome OS and overwriting your VM with it. You'll be able to choose which specific Chrome OS image you wish to use. All of the models I've tested have worked but if you're low on VM resources (RAM, CPU) then I suggest using Mario. If you want a 64-bit VM, use the Samsung 550 or Series 3 image.
+
+    When the script finishes, you'll be back at the command prompt but attempting to run any commands will crash. This is because you're still booted into Chromium OS but you've overwritten your VM disk with Chrome OS. Just manually reboot the VM with the reset button. Your stateful will quickly be wiped and you'll see Chrome OS boot with that official logo!
+
+Gotchas
+
+    Auto-updates don't work. You'll need to rerun the script in Step 5 to update. Sometimes the recovery image version lags behind the current stable version of Chrome OS.
+    Enterprise enrollment won't work out of box but it can be made to work. Hit CTRL+space then F2 (let go of space, hit F2 while holding CTRL the entire time). Run:
+
+    sudo su -
+    echo 'serial_number="1234567890"' > /tmp/machine-info
+    restart ui
+
+    replace 1234567890 with whatever serial you prefer. Then follow the normal CTRL+ALT+E method to enroll. If you have devices already listed in your CPanel you can choose one that's not been enrolled yet, use it's serial and be able to demo auto-enrollment.
+    For some reason I can't figure out, Chrome OS always want's to display at 1280x800 but VMWare only shows 1280x720 cutting off the bottom 80 pixels. It's something to do with the VESA BIOS on VMWare I believe (and the fact that Chrome OS expects an Intel graphics card that's not there on the VM). It's annoying that the bottom part of the screen where the clock, menu, etc are is missing. You can however use CTRL+Windows Key to pull up the menu of apps. If anyone finds a workaround to fix this, I'd love to know it. Update: turning the VM off and setting the monitor to 1024x768 forced in VM settings lets you see the menu bar. I couldn't bump the resolution higher than 1024x768 without cutting off the bottom.
+
+Good luck and post in the comments how Chrome OS works in a VM for you!
+
+

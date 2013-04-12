@@ -1,0 +1,45 @@
+
+http://chromeos-cr48.blogspot.ca/2012/12/so-you-want-chrubuntu-on-external-drive.html
+
+Thursday, December 27, 2012
+So You Want ChrUbuntu on a USB / SD Card? Well Merry Christmas!
+Update #2: I've updated the script so that module loading works with beta and dev channel Chrome OS kernels. If you were on beta or dev channel and ChrUbuntu booted but you couldn't connect to WiFi/ethernet, try now. Thanks to not-so-lazy commenter "The Lazy Husband" for the pointer and fix. I've also added a possible fix for some people getting out of space errors.
+
+Update: I've updated the title since it doesn't look like USB hard drives work properly (USB Flash drives do work). I haven't tested extensively but my guess would be the Chrome OS firmware simply doesn't support booting from USB hard drives like it does flash drives. Also, I should have mentioned earlier, the Cr-48 will not work with USB Flash / SD Cards either since it does not support the CTRL+U boot method.
+
+I'm happy to announce updated versions of the ChrUbuntu install scripts that supports installation to an external USB or SD Card leaving Chrome OS and the internal SSD unchanged. This works for all Chrome OS devices including the new ARM-based Samsung Chromebook. Your USB / SD Card needs to be 8gb or larger and all current data on it will be lost. Installation is very simple, just follow the normal ChrUbuntu instructions but specify the correct script below instead of the old script (I'll update the main instructions as soon as some of you verify this worked for you). You also need to specify the device name of your external drive. Depending on your Chrome device, this may be something like /dev/mmcblk0 or /dev/sdb. You can find out what devices you have with the command:
+
+lsblk | grep disk
+
+Look for the device of the same size as your external drive. Add /dev/ to the beginning of the device name. In general:
+
+    The 1st USB drive plugged into an x86 Chromebook will be /dev/sdb
+    The 1st SD Card plugged into an x86 Chromebook will be /dev/mmcblk0
+    The 1st USB drive plugged into an ARM Chromebook will be /dev/sda
+    The 1st SD Card plugged into an ARM Chromebook will be /dev/mmcblk1
+
+To install ChrUbuntu to a SD Card on an x86 Chromebook, run:
+
+wget http://goo.gl/tnyga; sudo bash tnyga /dev/mmcblk0
+
+Be sure to type this exactly. That's t n y g a and if you said it aloud it'd sound like "tee in why gee aye".
+
+To install ChrUbuntu to a SD Card on an ARM Chromebook, run:
+
+wget http://goo.gl/34v87; sudo bash 34v87 /dev/mmcblk1
+
+Be sure to type this exactly. That's 3 4 v 8 7 and if you said it aloud it'd sound like "three four vee eight seven". Also, make sure the USB drive (if you're using USB) is plugged into the black USB port, not the blue USB 3.0 port which doesn't support booting.
+
+One nice thing about installing to an external drive is no reboot is needed, the script partitions the drive and starts downloading ChrUbuntu immediately.
+
+In order to boot ChrUbuntu from an external drive, instead of pressing CTRL+D or waiting 30 seconds at the "sad computer" startup screen, press CTRL+U immediately. This makes it simple to switch between Chrome OS and ChrUbuntu. CTRL+D or a 30 second wait on bootup starts Chrome OS. CTRL+U starts ChrUbuntu.
+
+Note that if you exit developer mode after installing ChrUbuntu to an external drive, you'll need to rerun:
+
+sudo crossystem dev_usb_boot=1
+
+to get USB CTRL+U booting working again. Be sure to share your success or failure (with details in the comments below!
+
+Now do you need a good SD Card to use with ChrUbuntu? Purchase one of these from Amazon and a portion of the cost goes to support this blog!
+
+
