@@ -37,3 +37,24 @@ Installing ChrUbuntu is extremely easy, just follow the steps below. Want to say
 
     sudo cgpt add -i 6 -P 0 -S 1 /dev/sda
 
+
+
+To make switching easier, do this
+
+Go into the Home folder in Ubuntu and press "Control + h" together. Click the file named .bashrc
+Edit the .bashrc file, and add this to the end of the file:
+alias chromeos='sudo cgpt add -i 6 -P 0 -S 1 /dev/sda;echo "Switched to Chrome OS, restart the machine to take effect"'
+Go to your terminal, and type in chromeos. You will be switched to Chrome OS when you restart.
+
+In Chrome OS, press Ctrl+Alt+F2 to open bash, login as chronos. Inside Chrome OS press Ctrl + Alt + =>.
+Type in chronos, then sudo su, then
+qemacs .profile
+Now type in
+alias ubuntu='sudo cgpt add -i 2 -P 0 -S 0 /dev/sda;sudo cgpt add -i 6 -P 5 -S 1 /dev/sda;echo "Switched to Ubuntu, restart the machine to take effect"'
+Now to save the file press Control + x + s until it says it did it. Then press Control + x + c until you go back in terminal.
+In terminal type Ubuntu and you should be in Ubuntu, if not do Part 2 again.
+Congrats, now you can type Chromos to go to Chrome, Ubuntu to go to Ubuntu.
+
+
+
+
