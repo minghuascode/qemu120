@@ -1,0 +1,209 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>recv(), recvfrom()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="pollman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="selectman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.18. <a name="recvman"><b><tt class="titlefunc">recv()</tt></b>, <b><tt class="titlefunc">recvfrom()</tt></b></a></h2></p>
+
+<p>Receive data on a socket</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+
+ssize_t recv(int s, void *<i><tt class="var em1">buf</tt></i>, size_t <i><tt class="var em1">len</tt></i>, int <i><tt class="var em1">flags</tt></i>);
+ssize_t recvfrom(int <i><tt class="var em1">s</tt></i>, void *<i><tt class="var em1">buf</tt></i>, size_t <i><tt class="var em1">len</tt></i>, int <i><tt class="var em1">flags</tt></i>,
+                 struct sockaddr *<i><tt class="var em1">from</tt></i>, socklen_t *<i><tt class="var em1">fromlen</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-274"></a><a name="indexId434909-275"></a>Once you have a socket up and
+connected, you can read incoming data from the remote side using the
+<b><tt class="func">recv()</tt></b> (for TCP <a name="indexId434909-276"></a><tt class="const">SOCK_STREAM</tt> sockets) and
+<b><tt class="func">recvfrom()</tt></b> (for UDP <a name="indexId434909-277"></a><tt class="const">SOCK_DGRAM</tt> sockets).</p>
+
+<p>Both functions take the socket descriptor <i><tt class="var">s</tt></i>, a pointer to
+the buffer <i><tt class="var">buf</tt></i>, the size (in bytes) of the buffer
+<i><tt class="var">len</tt></i>, and a set of <i><tt class="var">flags</tt></i> that control how the
+functions work.</p>
+
+<p>Additionally, the <b><tt class="func">recvfrom()</tt></b> takes a
+<a name="indexId434909-278"></a><nobr><tt class="type">struct sockaddr*</tt></nobr>,
+<i><tt class="var">from</tt></i> that will tell you where the data came from, and will
+fill in <i><tt class="var">fromlen</tt></i> with the size of <nobr><tt class="type">struct
+sockaddr</tt></nobr>.  (You must also initialize <i><tt class="var">fromlen</tt></i> to be the
+size of <i><tt class="var">from</tt></i> or <nobr><tt class="type">struct sockaddr</tt></nobr>.)</p>
+
+<p>So what wondrous flags can you pass into this function?  Here are
+some of them, but you should check your local man pages for more
+information and what is actually supported on your system.  You
+bitwise-or these together, or just set <i><tt class="var">flags</tt></i> to
+<tt class="const">0</tt> if you want it to be a regular vanilla
+<b><tt class="func">recv()</tt></b>.</p>
+
+<p><center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="30%%"><p><a name="indexId434909-279"></a><tt class="const">MSG_OOB</tt></p></td>
+
+<td valign="top" align="left" width="68%%"><p><a name="indexId434909-280"></a>Receive Out of Band data.
+This is how to get data that has been sent to you with the
+<tt class="const">MSG_OOB</tt> flag in <b><tt class="func">send()</tt></b>.  As the receiving
+side, you will have had signal <a name="indexId434909-281"></a><tt class="const">SIGURG</tt>
+raised telling you there is urgent data.  In your handler for that
+signal, you could call <b><tt class="func">recv()</tt></b> with this
+<tt class="const">MSG_OOB</tt> flag.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-282"></a><tt class="const">MSG_PEEK</tt></p></td>
+
+<td valign="top" align="left"><p>If you want to call <b><tt class="func">recv()</tt></b> "just for
+pretend", you can call it with this flag.  This will tell you what's
+waiting in the buffer for when you call <b><tt class="func">recv()</tt></b> "for real"
+(i.e. <i>without</i> the <tt class="const">MSG_PEEK</tt> flag.  It's like a
+sneak preview into the next <b><tt class="func">recv()</tt></b> call.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-283"></a><tt class="const">MSG_WAITALL</tt></p></td>
+
+<td valign="top" align="left"><p>Tell <b><tt class="func">recv()</tt></b> to not return until all the data
+you specified in the <i><tt class="var">len</tt></i> parameter.  It will ignore your
+wishes in extreme circumstances, however, like if a signal interrupts
+the call or if some error occurs or if the remote side closes the
+connection, etc.  Don't be mad with it.</p></td>
+</tr>
+
+
+</table></center>
+</p>
+
+<p>When you call <b><tt class="func">recv()</tt></b>, it will block until there is some
+data to read.  If you want to not block, set the socket to non-blocking
+or check with <b><tt class="func">select()</tt></b> or <b><tt class="func">poll()</tt></b> to see if
+there is incoming data before calling <b><tt class="func">recv()</tt></b> or
+<b><tt class="func">recvfrom()</tt></b>.</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns the number of bytes actually received (which might be less
+than you requested in the <i><tt class="var">len</tt></i> parameter), or <tt class="const">-1</tt>
+on error (and <b><tt class="func">errno</tt></b> will be set accordingly.)</p>
+
+<p>If the remote side has closed the connection, <b><tt class="func">recv()</tt></b>
+will return <tt class="const">0</tt>.  This is the normal method for determining
+if the remote side has closed the connection.  Normality is good,
+rebel!</p>
+
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">// stream sockets and recv()
+
+struct addrinfo hints, *res;
+int sockfd;
+char buf[512];
+int byte_count;
+
+// get host info, make socket, and connect it
+memset(&amp;hints, 0, sizeof hints);
+hints.ai_family = AF_UNSPEC;  // use IPv4 or IPv6, whichever
+hints.ai_socktype = SOCK_STREAM;
+getaddrinfo("www.example.com", "3490", &amp;hints, &amp;res);
+sockfd = socket(res-&gt;ai_family, res-&gt;ai_socktype, res-&gt;ai_protocol);
+connect(sockfd, res-&gt;ai_addr, res-&gt;ai_addrlen);
+
+// all right!  now that we're connected, we can receive some data!
+byte_count = recv(sockfd, buf, sizeof buf, 0);
+printf("recv()'d %d bytes of data in buf\n", byte_count);
+</pre>
+
+
+<pre class="code">// datagram sockets and recvfrom()
+
+struct addrinfo hints, *res;
+int sockfd;
+int byte_count;
+socklen_t fromlen;
+struct sockaddr_storage addr;
+char buf[512];
+char ipstr[INET6_ADDRSTRLEN];
+
+// get host info, make socket, bind it to port 4950
+memset(&amp;hints, 0, sizeof hints);
+hints.ai_family = AF_UNSPEC;  // use IPv4 or IPv6, whichever
+hints.ai_socktype = SOCK_DGRAM;
+hints.ai_flags = AI_PASSIVE;
+getaddrinfo(NULL, "4950", &amp;hints, &amp;res);
+sockfd = socket(res-&gt;ai_family, res-&gt;ai_socktype, res-&gt;ai_protocol);
+bind(sockfd, res-&gt;ai_addr, res-&gt;ai_addrlen);
+
+// no need to accept(), just recvfrom():
+
+fromlen = sizeof addr;
+byte_count = recvfrom(sockfd, buf, sizeof buf, 0, &amp;addr, &amp;fromlen);
+
+printf("recv()'d %d bytes of data in buf\n", byte_count);
+printf("from IP address %s\n",
+    inet_ntop(addr.ss_family,
+        addr.ss_family == AF_INET?
+            ((struct sockadd_in *)&amp;addr)-&gt;sin_addr:
+            ((struct sockadd_in6 *)&amp;addr)-&gt;sin6_addr,
+        ipstr, sizeof ipstr);
+
+</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="sendman.html"><b><tt class="func">send()</tt></b></a>,
+<a href="sendman.html"><b><tt class="func">sendto()</tt></b></a>,
+<a href="selectman.html"><b><tt class="func">select()</tt></b></a>,
+<a href="pollman.html"><b><tt class="func">poll()</tt></b></a>,
+<a href="advanced.html#blocking">Blocking</a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="pollman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="selectman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

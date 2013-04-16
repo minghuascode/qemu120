@@ -1,0 +1,161 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>setsockopt(), getsockopt()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="selectman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="sendman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.20. <a name="setsockoptman"><b><tt class="titlefunc">setsockopt()</tt></b>, <b><tt class="titlefunc">getsockopt()</tt></b></a></h2></p>
+
+<p>Set various options for a socket</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+
+int getsockopt(int <i><tt class="var em1">s</tt></i>, int <i><tt class="var em1">level</tt></i>, int <i><tt class="var em1">optname</tt></i>, void *<i><tt class="var em1">optval</tt></i>,
+               socklen_t *<i><tt class="var em1">optlen</tt></i>);
+int setsockopt(int <i><tt class="var em1">s</tt></i>, int <i><tt class="var em1">level</tt></i>, int <i><tt class="var em1">optname</tt></i>, const void *<i><tt class="var em1">optval</tt></i>,
+               socklen_t <i><tt class="var em1">optlen</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-290"></a><a name="indexId434909-291"></a>Sockets are fairly
+configurable beasts.  In fact, they are so configurable, I'm not even
+going to cover it all here.  It's probably system-dependent anyway.  But
+I will talk about the basics.</p>
+
+<p>Obviously, these functions get and set certain options on a socket.
+On a Linux box, all the socket information is in the man page for socket
+in section 7.  (Type: "<b class="com">man 7 socket</b>" to get all these
+goodies.)</p>
+
+<p>As for parameters, <i><tt class="var">s</tt></i> is the socket you're talking about,
+level should be set to <a name="indexId434909-292"></a><tt class="const">SOL_SOCKET</tt>.
+Then you set the <i><tt class="var">optname</tt></i> to the name you're interested in.
+Again, see your man page for all the options, but here are some of the
+most fun ones:</p>
+
+<p><center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="30%%"><p><a name="indexId434909-293"></a><tt class="const">SO_BINDTODEVICE</tt></p></td>
+
+<td valign="top" align="left" width="68%%"><p>Bind this socket to a symbolic device name like
+<tt class="tt">eth0</tt> instead of using <b><tt class="func">bind()</tt></b> to bind it to an IP
+address.  Type the command <b class="com">ifconfig</b> under Unix to see the
+device names.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-294"></a><tt class="const">SO_REUSEADDR</tt></p></td>
+
+<td valign="top" align="left"><p>Allows other sockets to <b><tt class="func">bind()</tt></b> to this port, unless
+there is an active listening socket bound to the port already.  This
+enables you to get around those "Address already in use" error messages
+when you try to restart your server after a crash.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-295"></a><tt class="const">SO_BROADCAST</tt></p></td>
+
+<td valign="top" align="left"><p>Allows UDP datagram (<a name="indexId434909-296"></a><tt class="const">SOCK_DGRAM</tt>) sockets to send and receive
+packets sent to and from the broadcast address.  Does
+nothing—<i>NOTHING!!</i>—to TCP stream sockets!
+Hahaha!</p></td>
+</tr>
+
+
+</table></center>
+</p>
+
+<p>As for the parameter <i><tt class="var">optval</tt></i>, it's usually a pointer to an
+<nobr><tt class="type">int</tt></nobr> indicating the value in question.  For booleans, zero
+is false, and non-zero is true.  And that's an absolute fact, unless
+it's different on your system.  If there is no parameter to be passed,
+<i><tt class="var">optval</tt></i> can be <tt class="const">NULL</tt>.</p>
+
+<p>The final parameter, <i><tt class="var">optlen</tt></i>, is filled out for you by
+<b><tt class="func">getsockopt()</tt></b> and you have to specify it for
+<b><tt class="func">setsockopt()</tt></b>, where it will probably be
+<tt class="tt">sizeof(int)</tt>.</p>
+
+<p><b>Warning</b>: on some systems (notably <a name="indexId434909-297"></a><a name="indexId434909-298"></a>Sun and <a name="indexId434909-299"></a>Windows), the option
+can be a <nobr><tt class="type">char</tt></nobr> instead of an <nobr><tt class="type">int</tt></nobr>, and is set
+to, for example, a character value of <tt class="tt">'1'</tt> instead of an
+<nobr><tt class="type">int</tt></nobr> value of <tt class="const">1</tt>.  Again, check your own man
+pages for more info with "<b class="com">man setsockopt</b>" and "<b class="com">man 7
+socket</b>"!</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns zero on success, or <tt class="const">-1</tt> on error (and
+<b><tt class="func">errno</tt></b> will be set accordingly.)</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">int optval;
+int optlen;
+char *optval2;
+
+// set SO_REUSEADDR on a socket to true (1):
+optval = 1;
+setsockopt(s1, SOL_SOCKET, SO_REUSEADDR, &amp;optval, sizeof optval);
+
+// bind a socket to a device name (might not work on all systems):
+optval2 = "eth1"; // 4 bytes long, so 4, below:
+setsockopt(s2, SOL_SOCKET, SO_BINDTODEVICE, optval2, 4);
+
+// see if the SO_BROADCAST flag is set:
+getsockopt(s3, SOL_SOCKET, SO_BROADCAST, &amp;optval, &amp;optlen);
+if (optval != 0) {
+    print("SO_BROADCAST enabled on s3!\n");
+}</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="fcntlman.html"><b><tt class="func">fcntl()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="selectman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="sendman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

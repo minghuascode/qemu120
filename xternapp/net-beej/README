@@ -1,0 +1,84 @@
+
+Mirrored from www.beej.us:
+
+.
+├── README
+└── www.beej.us
+    └── guide
+        ├── bgnet
+        │   ├── bgnetcover.png
+        │   ├── bgnet.tgz
+        │   ├── errata.html
+        │   ├── examples
+        │   │   ├── broadcaster.c
+        │   │   ├── client.c
+        │   │   ├── getip.c
+        │   │   ├── ghbn.c
+        │   │   ├── ieee754.c
+        │   │   ├── index.html
+        │   │   ├── listener.c
+        │   │   ├── Makefile
+        │   │   ├── pack2b.c
+        │   │   ├── pack2.c
+        │   │   ├── pack.c
+        │   │   ├── select.c
+        │   │   ├── selectserver.c
+        │   │   ├── server.c
+        │   │   ├── showip.c
+        │   │   └── talker.c
+        │   ├── index.html
+        │   └── output
+        │       ├── html
+        │       │   ├── bgnet_multipage.tgz
+        │       │   ├── bgnet_singlepage.tgz
+        │       │   ├── multipage
+        │       │   │   ├── acceptman.html
+        │       │   │   ├── advanced.html
+        │       │   │   ├── bgnet.css
+        │       │   │   ├── bindman.html
+        │       │   │   ├── clientserver.html
+        │       │   │   ├── closeman.html
+        │       │   │   ├── connectman.html
+        │       │   │   ├── cs-120-3.334.png
+        │       │   │   ├── dataencap-120-4.736.png
+        │       │   │   ├── errnoman.html
+        │       │   │   ├── faq.html
+        │       │   │   ├── fcntlman.html
+        │       │   │   ├── getaddrinfoman.html
+        │       │   │   ├── gethostbynameman.html
+        │       │   │   ├── gethostnameman.html
+        │       │   │   ├── getnameinfoman.html
+        │       │   │   ├── getpeernameman.html
+        │       │   │   ├── htonsman.html
+        │       │   │   ├── index.html
+        │       │   │   ├── inet_ntoaman.html
+        │       │   │   ├── inet_ntopman.html
+        │       │   │   ├── intro.html
+        │       │   │   ├── ip4to6.html
+        │       │   │   ├── ipstructsdata.html
+        │       │   │   ├── listenman.html
+        │       │   │   ├── man.html
+        │       │   │   ├── perrorman.html
+        │       │   │   ├── pollman.html
+        │       │   │   ├── recvman.html
+        │       │   │   ├── reference.html
+        │       │   │   ├── selectman.html
+        │       │   │   ├── sendman.html
+        │       │   │   ├── setsockoptman.html
+        │       │   │   ├── shutdownman.html
+        │       │   │   ├── sockaddr_inman.html
+        │       │   │   ├── socketman.html
+        │       │   │   ├── syscalls.html
+        │       │   │   ├── theory.html
+        │       │   │   └── zindex.html
+        │       │   └── singlepage
+        │       │       ├── bgnet.css
+        │       │       ├── bgnet.html
+        │       │       ├── cs-120-3.334.png
+        │       │       └── dataencap-120-4.736.png
+        │       └── print
+        │           ├── bgnet_USLetter_2.pdf
+        │           └── bgnet_USLetter.pdf
+        └── favicon.gif
+
+9 directories, 69 files

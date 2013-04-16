@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>shutdown()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="sendman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="socketman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.22. <a name="shutdownman"><b><tt class="titlefunc">shutdown()</tt></b></a></h2></p>
+
+<p>Stop further sends and receives on a socket</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/socket.h&gt;
+
+int shutdown(int s, int how);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-313"></a>That's it!  I've had it!  No more
+<b><tt class="func">send()</tt></b>s are allowed on this socket, but I still want to
+<b><tt class="func">recv()</tt></b> data on it!  Or vice-versa!  How can I do this?</p>
+
+<p>When you <b><tt class="func">close()</tt></b> a socket descriptor, it closes both
+sides of the socket for reading and writing, and frees the socket
+descriptor.  If you just want to close one side or the other, you can
+use this <b><tt class="func">shutdown()</tt></b> call.</p>
+
+<p>As for parameters, <i><tt class="var">s</tt></i> is obviously the socket you want to
+perform this action on, and what action that is can be specified with
+the <i><tt class="var">how</tt></i> parameter.  How can be <tt class="const">SHUT_RD</tt> to
+prevent further <b><tt class="func">recv()</tt></b>s, <tt class="const">SHUT_WR</tt> to prohibit
+further <b><tt class="func">send()</tt></b>s, or <tt class="const">SHUT_RDWR</tt> to do
+both.</p>
+
+<p>Note that <b><tt class="func">shutdown()</tt></b> doesn't free up the socket
+descriptor, so you still have to eventually <b><tt class="func">close()</tt></b> the
+socket even if it has been fully shut down.</p>
+
+<p>This is a rarely used system call.</p>
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns zero on success, or <tt class="const">-1</tt> on error (and
+<b><tt class="func">errno</tt></b> will be set accordingly.)</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">int s = socket(PF_INET, SOCK_STREAM, 0);
+
+// ...do some send()s and stuff in here...
+
+// and now that we're done, don't allow any more sends()s:
+shutdown(s, SHUT_WR);</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="closeman.html"><b><tt class="func">close()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="sendman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="socketman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

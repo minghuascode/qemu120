@@ -1,0 +1,129 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Jumping from IPv4 to IPv6</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="ipstructsdata.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="syscalls.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+
+<h2 class="sect1title">4. <a name="ip4to6">Jumping from IPv4 to IPv6</a></h2><hr class="mainsecthr"/>
+
+
+<p><a name="indexId434909-88"></a>But I just want to know what to change in my code to
+get it going with IPv6!  Tell me now!</p>
+
+<p>Ok! Ok!</p>
+
+<p>Almost everything in here is something I've gone over, above, but
+it's the short version for the impatient.  (Of course, there is more
+than this, but this is what applies to the guide.)</p>
+
+<ol>
+
+<li>First of all, try to use <a name="indexId434909-89"></a><a href="syscalls.html#getaddrinfo"><b><tt class="func">getaddrinfo()</tt></b></a> to get all the
+<nobr><tt class="type">struct sockaddr</tt></nobr> info, instead of packing the structures by
+hand.  This will keep you IP version-agnostic, and will eliminate many
+of the subsequent steps.</li>
+
+
+<li>Any place that you find you're hard-coding anything related to the
+IP version, try to wrap up in a helper function.</li>
+
+
+<li>Change <tt class="const">AF_INET</tt> to <tt class="const">AF_INET6</tt>.</li>
+
+
+<li>Change <tt class="const">PF_INET</tt> to <tt class="const">PF_INET6</tt>.</li>
+
+
+<li><p>Change <tt class="const">INADDR_ANY</tt> assignments to
+<tt class="const">in6addr_any</tt> assignments, which are slightly
+different:</p>
+
+<pre class="code">struct sockaddr_in sa;
+struct sockaddr_in6 sa6;
+
+sa.sin_addr.s_addr = INADDR_ANY;  // use my IPv4 address
+sa6.sin6_addr = in6addr_any; // use my IPv6 address</pre>
+
+
+<p>Also, the value <tt class="const">IN6ADDR_ANY_INIT</tt> can be used as an
+initializer when the <nobr><tt class="type">struct in6_addr</tt></nobr> is declared, like
+so:</p>
+
+<pre class="code">struct in6_addr ia6 = IN6ADDR_ANY_INIT;</pre>
+
+</li>
+
+
+<li>Instead of <nobr><tt class="type">struct sockaddr_in</tt></nobr> use <nobr><tt class="type">struct
+sockaddr_in6</tt></nobr>, being sure to add "6" to the fields as appropriate
+(see <a href="ipstructsdata.html#structs"><nobr><tt class="type">struct</tt></nobr>s</a>, above).  There is
+no <i><tt class="var">sin6_zero</tt></i> field.</li>
+
+
+<li>Instead of <nobr><tt class="type">struct in_addr</tt></nobr> use <nobr><tt class="type">struct
+in6_addr</tt></nobr>, being sure to add "6" to the fields as appropriate (see
+<a href="ipstructsdata.html#structs"><nobr><tt class="type">struct</tt></nobr>s</a>, above).</li>
+
+
+<li>Instead of <b><tt class="func">inet_aton()</tt></b> or <b><tt class="func">inet_addr()</tt></b>, use
+<b><tt class="func">inet_pton()</tt></b>.</li>
+
+
+<li>Instead of <b><tt class="func">inet_ntoa()</tt></b>, use
+<b><tt class="func">inet_ntop()</tt></b>.</li>
+
+
+<li>Instead of <b><tt class="func">gethostbyname()</tt></b>, use the superior
+<b><tt class="func">getaddrinfo()</tt></b>.</li>
+
+
+<li>Instead of <b><tt class="func">gethostbyaddr()</tt></b>, use the superior <a name="indexId434909-90"></a><b><tt class="func">getnameinfo()</tt></b> (although
+<b><tt class="func">gethostbyaddr()</tt></b> can still work with IPv6).</li>
+
+
+<li><tt class="const">INADDR_BROADCAST</tt> no longer works.  Use IPv6 multicast
+instead.</li>
+
+
+</ol>
+
+
+<p><i>Et voila</i>!</p>
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="ipstructsdata.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="syscalls.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

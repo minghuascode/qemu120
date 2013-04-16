@@ -1,0 +1,148 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>htons(), htonl(),
+ntohs(), ntohl()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="fcntlman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="inet_ntoaman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.12. <a name="htonsman"><b><tt class="titlefunc">htons()</tt></b>, <b><tt class="titlefunc">htonl()</tt></b>,
+<b><tt class="titlefunc">ntohs()</tt></b>, <b><tt class="titlefunc">ntohl()</tt></b></a></h2></p>
+
+
+<p>Convert multi-byte integer types from host byte order to
+network byte order</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;netinet/in.h&gt;
+
+uint32_t htonl(uint32_t <i><tt class="var em1">hostlong</tt></i>);
+uint16_t htons(uint16_t <i><tt class="var em1">hostshort</tt></i>);
+uint32_t ntohl(uint32_t <i><tt class="var em1">netlong</tt></i>);
+uint16_t ntohs(uint16_t <i><tt class="var em1">netshort</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-255"></a><a name="indexId434909-256"></a><a name="indexId434909-257"></a><a name="indexId434909-258"></a>Just to make you really unhappy, different computers use
+different byte orderings internally for their multibyte integers (i.e.
+any integer that's larger than a <nobr><tt class="type">char</tt></nobr>.)  The upshot of
+this is that if you <b><tt class="func">send()</tt></b> a two-byte <nobr><tt class="type">short
+int</tt></nobr> from an Intel box to a Mac (before they became Intel boxes,
+too, I mean), what one computer thinks is the number <tt class="const">1</tt>,
+the other will think is the number <tt class="const">256</tt>, and
+vice-versa.</p>
+
+<p><a name="indexId434909-259"></a>The way to get around this problem is for
+everyone to put aside their differences and agree that Motorola and IBM
+had it right, and Intel did it the weird way, and so we all convert our
+byte orderings to "big-endian" before sending them out.  Since Intel is
+a "little-endian" machine, it's far more politically correct to call our
+preferred byte ordering "Network Byte Order".  So these functions
+convert from your native byte order to network byte order and back
+again.</p>
+
+<p>(This means on Intel these functions swap all the bytes around, and
+on PowerPC they do nothing because the bytes are already in Network
+Byte Order.  But you should always use them in your code anyway, since
+someone might want to build it on an Intel machine and still have things
+work properly.)</p>
+
+<p>Note that the types involved are 32-bit (4 byte, probably
+<nobr><tt class="type">int</tt></nobr>) and 16-bit (2 byte, very likely <nobr><tt class="type">short</tt></nobr>)
+numbers.  64-bit machines might have a <b><tt class="func">htonll()</tt></b> for 64-bit
+<nobr><tt class="type">int</tt></nobr>s, but I've not seen it.  You'll just have to write your
+own.</p>
+
+<p>Anyway, the way these functions work is that you first decide if
+you're converting <i>from</i> host (your machine's) byte order or
+from network byte order.  If "host", the the first letter of the
+function you're going to call is "h".  Otherwise it's "n" for "network".
+The middle of the function name is always "to" because you're converting
+from one "to" another, and the penultimate letter shows what you're converting
+<i>to</i>.  The last letter is the size of the data, "s" for short,
+or "l" for long.  Thus:</p>
+
+<p>
+<center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="20%%"><p><a name="indexId434909-260"></a><b><tt class="func">htons()</tt></b></p></td>
+<td valign="top" align="left" width="78%%"><p><b><tt class="func">h</tt></b>ost <b><tt class="func">to</tt></b> <b><tt class="func">n</tt></b>etwork <b><tt class="func">s</tt></b>hort</p></td>
+</tr>
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-261"></a><b><tt class="func">htonl()</tt></b></p></td>
+<td valign="top" align="left"><p><b><tt class="func">h</tt></b>ost <b><tt class="func">to</tt></b> <b><tt class="func">n</tt></b>etwork <b><tt class="func">l</tt></b>ong</p></td>
+</tr>
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-262"></a><b><tt class="func">ntohs()</tt></b></p></td>
+<td valign="top" align="left"><p><b><tt class="func">n</tt></b>etwork <b><tt class="func">to</tt></b> <b><tt class="func">h</tt></b>ost <b><tt class="func">s</tt></b>hort</p></td>
+</tr>
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-263"></a><b><tt class="func">ntohl()</tt></b></p></td>
+<td valign="top" align="left"><p><b><tt class="func">n</tt></b>etwork <b><tt class="func">to</tt></b> <b><tt class="func">h</tt></b>ost <b><tt class="func">l</tt></b>ong</p></td>
+</tr>
+
+</table></center>
+
+</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Each function returns the converted value.</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">uint32_t some_long = 10;
+uint16_t some_short = 20;
+
+uint32_t network_byte_order;
+
+// convert and send
+network_byte_order = htonl(some_long);
+send(s, &amp;network_byte_order, sizeof(uint32_t), 0);
+
+some_short == ntohs(htons(some_short)); // this expression is true</pre>
+
+
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="fcntlman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="inet_ntoaman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

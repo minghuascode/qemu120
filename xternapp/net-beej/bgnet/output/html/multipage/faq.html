@@ -1,0 +1,683 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Common Questions</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="advanced.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="man.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+
+<h2 class="sect1title">8. <a name="faq">Common Questions</a></h2><hr class="mainsecthr"/>
+
+
+<dl>
+
+
+
+
+
+<dt><b>Where can I get those header files?</b></dt>
+
+
+<dd><p><a name="indexId434909-177"></a>If you don't have them on your system
+already, you probably don't need them.  Check the manual for your
+particular platform.  If you're building for <a name="indexId434909-178"></a>Windows,
+you only need to <tt class="tt">#include &lt;winsock.h&gt;</tt>.</p></dd>
+
+
+
+
+
+
+
+<dt><b>What do I do when <b><tt class="func">bind()</tt></b> reports
+<a name="indexId434909-179"></a>"Address already in use"?</b></dt>
+
+
+<dd><p>You have to use <a name="indexId434909-180"></a><b><tt class="func">setsockopt()</tt></b>
+with the <a name="indexId434909-181"></a><tt class="const">SO_REUSEADDR</tt> option on
+the listening socket.  Check out the <a href="syscalls.html#bind">section on <a name="indexId434909-182"></a><b><tt class="func">bind()</tt></b></a> and the <a href="advanced.html#select">section on <a name="indexId434909-183"></a><b><tt class="func">select()</tt></b></a> for an example.</p></dd>
+
+
+
+
+
+
+
+<dt><b>How do I get a list of open sockets on the
+system?</b></dt>
+
+
+<dd><p>Use the <a name="indexId434909-184"></a><b class="com">netstat</b>.  Check the
+<b class="com">man</b> page for full details, but you should get some good
+output just typing:</p>
+
+<pre class="screen">$ netstat</pre>
+
+
+<p>The only trick is determining which socket is associated with
+which program. <tt>:-)</tt></p></dd>
+
+
+
+
+
+
+
+<dt><b>How can I view the routing table?</b></dt>
+
+
+<dd><p>Run the <a name="indexId434909-185"></a><b class="com">route</b> command (in
+<i><tt class="var">/sbin</tt></i> on most Linuxes) or the command
+<a name="indexId434909-186"></a><b class="com">netstat -r</b>.</p></dd>
+
+
+
+
+
+
+
+<dt><b>How can I run the client and server programs if I only
+have one computer?  Don't I need a network to write network
+programs?</b></dt>
+
+
+<dd><p>Fortunately for you, virtually all machines implement a <a name="indexId434909-187"></a>loopback network "device" that sits in the kernel
+and pretends to be a network card.  (This is the interface listed as
+"<tt class="tt">lo</tt>" in the routing table.)</p>
+
+<p>Pretend you're logged into a machine named
+<a name="indexId434909-188"></a>"<tt class="tt">goat</tt>".  Run the client in one window
+and the server in another.  Or start the server in the background
+("<b class="com">server &amp;</b>") and run the client in the same
+window.  The upshot of the loopback device is that you can either
+<b class="com">client goat</b> or <a name="indexId434909-189"></a><b class="com">client localhost</b>
+(since "<tt class="tt">localhost</tt>" is likely defined in
+your <i><tt class="var">/etc/hosts</tt></i> file) and you'll have the client
+talking to the server without a network!</p>
+
+<p>In short, no changes are necessary to any of the code to make it
+run on a single non-networked machine!  Huzzah!</p></dd>
+
+
+
+
+
+
+
+<dt><b>How can I tell if the remote side has closed
+connection?</b></dt>
+
+
+<dd><p>You can tell because <b><tt class="func">recv()</tt></b> will
+return <tt class="const">0</tt>.</p></dd>
+
+
+
+
+
+
+
+<dt><b>How do I implement a <a name="indexId434909-190"></a>"ping" utility?  What is <a name="indexId434909-191"></a>ICMP?  Where can I find out more about <a name="indexId434909-192"></a>raw sockets and <tt class="const">SOCK_RAW</tt>?</b></dt>
+
+
+<dd><p>All your raw sockets questions will be answered in <a href="reference.html#books">W. Richard Stevens' UNIX Network Programming books</a>.
+Also, look in the <i><tt class="var">ping/</tt></i> subdirectory in Stevens' UNIX
+Network Programming source code, <a href="http://www.unpbook.com/src.html" target="_blank">available
+online</a>.</p></dd>
+
+
+
+
+
+
+
+<dt><b>How do I change or shorten the timeout on a call to
+<b><tt class="func">connect()</tt></b>?</b></dt>
+
+
+<dd><p>Instead of giving you exactly the same answer that W. Richard
+Stevens would give you, I'll just refer you to <a href="http://www.unpbook.com/src.html" target="_blank"><i><tt class="var">lib/connect_nonb.c</tt></i> in the UNIX Network
+Programming source code</a>.</p>
+
+<p>The gist of it is that you make a socket descriptor with
+<b><tt class="func">socket()</tt></b>, <a href="advanced.html#blocking">set it to
+non-blocking</a>, call <b><tt class="func">connect()</tt></b>, and if all goes well
+<b><tt class="func">connect()</tt></b> will return <tt class="const">-1</tt> immediately and
+<i><tt class="var">errno</tt></i> will be set to <tt class="const">EINPROGRESS</tt>.  Then you
+call <a href="advanced.html#select"><b><tt class="func">select()</tt></b></a> with whatever
+timeout you want, passing the socket descriptor in both the read and
+write sets.  If it doesn't timeout, it means the <b><tt class="func">connect()</tt></b>
+call completed.  At this point, you'll have to use
+<b><tt class="func">getsockopt()</tt></b> with the <tt class="const">SO_ERROR</tt> option to get
+the return value from the <b><tt class="func">connect()</tt></b> call, which should be
+zero if there was no error.</p>
+
+<p>Finally, you'll probably want to set the socket back to be blocking
+again before you start transferring data over it.</p>
+
+<p>Notice that this has the added benefit of allowing your program to do
+something else while it's connecting, too.  You could, for example, set
+the timeout to something low, like 500 ms, and update an indicator
+onscreen each timeout, then call <b><tt class="func">select()</tt></b> again.  When
+you've called <b><tt class="func">select()</tt></b> and timed-out, say, 20 times, you'll
+know it's time to give up on the connection.</p>
+
+<p>Like I said, check out Stevens' source for a perfectly excellent
+example.</p></dd>
+
+
+
+
+
+
+
+<dt><b>How do I build for Windows?</b></dt>
+
+
+<dd><p>First, delete Windows and install Linux or BSD.
+<tt>};-)</tt>.  No, actually, just see the <a href="intro.html#windows">section on building for
+Windows</a> in the introduction.</p></dd>
+
+
+
+
+
+
+
+<dt><b>How do I build for Solaris/SunOS?  I keep getting linker
+errors when I try to compile!</b></dt>
+
+
+<dd><p>The linker errors happen because Sun boxes don't
+automatically compile in the socket libraries.  See the <a href="intro.html#solaris">section on building for Solaris/SunOS</a> in the
+introduction for an example of how to do this.</p></dd>
+
+
+
+
+
+
+
+<dt><b>Why does <b><tt class="func">select()</tt></b> keep falling out
+on a signal?</b></dt>
+
+
+<dd><p>Signals tend to cause blocked system calls to return
+<tt class="const">-1</tt> with <i><tt class="var">errno</tt></i> set to <tt class="const">EINTR</tt>.
+When you set up a signal handler with <a name="indexId434909-193"></a><b><tt class="func">sigaction()</tt></b>, you can set the flag <a name="indexId434909-194"></a><tt class="const">SA_RESTART</tt>, which is supposed to
+restart the system call after it was interrupted.</p>
+
+<p>Naturally, this doesn't always work.</p>
+
+<p>My favorite solution to this involves a
+<a name="indexId434909-195"></a><tt class="tt">goto</tt> statement.  You know this
+irritates your professors to no end, so go for it!</p>
+
+<pre class="code">select_restart:
+if ((err = select(fdmax+1, &amp;readfds, NULL, NULL, NULL)) == -1) {
+    if (errno == EINTR) {
+        // some signal just interrupted us, so restart
+        goto select_restart;
+    }
+    // handle the real error here:
+    perror("select");
+} 
+</pre>
+
+
+<p>Sure, you don't <i>need</i> to use
+<tt class="tt">goto</tt> in this case; you can use other
+structures to control it.  But I think the
+<tt class="tt">goto</tt> statement is actually
+cleaner.</p></dd>
+
+
+
+
+
+
+
+<dt><b>How can I implement a <a name="indexId434909-196"></a>timeout on a call to
+<b><tt class="func">recv()</tt></b>?</b></dt>
+
+
+<dd><p>Use <a name="indexId434909-197"></a><a href="advanced.html#select"><b><tt class="func">select()</tt></b></a>!  It allows you to specify a
+timeout parameter for socket descriptors that you're looking to read
+from.  Or, you could wrap the entire functionality in a single function,
+like this:</p>
+
+<pre class="code">#include &lt;unistd.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+
+int recvtimeout(int s, char *buf, int len, int timeout)
+{
+    fd_set fds;
+    int n;
+    struct timeval tv;
+
+    // set up the file descriptor set
+    FD_ZERO(&amp;fds);
+    FD_SET(s, &amp;fds);
+
+    // set up the struct timeval for the timeout
+    tv.tv_sec = timeout;
+    tv.tv_usec = 0;
+
+    // wait until timeout or data received
+    n = select(s+1, &amp;fds, NULL, NULL, &amp;tv);
+    if (n == 0) return -2; // timeout!
+    if (n == -1) return -1; // error
+
+    // data must be here, so do a normal recv()
+    return recv(s, buf, len, 0);
+}
+.
+.
+.
+// Sample call to recvtimeout():
+n = recvtimeout(s, buf, sizeof buf, 10); // 10 second timeout
+
+if (n == -1) {
+    // error occurred
+    perror("recvtimeout");
+}
+else if (n == -2) {
+    // timeout occurred
+} else {
+    // got some data in buf
+}
+.
+.
+. 
+</pre>
+
+
+<p>Notice that <a name="indexId434909-198"></a><b><tt class="func">recvtimeout()</tt></b>
+returns <tt class="const">-2</tt> in case of a timeout.  Why not return
+<tt class="const">0</tt>?  Well, if you recall, a return value of
+<tt class="const">0</tt> on a call to <b><tt class="func">recv()</tt></b> means that the remote
+side closed the connection.  So that return value is already spoken for,
+and <tt class="const">-1</tt> means "error", so I chose <tt class="const">-2</tt> as my
+timeout indicator.</p>
+
+</dd>
+
+
+
+
+
+
+
+
+
+
+
+<dt><b>How do I <a name="indexId434909-199"></a>encrypt or compress the data before
+sending it through the socket?</b></dt>
+
+
+<dd>
+
+<p>One easy way to do encryption is to use <a name="indexId434909-200"></a>SSL (secure
+sockets layer), but that's beyond the scope of this guide.  (<a name="indexId434909-201"></a>Check out the <a href="http://www.openssl.org/" target="_blank">OpenSSL
+project</a> for more info.)</p>
+
+<p>But assuming you want to plug in or implement your own <a name="indexId434909-202"></a>compressor
+or encryption system, it's just a matter of thinking of your data as
+running through a sequence of steps between both ends.  Each step
+changes the data in some way.</p>
+
+<ol>
+
+<li>server reads data from file (or wherever)</li>
+
+<li>server encrypts/compresses data  (you add this part)</li>
+
+<li>server <b><tt class="func">send()</tt></b>s encrypted data</li>
+
+</ol>
+
+
+<p>Now the other way around:</p>
+
+<ol>
+
+<li>client <b><tt class="func">recv()</tt></b>s encrypted data</li>
+
+<li>client decrypts/decompresses data  (you add this part)</li>
+
+<li>client writes data to file (or wherever)</li>
+
+</ol>
+
+
+<p>If you're going to compress and encrypt, just remember to compress
+first.  <tt>:-)</tt></p>
+
+<p>Just as long as the client properly undoes what the server does,
+the data will be fine in the end no matter how many intermediate steps
+you add.</p>
+
+<p>So all you need to do to use my code is to find the place between
+where the data is read and the data is sent (using
+<b><tt class="func">send()</tt></b>) over the network, and stick some code in
+there that does the encryption.</p>
+
+</dd>
+
+
+
+
+
+
+
+
+<dt><b><a name="indexId434909-203"></a><a name="indexId434909-204"></a>What is this
+"<tt class="const">PF_INET</tt>" I keep seeing?  Is it related to
+<tt class="const">AF_INET</tt>?</b></dt>
+
+
+<dd>
+<p>Yes, yes it is.  See <a href="syscalls.html#socket">the section on
+<b><tt class="func">socket()</tt></b></a> for details.</p>
+
+</dd>
+
+
+
+
+
+
+
+
+<dt><b>How can I write a server that accepts shell commands
+from a client and executes them?</b></dt>
+
+
+<dd>
+
+<p>For simplicity, lets say the client
+<b><tt class="func">connect()</tt></b>s, <b><tt class="func">send()</tt></b>s, and
+<b><tt class="func">close()</tt></b>s the connection (that is, there are no
+subsequent system calls without the client connecting again.)</p>
+
+<p>The process the client follows is this:</p>
+
+<ol>
+
+<li><b><tt class="func">connect()</tt></b> to server</li>
+
+<li><b><tt class="func">send("/sbin/ls &gt; /tmp/client.out")</tt></b></li>
+
+<li><b><tt class="func">close()</tt></b> the connection</li>
+
+</ol>
+
+
+<p>Meanwhile, the server is handling the data and executing
+it:</p>
+
+<ol>
+
+<li><b><tt class="func">accept()</tt></b> the connection from the client</li>
+
+<li><b><tt class="func">recv(str)</tt></b> the command string</li>
+
+<li><b><tt class="func">close()</tt></b> the connection</li>
+
+<li><b><tt class="func">system(str)</tt></b> to run the command</li>
+
+</ol>
+
+
+<p><a name="indexId434909-205"></a><i>Beware!</i>  Having the server execute
+what the client says is like giving remote shell access and people can
+do things to your account when they connect to the server.  For
+instance, in the above example, what if the client sends "<b class="com">rm -rf
+~</b>"?  It deletes everything in your account, that's what!</p>
+
+<p>So you get wise, and you prevent the client from using any except
+for a couple utilities that you know are safe, like the
+<b class="com">foobar</b> utility:</p>
+
+<pre class="code">if (!strncmp(str, "foobar", 6)) {
+    sprintf(sysstr, "%s &gt; /tmp/server.out", str);
+    system(sysstr);
+} 
+</pre>
+
+
+<p>But you're still unsafe, unfortunately: what if the client enters
+"<b class="com">foobar; rm -rf ~</b>"?  The safest thing to do is to
+write a little routine that puts an escape ("<tt class="const">\</tt>")
+character in front of all non-alphanumeric characters (including spaces,
+if appropriate) in the arguments for the command.</p>
+
+<p>As you can see, security is a pretty big issue when the server
+starts executing things the client sends.</p>
+
+</dd>
+
+
+
+
+
+
+
+
+<dt><b>I'm sending a slew of data, but when I
+<b><tt class="func">recv()</tt></b>, it only receives 536 bytes or 1460 bytes at
+a time.  But if I run it on my local machine, it receives all the data
+at the same time.  What's going on?</b></dt>
+
+
+<dd>
+
+<p>You're hitting the <a name="indexId434909-206"></a>MTU—the maximum size the
+physical medium can handle.  On the local machine, you're using the
+loopback device which can handle 8K or more no problem.  But on
+Ethernet, which can only handle 1500 bytes with a header, you hit that
+limit.  Over a modem, with 576 MTU (again, with header), you hit the
+even lower limit.</p>
+
+<p>You have to make sure all the data is being sent, first of all.
+(See the <a href="advanced.html#sendall"><b><tt class="func">sendall()</tt></b></a>
+function implementation for details.) Once you're sure of that, then you
+need to call <b><tt class="func">recv()</tt></b> in a loop until all your data
+is read.</p>
+
+<p>Read the section <a href="advanced.html#sonofdataencap">Son of Data
+Encapsulation</a> for details on receiving complete packets of data
+using multiple calls to <b><tt class="func">recv()</tt></b>.</p>
+
+</dd>
+
+
+
+
+
+
+
+
+<dt><b>I'm on a Windows box and I don't have the
+<b><tt class="func">fork()</tt></b> system call or any kind of <nobr><tt class="type">struct
+sigaction</tt></nobr>.  What to do?</b></dt>
+
+
+<dd>
+<p><a name="indexId434909-207"></a>If they're anywhere, they'll be in POSIX libraries
+that may have shipped with your compiler.  Since I don't have a Windows
+box, I really can't tell you the answer, but I seem to remember that
+Microsoft has a POSIX compatibility layer and that's where
+<b><tt class="func">fork()</tt></b> would be.  (And maybe even
+<nobr><tt class="type">sigaction</tt></nobr>.)</p>
+
+<p>Search the help that came with VC++ for "fork" or "POSIX" and see if it
+gives you any clues.</p>
+
+<p>If that doesn't work at all, ditch the
+<b><tt class="func">fork()</tt></b>/<nobr><tt class="type">sigaction</tt></nobr> stuff and replace it with the
+Win32 equivalent: <a name="indexId434909-208"></a><b><tt class="func">CreateProcess()</tt></b>.  I don't know how
+to use <b><tt class="func">CreateProcess()</tt></b>—it takes a bazillion
+arguments, but it should be covered in the docs that came with VC++.</p>
+
+</dd>
+
+
+
+
+
+
+
+
+
+
+<dt><b><a name="indexId434909-209"></a>I'm behind a firewall—how do I let people
+outside the firewall know my IP address so they can connect to my
+machine?</b></dt>
+
+
+<dd><p>Unfortunately, the purpose of a firewall is to prevent
+people outside the firewall from connecting to machines inside the
+firewall, so allowing them to do so is basically considered a breach of
+security.</p>
+
+<p>This isn't to say that all is lost.  For one thing, you can still
+often <b><tt class="func">connect()</tt></b> through the firewall if it's doing
+some kind of masquerading or NAT or something like that.  Just design
+your programs so that you're always the one initiating the connection,
+and you'll be fine.</p>
+
+<p><a name="indexId434909-210"></a>If that's not satisfactory, you
+can ask your sysadmins to poke a hole in the firewall so that people can
+connect to you.  The firewall can forward to you either through it's NAT
+software, or through a proxy or something like that.</p>
+
+<p>Be aware that a hole in the firewall is nothing to be taken
+lightly.  You have to make sure you don't give bad people access to the
+internal network; if you're a beginner, it's a lot harder to make
+software secure than you might imagine.</p>
+
+<p>Don't make your sysadmin mad at me.
+<tt>;-)</tt></p></dd>
+
+
+
+
+
+
+<dt><b><a name="indexId434909-211"></a><a name="indexId434909-212"></a>How do I write
+a packet sniffer?  How do I put my Ethernet interface into promiscuous
+mode?</b></dt>
+
+
+<dd><p>For those not in the know, when a network card is in "promiscuous
+mode", it will forward ALL packets to the operating system, not just
+those that were addressed to this particular machine.  (We're talking
+Ethernet-layer addresses here, not IP addresses--but since ethernet is
+lower-layer than IP, all IP addresses are effectively forwarded as
+well.  See the section <a href="theory.html#lowlevel">Low Level Nonsense and
+Network Theory</a> for more info.)</p>
+
+<p>This is the basis for how a packet sniffer works.  It puts the
+interface into promiscuous mode, then the OS gets every single packet
+that goes by on the wire.  You'll have a socket of some type that you
+can read this data from.</p>
+
+<p>Unfortunately, the answer to the question varies depending on the
+platform, but if you Google for, for instance, "windows promiscuous <a name="indexId434909-213"></a>ioctl" you'll probably get somewhere.  There's what looks
+like <a href="http://interactive.linuxjournal.com/article/4659" target="_blank">a decent writeup in Linux Journal</a>,
+as well.</p></dd>
+
+
+
+
+
+
+<dt><b>How can I set a custom <a name="indexId434909-214"></a>timeout value for
+a TCP or UDP socket?</b></dt>
+
+
+<dd><p>It depends on your system.  You might search the net for <a name="indexId434909-215"></a><tt class="const">SO_RCVTIMEO</tt> and <a name="indexId434909-216"></a><tt class="const">SO_SNDTIMEO</tt> (for use with <a name="indexId434909-217"></a><b><tt class="func">setsockopt()</tt></b>) to see if your system
+supports such functionality.</p>
+
+<p>The Linux man page suggests using <b><tt class="func">alarm()</tt></b> or
+<b><tt class="func">setitimer()</tt></b> as a substitute.</p>
+
+</dd>
+
+
+
+
+
+
+<dt><b>How can I tell which ports are available to use?  Is there a list of
+"official" port numbers?</b></dt>
+
+
+<dd><p>Usually this isn't an issue.  If you're writing, say, a web
+server, then it's a good idea to use the well-known port 80 for your
+software.  If you're writing just your own specialized server, then
+choose a port at random (but greater than 1023) and give it a try.</p>
+
+<p>If the port is already in use, you'll get an "Address already in use"
+error when you try to <b><tt class="func">bind()</tt></b>.  Choose another port.  (It's
+a good idea to allow the user of your software to specify an alternate
+port either with a config file or a command line switch.)</p>
+
+<p>There is a <a href="http://www.iana.org/assignments/port-numbers" target="_blank">list of official port
+numbers</a> maintained by the Internet Assigned Numbers Authority
+(IANA).  Just because something (over 1023) is in that list doesn't mean
+you can't use the port.  For instance, Id Software's DOOM uses the same
+port as "mdqs", whatever that is.  All that matters is that no one else
+<i>on the same machine</i> is using that port when you want to use
+it.</p>
+
+</dd>
+
+
+
+
+
+
+
+</dl>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="advanced.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="man.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

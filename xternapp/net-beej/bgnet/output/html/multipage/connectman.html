@@ -1,0 +1,129 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>connect()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="bindman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="closeman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.3. <a name="connectman"><b><tt class="titlefunc">connect()</tt></b></a></h2></p>
+
+<p>Connect a socket to a server</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+
+int connect(int <i><tt class="var em1">sockfd</tt></i>, const struct sockaddr *<i><tt class="var em1">serv_addr</tt></i>,
+            socklen_t <i><tt class="var em1">addrlen</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-228"></a>Once you've built a socket descriptor with the
+<b><tt class="func">socket()</tt></b> call, you can <b><tt class="func">connect()</tt></b> that socket
+to a remote server using the well-named <b><tt class="func">connect()</tt></b> system
+call.  All you need to do is pass it the socket descriptor and the
+address of the server you're interested in getting to know better.  (Oh,
+and the length of the address, which is commonly passed to functions
+like this.)</p>
+
+<p>Usually this information comes along as the result of a call to
+<b><tt class="func">getaddrinfo()</tt></b>, but you can fill out your own <nobr><tt class="type">struct
+sockaddr</tt></nobr> if you want to.</p>
+
+<p>If you haven't yet called <b><tt class="func">bind()</tt></b> on the socket
+descriptor, it is automatically bound to your IP address and a random
+local port.  This is usually just fine with you if you're not a server,
+since you really don't care what your local port is; you only care what
+the remote port is so you can put it in the <i><tt class="var">serv_addr</tt></i>
+parameter.  You <i>can</i> call <b><tt class="func">bind()</tt></b> if you really
+want your client socket to be on a specific IP address and port, but
+this is pretty rare.</p>
+
+<p>Once the socket is <b><tt class="func">connect()</tt></b>ed, you're free to
+<b><tt class="func">send()</tt></b> and <b><tt class="func">recv()</tt></b> data on it to your heart's
+content.</p>
+
+<p><a name="indexId434909-229"></a>Special note: if you
+<b><tt class="func">connect()</tt></b> a <tt class="const">SOCK_DGRAM</tt> UDP socket to a
+remote host, you can use <b><tt class="func">send()</tt></b> and <b><tt class="func">recv()</tt></b> as
+well as <b><tt class="func">sendto()</tt></b> and <b><tt class="func">recvfrom()</tt></b>.  If you
+want.</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns zero on success, or <tt class="const">-1</tt> on error (and
+<b><tt class="func">errno</tt></b> will be set accordingly.)</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">// connect to www.example.com port 80 (http)
+
+struct addrinfo hints, *res;
+int sockfd;
+
+// first, load up address structs with getaddrinfo():
+
+memset(&amp;hints, 0, sizeof hints);
+hints.ai_family = AF_UNSPEC;  // use IPv4 or IPv6, whichever
+hints.ai_socktype = SOCK_STREAM;
+
+// we could put "80" instead on "http" on the next line:
+getaddrinfo("www.example.com", "http", &amp;hints, &amp;res);
+
+// make a socket:
+
+sockfd = socket(res-&gt;ai_family, res-&gt;ai_socktype, res-&gt;ai_protocol);
+
+// connect it to the address and port we passed in to getaddrinfo():
+
+connect(sockfd, res-&gt;ai_addr, res-&gt;ai_addrlen);</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="socketman.html"><b><tt class="func">socket()</tt></b></a>,
+<a href="bindman.html"><b><tt class="func">bind()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="bindman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="closeman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

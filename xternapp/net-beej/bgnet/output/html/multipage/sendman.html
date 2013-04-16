@@ -1,0 +1,170 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>send(), sendto()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="setsockoptman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="shutdownman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.21. <a name="sendman"><b><tt class="titlefunc">send()</tt></b>, <b><tt class="titlefunc">sendto()</tt></b></a></h2></p>
+
+<p>Send data out over a socket</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+
+ssize_t send(int s, const void *buf, size_t len, int flags);
+ssize_t sendto(int s, const void *buf, size_t len,
+               int flags, const struct sockaddr *to,
+               socklen_t tolen);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-300"></a><a name="indexId434909-301"></a>These functions send data to a
+socket.  Generally speaking, <b><tt class="func">send()</tt></b> is used for TCP <a name="indexId434909-302"></a><tt class="const">SOCK_STREAM</tt> connected sockets, and
+<b><tt class="func">sendto()</tt></b> is used for UDP <a name="indexId434909-303"></a><tt class="const">SOCK_DGRAM</tt> unconnected datagram
+sockets.  With the unconnected sockets, you must specify the destination
+of a packet each time you send one, and that's why the last parameters
+of <b><tt class="func">sendto()</tt></b> define where the packet is going.</p>
+
+<p>With both <b><tt class="func">send()</tt></b> and <b><tt class="func">sendto()</tt></b>, the
+parameter <i><tt class="var">s</tt></i> is the socket, <i><tt class="var">buf</tt></i> is a pointer to the
+data you want to send, <i><tt class="var">len</tt></i> is the number of bytes you want to
+send, and <i><tt class="var">flags</tt></i> allows you to specify more information about
+how the data is to be sent.  Set <i><tt class="var">flags</tt></i> to zero if you want it
+to be "normal" data.  Here are some of the commonly used flags, but
+check your local <b><tt class="func">send()</tt></b> man pages for more details:</p>
+
+<p><center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="30%%"><p><a name="indexId434909-304"></a><tt class="const">MSG_OOB</tt></p></td>
+ <td valign="top" align="left" width="68%%"><p>Send
+as <a name="indexId434909-305"></a>"out of band" data.  TCP supports this,
+and it's a way to tell the receiving system that this data has a higher
+priority than the normal data.  The receiver will receive the signal
+<a name="indexId434909-306"></a><tt class="const">SIGURG</tt> and it can then receive this data without first
+receiving all the rest of the normal data in the queue.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-307"></a><tt class="const">MSG_DONTROUTE</tt></p></td>
+
+<td valign="top" align="left"><p>Don't send this data over a router, just keep it
+local.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-308"></a><tt class="const">MSG_DONTWAIT</tt></p></td>
+
+<td valign="top" align="left"><p>If <b><tt class="func">send()</tt></b> would block because outbound
+traffic is clogged, have it return <a name="indexId434909-309"></a><tt class="const">EAGAIN</tt>.  This is like a "enable <a name="indexId434909-310"></a>non-blocking just for this send."  See the
+section on <a href="advanced.html#blocking">blocking</a>  for more
+details.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-311"></a><tt class="const">MSG_NOSIGNAL</tt></p></td>
+
+<td valign="top" align="left"><p>If you <b><tt class="func">send()</tt></b> to a remote host which is
+no longer <b><tt class="func">recv()</tt></b>ing, you'll typically get the signal <a name="indexId434909-312"></a><tt class="const">SIGPIPE</tt>.  Adding this flag prevents that
+signal from being raised.</p></td>
+</tr>
+
+
+</table></center>
+</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns the number of bytes actually sent, or <tt class="const">-1</tt> on
+error (and <b><tt class="func">errno</tt></b> will be set accordingly.)  Note that the
+number of bytes actually sent might be less than the number you asked it
+to send!  See the section on <a href="advanced.html#sendall">handling partial
+<b><tt class="func">send()</tt></b>s</a> for a helper function to get around this.</p>
+
+<p>Also, if the socket has been closed by either side, the process
+calling <b><tt class="func">send()</tt></b> will get the signal <tt class="const">SIGPIPE</tt>.
+(Unless <b><tt class="func">send()</tt></b> was called with the
+<tt class="const">MSG_NOSIGNAL</tt> flag.)</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">int spatula_count = 3490;
+char *secret_message = "The Cheese is in The Toaster";
+
+int stream_socket, dgram_socket;
+struct sockaddr_in dest;
+int temp;
+
+// first with TCP stream sockets:
+
+// assume sockets are made and connected
+//stream_socket = socket(...
+//connect(stream_socket, ...
+
+// convert to network byte order
+temp = htonl(spatula_count);
+// send data normally:
+send(stream_socket, &amp;temp, sizeof temp, 0);
+
+// send secret message out of band:
+send(stream_socket, secret_message, strlen(secret_message)+1, MSG_OOB);
+
+// now with UDP datagram sockets:
+//getaddrinfo(...
+//dest = ...  // assume "dest" holds the address of the destination
+//dgram_socket = socket(...
+
+// send secret message normally:
+sendto(dgram_socket, secret_message, strlen(secret_message)+1, 0, 
+       (struct sockaddr*)&amp;dest, sizeof dest);</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="recvman.html"><b><tt class="func">recv()</tt></b></a>,
+<a href="recvman.html"><b><tt class="func">recvfrom()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="setsockoptman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="shutdownman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

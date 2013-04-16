@@ -1,0 +1,691 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>IP Addresses, structs, and Data Munging</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="theory.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="ip4to6.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+
+<h2 class="sect1title">3. <a name="ipstructsdata">IP Addresses, <nobr><b><tt class="titletype">struct</tt></b></nobr>s, and Data Munging</a></h2><hr class="mainsecthr"/>
+
+
+<p>Here's the part of the game where we get to talk code for a
+change.</p>
+
+<p>But first, let's discuss more non-code!  Yay!  First I want to talk
+about <a name="indexId434909-57"></a>IP addresses and ports for just a tad so we have
+that sorted out.  Then we'll talk about how the sockets API stores and
+manipulates IP addresses and other data.</p>
+
+
+
+<h3 class="sect2title">3.1. <a name="ipaddrs1">IP Addresses, versions 4 and 6</a></h3>
+
+
+<p>In the good old days back when Ben Kenobi was still called Obi Wan
+Kenobi, there was a wonderful network routing system called The Internet
+Protocol Version 4, also called <a name="indexId434909-58"></a>IPv4.  It had addresses
+made up of four bytes (A.K.A. four "octets"), and was commonly written
+in "dots and numbers" form, like so: <tt class="tt">192.0.2.111</tt>.</p>
+
+<p>You've probably seen it around.</p>
+
+<p>In fact, as of this writing, virtually every site on the Internet
+uses IPv4.</p>
+
+<p>Everyone, including Obi Wan, was happy.  Things were great, until
+some naysayer by the name of Vint Cerf warned everyone that we were
+about to run out of IPv4 addresses!</p>
+
+<p>(Besides warning everyone of the Coming IPv4 Apocalypse Of Doom And
+Gloom, <a name="indexId434909-59"></a><a href="http://en.wikipedia.org/wiki/Vinton_Cerf" target="_blank">Vint Cerf</a> is
+also well-known for being The Father Of The Internet.  So I really am in
+no position to second-guess his judgment.)</p>
+
+<p>Run out of addresses?  How could this be?  I mean, there are like
+billions of IP addresses in a 32-bit IPv4 address.  Do we really have
+billions of computers out there?</p>
+
+<p>Yes.</p>
+
+<p>Also, in the beginning, when there were only a few computers and
+everyone thought a billion was an impossibly large number, some big
+organizations were generously allocated millions of IP addresses for
+their own use.  (Such as Xerox, MIT, Ford, HP, IBM, GE, AT&amp;T, and
+some little company called Apple, to name a few.)</p>
+
+<p>In fact, if it weren't for several stopgap measures, we would have
+run out a long time ago.</p>
+
+<p>But now we're living in an era where we're talking about every human
+having an IP address, every computer, every calculator, every phone,
+every parking meter, and (why not) every puppy dog, as well.</p>
+
+<p>And so, <a name="indexId434909-60"></a>IPv6 was born.  Since Vint Cerf is probably
+immortal (even if his physical form should pass on, heaven forbid, he is
+probably already existing as some kind of hyper-intelligent <a href="http://en.wikipedia.org/wiki/ELIZA" target="_blank">ELIZA</a> program out in the depths of the
+Internet2), no one wants to have to hear him say again "I told you so"
+if we don't have enough addresses in the next version of the Internet
+Protocol.</p>
+
+<p>What does this suggest to you?</p>
+
+<p>That we need a <i>lot</i> more addresses.  That we need not just
+twice as many addresses, not a billion times as many, not a thousand
+trillion times as many, but <i>79 MILLION BILLION TRILLION times as
+many possible addresses!</i>  That'll show 'em!</p>
+
+<p>You're saying, "Beej, is that true?  I have every reason to
+disbelieve large numbers."  Well, the difference between 32 bits and 128
+bits might not sound like a lot; it's only 96 more bits, right?  But
+remember, we're talking powers here: 32 bits represents some 4 billion
+numbers (2<sup><small>32</small></sup>), while 128 bits represents about 340
+trillion trillion trillion numbers (for real, 2<sup><small>128</small></sup>).
+That's like a million IPv4 Internets for <i>every single star in the
+Universe</i>.</p>
+
+<p>Forget this dots-and-numbers look of IPv4, too; now we've got a
+hexadecimal representation, with each two-byte chunk separated by a
+colon, like this: <tt class="tt">2001:0db8:c9d2:aee5:73e3:934a:a5ae:9551</tt>.</p>
+
+<p>That's not all!  Lots of times, you'll have an IP address with lots
+of zeros in it, and you can compress them between two colons.  And you
+can leave off leading zeros for each byte pair.  For instance, each of
+these pairs of addresses are equivalent:</p>
+
+<pre class="screen">2001:0db8:c9d2:0012:0000:0000:0000:0051
+2001:db8:c9d2:12::51
+
+2001:0db8:ab00:0000:0000:0000:0000:0000
+2001:db8:ab00::
+
+0000:0000:0000:0000:0000:0000:0000:0001
+::1
+</pre>
+
+
+<p>The address <tt class="tt">::1</tt> is the <i>loopback address</i>.  It
+always means "this machine I'm running on now".  In IPv4, the loopback
+address is 127.0.0.1.</p>
+
+<p>Finally, there's an IPv4-compatibility mode for IPv6 addresses that
+you might come across.  If you want, for example, to represent the IPv4
+address 192.0.2.33 as an IPv6 address, you use the following notation:
+"<tt class="tt">::ffff:192.0.2.33</tt>".</p>
+
+<p>We're talking serious fun.</p>
+
+<p>In fact, it's such serious fun, that the Creators of IPv6 have quite
+cavalierly lopped off trillions and trillions of addresses for reserved
+use, but we have so many, frankly, who's even counting anymore?  There
+are plenty left over for every man, woman, child, puppy, and parking
+meter on every planet in the galaxy.  And believe me, every planet in
+the galaxy has parking meters.  You know it's true.</p>
+
+
+
+<h4 class="sect3title">3.1.1. <a name="netslash">Subnets</a></h4>
+
+
+<p>For organizational reasons, it's sometimes convenient to declare that
+"this first part of this IP address up through this bit is the
+<i>network portion</i> of the IP address, and the remainder is the
+<i>host portion</i>.</p>
+
+<p>For instance, with IPv4, you might have <tt class="tt">192.0.2.12</tt>, and we could say
+that the first three bytes are the network and the last byte was the
+host.  Or, put another way, we're talking about host <tt class="tt">12</tt> on
+network <tt class="tt">192.0.2.0</tt> (see how we zero out the byte that was the
+host.)</p>
+
+<p>And now for more outdated information!  Ready?  In the Ancient Times,
+there were "classes" of subnets, where the first one, two, or three
+bytes of the address was the network part.  If you were lucky enough to
+have one byte for the network and three for the host, you could have
+24 bits-worth of hosts on your network (24 million or so).  That was a
+"Class A" network.  On the opposite end was a "Class C", with three
+bytes of network, and one byte of host (256 hosts, minus a couple that
+were reserved.)</p>
+
+<p>So as you can see, there were just a few Class As, a huge pile of
+Class Cs, and some Class Bs in the middle.</p>
+
+<p>The network portion of the IP address is described by something
+called the <i>netmask</i>, which you bitwise-AND with the IP address
+to get the network number out of it.  The netmask usually looks
+something like <tt class="tt">255.255.255.0</tt>.  (E.g. with that netmask, if your
+IP is <tt class="tt">192.0.2.12</tt>, then your network is <tt class="tt">192.0.2.12</tt> AND
+<tt class="tt">255.255.255.0</tt> which gives <tt class="tt">192.0.2.0</tt>.)</p>
+
+<p>Unfortunately, it turned out that this wasn't fine-grained enough for
+the eventual needs of the Internet; we were running out of Class C
+networks quite quickly, and we were most definitely out of Class As, so
+don't even bother to ask.  To remedy this, The Powers That Be allowed
+for the netmask to be an arbitrary number of bits, not just 8, 16, or
+24.  So you might have a netmask of, say <tt class="tt">255.255.255.252</tt>, which
+is 30 bits of network, and 2 bits of host allowing for four hosts on the
+network.  (Note that the netmask is <i>ALWAYS</i> a bunch of 1-bits
+followed by a bunch of 0-bits.)</p>
+
+<p>But it's a bit unwieldy to use a big string of numbers like
+<tt class="tt">255.192.0.0</tt> as a netmask.  First of all, people don't have an
+intuitive idea of how many bits that is, and secondly, it's really not
+compact.  So the New Style came along, and it's much nicer.  You just
+put a slash after the IP address, and then follow that by the number of
+network bits in decimal.  Like this: <tt class="tt">192.0.2.12/30</tt>.</p>
+
+<p>Or, for IPv6, something like this: <tt class="tt">2001:db8::/32</tt> or
+<tt class="tt">2001:db8:5413:4028::9db9/64</tt>.</p>
+
+
+
+
+
+<h4 class="sect3title">3.1.2. <a name="portnums">Port Numbers</a></h4>
+
+
+<p>If you'll kindly remember, I presented you earlier with the <a href="theory.html#lowlevel">Layered Network Model</a> which had the Internet
+Layer (IP) split off from the Host-to-Host Transport Layer (TCP and
+UDP).  Get up to speed on that before the next paragraph.</p>
+
+<p>Turns out that besides an IP address (used by the IP layer), there
+is another address that is used by TCP (stream sockets) and,
+coincidentally, by UDP (datagram sockets).  It is the <i>port
+number</i>.  It's a 16-bit number that's like the local address for
+the connection.</p>
+
+<p>Think of the IP address as the street address of a hotel, and the
+port number as the room number.  That's a decent analogy; maybe later
+I'll come up with one involving the automobile industry.</p>
+
+<p>Say you want to have a computer that handles incoming mail AND web
+services—how do you differentiate between the two on a computer
+with a single IP address?</p>
+
+<p>Well, different services on the Internet have different well-known
+port numbers.  You can see them all in <a href="http://www.iana.org/assignments/port-numbers" target="_blank">the Big
+IANA Port List</a> or, if you're on a Unix box, in your
+<i><tt class="var">/etc/services</tt></i> file.  HTTP (the web) is port 80, telnet is
+port 23, SMTP is port 25, the game <a href="http://en.wikipedia.org/wiki/Doom_(video_game)" target="_blank">DOOM</a>
+used port 666, etc. and so on.  Ports under 1024 are often considered
+special, and usually require special OS privileges to use.</p>
+
+<p>And that's about it!</p>
+
+ 
+
+ 
+
+
+
+<h3 class="sect2title">3.2. <a name="byteorder">Byte Order</a></h3>
+
+
+<p><a name="indexId434909-61"></a>By Order of the Realm!  There shall be two
+byte orderings, hereafter to be known as Lame and Magnificent!</p>
+
+<p>I joke, but one really is better than the other.  <tt>:-)</tt></p>
+
+<p>There really is no easy way to say this, so I'll just blurt it out:
+your computer might have been storing bytes in reverse order behind your
+back.  I know!  No one wanted to have to tell you.</p>
+
+<p>The thing is, everyone in the Internet world has generally agreed
+that if you want to represent the two-byte hex number, say
+<tt class="tt">b34f</tt>, you'll store it in two sequential bytes <tt class="tt">b3</tt>
+followed by <tt class="tt">4f</tt>.  Makes sense, and, as <a href="http://en.wikipedia.org/wiki/Wilford_Brimley" target="_blank">Wilford Brimley</a> would tell you, it's the Right
+Thing To Do.  This number, stored with the big end first, is called
+<i>Big-Endian</i>.</p>
+
+<p>Unfortunately, a few computers scattered here and there throughout
+the world, namely anything with an Intel or Intel-compatible processor,
+store the bytes reversed, so <tt class="tt">b34f</tt> would be stored in memory as
+the sequential bytes <tt class="tt">4f</tt> followed by <tt class="tt">b3</tt>.  This storage
+method is called <i>Little-Endian</i>.</p>
+
+<p>But wait, I'm not done with terminology yet!  The more-sane
+<i>Big-Endian</i> is also called <i>Network Byte Order</i>
+because that's the order us network types like.</p>
+
+<p>Your computer stores numbers in <i>Host Byte Order</i>.  If it's
+an Intel 80x86, Host Byte Order is Little-Endian.  If it's a Motorola
+68k, Host Byte Order is Big-Endian.  If it's a PowerPC, Host Byte Order
+is...  well, it depends!</p>
+
+<p>A lot of times when you're building packets or filling out data
+structures you'll need to make sure your two- and four-byte numbers are
+in Network Byte Order.  But how can you do this if you don't know the
+native Host Byte Order?</p>
+
+<p>Good news!  You just get to assume the Host Byte Order isn't right,
+and you always run the value through a function to set it to Network
+Byte Order.  The function will do the magic conversion if it has to, and
+this way your code is portable to machines of differing endianness.</p>
+
+<p>All righty.  There are two types of numbers that you can convert:
+<nobr><tt class="type">short</tt></nobr> (two bytes) and <nobr><tt class="type">long</tt></nobr> (four bytes).
+These functions work for the <nobr><tt class="type">unsigned</tt></nobr> variations as well.
+Say you want to convert a <nobr><tt class="type">short</tt></nobr> from Host Byte Order to
+Network Byte Order.  Start with "h" for "host", follow it with "to",
+then "n" for "network", and "s" for "short": h-to-n-s, or
+<b><tt class="func">htons()</tt></b> (read: "Host to Network Short").</p>
+
+<p>It's almost too easy...</p>
+
+<p>You can use every combination of "n", "h", "s", and "l" you want,
+not counting the really stupid ones.  For example, there is NOT a
+<b><tt class="func">stolh()</tt></b> ("Short to Long Host") function—not at this
+party, anyway.  But there are:</p>
+
+<p>
+<center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="20%%"><p><a name="indexId434909-62"></a><b><tt class="func">htons()</tt></b></p></td>
+<td valign="top" align="left" width="78%%"><p><b><tt class="func">h</tt></b>ost <b><tt class="func">to</tt></b> <b><tt class="func">n</tt></b>etwork <b><tt class="func">s</tt></b>hort</p></td>
+</tr>
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-63"></a><b><tt class="func">htonl()</tt></b></p></td>
+<td valign="top" align="left"><p><b><tt class="func">h</tt></b>ost <b><tt class="func">to</tt></b> <b><tt class="func">n</tt></b>etwork <b><tt class="func">l</tt></b>ong</p></td>
+</tr>
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-64"></a><b><tt class="func">ntohs()</tt></b></p></td>
+<td valign="top" align="left"><p><b><tt class="func">n</tt></b>etwork <b><tt class="func">to</tt></b> <b><tt class="func">h</tt></b>ost <b><tt class="func">s</tt></b>hort</p></td>
+</tr>
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-65"></a><b><tt class="func">ntohl()</tt></b></p></td>
+<td valign="top" align="left"><p><b><tt class="func">n</tt></b>etwork <b><tt class="func">to</tt></b> <b><tt class="func">h</tt></b>ost <b><tt class="func">l</tt></b>ong</p></td>
+</tr>
+
+</table></center>
+
+</p>
+
+<p>Basically, you'll want to convert the numbers to Network Byte Order
+before they go out on the wire, and convert them to Host Byte Order as
+they come in off the wire.</p>
+
+<p>I don't know of a 64-bit variant, sorry.  And if you want to do
+floating point, check out the section on <a href="advanced.html#serialization">Serialization</a>, far below.</p>
+
+<p>Assume the numbers in this document are in Host Byte Order unless I
+say otherwise.</p>
+
+ 
+
+
+
+<h3 class="sect2title">3.3. <a name="structs"><nobr><b><tt class="titletype">struct</tt></b></nobr>s</a></h3>
+
+
+<p>Well, we're finally here.  It's time to talk about programming.
+In this section, I'll cover various data types used by the sockets
+interface, since some of them are a real bear to figure out.</p>
+
+<p>First the easy one: a <a name="indexId434909-66"></a>socket descriptor.
+A socket descriptor is the following type:</p>
+
+<pre class="code">int</pre>
+
+
+<p>Just a regular <nobr><tt class="type">int</tt></nobr>.</p>
+
+<p>Things get weird from here, so just read through and bear with
+me.</p>
+
+<p>My First Struct<sup><small>TM</small></sup>—<a name="indexId434909-67"></a><nobr><tt class="type">struct
+addrinfo</tt></nobr>.  This structure is a more recent invention, and is used
+to prep the socket address structures for subsequent use.  It's also
+used in host name lookups, and service name lookups.  That'll make more
+sense later when we get to actual usage, but just know for now that it's
+one of the first things you'll call when making a connection.</p>
+
+<pre class="code">struct addrinfo {
+    int              ai_flags;     // AI_PASSIVE, AI_CANONNAME, etc.
+    int              ai_family;    // AF_INET, AF_INET6, AF_UNSPEC
+    int              ai_socktype;  // SOCK_STREAM, SOCK_DGRAM
+    int              ai_protocol;  // use 0 for "any"
+    size_t           ai_addrlen;   // size of ai_addr in bytes
+    struct sockaddr *ai_addr;      // struct sockaddr_in or _in6
+    char            *ai_canonname; // full canonical hostname
+
+    struct addrinfo *ai_next;      // linked list, next node
+};</pre>
+
+
+<p>You'll load this struct up a bit, and then call <a name="indexId434909-68"></a><b><tt class="func">getaddrinfo()</tt></b>.  It'll return a pointer
+to a new linked list of these structures filled out with all the goodies
+you need.</p>
+
+<p>You can force it to use IPv4 or IPv6 in the <i><tt class="var">ai_family</tt></i>
+field, or leave it as <tt class="const">AF_UNSPEC</tt> to use whatever.  This is
+cool because your code can be IP version-agnostic.</p>
+
+<p>Note that this is a linked list: <i><tt class="var">ai_next</tt></i> points at the
+next element—there could be several results for you to choose
+from.  I'd use the first result that worked, but you might have
+different business needs; I don't know everything, man!</p>
+
+<p>You'll see that the <i><tt class="var">ai_addr</tt></i> field in the <nobr><tt class="type">struct
+addrinfo</tt></nobr> is a pointer to a <a name="indexId434909-69"></a><nobr><tt class="type">struct sockaddr</tt></nobr>.  This is where we start getting
+into the nitty-gritty details of what's inside an IP address
+structure.</p>
+
+<p>You might not usually need to write to these structures; oftentimes,
+a call to <b><tt class="func">getaddrinfo()</tt></b> to fill out your <nobr><tt class="type">struct
+addrinfo</tt></nobr> for you is all you'll need.  You <i>will</i>,
+however, have to peer inside these <nobr><tt class="type">struct</tt></nobr>s to get the
+values out, so I'm presenting them here.</p>
+
+<p>(Also, all the code written before <nobr><tt class="type">struct addrinfo</tt></nobr> was
+invented packed all this stuff by hand, so you'll see a lot of IPv4 code
+out in the wild that does exactly that.  You know, in old versions of
+this guide and so on.)</p>
+
+<p>Some <nobr><tt class="type">struct</tt></nobr>s are IPv4, some are IPv6, and some are both.
+I'll make notes of which are what.</p>
+
+<p>Anyway, the <nobr><tt class="type">struct sockaddr</tt></nobr> holds socket address
+information for many types of sockets.</p>
+
+<pre class="code">struct sockaddr {
+    unsigned short    sa_family;    // address family, AF_xxx
+    char              sa_data[14];  // 14 bytes of protocol address
+}; 
+</pre>
+
+
+<p><i><tt class="var">sa_family</tt></i> can be a variety of things, but it'll be <a name="indexId434909-70"></a><tt class="const">AF_INET</tt> (IPv4) or <a name="indexId434909-71"></a><tt class="const">AF_INET6</tt> (IPv6) for everything we do in
+this document.  <i><tt class="var">sa_data</tt></i> contains a destination address
+and port number for the socket.  This is rather unwieldy since you don't
+want to tediously pack the address in the <i><tt class="var">sa_data</tt></i> by
+hand.</p>
+
+<p>To deal with <nobr><tt class="type">struct sockaddr</tt></nobr>, programmers created a
+parallel structure: <a name="indexId434909-72"></a><nobr><tt class="type">struct
+sockaddr_in</tt></nobr> ("in" for "Internet") to be used with IPv4.</p>
+
+<p>And <i>this is the important</i> bit: a pointer to a <nobr><tt class="type">struct
+sockaddr_in</tt></nobr> can be cast to a pointer to a <nobr><tt class="type">struct
+sockaddr</tt></nobr> and vice-versa.  So even though <b><tt class="func">connect()</tt></b>
+wants a <nobr><tt class="type">struct sockaddr*</tt></nobr>, you can still use a <nobr><tt class="type">struct
+sockaddr_in</tt></nobr> and cast it at the last minute!</p>
+
+<pre class="code">// (IPv4 only--see struct sockaddr_in6 for IPv6)
+
+struct sockaddr_in {
+    short int          sin_family;  // Address family, AF_INET
+    unsigned short int sin_port;    // Port number
+    struct in_addr     sin_addr;    // Internet address
+    unsigned char      sin_zero[8]; // Same size as struct sockaddr
+};
+</pre>
+
+
+<p>This structure makes it easy to reference elements of the socket
+address.  Note that <i><tt class="var">sin_zero</tt></i> (which is included to pad
+the structure to the length of a <nobr><tt class="type">struct sockaddr</tt></nobr>) should be
+set to all zeros with the function <b><tt class="func">memset()</tt></b>.  Also, notice
+that <i><tt class="var">sin_family</tt></i> corresponds to <i><tt class="var">sa_family</tt></i>
+in a <nobr><tt class="type">struct sockaddr</tt></nobr> and should be set to
+"<tt class="const">AF_INET</tt>".  Finally, the <i><tt class="var">sin_port</tt></i> must be
+in <a name="indexId434909-73"></a><i>Network Byte Order</i> (by using <a name="indexId434909-74"></a><b><tt class="func">htons()</tt></b>!)</p>
+
+<p>Let's dig deeper!  You see the <i><tt class="var">sin_addr</tt></i> field is a
+<nobr><tt class="type">struct in_addr</tt></nobr>.  What is that thing?  Well, not to be
+overly dramatic, but it's one of the scariest unions of all time:</p>
+
+<pre class="code">// (IPv4 only--see struct in6_addr for IPv6)
+
+// Internet address (a structure for historical reasons)
+struct in_addr {
+    uint32_t s_addr; // that's a 32-bit int (4 bytes)
+};</pre>
+
+
+<p>Whoa!  Well, it <i>used</i> to be a union, but now those days
+seem to be gone.  Good riddance.  So if you have declared
+<i><tt class="var">ina</tt></i> to be of type <nobr><tt class="type">struct sockaddr_in</tt></nobr>, then
+<i><tt class="var">ina.sin_addr.s_addr</tt></i> references the 4-byte IP address (in
+Network Byte Order).  Note that even if your system still uses the
+God-awful union for <nobr><tt class="type">struct in_addr</tt></nobr>, you can still reference
+the 4-byte IP address in exactly the same way as I did above (this due
+to <tt class="tt">#define</tt>s.)</p>
+
+<p>What about <a name="indexId434909-75"></a>IPv6?  Similar <nobr><tt class="type">struct</tt></nobr>s exist
+for it, as well:</p>
+
+<pre class="code">// (IPv6 only--see struct sockaddr_in and struct in_addr for IPv4)
+
+struct sockaddr_in6 {
+    u_int16_t       sin6_family;   // address family, AF_INET6
+    u_int16_t       sin6_port;     // port number, Network Byte Order
+    u_int32_t       sin6_flowinfo; // IPv6 flow information
+    struct in6_addr sin6_addr;     // IPv6 address
+    u_int32_t       sin6_scope_id; // Scope ID
+};
+
+struct in6_addr {
+    unsigned char   s6_addr[16];   // IPv6 address
+};</pre>
+
+
+<p>Note that IPv6 has an IPv6 address and a port number, just like IPv4
+has an IPv4 address and a port number.</p>
+
+<p>Also note that I'm not going to talk about the IPv6 flow information
+or Scope ID fields for the moment... this is just a starter guide.
+<tt>:-)</tt></p>
+
+<p>Last but not least, here is another simple structure, <nobr><tt class="type">struct
+sockaddr_storage</tt></nobr> that is designed
+to be large enough to hold both IPv4 and IPv6 structures.  (See, for
+some calls, sometimes you don't know in advance if it's going to fill
+out your <nobr><tt class="type">struct sockaddr</tt></nobr> with an IPv4 or IPv6 address.  So
+you pass in this parallel structure, very similar to <nobr><tt class="type">struct
+sockaddr</tt></nobr> except larger, and then cast it to the type you
+need:</p>
+
+<pre class="code">struct sockaddr_storage {
+    sa_family_t  ss_family;     // address family
+
+    // all this is padding, implementation specific, ignore it:
+    char      __ss_pad1[_SS_PAD1SIZE];
+    int64_t   __ss_align;
+    char      __ss_pad2[_SS_PAD2SIZE];
+};</pre>
+
+
+<p>What's important is that you can see the address family in the
+<i><tt class="var">ss_family</tt></i> field—check this to see if it's
+<tt class="const">AF_INET</tt> or <tt class="const">AF_INET6</tt> (for IPv4 or
+IPv6).  Then you can cast it to a <nobr><tt class="type">struct sockaddr_in</tt></nobr> or
+<nobr><tt class="type">struct sockaddr_in6</tt></nobr> if you wanna.</p>
+
+ 
+
+
+
+
+
+
+<h3 class="sect2title">3.4. <a name="ipaddrs2">IP Addresses, Part Deux</a></h3>
+
+
+<p>Fortunately for you, there are a bunch of functions that allow you to
+manipulate <a name="indexId434909-76"></a>IP addresses.  No need to figure them out by
+hand and stuff them in a <nobr><tt class="type">long</tt></nobr> with the
+<tt class="tt">&lt;&lt;</tt> operator.</p>
+
+<p>First, let's say you have a <nobr><tt class="type">struct sockaddr_in ina</tt></nobr>, and
+you have an IP address "<tt class="tt">10.12.110.57</tt>" or
+"<tt class="tt">2001:db8:63b3:1::3490</tt>" that you want to store into it.  The
+function you want to use, <a name="indexId434909-77"></a>
+<b><tt class="func">inet_pton()</tt></b>, converts an IP address in numbers-and-dots
+notation into either a <nobr><tt class="type">struct in_addr</tt></nobr> or a <nobr><tt class="type">struct
+in6_addr</tt></nobr> depending on whether you specify <tt class="const">AF_INET</tt>
+or <tt class="const">AF_INET6</tt>.  ("pton" stands for "presentation to
+network"—you can call it "printable to network" if that's easier
+to remember.)  The conversion can be made as follows:</p>
+
+<pre class="code">struct sockaddr_in sa; // IPv4
+struct sockaddr_in6 sa6; // IPv6
+
+inet_pton(AF_INET, "192.0.2.1", &amp;(sa.sin_addr)); // IPv4
+inet_pton(AF_INET6, "2001:db8:63b3:1::3490", &amp;(sa6.sin6_addr)); // IPv6</pre>
+
+
+<p>(Quick note: the old way of doing things used a function called <a name="indexId434909-78"></a><b><tt class="func">inet_addr()</tt></b> or another function called
+<a name="indexId434909-79"></a><b><tt class="func">inet_aton()</tt></b>; these are now obsolete
+and don't work with IPv6.)</p>
+
+<p>Now, the above code snippet isn't very robust because there is no
+error checking.  See, <b><tt class="func">inet_pton()</tt></b> returns
+<tt class="const">-1</tt> on error, or 0 if the address is messed up.  So check
+to make sure the result is greater than 0 before using!</p>
+
+<p>All right, now you can convert string IP addresses to their binary
+representations.  What about the other way around?  What if you have a
+<nobr><tt class="type">struct in_addr</tt></nobr> and you want to print it in numbers-and-dots
+notation?   (Or a <nobr><tt class="type">struct in6_addr</tt></nobr> that you want in, uh,
+"hex-and-colons" notation.)  In this case, you'll want to use the
+function <a name="indexId434909-80"></a><b><tt class="func">inet_ntop()</tt></b> ("ntop" means
+"network to presentation"—you can call it "network to printable"
+if that's easier to remember), like this:</p>
+
+<pre class="code">// IPv4:
+
+char ip4[INET_ADDRSTRLEN];  // space to hold the IPv4 string
+struct sockaddr_in sa;      // pretend this is loaded with something
+
+inet_ntop(AF_INET, &amp;(sa.sin_addr), ip4, INET_ADDRSTRLEN);
+
+printf("The IPv4 address is: %s\n", ip4);
+
+
+// IPv6:
+
+char ip6[INET6_ADDRSTRLEN]; // space to hold the IPv6 string
+struct sockaddr_in6 sa6;    // pretend this is loaded with something
+
+inet_ntop(AF_INET6, &amp;(sa6.sin6_addr), ip6, INET6_ADDRSTRLEN);
+
+printf("The address is: %s\n", ip6);</pre>
+
+
+<p>When you call it, you'll pass the address type (IPv4 or IPv6), the
+address, a pointer to a string to hold the result, and the maximum
+length of that string.  (Two macros conveniently hold the size of the
+string you'll need to hold the largest IPv4 or IPv6 address:
+<tt class="const">INET_ADDRSTRLEN</tt> and <tt class="const">INET6_ADDRSTRLEN</tt>.)</p>
+
+<p>(Another quick note to mention once again the old way of doing
+things: the historical function to do this conversion was called <a name="indexId434909-81"></a><b><tt class="func">inet_ntoa()</tt></b>.  It's also obsolete and
+won't work with IPv6.)</p>
+
+<p>Lastly, these functions only work with numeric IP
+addresses—they won't do any nameserver DNS lookup on a hostname,
+like "www.example.com".  You will use <b><tt class="func">getaddrinfo()</tt></b> to do
+that, as you'll see later on.</p>
+
+
+
+<h4 class="sect3title">3.4.1. <a name="privnet">Private (Or Disconnected) Networks</a></h4>
+
+
+<p><a name="indexId434909-82"></a>Lots of places have a <a name="indexId434909-83"></a>firewall that hides the network from the rest of the
+world for their own protection.  And often times, the firewall
+translates "internal" IP addresses to "external" (that everyone else in
+the world knows) IP addresses using a process called <i>Network
+Address Translation</i>, or <a name="indexId434909-84"></a>NAT.</p>
+
+<p>Are you getting nervous yet?  "Where's he going with all this weird
+stuff?"</p>
+
+<p>Well, relax and buy yourself a non-alcoholic (or alcoholic) drink,
+because as a beginner, you don't even have to worry about NAT, since
+it's done for you transparently.  But I wanted to talk about the network
+behind the firewall in case you started getting confused by the network
+numbers you were seeing.</p>
+
+<p>For instance, I have a firewall at home.  I have two static IPv4
+addresses allocated to me by the DSL company, and yet I have seven
+computers on the network.  How is this possible?  Two computers can't
+share the same IP address, or else the data wouldn't know which one to
+go to!</p>
+
+<p>The answer is: they don't share the same IP addresses.  They are on a
+private network with 24 million IP addresses allocated to it.  They are
+all just for me.  Well, all for me as far as anyone else is concerned.
+Here's what's happening:</p>
+
+<p>If I log into a remote computer, it tells me I'm logged in from
+192.0.2.33 which is the public IP address my ISP has provided to me.
+But if I ask my local computer what it's IP address is, it says
+10.0.0.5.  Who is translating the IP address from one to the other?
+That's right, the firewall!  It's doing NAT!</p>
+
+<p>10.<i>x</i>.<i>x</i>.<i>x</i> is one of a few reserved
+networks that are only to be used either on fully disconnected networks,
+or on networks that are behind firewalls.  The details of which private
+network numbers are available for you to use are outlined in <a href="http://tools.ietf.org/html/rfc1918" target="_blank">RFC 1918</a>,
+but some common ones you'll see are <a name="indexId434909-85"></a>10.<i>x</i>.<i>x</i>.<i>x</i> and <a name="indexId434909-86"></a>192.168.<i>x</i>.<i>x</i>, where <i>x</i>
+is 0-255, generally.  Less common is
+172.<i>y</i>.<i>x</i>.<i>x</i>, where <i>y</i> goes
+between 16 and 31.</p>
+
+<p>Networks behind a NATing firewall don't <i>need</i> to be on one
+of these reserved networks, but they commonly are.</p>
+
+<p>(Fun fact!  My external IP address isn't really 192.0.2.33.  The
+192.0.2.<i>x</i> network is reserved for make-believe "real" IP
+addresses to be used in documentation, just like this guide!
+Wowzers!)</p>
+
+<p><a name="indexId434909-87"></a>IPv6 has private networks, too, in a sense.  They'll
+start with <tt class="tt">fd<i>xx</i>:</tt> (or maybe in the future
+<tt class="tt">fc<i>XX</i>:</tt>), as per <a href="http://tools.ietf.org/html/rfc4193" target="_blank">RFC 4193</a>.  NAT and IPv6 don't
+generally mix, however (unless you're doing the IPv6 to IPv4 gateway
+thing which is beyond the scope of this document)—in theory
+you'll have so many addresses at your disposal that you won't need to
+use NAT any longer.  But if you want to allocate addresses for yourself
+on a network that won't route outside, this is how to do it.</p>
+
+ 
+
+ 
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="theory.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="ip4to6.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

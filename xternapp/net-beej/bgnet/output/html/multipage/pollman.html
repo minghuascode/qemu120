@@ -1,0 +1,202 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>poll()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="perrorman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="recvman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.17. <a name="pollman"><b><tt class="titlefunc">poll()</tt></b></a></h2></p>
+
+<p>Test for events on multiple sockets simultaneously</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/poll.h&gt;
+
+int poll(struct pollfd *<i><tt class="var em1">ufds</tt></i>, unsigned int <i><tt class="var em1">nfds</tt></i>, int <i><tt class="var em1">timeout</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-272"></a>This function is very similar to
+<b><tt class="func">select()</tt></b> in that they both watch sets of file descriptors
+for events, such as incoming data ready to <b><tt class="func">recv()</tt></b>, socket
+ready to <b><tt class="func">send()</tt></b> data to, out-of-band data ready to
+<b><tt class="func">recv()</tt></b>, errors, etc.</p>
+
+<p>The basic idea is that you pass an array of <i><tt class="var">nfds</tt></i>
+<nobr><tt class="type">struct pollfd</tt></nobr>s in <i><tt class="var">ufds</tt></i>, along with a timeout in
+milliseconds (1000 milliseconds in a second.)  The <i><tt class="var">timeout</tt></i>
+can be negative if you want to wait forever.  If no event happens on any
+of the socket descriptors by the timeout, <b><tt class="func">poll()</tt></b> will
+return.</p>
+
+<p>Each element in the array of <nobr><tt class="type">struct pollfd</tt></nobr>s represents
+one socket descriptor, and contains the following fields:</p>
+
+<pre class="code"><a name="indexId434909-273"></a>struct pollfd {
+    int fd;         // the socket descriptor
+    short events;   // bitmap of events we're interested in
+    short revents;  // when poll() returns, bitmap of events that occurred
+};</pre>
+
+
+<p>Before calling <b><tt class="func">poll()</tt></b>, load <i><tt class="var">fd</tt></i> with the
+socket descriptor (if you set <i><tt class="var">fd</tt></i> to a negative number, this
+<nobr><tt class="type">struct pollfd</tt></nobr> is ignored and its <i><tt class="var">revents</tt></i> field
+is set to zero) and then construct the <i><tt class="var">events</tt></i> field by
+bitwise-ORing the following macros:</p>
+
+<p><center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="25%%"><p><tt class="const">POLLIN</tt></p></td>
+
+<td valign="top" align="left" width="73%%"><p>Alert me when data is ready to
+<b><tt class="func">recv()</tt></b> on this socket.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><tt class="const">POLLOUT</tt></p></td>
+
+<td valign="top" align="left"><p>Alert me when I can <b><tt class="func">send()</tt></b> data to this
+socket without blocking.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><tt class="const">POLLPRI</tt></p></td>
+
+<td valign="top" align="left"><p>Alert me when out-of-band data is ready to
+<b><tt class="func">recv()</tt></b> on this socket.</p></td>
+</tr>
+
+</table></center>
+</p>
+
+<p>Once the <b><tt class="func">poll()</tt></b> call returns, the <i><tt class="var">revents</tt></i>
+field will be constructed as a bitwise-OR of the above fields, telling
+you which descriptors actually have had that event occur.  Additionally,
+these other fields might be present:</p>
+
+<p><center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="25%%"><p><tt class="const">POLLERR</tt></p></td>
+
+<td valign="top" align="left" width="73%%"><p>An error has occurred on this socket.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><tt class="const">POLLHUP</tt></p></td>
+
+<td valign="top" align="left"><p>The remote side of the connection hung up.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><tt class="const">POLLNVAL</tt></p></td>
+
+<td valign="top" align="left"><p>Something was wrong with the socket descriptor
+<i><tt class="var">fd</tt></i>—maybe it's uninitialized?</p></td>
+</tr>
+
+</table></center>
+</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns the number of elements in the <i><tt class="var">ufds</tt></i> array that have
+had event occur on them; this can be zero if the timeout occurred.  Also
+returns <tt class="const">-1</tt> on error (and <b><tt class="func">errno</tt></b> will be set
+accordingly.)</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">int s1, s2;
+int rv;
+char buf1[256], buf2[256];
+struct pollfd ufds[2];
+
+s1 = socket(PF_INET, SOCK_STREAM, 0);
+s2 = socket(PF_INET, SOCK_STREAM, 0);
+
+// pretend we've connected both to a server at this point
+//connect(s1, ...)...
+//connect(s2, ...)...
+
+// set up the array of file descriptors.
+//
+// in this example, we want to know when there's normal or out-of-band
+// data ready to be recv()'d...
+
+ufds[0].fd = s1;
+ufds[0].events = POLLIN | POLLPRI; // check for normal or out-of-band
+
+ufds[1] = s2;
+ufds[1].events = POLLIN; // check for just normal data
+
+// wait for events on the sockets, 3.5 second timeout
+rv = poll(ufds, 2, 3500);
+
+if (rv == -1) {
+    perror("poll"); // error occurred in poll()
+} else if (rv == 0) {
+    printf("Timeout occurred!  No data after 3.5 seconds.\n");
+} else {
+    // check for events on s1:
+    if (ufds[0].revents &amp; POLLIN) {
+        recv(s1, buf1, sizeof buf1, 0); // receive normal data
+    }
+    if (ufds[0].revents &amp; POLLPRI) {
+        recv(s1, buf1, sizeof buf1, MSG_OOB); // out-of-band data
+    }
+
+    // check for events on s2:
+    if (ufds[1].revents &amp; POLLIN) {
+        recv(s1, buf2, sizeof buf2, 0);
+    }
+}</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="selectman.html"><b><tt class="func">select()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="perrorman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="recvman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

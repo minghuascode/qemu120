@@ -1,0 +1,118 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>listen()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="inet_ntopman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="perrorman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.15. <a name="listenman"><b><tt class="titlefunc">listen()</tt></b></a></h2></p>
+
+<p>Tell a socket to listen for incoming connections</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/socket.h&gt;
+
+int listen(int <i><tt class="var em1">s</tt></i>, int <i><tt class="var em1">backlog</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-268"></a>You can take your socket descriptor (made with
+the <b><tt class="func">socket()</tt></b> system call) and tell it to listen for
+incoming connections.  This is what differentiates the servers from the
+clients, guys.</p>
+
+<p>The <i><tt class="var">backlog</tt></i> parameter can mean a couple different things
+depending on the system you on, but loosely it is how many pending
+connections you can have before the kernel starts rejecting new ones.
+So as the new connections come in, you should be quick to
+<b><tt class="func">accept()</tt></b> them so that the backlog doesn't fill.  Try
+setting it to 10 or so, and if your clients start getting "Connection
+refused" under heavy load, set it higher.</p>
+
+<p>Before calling <b><tt class="func">listen()</tt></b>, your server should call
+<b><tt class="func">bind()</tt></b> to attach itself to a specific port number.  That
+port number (on the server's IP address) will be the one that clients
+connect to.</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns zero on success, or <tt class="const">-1</tt> on error (and
+<b><tt class="func">errno</tt></b> will be set accordingly.)</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">struct addrinfo hints, *res;
+int sockfd;
+
+// first, load up address structs with getaddrinfo():
+
+memset(&amp;hints, 0, sizeof hints);
+hints.ai_family = AF_UNSPEC;  // use IPv4 or IPv6, whichever
+hints.ai_socktype = SOCK_STREAM;
+hints.ai_flags = AI_PASSIVE;     // fill in my IP for me
+
+getaddrinfo(NULL, "3490", &amp;hints, &amp;res);
+
+// make a socket:
+
+sockfd = socket(res-&gt;ai_family, res-&gt;ai_socktype, res-&gt;ai_protocol);
+
+// bind it to the port we passed in to getaddrinfo():
+
+bind(sockfd, res-&gt;ai_addr, res-&gt;ai_addrlen);
+
+listen(sockfd, 10); // set s up to be a server (listening) socket
+
+// then have an accept() loop down here somewhere</pre>
+
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="acceptman.html"><b><tt class="func">accept()</tt></b></a>,
+<a href="bindman.html"><b><tt class="func">bind()</tt></b></a>,
+<a href="socketman.html"><b><tt class="func">socket()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="inet_ntopman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="perrorman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

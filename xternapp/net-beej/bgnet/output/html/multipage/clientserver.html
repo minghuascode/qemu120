@@ -1,0 +1,585 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Client-Server Background</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="syscalls.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="advanced.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+
+<h2 class="sect1title">6. <a name="clientserver">Client-Server Background</a></h2><hr class="mainsecthr"/>
+
+
+<p><a name="indexId434909-132"></a>It's a client-server world, baby.  Just
+about everything on the network deals with client processes talking to
+server processes and vice-versa.  Take <b class="com">telnet</b>, for instance.
+When you connect to a remote host on port 23 with telnet (the client), a
+program on that host (called <b class="com">telnetd</b>, the server) springs to
+life.  It handles the incoming telnet connection, sets you up with a
+login prompt, etc.</p>
+
+<a name="figure2" /><center>
+    <div><img src="cs-120-3.334.png" alt="[Client-Server Interaction Diagram]"/></div>
+
+    <p><b>Client-Server Interaction.</b></p>
+</center>
+
+
+<p>The exchange of information between client and server is
+summarized in <a href="clientserver.html#figure2">the above diagram</a>.</p>
+
+<p>Note that the client-server pair can speak
+<tt class="const">SOCK_STREAM</tt>, <tt class="const">SOCK_DGRAM</tt>, or
+anything else (as long as they're speaking the same thing.)  Some good
+examples of client-server pairs are
+<b class="com">telnet</b>/<b class="com">telnetd</b>,
+<b class="com">ftp</b>/<b class="com">ftpd</b>, or
+<b class="com">Firefox</b>/<b class="com">Apache</b>.  Every time you use
+<b class="com">ftp</b>, there's a remote program,
+<b class="com">ftpd</b>, that serves you.</p>
+
+<p>Often, there will only be one server on a machine, and that server
+will handle multiple clients using <a name="indexId434909-133"></a><b><tt class="func">fork()</tt></b>.  The basic routine is: server will
+wait for a connection, <b><tt class="func">accept()</tt></b> it, and <b><tt class="func">fork()</tt></b>
+a child process to handle it.  This is what our sample server does in
+the next section.</p>
+
+
+
+
+
+
+
+<h3 class="sect2title">6.1. <a name="simpleserver">A Simple Stream Server</a></h3>
+
+
+<p><a name="indexId434909-134"></a>All this server does is send the string
+"<tt class="tt">Hello, World!\n</tt>" out over a stream connection.  All you need
+to do to test this server is run it in one window, and telnet to it from
+another with:</p>
+
+<pre class="screen">$ telnet remotehostname 3490</pre>
+
+
+<p>where <tt class="tt">remotehostname</tt> is the name of the machine you're
+running it on.</p>
+
+<p><a href="http://beej.us/guide/bgnet/examples/server.c" target="_blank">The server code</a>:</p>
+
+<pre class="code">/*
+** server.c -- a stream socket server demo
+*/
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;netdb.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;sys/wait.h&gt;
+#include &lt;signal.h&gt;
+
+#define PORT "3490"  // the port users will be connecting to
+
+#define BACKLOG 10     // how many pending connections queue will hold
+
+void sigchld_handler(int s)
+{
+    while(waitpid(-1, NULL, WNOHANG) &gt; 0);
+}
+
+// get sockaddr, IPv4 or IPv6:
+void *get_in_addr(struct sockaddr *sa)
+{
+    if (sa-&gt;sa_family == AF_INET) {
+        return &amp;(((struct sockaddr_in*)sa)-&gt;sin_addr);
+    }
+
+    return &amp;(((struct sockaddr_in6*)sa)-&gt;sin6_addr);
+}
+
+int main(void)
+{
+    int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
+    struct addrinfo hints, *servinfo, *p;
+    struct sockaddr_storage their_addr; // connector's address information
+    socklen_t sin_size;
+    struct sigaction sa;
+    int yes=1;
+    char s[INET6_ADDRSTRLEN];
+    int rv;
+
+    memset(&amp;hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE; // use my IP
+
+    if ((rv = getaddrinfo(NULL, PORT, &amp;hints, &amp;servinfo)) != 0) {
+        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+        return 1;
+    }
+
+    // loop through all the results and bind to the first we can
+    for(p = servinfo; p != NULL; p = p-&gt;ai_next) {
+        if ((sockfd = socket(p-&gt;ai_family, p-&gt;ai_socktype,
+                p-&gt;ai_protocol)) == -1) {
+            perror("server: socket");
+            continue;
+        }
+
+        if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &amp;yes,
+                sizeof(int)) == -1) {
+            perror("setsockopt");
+            exit(1);
+        }
+
+        if (bind(sockfd, p-&gt;ai_addr, p-&gt;ai_addrlen) == -1) {
+            close(sockfd);
+            perror("server: bind");
+            continue;
+        }
+
+        break;
+    }
+
+    if (p == NULL)  {
+        fprintf(stderr, "server: failed to bind\n");
+        return 2;
+    }
+
+    freeaddrinfo(servinfo); // all done with this structure
+
+    if (listen(sockfd, BACKLOG) == -1) {
+        perror("listen");
+        exit(1);
+    }
+
+    sa.sa_handler = sigchld_handler; // reap all dead processes
+    sigemptyset(&amp;sa.sa_mask);
+    sa.sa_flags = SA_RESTART;
+    if (sigaction(SIGCHLD, &amp;sa, NULL) == -1) {
+        perror("sigaction");
+        exit(1);
+    }
+
+    printf("server: waiting for connections...\n");
+
+    while(1) {  // main accept() loop
+        sin_size = sizeof their_addr;
+        new_fd = accept(sockfd, (struct sockaddr *)&amp;their_addr, &amp;sin_size);
+        if (new_fd == -1) {
+            perror("accept");
+            continue;
+        }
+
+        inet_ntop(their_addr.ss_family,
+            get_in_addr((struct sockaddr *)&amp;their_addr),
+            s, sizeof s);
+        printf("server: got connection from %s\n", s);
+
+        if (!fork()) { // this is the child process
+            close(sockfd); // child doesn't need the listener
+            if (send(new_fd, "Hello, world!", 13, 0) == -1)
+                perror("send");
+            close(new_fd);
+            exit(0);
+        }
+        close(new_fd);  // parent doesn't need this
+    }
+
+    return 0;
+}</pre>
+
+
+<p>In case you're curious, I have the code in one big
+<b><tt class="func">main()</tt></b> function for (I feel) syntactic clarity.
+Feel free to split it into smaller functions if it makes you feel
+better.</p>
+
+<p>(Also, this whole <a name="indexId434909-135"></a><b><tt class="func">sigaction()</tt></b>
+thing might be new to you—that's ok.  The code that's there is
+responsible for reaping <a name="indexId434909-136"></a>zombie processes that
+appear as the <b><tt class="func">fork()</tt></b>ed child processes exit.  If you make
+lots of zombies and don't reap them, your system administrator will
+become agitated.)</p>
+
+<p>You can get the data from this server by using the client
+listed in the next section.</p>
+
+
+
+
+
+
+
+
+
+<h3 class="sect2title">6.2. <a name="simpleclient">A Simple Stream Client</a></h3>
+
+
+<p><a name="indexId434909-137"></a>This guy's even easier than the server.  All
+this client does is connect to the host you specify on the command line,
+port 3490.  It gets the string that the server sends.</p>
+
+<p><a href="http://beej.us/guide/bgnet/examples/client.c" target="_blank">The client
+source</a>:</p>
+
+<pre class="code">/*
+** client.c -- a stream socket client demo
+*/
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;netdb.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;sys/socket.h&gt;
+
+#include &lt;arpa/inet.h&gt;
+
+#define PORT "3490" // the port client will be connecting to 
+
+#define MAXDATASIZE 100 // max number of bytes we can get at once 
+
+// get sockaddr, IPv4 or IPv6:
+void *get_in_addr(struct sockaddr *sa)
+{
+    if (sa-&gt;sa_family == AF_INET) {
+        return &amp;(((struct sockaddr_in*)sa)-&gt;sin_addr);
+    }
+
+    return &amp;(((struct sockaddr_in6*)sa)-&gt;sin6_addr);
+}
+
+int main(int argc, char *argv[])
+{
+    int sockfd, numbytes;  
+    char buf[MAXDATASIZE];
+    struct addrinfo hints, *servinfo, *p;
+    int rv;
+    char s[INET6_ADDRSTRLEN];
+
+    if (argc != 2) {
+        fprintf(stderr,"usage: client hostname\n");
+        exit(1);
+    }
+
+    memset(&amp;hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+
+    if ((rv = getaddrinfo(argv[1], PORT, &amp;hints, &amp;servinfo)) != 0) {
+        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+        return 1;
+    }
+
+    // loop through all the results and connect to the first we can
+    for(p = servinfo; p != NULL; p = p-&gt;ai_next) {
+        if ((sockfd = socket(p-&gt;ai_family, p-&gt;ai_socktype,
+                p-&gt;ai_protocol)) == -1) {
+            perror("client: socket");
+            continue;
+        }
+
+        if (connect(sockfd, p-&gt;ai_addr, p-&gt;ai_addrlen) == -1) {
+            close(sockfd);
+            perror("client: connect");
+            continue;
+        }
+
+        break;
+    }
+
+    if (p == NULL) {
+        fprintf(stderr, "client: failed to connect\n");
+        return 2;
+    }
+
+    inet_ntop(p-&gt;ai_family, get_in_addr((struct sockaddr *)p-&gt;ai_addr),
+            s, sizeof s);
+    printf("client: connecting to %s\n", s);
+
+    freeaddrinfo(servinfo); // all done with this structure
+
+    if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+        perror("recv");
+        exit(1);
+    }
+
+    buf[numbytes] = '\0';
+
+    printf("client: received '%s'\n",buf);
+
+    close(sockfd);
+
+    return 0;
+}</pre>
+
+
+<p>Notice that if you don't run the server before you run the client,
+<b><tt class="func">connect()</tt></b> returns
+<a name="indexId434909-138"></a>"Connection refused".  Very
+useful.</p>
+
+
+
+
+
+
+
+
+
+<h3 class="sect2title">6.3. <a name="datagram">Datagram Sockets</a></h3>
+
+
+<p>We've already covered the basics of UDP datagram sockets with our
+discussion of <b><tt class="func">sendto()</tt></b> and <b><tt class="func">recvfrom()</tt></b>, above,
+so I'll just present a couple of sample programs: <i><tt class="var">talker.c</tt></i>
+and <i><tt class="var">listener.c</tt></i>.</p>
+
+<p><a name="indexId434909-139"></a><b class="com">listener</b> sits on a machine
+waiting for an incoming packet on port 4950.  <b class="com">talker</b> sends a
+packet to that port, on the specified machine, that contains whatever
+the user enters on the command line.</p>
+
+<p>Here is the <a href="http://beej.us/guide/bgnet/examples/listener.c" target="_blank">source for
+<i><tt class="var">listener.c</tt></i></a>:</p>
+
+<pre class="code">/*
+** listener.c -- a datagram sockets "server" demo
+*/
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;netdb.h&gt;
+
+#define MYPORT "4950"    // the port users will be connecting to
+
+#define MAXBUFLEN 100
+
+// get sockaddr, IPv4 or IPv6:
+void *get_in_addr(struct sockaddr *sa)
+{
+    if (sa-&gt;sa_family == AF_INET) {
+        return &amp;(((struct sockaddr_in*)sa)-&gt;sin_addr);
+    }
+
+    return &amp;(((struct sockaddr_in6*)sa)-&gt;sin6_addr);
+}
+
+int main(void)
+{
+    int sockfd;
+    struct addrinfo hints, *servinfo, *p;
+    int rv;
+    int numbytes;
+    struct sockaddr_storage their_addr;
+    char buf[MAXBUFLEN];
+    socklen_t addr_len;
+    char s[INET6_ADDRSTRLEN];
+
+    memset(&amp;hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC; // set to AF_INET to force IPv4
+    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_flags = AI_PASSIVE; // use my IP
+
+    if ((rv = getaddrinfo(NULL, MYPORT, &amp;hints, &amp;servinfo)) != 0) {
+        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+        return 1;
+    }
+
+    // loop through all the results and bind to the first we can
+    for(p = servinfo; p != NULL; p = p-&gt;ai_next) {
+        if ((sockfd = socket(p-&gt;ai_family, p-&gt;ai_socktype,
+                p-&gt;ai_protocol)) == -1) {
+            perror("listener: socket");
+            continue;
+        }
+
+        if (bind(sockfd, p-&gt;ai_addr, p-&gt;ai_addrlen) == -1) {
+            close(sockfd);
+            perror("listener: bind");
+            continue;
+        }
+
+        break;
+    }
+
+    if (p == NULL) {
+        fprintf(stderr, "listener: failed to bind socket\n");
+        return 2;
+    }
+
+    freeaddrinfo(servinfo);
+
+    printf("listener: waiting to recvfrom...\n");
+
+    addr_len = sizeof their_addr;
+    if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN-1 , 0,
+        (struct sockaddr *)&amp;their_addr, &amp;addr_len)) == -1) {
+        perror("recvfrom");
+        exit(1);
+    }
+
+    printf("listener: got packet from %s\n",
+        inet_ntop(their_addr.ss_family,
+            get_in_addr((struct sockaddr *)&amp;their_addr),
+            s, sizeof s));
+    printf("listener: packet is %d bytes long\n", numbytes);
+    buf[numbytes] = '\0';
+    printf("listener: packet contains \"%s\"\n", buf);
+
+    close(sockfd);
+
+    return 0;
+}</pre>
+
+
+<p>Notice that in our call to <b><tt class="func">getaddrinfo()</tt></b> we're finally
+using <tt class="const">SOCK_DGRAM</tt>.  Also, note that there's no need to
+<b><tt class="func">listen()</tt></b> or <b><tt class="func">accept()</tt></b>.  This is one of the
+perks of using unconnected datagram sockets!</p>
+
+<p><a name="indexId434909-140"></a>Next comes the <a href="http://beej.us/guide/bgnet/examples/talker.c" target="_blank">source for <i><tt class="var">talker.c</tt></i></a>:</p>
+
+
+<pre class="code">/*
+** talker.c -- a datagram "client" demo
+*/
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;netdb.h&gt;
+
+#define SERVERPORT "4950"    // the port users will be connecting to
+
+int main(int argc, char *argv[])
+{
+    int sockfd;
+    struct addrinfo hints, *servinfo, *p;
+    int rv;
+    int numbytes;
+
+    if (argc != 3) {
+        fprintf(stderr,"usage: talker hostname message\n");
+        exit(1);
+    }
+
+    memset(&amp;hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_DGRAM;
+
+    if ((rv = getaddrinfo(argv[1], SERVERPORT, &amp;hints, &amp;servinfo)) != 0) {
+        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+        return 1;
+    }
+
+    // loop through all the results and make a socket
+    for(p = servinfo; p != NULL; p = p-&gt;ai_next) {
+        if ((sockfd = socket(p-&gt;ai_family, p-&gt;ai_socktype,
+                p-&gt;ai_protocol)) == -1) {
+            perror("talker: socket");
+            continue;
+        }
+
+        break;
+    }
+
+    if (p == NULL) {
+        fprintf(stderr, "talker: failed to bind socket\n");
+        return 2;
+    }
+
+    if ((numbytes = sendto(sockfd, argv[2], strlen(argv[2]), 0,
+             p-&gt;ai_addr, p-&gt;ai_addrlen)) == -1) {
+        perror("talker: sendto");
+        exit(1);
+    }
+
+    freeaddrinfo(servinfo);
+
+    printf("talker: sent %d bytes to %s\n", numbytes, argv[1]);
+    close(sockfd);
+
+    return 0;
+}</pre>
+
+
+
+<p>And that's all there is to it!  Run <b class="com">listener</b> on some
+machine, then run <b class="com">talker</b> on another.  Watch them communicate!
+Fun G-rated excitement for the entire nuclear family!</p>
+
+<p>You don't even have to run the server this time!  You can run
+<b class="com">talker</b> by itself, and it just happily fires packets off into
+the ether where they disappear if no one is ready with a
+<b><tt class="func">recvfrom()</tt></b> on the other side.  Remember: data sent using
+UDP datagram sockets isn't guaranteed to arrive!</p>
+
+<p>Except for one more tiny detail that I've mentioned many times in the
+past: <a name="indexId434909-141"></a>connected datagram
+sockets.  I need to talk about this here, since we're in the datagram
+section of the document.  Let's say that <b class="com">talker</b> calls
+<b><tt class="func">connect()</tt></b> and specifies the <b class="com">listener</b>'s address.
+From that point on, <b class="com">talker</b> may only sent to and receive from
+the address specified by <b><tt class="func">connect()</tt></b>.  For this reason, you
+don't have to use <b><tt class="func">sendto()</tt></b> and <b><tt class="func">recvfrom()</tt></b>; you
+can simply use <b><tt class="func">send()</tt></b> and <b><tt class="func">recv()</tt></b>.</p>
+
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="syscalls.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="advanced.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

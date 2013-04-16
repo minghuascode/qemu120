@@ -1,0 +1,356 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Intro</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="index.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="theory.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+
+<h2 class="sect1title">1. <a name="intro">Intro</a></h2><hr class="mainsecthr"/>
+
+
+<p>Hey!  Socket programming got you down?  Is this stuff just a little
+too difficult to figure out from the <b class="com">man</b> pages?  You want to
+do cool Internet programming, but you don't have time to wade through a
+gob of <nobr><tt class="type">struct</tt></nobr>s trying to figure out if you have to call
+<b><tt class="func">bind()</tt></b> before you <b><tt class="func">connect()</tt></b>, etc., etc.</p>
+
+<p>Well, guess what!  I've already done this nasty business, and I'm
+dying to share the information with everyone!  You've come to the right
+place.  This document should give the average competent C programmer the
+edge s/he needs to get a grip on this networking noise.</p>
+
+<p>And check it out: I've finally caught up with the future (just in the
+nick of time, too!) and have updated the Guide for IPv6!  Enjoy!</p>
+
+
+
+
+
+
+<h3 class="sect2title">1.1. <a name="audience">Audience</a></h3>
+
+
+<p>This document has been written as a tutorial, not a complete
+reference.  It is probably at its best when read by individuals who are
+just starting out with socket programming and are looking for a
+foothold.  It is certainly not the <i>complete and total</i> guide
+to sockets programming, by any means.</p>
+
+<p>Hopefully, though, it'll be just enough for those man pages to start
+making sense... <tt>:-)</tt></p>
+
+
+
+
+
+
+
+
+<h3 class="sect2title">1.2. <a name="platform">Platform and Compiler</a></h3>
+
+
+<p>The code contained within this document was compiled on a Linux PC
+using Gnu's <a name="indexId434909-2"></a><b class="com">gcc</b> compiler.  It
+should, however, build on just about any platform that uses
+<b class="com">gcc</b>.  Naturally, this doesn't apply if you're programming for
+Windows—see the <a href="intro.html#windows">section on Windows
+programming</a>, below.</p>
+
+
+
+
+
+
+
+
+<h3 class="sect2title">1.3. <a name="homepage">Official Homepage and Books For Sale</a></h3>
+
+
+<p>This official location of this document is <tt class="tt"><a href="http://beej.us/guide/bgnet/" target="_blank">http://beej.us/guide/bgnet/</a></tt>. There you will
+also find example code and translations of the guide into various
+languages.</p>
+
+<p>To buy nicely bound print copies (some call them "books"), visit
+<tt class="tt"><a href="http://beej.us/guide/url/bgbuy" target="_blank">http://beej.us/guide/url/bgbuy</a></tt>.  I'll appreciate the purchase
+because it helps sustain my document-writing lifestyle!</p>
+
+
+
+
+
+
+
+
+<h3 class="sect2title">1.4. <a name="solaris">Note for Solaris/SunOS Programmers</a></h3>
+
+
+<p>When compiling for <a name="indexId434909-3"></a>Solaris or <a name="indexId434909-4"></a>SunOS, you need to specify some extra command-line switches
+for linking in the proper libraries.  In order to do this, simply add
+"<tt class="tt"><nobr>-lnsl</nobr> <nobr>-lsocket</nobr> <nobr>-lresolv</nobr></tt>" to the end of the compile command,
+like so:</p>
+
+<pre class="screen">$ cc -o server server.c -lnsl -lsocket -lresolv</pre>
+
+
+<p>If you still get errors, you could try further adding a
+"<tt class="tt">-lxnet</tt>" to the end of that command line.  I don't know what
+that does, exactly, but some people seem to need it.</p>
+
+<p>Another place that you might find problems is in the call to
+<b><tt class="func">setsockopt()</tt></b>.  The prototype differs from that on my Linux
+box, so instead of:</p>
+
+<pre class="code">int yes=1;</pre>
+
+
+<p>enter this:</p>
+
+<pre class="code">char yes='1';</pre>
+
+
+<p>As I don't have a Sun box, I haven't tested any of the above
+information—it's just what people have told me through email.</p>
+
+
+
+
+
+
+
+
+<h3 class="sect2title">1.5. <a name="windows">Note for Windows Programmers</a></h3>
+
+
+<p>At this point in the guide, historically, I've done a bit of bagging
+on <a name="indexId434909-5"></a>Windows, simply due to the fact that I don't like
+it very much.  But I should really be fair and tell you that Windows has
+a huge install base and is obviously a perfectly fine operating
+system.</p>
+
+<p>They say absence makes the heart grow fonder, and in this case, I
+believe it to be true.  (Or maybe it's age.)  But what I can say is that
+after a decade-plus of not using Microsoft OSes for my personal work,
+I'm much happier!  As such, I can sit back and safely say, "Sure, feel
+free to use Windows!"  ...Ok yes, it does make me grit my teeth to say
+that.</p>
+
+<p>So I still encourage you to try <a name="indexId434909-6"></a><a href="http://www.linux.com/" target="_blank">Linux</a>, <a href="http://www.bsd.org/" target="_blank">BSD</a>, or
+some flavor of Unix, instead.</p>
+
+<p>But people like what they like, and you Windows folk will be pleased
+to know that this information is generally applicable to you guys, with
+a few minor changes, if any.</p>
+
+<p>One cool thing you can do is install <a name="indexId434909-7"></a><a href="http://www.cygwin.com/" target="_blank">Cygwin</a>, which is a collection of Unix tools
+for Windows.  I've heard on the grapevine that doing so allows all these
+programs to compile unmodified.</p>
+
+<p>But some of you might want to do things the Pure Windows Way.  That's
+very gutsy of you, and this is what you have to do: run out and get Unix
+immediately!  No, no—I'm kidding.  I'm supposed to be
+Windows-friendly(er) these days...</p>
+
+<p>This is what you'll have to do (unless you install <a href="http://www.cygwin.com/" target="_blank">Cygwin</a>!): first, ignore pretty
+much all of the system header files I mention in here.  All you need to
+include is:</p>
+
+<pre class="code"><a name="indexId434909-8"></a>#include &lt;winsock.h&gt;</pre>
+
+
+<p>Wait!  You also have to make a call to <a name="indexId434909-9"></a><b><tt class="func">WSAStartup()</tt></b> before doing anything else
+with the sockets library.  The code to do that looks something like
+this:</p>
+
+<pre class="code">#include &lt;winsock.h&gt;
+
+{
+    WSADATA wsaData;   // if this doesn't work
+    //WSAData wsaData; // then try this instead
+
+    // MAKEWORD(1,1) for Winsock 1.1, MAKEWORD(2,0) for Winsock 2.0:
+
+    if (WSAStartup(MAKEWORD(1,1), &amp;wsaData) != 0) {
+        fprintf(stderr, "WSAStartup failed.\n");
+        exit(1);
+    }</pre>
+
+
+<p>You also have to tell your compiler to link in the Winsock library,
+usually called <i><tt class="var">wsock32.lib</tt></i> or <i><tt class="var">winsock32.lib</tt></i>,
+or <i><tt class="var">ws2_32.lib</tt></i> for Winsock 2.0.  Under VC++, this can be
+done through the <tt class="tt">Project</tt> menu, under <tt class="tt">Settings...</tt>.
+Click the <tt class="tt">Link</tt> tab, and look for the box titled "Object/library
+modules".  Add "wsock32.lib" (or whichever lib is your preference) to
+that list.</p>
+
+<p>Or so I hear.</p>
+
+<p>Finally, you need to call <a name="indexId434909-10"></a><b><tt class="func">WSACleanup()</tt></b> when you're all through
+with the sockets library.  See your online help for details.</p>
+
+<p>Once you do that, the rest of the examples in this tutorial should
+generally apply, with a few exceptions.  For one thing, you can't use
+<b><tt class="func">close()</tt></b> to close a socket—you need to use <a name="indexId434909-11"></a><b><tt class="func">closesocket()</tt></b>, instead.  Also, <a name="indexId434909-12"></a><b><tt class="func">select()</tt></b> only works with socket
+descriptors, not file descriptors (like <tt class="const">0</tt> for
+<tt class="tt">stdin</tt>).</p>
+
+<p>There is also a socket class that you can use, <a name="indexId434909-13"></a><nobr><tt class="type">CSocket</tt></nobr>.  Check your compilers help pages
+for more information.</p>
+
+<p>To get more information about Winsock, read the <a name="indexId434909-14"></a><a href="http://tangentsoft.net/wskfaq/" target="_blank">Winsock FAQ</a> and go from
+there.</p>
+
+<p>Finally, I hear that Windows has no <a name="indexId434909-15"></a><b><tt class="func">fork()</tt></b> system call which is, unfortunately,
+used in some of my examples.  Maybe you have to link in a POSIX library
+or something to get it to work, or you can use <a name="indexId434909-16"></a><b><tt class="func">CreateProcess()</tt></b> instead.
+<b><tt class="func">fork()</tt></b> takes no arguments, and <b><tt class="func">CreateProcess()</tt></b>
+takes about 48 billion arguments.  If you're not up to that, the <a name="indexId434909-17"></a><b><tt class="func">CreateThread()</tt></b> is a little easier to
+digest...unfortunately a discussion about multithreading is beyond the
+scope of this document.  I can only talk about so much, you know!</p>
+
+
+
+
+
+
+
+
+<h3 class="sect2title">1.6. <a name="emailpolicy">Email Policy</a></h3>
+
+
+<p>I'm generally available to help out with <a name="indexId434909-18"></a>email questions so feel free to write in, but I can't guarantee a
+response.  I lead a pretty busy life and there are times when I just
+can't answer a question you have.  When that's the case, I usually just
+delete the message.  It's nothing personal; I just won't ever have the
+time to give the detailed answer you require.</p>
+
+<p>As a rule, the more complex the question, the less likely I am to
+respond.  If you can narrow down your question before mailing it and be
+sure to include any pertinent information (like platform, compiler,
+error messages you're getting, and anything else you think might help me
+troubleshoot), you're much more likely to get a response.  For more
+pointers, read ESR's document, <a href="http://www.catb.org/~esr/faqs/smart-questions.html" target="_blank">How To Ask
+Questions The Smart Way</a>.</p>
+
+<p>If you don't get a response, hack on it some more, try to find the
+answer, and if it's still elusive, then write me again with the
+information you've found and hopefully it will be enough for me to help
+out.</p>
+
+<p>Now that I've badgered you about how to write and not write me, I'd
+just like to let you know that I <i>fully</i> appreciate all the
+praise the guide has received over the years.  It's a real morale boost,
+and it gladdens me to hear that it is being used for good! <tt>:-)</tt>
+Thank you!</p>
+
+
+
+
+
+
+
+
+
+<h3 class="sect2title">1.7. <a name="mirroring">Mirroring</a></h3>
+
+
+<p><a name="indexId434909-19"></a>You are more than welcome to mirror this site,
+whether publicly or privately.  If you publicly mirror the site and want
+me to link to it from the main page, drop me a line at
+<tt class="email"><a href="mailto:beej@beej.us">beej@beej.us</a></tt>.</p>
+
+
+
+
+
+
+
+
+
+<h3 class="sect2title">1.8. <a name="xlate">Note for Translators</a></h3>
+
+
+<p><a name="indexId434909-20"></a>If you want to translate the guide into
+another language, write me at <tt class="email"><a href="mailto:beej@beej.us">beej@beej.us</a></tt> and I'll link to
+your translation from the main page. Feel free to add your name and
+contact info to the translation.</p>
+
+<p>Please note the license restrictions in the Copyright and
+Distribution section, below.</p>
+
+<p>If you want me to host the translation, just ask. I'll also link to
+it if you want to host it; either way is fine.</p>
+
+
+
+
+
+
+
+
+<h3 class="sect2title">1.9. <a name="copyright">Copyright and Distribution</a></h3>
+
+
+<p>Beej's Guide to Network Programming is Copyright &#xA9; 2012
+Brian "Beej Jorgensen" Hall.</p>
+
+<p>With specific exceptions for source code and translations, below,
+this work is licensed under the Creative Commons Attribution-
+Noncommercial- No Derivative Works 3.0 License. To view a copy of this
+license, visit <tt class="tt"><a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">http://creativecommons.org/licenses/by-nc-nd/3.0/</a></tt> or send a letter to Creative
+Commons, 171 Second Street, Suite 300, San Francisco, California, 94105,
+USA.</p>
+
+<p>One specific exception to the "No Derivative Works" portion of the
+license is as follows: this guide may be freely translated into any
+language, provided the translation is accurate, and the guide is
+reprinted in its entirety.  The same license restrictions apply to the
+translation as to the original guide.  The translation may also include
+the name and contact information for the translator.</p>
+
+<p>The C source code presented in this document is hereby granted to the
+public domain, and is completely free of any license restriction.</p>
+
+<p>Educators are freely encouraged to recommend or supply copies of this
+guide to their students.</p>
+
+<p>Contact <tt class="email"><a href="mailto:beej@beej.us">beej@beej.us</a></tt> for more information.</p>
+
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="index.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="theory.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>getaddrinfo(), freeaddrinfo(),
+gai_strerror()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="closeman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="gethostnameman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.5. <a name="getaddrinfoman"><b><tt class="titlefunc">getaddrinfo()</tt></b>, <b><tt class="titlefunc">freeaddrinfo()</tt></b>,
+<b><tt class="titlefunc">gai_strerror()</tt></b></a></h2></p>
+
+<p>Get information about a host name and/or service and load up a
+<nobr><tt class="type">struct sockaddr</tt></nobr> with the result.</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netdb.h&gt;
+
+int getaddrinfo(const char *nodename, const char *servname,
+                const struct addrinfo *hints, struct addrinfo **res);
+
+void freeaddrinfo(struct addrinfo *ai);
+
+const char *gai_strerror(int ecode);
+
+struct addrinfo {
+  int     ai_flags;          // AI_PASSIVE, AI_CANONNAME, ...
+  int     ai_family;         // AF_xxx
+  int     ai_socktype;       // SOCK_xxx
+  int     ai_protocol;       // 0 (auto) or IPPROTO_TCP, IPPROTO_UDP 
+
+  socklen_t  ai_addrlen;     // length of ai_addr
+  char   *ai_canonname;      // canonical name for nodename
+  struct sockaddr  *ai_addr; // binary address
+  struct addrinfo  *ai_next; // next structure in linked list
+};</pre>
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><b><tt class="func">getaddrinfo()</tt></b> is an excellent function that will return
+information on a particular host name (such as its IP address) and load
+up a <nobr><tt class="type">struct sockaddr</tt></nobr> for you, taking care of the gritty
+details (like if it's IPv4 or IPv6.)  It replaces the old functions
+<b><tt class="func">gethostbyname()</tt></b> and <b><tt class="func">getservbyname()</tt></b>.The
+description, below, contains a lot of information that might be a little
+daunting, but actual usage is pretty simple.  It might be worth it to
+check out the examples first.</p>
+
+<p>The host name that you're interested in goes in the
+<i><tt class="var">nodename</tt></i> parameter.  The address can be either a host
+name, like "www.example.com", or an IPv4 or IPv6 address (passed as a
+string).  This parameter can also be <tt class="const">NULL</tt> if you're using
+the <tt class="const">AI_PASSIVE</tt> flag (see below.)</p>
+
+<p>The <i><tt class="var">servname</tt></i> parameter is basically the port number.
+It can be a port number (passed as a string, like "80"), or it can be a
+service name, like "http" or "tftp" or "smtp" or "pop", etc.  Well-known
+service names can be found in the <a href="http://www.iana.org/assignments/port-numbers" target="_blank">IANA Port
+List</a> or in your <i><tt class="var">/etc/services</tt></i> file.</p>
+
+<p>Lastly, for input parameters, we have <i><tt class="var">hints</tt></i>.  This is
+really where you get to define what the <b><tt class="func">getaddinfo()</tt></b>
+function is going to do.  Zero the whole structure before use with
+<b><tt class="func">memset()</tt></b>.  Let's take a look at the fields you need to set
+up before use.</p>
+
+<p>The <i><tt class="var">ai_flags</tt></i> can be set to a variety of things, but
+here are a couple important ones.  (Multiple flags can be specified by
+bitwise-ORing them together with the <tt class="operator">|</tt> operator.)
+Check your man page for the complete list of flags.</p>
+
+<p><tt class="const">AI_CANONNAME</tt> causes the <i><tt class="var">ai_canonname</tt></i>
+of the result to the filled out with the host's canonical (real) name.
+<tt class="const">AI_PASSIVE</tt> causes the result's IP address to
+be filled out with <tt class="const">INADDR_ANY</tt> (IPv4)or
+<i><tt class="var">in6addr_any</tt></i> (IPv6); this causes a subsequent call to
+<b><tt class="func">bind()</tt></b> to auto-fill the IP address of the <nobr><tt class="type">struct
+sockaddr</tt></nobr> with the address of the current host.  That's excellent
+for setting up a server when you don't want to hardcode the address.</p>
+
+<p>If you do use the <tt class="const">AI_PASSIVE</tt>, flag, then you can pass
+<tt class="const">NULL</tt> in the <i><tt class="var">nodename</tt></i> (since
+<b><tt class="func">bind()</tt></b> will fill it in for you later.)</p>
+
+<p>Continuing on with the input paramters, you'll likely want to set
+<i><tt class="var">ai_family</tt></i> to <tt class="const">AF_UNSPEC</tt> which tells
+<b><tt class="func">getaddrinfo()</tt></b> to look for both IPv4 and IPv6 addresses.
+You can also restrict yourself to one or the other with
+<tt class="const">AF_INET</tt> or <tt class="const">AF_INET6</tt>.</p>
+
+<p>Next, the <i><tt class="var">socktype</tt></i> field should be set to
+<tt class="const">SOCK_STREAM</tt> or <tt class="const">SOCK_DGRAM</tt>, depending on
+which type of socket you want.</p>
+
+<p>Finally, just leave <i><tt class="var">ai_protocol</tt></i> at <tt class="const">0</tt> to
+automatically choose your protocol type.</p>
+
+<p>Now, after you get all that stuff in there, you can
+<i>finally</i> make the call to <b><tt class="func">getaddrinfo()</tt></b>!</p>
+
+<p>Of course, this is where the fun begins.  The <i><tt class="var">res</tt></i> will
+now point to a linked list of <nobr><tt class="type">struct addrinfo</tt></nobr>s, and you can
+go through this list to get all the addresses that match what you passed
+in with the hints.</p>
+
+<p>Now, it's possible to get some addresses that don't work for one
+reason or another, so what the Linux man page does is loops through the
+list doing a call to <b><tt class="func">socket()</tt></b> and <b><tt class="func">connect()</tt></b>
+(or <b><tt class="func">bind()</tt></b> if you're setting up a server with the
+<tt class="const">AI_PASSIVE</tt> flag) until it succeeds.</p>
+
+<p>Finally, when you're done with the linked list, you need to call
+<b><tt class="func">freeaddrinfo()</tt></b> to free up the memory (or it will be leaked,
+and Some People will get upset.)</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns zero on success, or nonzero on error.  If it returns nonzero,
+you can use the function <b><tt class="func">gai_strerror()</tt></b> to get a printable
+version of the error code in the return value.</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">// code for a client connecting to a server
+// namely a stream socket to www.example.com on port 80 (http)
+// either IPv4 or IPv6
+
+int sockfd;  
+struct addrinfo hints, *servinfo, *p;
+int rv;
+
+memset(&amp;hints, 0, sizeof hints);
+hints.ai_family = AF_UNSPEC; // use AF_INET6 to force IPv6
+hints.ai_socktype = SOCK_STREAM;
+
+if ((rv = getaddrinfo("www.example.com", "http", &amp;hints, &amp;servinfo)) != 0) {
+    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+    exit(1);
+}
+
+// loop through all the results and connect to the first we can
+for(p = servinfo; p != NULL; p = p-&gt;ai_next) {
+    if ((sockfd = socket(p-&gt;ai_family, p-&gt;ai_socktype,
+            p-&gt;ai_protocol)) == -1) {
+        perror("socket");
+        continue;
+    }
+
+    if (connect(sockfd, p-&gt;ai_addr, p-&gt;ai_addrlen) == -1) {
+        close(sockfd);
+        perror("connect");
+        continue;
+    }
+
+    break; // if we get here, we must have connected successfully
+}
+
+if (p == NULL) {
+    // looped off the end of the list with no connection
+    fprintf(stderr, "failed to connect\n");
+    exit(2);
+}
+
+freeaddrinfo(servinfo); // all done with this structure</pre>
+
+
+<p></p>
+<pre class="code">// code for a server waiting for connections
+// namely a stream socket on port 3490, on this host's IP
+// either IPv4 or IPv6.
+
+int sockfd;  
+struct addrinfo hints, *servinfo, *p;
+int rv;
+
+memset(&amp;hints, 0, sizeof hints);
+hints.ai_family = AF_UNSPEC; // use AF_INET6 to force IPv6
+hints.ai_socktype = SOCK_STREAM;
+hints.ai_flags = AI_PASSIVE; // use my IP address
+
+if ((rv = getaddrinfo(NULL, "3490", &amp;hints, &amp;servinfo)) != 0) {
+    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+    exit(1);
+}
+
+// loop through all the results and bind to the first we can
+for(p = servinfo; p != NULL; p = p-&gt;ai_next) {
+    if ((sockfd = socket(p-&gt;ai_family, p-&gt;ai_socktype,
+            p-&gt;ai_protocol)) == -1) {
+        perror("socket");
+        continue;
+    }
+
+    if (bind(sockfd, p-&gt;ai_addr, p-&gt;ai_addrlen) == -1) {
+        close(sockfd);
+        perror("bind");
+        continue;
+    }
+
+    break; // if we get here, we must have connected successfully
+}
+
+if (p == NULL) {
+    // looped off the end of the list with no successful bind
+    fprintf(stderr, "failed to bind socket\n");
+    exit(2);
+}
+
+freeaddrinfo(servinfo); // all done with this structure</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="gethostbynameman.html"><b><tt class="func">gethostbyname()</tt></b></a>,
+<a href="getnameinfoman.html"><b><tt class="func">getnameinfo()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="closeman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="gethostnameman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

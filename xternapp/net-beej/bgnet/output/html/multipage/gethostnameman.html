@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>gethostname()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="getaddrinfoman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="gethostbynameman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.6. <a name="gethostnameman"><b><tt class="titlefunc">gethostname()</tt></b></a></h2></p>
+
+<p>Returns the name of the system</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/unistd.h&gt;
+
+int gethostname(char *<i><tt class="var em1">name</tt></i>, size_t <i><tt class="var em1">len</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-235"></a>Your system has a name.  They all do.  This
+is a slightly more Unixy thing than the rest of the networky stuff we've
+been talking about, but it still has its uses.</p>
+
+<p>For instance, you can get your host name, and then call <a name="indexId434909-236"></a><b><tt class="func">gethostbyname()</tt></b> to find out your
+<a name="indexId434909-237"></a>IP address.</p>
+
+<p>The parameter <i><tt class="var">name</tt></i> should point to a buffer that will hold
+the host name, and <i><tt class="var">len</tt></i> is the size of that buffer in bytes.
+<b><tt class="func">gethostname()</tt></b> won't overwrite the end of the buffer (it
+might return an error, or it might just stop writing), and it will
+<tt class="const">NUL</tt>-terminate the string if there's room for it in the
+buffer.</p>
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns zero on success, or <tt class="const">-1</tt> on error (and
+<b><tt class="func">errno</tt></b> will be set accordingly.)</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">char hostname[128];
+
+gethostname(hostname, sizeof hostname);
+printf("My hostname: %s\n", hostname);</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="gethostbynameman.html"><b><tt class="func">gethostbyname()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="getaddrinfoman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="gethostbynameman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

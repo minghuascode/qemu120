@@ -1,0 +1,136 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>inet_ntoa(), inet_aton(),
+inet_addr</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="htonsman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="inet_ntopman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.13. <a name="inet_ntoaman"><b><tt class="titlefunc">inet_ntoa()</tt></b>, <b><tt class="titlefunc">inet_aton()</tt></b>,
+<b><tt class="titlefunc">inet_addr</tt></b></a></h2></p>
+
+<p>Convert IP addresses from a dots-and-number string to a
+<nobr><tt class="type">struct in_addr</tt></nobr> and back</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+
+// ALL THESE ARE DEPRECATED!  Use inet_pton()  or inet_ntop() instead!!
+
+char *inet_ntoa(struct in_addr <i><tt class="var em1">in</tt></i>);
+int inet_aton(const char *<i><tt class="var em1">cp</tt></i>, struct in_addr *<i><tt class="var em1">inp</tt></i>);
+in_addr_t inet_addr(const char *<i><tt class="var em1">cp</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><i>These functions are deprecated because they don't handle IPv6!
+Use <b><tt class="func">inet_ntop()</tt></b> or <b><tt class="func">inet_pton()</tt></b> instead!  They
+are included here because they can still be found in the wild.</i></p>
+
+<p><a name="indexId434909-264"></a><a name="indexId434909-265"></a><a name="indexId434909-266"></a>
+All of these functions convert from a <nobr><tt class="type">struct in_addr</tt></nobr> (part
+of your <nobr><tt class="type">struct sockaddr_in</tt></nobr>, most likely) to a string in
+dots-and-numbers format (e.g. "192.168.5.10") and vice-versa.  If you
+have an IP address passed on the command line or something, this is the
+easiest way to get a <nobr><tt class="type">struct in_addr</tt></nobr> to
+<b><tt class="func">connect()</tt></b> to, or whatever.  If you need more power, try
+some of the DNS functions like <b><tt class="func">gethostbyname()</tt></b> or attempt a
+<i>coup d'État</i> in your local country.</p>
+
+<p>The function <b><tt class="func">inet_ntoa()</tt></b> converts a network address in a
+<nobr><tt class="type">struct in_addr</tt></nobr> to a dots-and-numbers format string.  The
+"n" in "ntoa" stands for network, and the "a" stands for ASCII for
+historical reasons (so it's "Network To ASCII"—the "toa" suffix
+has an analogous friend in the C library called <b><tt class="func">atoi()</tt></b>
+which converts an ASCII string to an integer.)</p>
+
+<p>The function <b><tt class="func">inet_aton()</tt></b> is the opposite, converting
+from a dots-and-numbers string into a <nobr><tt class="type">in_addr_t</tt></nobr> (which is
+the type of the field <nobr><tt class="type">s_addr</tt></nobr> in your <nobr><tt class="type">struct
+in_addr</tt></nobr>.)</p>
+
+<p>Finally, the function <b><tt class="func">inet_addr()</tt></b> is an older function
+that does basically the same thing as <b><tt class="func">inet_aton()</tt></b>.  It's
+theoretically deprecated, but you'll see it a lot and the police won't
+come get you if you use it.</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p><b><tt class="func">inet_aton()</tt></b> returns non-zero if the address is a valid
+one, and it returns zero if the address is invalid.</p>
+
+<p><b><tt class="func">inet_ntoa()</tt></b> returns the dots-and-numbers string in a
+static buffer that is overwritten with each call to the function.</p>
+
+<p><b><tt class="func">inet_addr()</tt></b> returns the address as an
+<nobr><tt class="type">in_addr_t</tt></nobr>, or <tt class="const">-1</tt> if there's an error.  (That
+is the same result as if you tried to convert the string <a name="indexId434909-267"></a>"255.255.255.255", which is a valid IP address.
+This is why <b><tt class="func">inet_aton()</tt></b> is better.)</p>
+
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">struct sockaddr_in antelope;
+char *some_addr;
+
+inet_aton("10.0.0.1", &amp;antelope.sin_addr); // store IP in antelope
+
+some_addr = inet_ntoa(antelope.sin_addr); // return the IP
+printf("%s\n", some_addr); // prints "10.0.0.1"
+
+// and this call is the same as the inet_aton() call, above:
+antelope.sin_addr.s_addr = inet_addr("10.0.0.1");</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="inet_ntopman.html"><b><tt class="func">inet_ntop()</tt></b></a>,
+<a href="inet_ntopman.html"><b><tt class="func">inet_pton()</tt></b></a>,
+<a href="gethostbynameman.html"><b><tt class="func">gethostbyname()</tt></b></a>,
+<a href="gethostbynameman.html"><b><tt class="func">gethostbyaddr()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="htonsman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="inet_ntopman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

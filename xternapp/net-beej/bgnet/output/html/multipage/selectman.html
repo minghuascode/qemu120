@@ -1,0 +1,181 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>select()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="recvman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="setsockoptman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.19. <a name="selectman"><b><tt class="titlefunc">select()</tt></b></a></h2></p>
+
+<p>Check if sockets descriptors are ready to read/write</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/select.h&gt;
+
+int select(int <i><tt class="var em1">n</tt></i>, fd_set *<i><tt class="var em1">readfds</tt></i>, fd_set *<i><tt class="var em1">writefds</tt></i>, fd_set *<i><tt class="var em1">exceptfds</tt></i>,
+           struct timeval *<i><tt class="var em1">timeout</tt></i>);
+
+FD_SET(int <i><tt class="var em1">fd</tt></i>, fd_set *<i><tt class="var em1">set</tt></i>);
+FD_CLR(int <i><tt class="var em1">fd</tt></i>, fd_set *<i><tt class="var em1">set</tt></i>);
+FD_ISSET(int <i><tt class="var em1">fd</tt></i>, fd_set *<i><tt class="var em1">set</tt></i>);
+FD_ZERO(fd_set *<i><tt class="var em1">set</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-284"></a>The <b><tt class="func">select()</tt></b> function gives you a
+way to simultaneously check multiple sockets to see if they have data
+waiting to be <b><tt class="func">recv()</tt></b>d, or if you can <b><tt class="func">send()</tt></b>
+data to them without blocking, or if some exception has occurred.</p>
+
+<p>You populate your sets of socket descriptors using the macros, like
+<b><tt class="func">FD_SET()</tt></b>, above.  Once you have the set, you pass it into
+the function as one of the following parameters: <i><tt class="var">readfds</tt></i> if
+you want to know when any of the sockets in the set is ready to
+<b><tt class="func">recv()</tt></b> data, <i><tt class="var">writefds</tt></i> if any of the sockets is
+ready to <b><tt class="func">send()</tt></b> data to, and/or <i><tt class="var">exceptfds</tt></i> if you
+need to know when an exception (error) occurs on any of the sockets.
+Any or all of these parameters can be <tt class="const">NULL</tt> if you're not
+interested in those types of events.  After <b><tt class="func">select()</tt></b>
+returns, the values in the sets will be changed to show which are ready
+for reading or writing, and which have exceptions.</p>
+
+<p>The first parameter, <i><tt class="var">n</tt></i> is the highest-numbered socket
+descriptor (they're just <nobr><tt class="type">int</tt></nobr>s, remember?) plus one.</p>
+
+<p>Lastly, the <a name="indexId434909-285"></a><nobr><tt class="type">struct timeval</tt></nobr>,
+<i><tt class="var">timeout</tt></i>, at the end—this lets you tell
+<b><tt class="func">select()</tt></b> how long to check these sets for.  It'll return
+after the timeout, or when an event occurs, whichever is first.  The
+<nobr><tt class="type">struct timeval</tt></nobr> has two fields: <i><tt class="var">tv_sec</tt></i> is the
+number of seconds, to which is added <i><tt class="var">tv_usec</tt></i>, the number of
+microseconds (1,000,000 microseconds in a second.)</p>
+
+<p>The helper macros do the following:</p>
+
+<p><center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="50%%"><p><a name="indexId434909-286"></a><b><tt class="func">FD_SET(int fd, fd_set *set);</tt></b></p></td>
+
+<td valign="top" align="left" width="48%%"><p>Add <i><tt class="var">fd</tt></i> to the <i><tt class="var">set</tt></i>.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-287"></a><b><tt class="func">FD_CLR(int fd, fd_set *set);</tt></b></p></td>
+
+<td valign="top" align="left"><p>Remove <i><tt class="var">fd</tt></i> from the <i><tt class="var">set</tt></i>.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-288"></a><b><tt class="func">FD_ISSET(int fd, fd_set *set);</tt></b></p></td>
+
+<td valign="top" align="left"><p>Return true if <i><tt class="var">fd</tt></i> is in the
+<i><tt class="var">set</tt></i>.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-289"></a><b><tt class="func">FD_ZERO(fd_set *set);</tt></b></p></td>
+
+<td valign="top" align="left"><p>Clear all entries from the <i><tt class="var">set</tt></i>.</p></td>
+</tr>
+
+</table></center>
+</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns the number of descriptors in the set on success,
+<tt class="const">0</tt> if the timeout was reached, or <tt class="const">-1</tt> on
+error (and <b><tt class="func">errno</tt></b> will be set accordingly.)  Also, the sets
+are modified to show which sockets are ready.</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">int s1, s2, n;
+fd_set readfds;
+struct timeval tv;
+char buf1[256], buf2[256];
+
+// pretend we've connected both to a server at this point
+//s1 = socket(...);
+//s2 = socket(...);
+//connect(s1, ...)...
+//connect(s2, ...)...
+
+// clear the set ahead of time
+FD_ZERO(&amp;readfds);
+
+// add our descriptors to the set
+FD_SET(s1, &amp;readfds);
+FD_SET(s2, &amp;readfds);
+
+// since we got s2 second, it's the "greater", so we use that for
+// the n param in select()
+n = s2 + 1;
+
+// wait until either socket has data ready to be recv()d (timeout 10.5 secs)
+tv.tv_sec = 10;
+tv.tv_usec = 500000;
+rv = select(n, &amp;readfds, NULL, NULL, &amp;tv);
+
+if (rv == -1) {
+    perror("select"); // error occurred in select()
+} else if (rv == 0) {
+    printf("Timeout occurred!  No data after 10.5 seconds.\n");
+} else {
+    // one or both of the descriptors have data
+    if (FD_ISSET(s1, &amp;readfds)) {
+        recv(s1, buf1, sizeof buf1, 0);
+    }
+    if (FD_ISSET(s2, &amp;readfds)) {
+        recv(s1, buf2, sizeof buf2, 0);
+    }
+}</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="pollman.html"><b><tt class="func">poll()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="recvman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="setsockoptman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>fcntl()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="errnoman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="htonsman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.11. <a name="fcntlman"><b><tt class="titlefunc">fcntl()</tt></b></a></h2></p>
+
+<p>Control socket descriptors</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/unistd.h&gt;
+#include &lt;sys/fcntl.h&gt;
+
+int fcntl(int <i><tt class="var em1">s</tt></i>, int <i><tt class="var em1">cmd</tt></i>, long <i><tt class="var em1">arg</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-250"></a>This function is typically used to do file locking
+and other file-oriented stuff, but it also has a couple socket-related
+functions that you might see or use from time to time.</p>
+
+<p>Parameter <i><tt class="var">s</tt></i> is the socket descriptor you wish to operate
+on, <i><tt class="var">cmd</tt></i> should be set to <a name="indexId434909-251"></a><tt class="const">F_SETFL</tt>, and <i><tt class="var">arg</tt></i> can be one of
+the following commands.  (Like I said, there's more to
+<b><tt class="func">fcntl()</tt></b> than I'm letting on here, but I'm trying to stay
+socket-oriented.)</p>
+
+<p><center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="20%%"><p><a name="indexId434909-252"></a><tt class="const">O_NONBLOCK</tt></p></td>
+
+<td valign="top" align="left" width="73%%"><p>Set the socket to be non-blocking.  See the section on
+<a href="advanced.html#blocking">blocking</a> for more details.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><a name="indexId434909-253"></a><tt class="const">O_ASYNC</tt></p></td>
+
+<td valign="top" align="left"><p>Set the socket to do asynchronous I/O.  When data is
+ready to be <b><tt class="func">recv()</tt></b>'d on the socket, the signal <a name="indexId434909-254"></a><tt class="const">SIGIO</tt> will be raised.  This is rare to see,
+and beyond the scope of the guide.  And I think it's only available on
+certain systems.</p></td>
+</tr>
+
+
+</table></center>
+</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns zero on success, or <tt class="const">-1</tt> on error (and
+<b><tt class="func">errno</tt></b> will be set accordingly.)</p>
+
+<p>Different uses of the <b><tt class="func">fcntl()</tt></b> system call actually have
+different return values, but I haven't covered them here because they're
+not socket-related.  See your local <b><tt class="func">fcntl()</tt></b> man page for
+more information.</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">int s = socket(PF_INET, SOCK_STREAM, 0);
+
+fcntl(s, F_SETFL, O_NONBLOCK);  // set to non-blocking
+fcntl(s, F_SETFL, O_ASYNC);     // set to asynchronous I/O</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="advanced.html#blocking">Blocking</a>,
+<a href="sendman.html"><b><tt class="func">send()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="errnoman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="htonsman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

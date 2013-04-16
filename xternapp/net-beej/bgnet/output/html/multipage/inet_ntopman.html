@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>inet_ntop(), inet_pton()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="inet_ntoaman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="listenman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.14. <a name="inet_ntopman"><b><tt class="titlefunc">inet_ntop()</tt></b>, <b><tt class="titlefunc">inet_pton()</tt></b></a></h2></p>
+
+<p>Convert IP addresses to human-readable form and
+back.</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;arpa/inet.h&gt;
+
+const char *inet_ntop(int af, const void *src,
+                      char *dst, socklen_t size);
+
+int inet_pton(int af, const char *src, void *dst);</pre>
+
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p>These functions are for dealing with human-readable IP addresses and
+converting them to their binary representation for use with various
+functions and system calls.  The "n" stands for "network", and "p" for
+"presentation".  Or "text presentation".  But you can think of it as
+"printable".  "ntop" is "network to printable".  See?</p>
+
+<p>Sometimes you don't want to look at a pile of binary numbers when
+looking at an IP address.  You want it in a nice printable form, like
+<tt class="tt">192.0.2.180</tt>, or <tt class="tt">2001:db8:8714:3a90::12</tt>.  In that case,
+<b><tt class="func">inet_ntop()</tt></b> is for you.</p>
+
+<p><b><tt class="func">inet_ntop()</tt></b> takes the address family in the
+<i><tt class="var">af</tt></i> parameter (either <tt class="const">AF_INET</tt> or
+<tt class="const">AF_INET6</tt>).  The <i><tt class="var">src</tt></i> parameter should be a
+pointer to either a <nobr><tt class="type">struct in_addr</tt></nobr> or <nobr><tt class="type">struct
+in6_addr</tt></nobr> containing the address you wish to convert to a string.
+Finally <i><tt class="var">dst</tt></i> and <i><tt class="var">size</tt></i> are the pointer to
+the destination string and the maximum length of that string.</p>
+
+<p>What should the maximum length of the <i><tt class="var">dst</tt></i> string be?
+What is the maximum length for IPv4 and IPv6 addresses?  Fortunately
+there are a couple of macros to help you out.  The maximum lengths are:
+<tt class="const">INET_ADDRSTRLEN</tt> and <tt class="const">INET6_ADDRSTRLEN</tt>.</p>
+
+<p>Other times, you might have a string containing an IP address in
+readable form, and you want to pack it into a <nobr><tt class="type">struct
+sockaddr_in</tt></nobr> or a <nobr><tt class="type">struct sockaddr_in6</tt></nobr>.  In that case,
+the opposite funcion <b><tt class="func">inet_pton()</tt></b> is what you're after.</p>
+
+<p><b><tt class="func">inet_pton()</tt></b> also takes an address family (either
+<tt class="const">AF_INET</tt> or <tt class="const">AF_INET6</tt>) in the
+<i><tt class="var">af</tt></i> parameter.  The <i><tt class="var">src</tt></i> parameter is a
+pointer to a string containing the IP address in printable form.  Lastly
+the <i><tt class="var">dst</tt></i> parameter points to where the result should be
+stored, which is probably a <nobr><tt class="type">struct in_addr</tt></nobr> or <nobr><tt class="type">struct
+in6_addr</tt></nobr>.</p>
+
+<p>These functions don't do DNS lookups—you'll need
+<b><tt class="func">getaddinfo()</tt></b> for that.</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p><b><tt class="func">inet_ntop()</tt></b> returns the <i><tt class="var">dst</tt></i> parameter on
+success, or <tt class="const">NULL</tt> on failure (and <i><tt class="var">errno</tt></i> is
+set).</p>
+
+<p><b><tt class="func">inet_pton()</tt></b> returns <tt class="const">1</tt> on success.  It
+returns <tt class="const">-1</tt> if there was an error (<i><tt class="var">errno</tt></i> is
+set), or <tt class="const">0</tt> if the input isn't a valid IP address.</p>
+
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">// IPv4 demo of inet_ntop() and inet_pton()
+
+struct sockaddr_in sa;
+char str[INET_ADDRSTRLEN];
+
+// store this IP address in sa:
+inet_pton(AF_INET, "192.0.2.33", &amp;(sa.sin_addr));
+
+// now get it back and print it
+inet_ntop(AF_INET, &amp;(sa.sin_addr), str, INET_ADDRSTRLEN);
+
+printf("%s\n", str); // prints "192.0.2.33"</pre>
+
+
+<pre class="code">// IPv6 demo of inet_ntop() and inet_pton()
+// (basically the same except with a bunch of 6s thrown around)
+
+struct sockaddr_in6 sa;
+char str[INET6_ADDRSTRLEN];
+
+// store this IP address in sa:
+inet_pton(AF_INET6, "2001:db8:8714:3a90::12", &amp;(sa.sin6_addr));
+
+// now get it back and print it
+inet_ntop(AF_INET6, &amp;(sa.sin6_addr), str, INET6_ADDRSTRLEN);
+
+printf("%s\n", str); // prints "2001:db8:8714:3a90::12"</pre>
+
+<pre class="code">// Helper function you can use:
+
+//Convert a struct sockaddr address to a string, IPv4 and IPv6:
+
+char *get_ip_str(const struct sockaddr *sa, char *s, size_t maxlen)
+{
+    switch(sa-&gt;sa_family) {
+        case AF_INET:
+            inet_ntop(AF_INET, &amp;(((struct sockaddr_in *)sa)-&gt;sin_addr),
+                    s, maxlen);
+            break;
+
+        case AF_INET6:
+            inet_ntop(AF_INET6, &amp;(((struct sockaddr_in6 *)sa)-&gt;sin6_addr),
+                    s, maxlen);
+            break;
+
+        default:
+            strncpy(s, "Unknown AF", maxlen);
+            return NULL;
+    }
+
+    return s;
+}</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="getaddrinfoman.html"><b><tt class="func">getaddrinfo()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="inet_ntoaman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="listenman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

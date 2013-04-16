@@ -1,0 +1,118 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>getnameinfo()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="gethostbynameman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="getpeernameman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.8. <a name="getnameinfoman"><b><tt class="titlefunc">getnameinfo()</tt></b></a></h2></p>
+
+<p>Look up the host name and service name information for a given
+<nobr><tt class="type">struct sockaddr</tt></nobr>.</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/socket.h&gt;
+#include &lt;netdb.h&gt;
+
+int getnameinfo(const struct sockaddr *sa, socklen_t salen,
+                char *host, size_t hostlen,
+                char *serv, size_t servlen, int flags);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p>This function is the opposite of <b><tt class="func">getaddrinfo()</tt></b>, that is,
+this function takes an already loaded <nobr><tt class="type">struct sockaddr</tt></nobr> and
+does a name and service name lookup on it.  It replaces the old
+<b><tt class="func">gethostbyaddr()</tt></b> and <b><tt class="func">getservbyport()</tt></b>
+functions.</p>
+
+<p>You have to pass in a pointer to a <nobr><tt class="type">struct sockaddr</tt></nobr>
+(which in actuality is probably a <nobr><tt class="type">struct sockaddr_in</tt></nobr> or
+<nobr><tt class="type">struct sockaddr_in6</tt></nobr> that you've cast) in the
+<i><tt class="var">sa</tt></i> parameter, and the length of that <nobr><tt class="type">struct</tt></nobr>
+in the <i><tt class="var">salen</tt></i>.</p>
+
+<p>The resultant host name and service name will be written to the area
+pointed to by the <i><tt class="var">host</tt></i> and <i><tt class="var">serv</tt></i>
+parameters.  Of course, you have to specify the max lengths of these
+buffers in <i><tt class="var">hostlen</tt></i> and <i><tt class="var">servlen</tt></i>.</p>
+
+<p>Finally, there are several flags you can pass, but here a a couple
+good ones.  <tt class="const">NI_NOFQDN</tt> will cause the <i><tt class="var">host</tt></i>
+to only contain the host name, not the whole domain name.
+<tt class="const">NI_NAMEREQD</tt> will cause the function to fail if the name
+cannot be found with a DNS lookup (if you don't specify this flag and
+the name can't be found, <b><tt class="func">getnameinfo()</tt></b> will put a string
+version of the IP address in <i><tt class="var">host</tt></i> instead.)</p>
+
+<p>As always, check your local man pages for the full scoop.</p>
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p>Returns zero on success, or non-zero on error.  If the return value
+is non-zero, it can be passed to <b><tt class="func">gai_strerror()</tt></b> to get a
+human-readable string.  See <b><tt class="func">getaddrinfo</tt></b> for more
+information.</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">struct sockaddr_in6 sa; // could be IPv4 if you want
+char host[1024];
+char service[20];
+
+// pretend sa is full of good information about the host and port...
+
+getnameinfo(&amp;sa, sizeof sa, host, sizeof host, service, sizeof service, 0);
+
+printf("   host: %s\n", host);    // e.g. "www.example.com"
+printf("service: %s\n", service); // e.g. "http"
+</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="getaddrinfoman.html"><b><tt class="func">getaddrinfo()</tt></b></a>,
+<a href="gethostbynameman.html"><b><tt class="func">gethostbyaddr()</tt></b></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="gethostbynameman.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="getpeernameman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>

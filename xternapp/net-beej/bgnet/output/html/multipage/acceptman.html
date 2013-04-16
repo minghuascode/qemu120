@@ -1,0 +1,158 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>accept()</title>
+<link rel="stylesheet" href="bgnet.css" type="text/css">
+</head>
+
+<body bgcolor="#ffffff">
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="man.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="bindman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+<div id="adsense">
+<script type="text/javascript"><!--
+google_ad_client = "pub-8191228291510015";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text";
+//2007-05-05: bgnet
+google_ad_channel = "6194029036";
+google_color_border = "336699";
+google_color_bg = "FFFFFF";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div><br/>
+
+<p><h2 class="sect1title">9.1. <a name="acceptman"><b><tt class="titlefunc">accept()</tt></b></a></h2></p>
+
+<p>Accept an incoming connection on a listening socket</p>
+
+<h3 class="sect2title">Prototypes</h3>
+
+<pre class="code">#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+
+int accept(int <i><tt class="var em1">s</tt></i>, struct sockaddr *<i><tt class="var em1">addr</tt></i>, socklen_t *<i><tt class="var em1">addrlen</tt></i>);</pre>
+
+
+
+<h3 class="sect2title">Description</h3>
+
+<p><a name="indexId434909-219"></a>Once you've gone through the trouble of getting a
+<a name="indexId434909-220"></a><tt class="const">SOCK_STREAM</tt> socket and setting it
+up for incoming connections with <b><tt class="func">listen()</tt></b>, then you call
+<b><tt class="func">accept()</tt></b> to actually get yourself a new socket descriptor
+to use for subsequent communication with the newly connected client.</p>
+
+<p>The old socket that you are using for listening is still there, and
+will be used for further <b><tt class="func">accept()</tt></b> calls as they come
+in.</p>
+
+<p>
+<center><table cellpadding="10" cellspacing="0" border="0" class="joetable">
+
+<tr><td valign="top" align="left" width="20%%"><p><i><tt class="var">s</tt></i></p></td>
+
+<td valign="top" align="left" width="78%%"><p>The <b><tt class="func">listen()</tt></b>ing socket descriptor.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><i><tt class="var">addr</tt></i></p></td>
+
+<td valign="top" align="left"><p>This is filled in with the address of the site that's
+connecting to you.</p></td>
+</tr>
+
+
+<tr><td valign="top" align="left"><p><i><tt class="var">addrlen</tt></i></p></td>
+
+<td valign="top" align="left"><p>This is filled in with the <b><tt class="func">sizeof()</tt></b> the
+structure returned in the <i><tt class="var">addr</tt></i> parameter.  You can safely
+ignore it if you assume you're getting a <a name="indexId434909-221"></a>
+<nobr><tt class="type">struct
+sockaddr_in</tt></nobr> back, which you know you are, because that's the type
+you passed in for <i><tt class="var">addr</tt></i>.</p></td>
+</tr>
+
+</table></center>
+
+</p>
+
+<p><b><tt class="func">accept()</tt></b> will normally block, and you can use
+<b><tt class="func">select()</tt></b> to peek on the listening socket descriptor ahead
+of time to see if it's "ready to read".  If so, then there's a new
+connection waiting to be <b><tt class="func">accept()</tt></b>ed!  Yay!  Alternatively,
+you could set the <a name="indexId434909-222"></a><tt class="const">O_NONBLOCK</tt> flag
+on the listening socket using <a name="indexId434909-223"></a><b><tt class="func">fcntl()</tt></b>,
+and then it will never block, choosing instead to return
+<tt class="const">-1</tt> with <i><tt class="var">errno</tt></i> set to <a name="indexId434909-224"></a><tt class="const">EWOULDBLOCK</tt>.</p>
+
+<p>The socket descriptor returned by <b><tt class="func">accept()</tt></b> is a bona
+fide socket descriptor, open and connected to the remote host.  You have
+to <b><tt class="func">close()</tt></b> it when you're done with it.</p>
+
+
+
+<h3 class="sect2title">Return Value</h3>
+
+<p><b><tt class="func">accept()</tt></b> returns the newly connected socket descriptor,
+or <tt class="const">-1</tt> on error, with <i><tt class="var">errno</tt></i> set
+appropriately.</p>
+
+
+<h3 class="sect2title">Example</h3>
+
+<pre class="code">struct sockaddr_storage their_addr;
+socklen_t addr_size;
+struct addrinfo hints, *res;
+int sockfd, new_fd;
+
+// first, load up address structs with getaddrinfo():
+
+memset(&amp;hints, 0, sizeof hints);
+hints.ai_family = AF_UNSPEC;  // use IPv4 or IPv6, whichever
+hints.ai_socktype = SOCK_STREAM;
+hints.ai_flags = AI_PASSIVE;     // fill in my IP for me
+
+getaddrinfo(NULL, MYPORT, &amp;hints, &amp;res);
+
+// make a socket, bind it, and listen on it:
+
+sockfd = socket(res-&gt;ai_family, res-&gt;ai_socktype, res-&gt;ai_protocol);
+bind(sockfd, res-&gt;ai_addr, res-&gt;ai_addrlen);
+listen(sockfd, BACKLOG);
+
+// now accept an incoming connection:
+
+addr_size = sizeof their_addr;
+new_fd = accept(sockfd, (struct sockaddr *)&amp;their_addr, &amp;addr_size);
+
+// ready to communicate on socket descriptor new_fd!</pre>
+
+
+
+<h3 class="sect2title">See Also</h3>
+
+<p><a href="socketman.html"><b><tt class="func">socket()</tt></b></a>,
+<a href="getaddrinfoman.html"><b><tt class="func">getaddrinfo()</tt></b></a>,
+<a href="listenman.html"><b><tt class="func">listen()</tt></b></a>,
+<a href="sockaddr_inman.html"><nobr><tt class="type">struct sockaddr_in</tt></nobr></a></p>
+
+
+<table width="100%" border="0" cellspacing="0"cellpadding="0" class="navtable">
+<tr>
+<td align="left"><a href="man.html">&lt;&lt;&nbsp;Prev</a></td>
+<td align="center"><a href="index.html">Beej's Guide to Network Programming</a></td><td align="right"><a href="bindman.html">Next&nbsp;&gt;&gt;</a></td>
+</tr></table>
+
+</body>
+</html>
