@@ -38,7 +38,7 @@ $mib->{'do_imports'} = 1;
 
 #exit if $file;
 
-$file = 'IF-MIB' if ( ! -f $file ); #default file IF-MIB
+$file = 'IF-MIB' if ( ! defined($file) || ! -f $file ); #default file IF-MIB
 die 'Error file $file\n' if ( ! -f $file );
 
 my $rc = $mib->compile($file);

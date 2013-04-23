@@ -45,6 +45,9 @@ $VERSION = 0.06;
 $DEBUG   = 1; # no longer used
 
 ######################################################################
+my $gen_string_size_cfg = 1;
+
+######################################################################
 # ASN1 items. (See Rec. X.208 §8)
 
 # Type references (§8.2)
@@ -481,6 +484,7 @@ sub initialize {
 
   # should we import dependencies ?
   $self->{'do_imports'} = 1;
+  $self->{'gen_string_size'} = $gen_string_size_cfg;
 }
 
 sub assert {
@@ -2389,11 +2393,42 @@ sub tree {
     $type = $self->{'nodes'}{$new}{'syntax'}{'type'} if
       defined $self->{'nodes'}{$new}{'syntax'} &&
 	defined $self->{'nodes'}{$new}{'syntax'}{'type'};
+	  my $gen_save_rawtype = $type;
     if ($type) {
       $type = $self->resolve_type($type);
+	  my $gen_save_resolved = ( defined $$treetypes{$type} ? $$treetypes{$type} : "");
       $type = sprintf "%-8.8s ", defined $$treetypes{$type} ?
 	$$treetypes{$type} : $type;
       $type = "" if $type =~ m/^\s+$/o;
+	if ( $self->{'gen_string_size'} ) {
+
+	  if ( defined $self->{'nodes'}{$new}{'syntax'} &&
+	       defined $self->{'nodes'}{$new}{'syntax'}{'size'} && 
+	       defined $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'} && 
+	       defined $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'}{'min'} && 
+	       defined $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'}{'max'}    ) {
+
+	    $type .= sprintf "  StringSize[%04d-%04d]   ", 
+	               $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'}{'min'}, 
+	               $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'}{'max'};
+	  }
+	  elsif ( defined $self->{'nodes'}{$new}{'type'} &&
+	          $gen_save_resolved eq 'String' ) {
+
+	    if ( defined $self->{'types'}{$gen_save_rawtype} &&
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'} && 
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'} && 
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'} && 
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'min'} && 
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'max'}   ) {
+	      $type .= sprintf "  StringSize[%04d-%04d]   ", 
+	             $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'min'},
+	             $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'max'};
+            } else {
+	      $type .= sprintf "  StringSize[unknown]   ";
+	    }
+	  }
+	}
     }
     $s .= $access . $type . $new . '(' . $n . ")\n";
     if (defined $self->{'tree'}{$new}) {
