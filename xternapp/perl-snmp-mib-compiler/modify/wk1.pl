@@ -44,6 +44,7 @@ die 'Error file $file\n' if ( ! -f $file );
 my $rc = $mib->compile($file);
 if ( $rc ) {
     print $mib->tree('ifMIB');
+    print $mib->tree('interfaces');
 }
 
 die 'Error compile file $file\n' if ( ! $rc );
