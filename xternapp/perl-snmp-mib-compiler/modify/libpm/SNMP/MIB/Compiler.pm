@@ -2432,7 +2432,7 @@ sub tree {
 	             $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'min'},
 	             $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'max'};
             } else {
-	      $type .= sprintf "  StringSize[unknown]   ";
+	      $type .= sprintf "  %sStringSize[unknown]   ", $px;
 	    }
 	  }
 	} # if gen_string_size
@@ -2519,7 +2519,7 @@ sub tree {
 
     }
 	if ( $self->{'gen_prefix_lptan'} ) {
-    $s .= " A".$access . " T".$type . " N".$new . '(' . $n . ")\n";
+    $s .= " P".$access . " T".$type . " N".$new . '(' . $n . ")\n";
 	} else {
     $s .= $access . $type . $new . '(' . $n . ")\n";
 	}

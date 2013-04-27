@@ -43,8 +43,12 @@ die 'Error file $file\n' if ( ! -f $file );
 
 my $rc = $mib->compile($file);
 if ( $rc ) {
-    print $mib->tree('ifMIB');
-    print $mib->tree('interfaces');
+    my $fh = undef;
+    open $fh, ">", $file."-tree" || die "Error output file $file"."-tree";
+    print $fh "OK compile file $file\n";
+    print $fh $mib->tree('ifMIB');
+    print $fh $mib->tree('interfaces');
+    close $fh;
 }
 
 die 'Error compile file $file\n' if ( ! $rc );
