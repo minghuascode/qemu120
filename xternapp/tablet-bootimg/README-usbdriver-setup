@@ -26,3 +26,17 @@ Depending on file location, you may have to save as and replace the file
 with admin. permissions. Execute adb kill-server before testing. 
 
 
+USB Driver on Ubuntu 12.04
+===========================
+RK2928 Polaroid PMID 706
+
+    $ cat /etc/udev/rules.d/51-android.rules 
+    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="207/*", MODE="0666"
+    SUBSYSTEM=="usb", SYSFS{idVendor}=="207", MODE="0666"
+    
+    $ cat ~/.android/adb_usb.ini 
+    0x2207
+
+Use 2207:0010 for adb mode.
+Use 2207:292a for ?? mode.
+
