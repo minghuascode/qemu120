@@ -1,0 +1,135 @@
+
+http://rhombus-tech.net/allwinner_a10/a10_boot_process/
+ Rhombus-Tech/ allwinner a10/ a10 boot process 
+
+
+This page describe how the stock firmware(a livesuite image) of A10 products boots.
+A10 boot overview
+
+A10 is a quite 'closed chip'. There is a brom in the chip, which can not be modified. This brom will load program from external storage(nand, mmc), which is called boot0 in allwinner. Brom will check the header of boot0, and get hardware information from boot0. The hardware information is in a config file called sys_config.fex. A pc tools will read the config file, and write the hardware information to the head of boot0. After boot0 is booted up, it will continue to load another loader boot1, boot1 init all other hardware and provides hardware abstracts and services. According to the boot OS, boot1 loads an arm elf program, boot.axf. For booting linux, boot.axf loads the u-boot and jumps to the u-boot. Then u-boot will take over.
+
+So, the whole boot process is: brom -> boot0 -> boot1 -> boot.axf -> u-boot -> kernel
+
+
+BROM
+
+Brom in A10 is at the address 0xFFFF0000, After power up, arm core will fetch the first instruction at 0xFFFF0000 and execute it. The brom code contains two parts, one is the normal boot, the other is a block of code called FEL, which is mainly a USB communication program with host pc. Steps of brom boot:
+
+    Check the status of one pin (the bsp pin), if the pin is low, jump to FEL, waiting host command through usb, usually communicate with a pc tool livesuite to update the firmware in nand flash. This pin can be accessible by a button marked as Recovery or RECV on tablets.
+
+    Load 4k data from sdcard slot 0 beginning at offset 8k to the internal sram, check if the data has a magic string, if so, it's a boot0 head. Get boot0 size from the boot0 head, and load the whole boot0. If the checksum of boot0 is ok, will jump to boot0. Any of above is wrong, will jump to FEL.
+
+    Similar to 2, load boot0 from nand flash. First load the first page of nand flash, check the magic string, get the boot0 size, load the whole boot0, and jump to boot0.
+
+    Almost the same as step 2, except that boot0 is loaded from sdcard slot 2.
+
+boot.axf
+
+The closed-source boot.axf bootloader that is included by default on the Android firmwares reads its configuration from the first NAND partition (boot). It can boot both u-boot and a stripped Linux kernel called bImage by the build scripts, which can be obtained by running:
+
+arm-linux-gnueabi-objcopy -R .note.gnu.build-id -S -O binary vmlinux output/bImage
+
+The default structure of a BOOT partition is the following one:
+
+./boot.axf
+./boot.ini
+./drv_de.drv
+./font24.sft
+./font32.sft
+./linux
+./linux/bImage
+./linux/linux.ini
+./linux/params
+./linux/paramsr
+./linux/recovery.ini
+./magic.bin
+./os_show
+./os_show/battery.bmp
+./os_show/empty.bmp
+./os_show/full.bmp
+./os_show/head.bmp
+./os_show/linux1.bmp
+./os_show/linux2.bmp
+./os_show/low_pwr.bmp
+./os_show/melis1.bmp
+./os_show/melis2.bmp
+./os_show/startup.bmp
+./os_show/tail.bmp
+./os_show/wince1.bmp
+./os_show/wince2.bmp
+./script.bin
+./script.fex
+./script0.bin
+./sprite
+./sprite/sprite.ini
+./sprite.axf
+
+The booting configuration is defined by the file linux/linux.ini:
+
+[segment]
+img_name = c:\linux\bImage
+img_size = 0x2000000
+img_base = 0x40008000
+
+[segment]
+img_name = c:\linux\params
+img_size = 0x100
+img_base = 0x40000100
+
+[script_info]
+script_base = 0x43000000
+script_size = 0x10000
+
+[logo_info]
+logo_name = c:\linux\android.bmp
+logo_address = 0x48000000
+logo_show = 1
+
+The params file contains the kernel boot parameters, which is loaded to the indicated memory location.
+
+Also, the script_info specifies where in memory to copy script.bin, which contains the board configuration.
+
+The recovery.ini and paramsr files contain the same information but with the kernel that is loaded for recovery. Recovery access is triggered, at least on the Ainol Novo7 that was used for testing, by pressing Volume+ and On keys at the same time.
+
+Note that the boot partition is usually 16mb in NAND, even though the kernel reports it as being 128mb size. Don't try to copy anything big to it (i.e a new bImage), as that will cause the FAT to overflow and mess things up.
+
+boot.axf also boots to FEL when a special combination is triggered to access FEL to flash a new firmware. On the Novo, this is done by:
+
+    keeping the Volume+ button with the tablet off
+    plugging the USB cable
+    pressing the Power button five times.
+
+boot.axf can also "chainload" u-boot, replacing the bImage portion by:
+
+[segment]
+img_name = c:\linux\u-boot.bin
+img_size = 0x80000
+img_base = 0x4A000000
+
+This is what is done on ICS firmwares on tablets, where what is booted is an Android boot.img by u-boot.
+Tools
+
+There is a tool mksunxiboot to make the binary code can be loaded by brom.
+
+    git clone git://github.com/hipboi/mksunxiboot.git
+
+    cd mksunxiboot
+
+    make
+
+    ./mksunxiboot u-boot.bin u-boot-mmc.bin
+
+    sudo dd if=u-boot-mmc.bin of=/dev/sdb bs=1024 seek=8
+
+so the u-boot on the sdcard can be loaded and run.
+Forcing FEL boot mode without bsp/recovery/usbboot button
+
+It's also possible to boot into FEL mode by using a specifically prepared SD-Card. Download http://www.hno.se/code/A10/fel-boot.sunxi and write it to the A10 boot sector of an sdcard
+(https://github.com/linux-sunxi/sunxi-tools)
+
+dd if=fel-boot.sunxi of=/dev/sdX bs=1024 seek=8
+
+The source to this file can be found in the sunxi-tools package.
+
+Last edited Wed Apr 17 09:05:16 2013
+
