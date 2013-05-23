@@ -1,0 +1,13 @@
+
+http://gitorious.org/rockchip-android/tools/trees/9fcc93db2dce873a786b469bc041f7566f38f92b
+2013-5-22
+
+ May 22 23:12 README
+ Dec 16  2011 afptool.c
+ Dec 16  2011 Android.mk
+ Dec 16  2011 rkcrc.c
+ Dec 16  2011 rkcrc.h
+ Dec 16  2011 rkdecrypt.c
+ Dec 16  2011 rkflash.c
+ Dec 16  2011 rkpack.c
+ Dec 16  2011 rkunpack.c
