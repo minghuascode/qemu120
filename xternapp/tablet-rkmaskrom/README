@@ -1,0 +1,53 @@
+
+MK808 Endeavours
+=================
+http://www.omegamoon.com/blog/index.php?m=01&y=13&d=13&entry=entry130113-161359
+FTDI Basic Breakout - 3.3V
+
+UG802
+http://eirev.blogspot.nl/2012/09/oval-elephant-ug802-with-rk3066-cpu.html
+
+
+Unbrick or fix NAND on the MK808
+==================================
+http://www.freaktab.com/showthread.php?1943-NEW-Unbrick-or-fix-NAND-on-the-MK808
+Finless 10-31-2012, 08:52 PM
+
+OK so on the ug802 there are pads you can short to erased NAND and put the unit into MASK ROM mode. You do this as the ug802 does not have a button to put you in flash mode. But also MASK ROM mode is a special mode unlike flash mode. It erases NAND like it was a brand new chip.
+
+The MK808 has a reset button BUT it will only put it into ROCK Loader mode (flash mode). The only way to get it into MASK ROM mode it so short 2 NAND pins (like what the UG802 short pads do). I wish the MK808 had these pads to short but they do not.
+
+Now you might ask "Bob, why would I want to put the unit in MASK ROM mode?". Good question!
+If NAND gets corrupted or you flash another ROM with a loader not made for it, it can screw up NAND and from that point on you will get erased IDB problems, it wont flash properly and give errors, or a host of ROM flashing issues. The ONLY way to fix this is to put it into MASK ROM mode.
+
+So because Freaktab user natxito is having this problem I figured I would help. I took my unit apart and pulled off the heatsink over the NAND memory chip. I had to do this so I could see where pin 1 was and what the chip part number is so I could look up the spec sheet.
+NAND is H27UCG8T2ATR. I could not find this datasheet but this chip map is the same:
+
+http://www.hynix.com/datasheet/pdf/flash/HY27(U_S)F(08_16)1G2M%20Series(Rev1.1).pdf
+
+TECHNICAL: On most NAND chips by shorting pins RB and R/E together or in some cases RE and CE, it makes the processor boot up and think there is no NAND memory and puts it into MASK ROM MODE. It also "may" erase NAND.
+
+OK so here is a text explaination of how to do it. Later I may do a video if I have time.
+
+On the MK808 pry the cover off at the HDMI port. It helps to plug in a HDMI cable partially into the connector. Then use a screw driver to lift up the lid. The lid is the thinner of the 2 covers. Slowly pry around the edges of the case as you pull the snaps and remove the covers.
+NOW be careful! There are 2 antenna's. One on each side of the case with short wires. So go easy and try not to damage the wires or antennas.
+
+Once the have it apart the NAND chip is on the side of the board that DOES NOT have the USB etc connectors soldered to it. The chip is under the heatsink and the closest chip to the HDMI connector. If your holding the board with the HDMI connector at the top, pin one of this NAND chip is in the upper left corner of the board.
+
+Now you can try to pry off the heatsink if you like. It is pretty easy as it is just taped on with heatsink tape. However if you screw up the tape doing so, you will have to go to an electronics store and by more. Clean off the old and install new tape. THIS IS NOT REGULAR TAPE! It has to be heatsink tape.
+
+If you want to try this without removing the heatsink you still can do it.
+1) Start up my ROM flash tool from my ROM kit. NOTE: you must already have the drivers installed etc or this WILL NOT WORK!
+2) Hook up the USB cable to the OTG port of the MK808. Its the side port not the rear port.
+3) Look between the heatsink and the board and you can see all the pins of the NAND chip. Again pin 1 is at the top. Count down to pins 8 & 9.
+4) With a needle or a pin put the pin between pins 8 and 9 and hold it there. You are trying to short these 2 pins so make sure your actually on them.
+5) No plug in the USB cable to your PC to power on the unit.
+6) If you are shorting the pins the PC should bong and the flash tool should say at the bottom "Found RKAndroid MaskRom Rock USB". If not, then your not shorting the pins properly OR you never had the drivers loaded to begin with.
+7) Good! If you have MASK ROM mode then now erase NAND (IDB). Let it finish.
+8) Flash the ROM. YOu must have the loader check box checked or it will complain and tell you a loader must be flashed.
+
+Thats it! You should be unbricked and hopefully your ROM flash problems should be gone. If not, you can try to repeat the proceedure but if you still have issues, alas, you may have a failed NAND chip.
+
+Bob
+
+
