@@ -58,7 +58,7 @@ close($fh);
                 if ( $lvl > $startlevel ) {
                     my ($result, $nl) = parseblock( $i, $lvl, 
                                                     $prefix.".".$lastname);
-                    push @{$blkref}, ["blk", $i, $lvl, $result];
+                    push @{$blkref}, ["blk", $i, $lvl, $perm, $result];
                     $i += $nl -1;
                     $parsedlines += $nl;
                     next;
@@ -68,6 +68,15 @@ close($fh);
                     print "Error at line $i\n";
                     die "Error at line $i\n";
                 }
+                my $foundperm=8;
+                if ( $perm eq "---" ) { $foundperm = 0; }
+                if ( $perm eq "--w" ) { $foundperm = 2; } #invalid
+                if ( $perm eq "-r-" ) { $foundperm = 1; }
+                if ( $perm eq "-rw" ) { $foundperm = 3; }
+                if ( $perm eq "c--" ) { $foundperm = 4; }
+                if ( $perm eq "c-w" ) { $foundperm = 6; } #invalid
+                if ( $perm eq "cr-" ) { $foundperm = 5; }
+                if ( $perm eq "crw" ) { $foundperm = 7; }
                 my ($foundtype, $foundname, $foundoid) = ("", "", "");
                 my $strsize=0;
                 my ($tablerange, $tableindex) = ("", "");
@@ -99,17 +108,17 @@ close($fh);
                     #printf("                     tno tnos\n");
                     if ( $strsize ) {
                         push @{$blkref}, 
-                            ["tnos", $i, $lvl, 
+                            ["tnos", $i, $lvl, $foundperm, 
                              $foundtype, $prefix.".".$foundname, 
                                                         $foundoid, $strsize];
                     } elsif ( length($enumdef) > 0 ) {
                         push @{$blkref}, 
-                            ["tnoe", $i, $lvl, 
+                            ["tnoe", $i, $lvl, $foundperm, 
                              $foundtype, $prefix.".".$foundname, 
                                                         $foundoid, $enumdef];
                     } else {
                         push @{$blkref}, 
-                            ["tno", $i, $lvl, 
+                            ["tno", $i, $lvl, $foundperm, 
                              $foundtype, $prefix.".".$foundname, 
                                                                 $foundoid];
                     }
@@ -117,17 +126,17 @@ close($fh);
                     #printf("                     nor\n");
                     my @list = split(/,/, $tablerange);
                     if ( scalar(@list) ) { 
-                        push @{$blkref}, ["nor", $i, $lvl, 
+                        push @{$blkref}, ["nor", $i, $lvl, $foundperm, 
                                           $prefix.".".$foundname, $foundoid, 
                              "".scalar(@list)." ".$tablerange." ".$tableindex];
                     } else {
-                        push @{$blkref}, ["norx", $i, $lvl, 
+                        push @{$blkref}, ["norx", $i, $lvl, $foundperm, 
                                           $prefix.".".$foundname, $foundoid, 
                                              "x ".$tablerange." ".$tableindex];
                     }
                 } elsif ($foundname) {
                     #printf("                     n\n");
-                    push @{$blkref}, ["name", $i, $lvl, 
+                    push @{$blkref}, ["name", $i, $lvl, $foundperm, 
                                       $prefix.".".$foundname];
                 }
                 $lastname = $foundname if ( $foundname );
@@ -151,25 +160,25 @@ if ( $rel < scalar @lines ) { printf("\n\n lines consumed %d\n\n", $rel); }
         for ( my $i=0; $i <= $#blk; $i++ ) {
             my @elm = @{$blk[$i]};
             if ( $elm[0] eq "name" ) {
-                printf(" name %3d %3d  %-8s %s\n",$elm[1]+1,$elm[2],"",$elm[3]);
+                printf(" name %3d %3d %3s %-8s %s\n",$elm[1]+1,$elm[2],$elm[3],"", $elm[4]);
             } elsif ( $elm[0] eq 'nor' ) {
-                printf(" nor %3d %3d  %-8s %-66s %-11s %s\n", 
-                            $elm[1]+1, $elm[2], "", $elm[3], $elm[4], $elm[5]);
+                printf(" nor %3d %3d %3s %-8s %-66s %-11s %s\n", 
+                            $elm[1]+1, $elm[2], $elm[3],"", $elm[4], $elm[5], $elm[6]);
             } elsif ( $elm[0] eq 'norx' ) {
-                printf(" norx %3d %3d  %-8s %-66s %-11s %s\n", 
-                            $elm[1]+1, $elm[2], "", $elm[3], $elm[4], $elm[5]);
+                printf(" norx %3d %3d %3s %-8s %-66s %-11s %s\n", 
+                            $elm[1]+1, $elm[2], $elm[3],"", $elm[4], $elm[5], $elm[6]);
             } elsif ( $elm[0] eq 'tno' ) {
-                printf(" tno  %3d %3d  %-8s %-66s %-11s\n", 
-                                $elm[1]+1, $elm[2], $elm[3], $elm[4], $elm[5]);
+                printf(" tno  %3d %3d %3s %-8s %-66s %-11s\n", 
+                                $elm[1]+1, $elm[2], $elm[3], $elm[4], $elm[5], $elm[6]);
             } elsif ( $elm[0] eq 'tnos' ) {
-                printf(" tnos %3d %3d  %-8s %-66s %-11s %s\n", 
-                       $elm[1]+1, $elm[2], $elm[3], $elm[4], $elm[5], $elm[6]);
+                printf(" tnos %3d %3d %3s %-8s %-66s %-11s %s\n", 
+                       $elm[1]+1, $elm[2], $elm[3], $elm[4], $elm[5], $elm[6], $elm[7]);
             } elsif ( $elm[0] eq 'tnoe' ) {
-                printf(" tnoe %3d %3d  %-8s %-66s %-11s %s\n", 
-                       $elm[1]+1, $elm[2], $elm[3], $elm[4], $elm[5], $elm[6]);
+                printf(" tnoe %3d %3d %3s %-8s %-66s %-11s %s\n", 
+                       $elm[1]+1, $elm[2], $elm[3], $elm[4], $elm[5], $elm[6], $elm[7]);
             } elsif ( $elm[0] eq 'blk' ) {
-                #printf(" --blk  %3d %3d  \n", $elm[1]+1, $elm[2]);
-                walktree($elm[3]);
+                #printf(" --blk  %3d %3d %3s \n", $elm[1]+1, $elm[2], $elm[3]);
+                walktree($elm[4]);
             } else {
                 printf(" Error: Unknown element : %s\n", $elm[0]);
                 die " Error: Unknown element\n";
