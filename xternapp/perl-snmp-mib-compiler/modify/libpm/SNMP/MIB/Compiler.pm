@@ -47,6 +47,7 @@ $DEBUG   = 1; # no longer used
 ######################################################################
 my $gen_string_size_cfg = 1;
 my $gen_table_size_cfg = 1;
+my $gen_integer_enum_cfg = 1;
 my $gen_oid_cfg = 1;
 my $gen_prefix_lptan_cfg = 1;
 
@@ -489,6 +490,7 @@ sub initialize {
   $self->{'do_imports'} = 1;
   $self->{'gen_string_size'} = $gen_string_size_cfg;
   $self->{'gen_table_size'}  = $gen_table_size_cfg;
+  $self->{'gen_integer_enum'}  = $gen_integer_enum_cfg;
   $self->{'gen_oid'}         = $gen_oid_cfg;
   $self->{'gen_prefix_lptan'} = $gen_prefix_lptan_cfg;
 }
@@ -909,7 +911,7 @@ sub resolve_type {
   # SMIv1 type
   return $type if $type =~ m/^(IpAddress|Counter|Gauge|TimeTicks|Opaque)$/o;
   # SMIv2 type
-  return $type if $type =~ m/^(Integer32|Counter32|Gauge32|Unsigned32|
+  return $type if $type =~ m/^(Integer32|Integer8|Integer16|Unsigned8|Unsigned16|Counter32|Gauge32|Unsigned32|
 			       Counter64)$/ox;
   defined $self->{'types'}{$type} ?
     defined $self->{'types'}{$type}{'syntax'} ?
@@ -2365,9 +2367,13 @@ my $treetypes = {'SEQUENCE'          => '',
 		 'TimeTicks'         => 'TimeTcks',
 		 'Opaque'            => 'Opaque',
 		 'Integer32'         => 'Int32',
+		 'Integer8'          => 'Int8',
+		 'Integer16'         => 'Int16',
 		 'Counter32'         => 'Count32',
 		 'Gauge32'           => 'Gauge32',
 		 'Unsigned32'        => 'UInt32',
+		 'Unsigned8'         => 'UInt8',
+		 'Unsigned16'        => 'UInt16',
 		 'Counter64'         => 'Count64',
 		};
 
@@ -2509,6 +2515,29 @@ sub tree {
 	    }
 	  }
 	} # if ( gen_table_size )
+	if ( $self->{'gen_integer_enum'} ) {
+	  my $px = ($self->{'gen_prefix_lptan'}?" A":"");
+	    if ( defined $self->{'nodes'}{$new}{'syntax'}{'values'} ) {
+	      print "\n  values for $gen_save_rawtype \n";
+	    }
+	  if ( $gen_save_rawtype eq 'INTEGER' || 
+	       $gen_save_rawtype eq 'Unsigned8'  || 
+	       $gen_save_rawtype eq 'Unsigned16' || 
+	       $gen_save_rawtype eq 'Unsigned32' || 
+	       $gen_save_rawtype eq 'Integer8'   || 
+	       $gen_save_rawtype eq 'Integer16'  || 
+	       $gen_save_rawtype eq 'Integer32'    ) {
+	    my $ens = {};
+	    if ( defined $self->{'nodes'}{$new}{'syntax'}{'values'} ) {
+	      %{$ens} = %{$self->{'nodes'}{$new}{'syntax'}{'values'}};
+	      $type .= sprintf "  %sEnum[", $px;
+	      foreach my $k (keys(%{$ens})) {
+	        $type .= sprintf "%s:%s;", $k, ${$ens}{$k};
+	      }
+	      $type .= sprintf "]   ";
+	    }
+	  }
+	} # if gen_integer_enum
 	if ( $self->{'gen_oid'} ) {
 	  my $px = ($self->{'gen_prefix_lptan'}?" A":"");
 	  if ( defined $self->{'nodes'}{$new} ) {

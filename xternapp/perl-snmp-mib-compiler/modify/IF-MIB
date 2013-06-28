@@ -38,6 +38,12 @@
                "Initial revision, published as part of RFC 1573."
        ::= { mib-2 31 }
 
+-- indistinguishable from INTEGER, but never needs more than
+-- 8-bits or 16-bits for a two's complement representation
+Integer8 ::= INTEGER (-128..127)
+Integer16 ::= INTEGER (-32768..32767)
+Unsigned8 ::= INTEGER (0..255)
+Unsigned16 ::= INTEGER (0..65535)
 
    ifMIBObjects OBJECT IDENTIFIER ::= { ifMIB 1 }
 
@@ -97,7 +103,7 @@
 
 
    ifNumber  OBJECT-TYPE
-       SYNTAX      Integer32
+       SYNTAX      Integer8
        MAX-ACCESS  read-only
        STATUS      current
        DESCRIPTION
@@ -256,7 +262,7 @@
        ::= { ifEntry 6 }
 
    ifAdminStatus OBJECT-TYPE
-       SYNTAX  INTEGER {
+       SYNTAX  INTEGER {  --enum ifAdminStatus
                    up(1),       -- ready to pass packets
                    down(2),
                    testing(3)   -- in some test mode
@@ -276,7 +282,7 @@
        ::= { ifEntry 7 }
 
    ifOperStatus OBJECT-TYPE
-       SYNTAX  INTEGER {
+       SYNTAX  Unsigned16 {  --enum u16 ifOperStatus
                    up(1),        -- ready to pass packets
                    down(2),
                    testing(3),   -- in some test mode
@@ -820,7 +826,7 @@
        ::= { ifXEntry 13 }
 
    ifLinkUpDownTrapEnable  OBJECT-TYPE
-       SYNTAX      INTEGER { enabled(1), disabled(2) }
+       SYNTAX      INTEGER { enabled(1), disabled(2) }  --enum ifLinkUpDownTrapEnable
        MAX-ACCESS  read-write
        STATUS      current
        DESCRIPTION
@@ -1123,7 +1129,7 @@
        ::= { ifRcvAddressEntry 2 }
 
    ifRcvAddressType OBJECT-TYPE
-       SYNTAX      INTEGER {
+       SYNTAX      Unsigned8 {  --enum u8 ifRcvAddressType
                        other(1),
                        volatile(2),
                        nonVolatile(3)
@@ -1234,7 +1240,7 @@
                "Write access is not required."
 
            OBJECT      ifStackStatus
-           SYNTAX      INTEGER { active(1) } -- subset of RowStatus
+           SYNTAX      INTEGER { active(1) } -- subset of RowStatus  -enum ifStackStatus
            MIN-ACCESS  read-only
            DESCRIPTION
                "Write access is not required, and only one of the six
@@ -1242,7 +1248,7 @@
                need be supported, specifically: active(1)."
 
            OBJECT       ifAdminStatus
-           SYNTAX       INTEGER { up(1), down(2) }
+           SYNTAX       INTEGER { up(1), down(2) }  --enum ifAdminStatus
            MIN-ACCESS   read-only
            DESCRIPTION
                "Write access is not required, nor is support for the
@@ -1548,7 +1554,7 @@
        ::= { ifTestEntry 1 }
 
    ifTestStatus     OBJECT-TYPE
-       SYNTAX       INTEGER { notInUse(1), inUse(2) }
+       SYNTAX       Integer8 { notInUse(1), inUse(2) }  --enum i8 ifTestStatus
        MAX-ACCESS   read-write
        STATUS       deprecated
        DESCRIPTION
@@ -1591,7 +1597,7 @@
        ::= { ifTestEntry 3 }
 
    ifTestResult  OBJECT-TYPE
-       SYNTAX       INTEGER {
+       SYNTAX       Integer16 {  --enum i16 ifTestResult
                         none(1),          -- no test yet requested
                         success(2),
                         inProgress(3),
@@ -1754,7 +1760,7 @@
                enumerated values for the RowStatus textual convention
                need be supported, specifically: active(1)."
            OBJECT       ifAdminStatus
-           SYNTAX       INTEGER { up(1), down(2) }
+           SYNTAX       INTEGER { up(1), down(2) }  --enum ifAdminStatus
            MIN-ACCESS   read-only
            DESCRIPTION
                "Write access is not required, nor is support for the
