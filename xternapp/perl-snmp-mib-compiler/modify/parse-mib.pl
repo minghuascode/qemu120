@@ -48,6 +48,7 @@ if ( $rc ) {
     print $fh "OK compile file $file\n";
     print $fh $mib->tree('ifMIB');
     print $fh $mib->tree('interfaces');
+    print $fh $mib->trapstree();
     close $fh;
 }
 

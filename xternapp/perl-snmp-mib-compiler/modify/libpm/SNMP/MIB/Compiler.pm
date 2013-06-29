@@ -2518,7 +2518,7 @@ sub tree {
 	if ( $self->{'gen_integer_enum'} ) {
 	  my $px = ($self->{'gen_prefix_lptan'}?" A":"");
 	    if ( defined $self->{'nodes'}{$new}{'syntax'}{'values'} ) {
-	      print "\n  values for $gen_save_rawtype \n";
+	      ##print "\n  values for $gen_save_rawtype \n";
 	    }
 	  if ( $gen_save_rawtype eq 'INTEGER' || 
 	       $gen_save_rawtype eq 'Unsigned8'  || 
@@ -2558,6 +2558,233 @@ sub tree {
       $s = $self->tree($new, $level + 1, $inc, $s);
     }
   }
+  $s;
+}
+
+sub trapstree {
+  my $self  = shift;
+  my $level = shift;
+  my $inc   = shift;
+  my $s     = shift;
+
+  $level = 0 unless defined $level;
+  $inc   = 4 unless defined $inc;
+
+  unless ($level) {
+    $s .= "trapstree" . "\n";
+    $s .= "  |\n";
+  }
+  for my $n (keys %{$self->{'traps'}}) {
+    my $new = $self->{'traps'}{$n};
+    $s .= "  ";
+    ##$s .= " " x ($inc * $level) . "+-- ";
+    $s .= " " x ($inc * $level) . ($self->{'gen_prefix_lptan'}?"+".$level."--":"+-- ");
+    my $access = "";
+    $access .= " " if $access;
+    my $type = "";
+	if ( $self->{'gen_oid'} ) {
+	  my $px = ($self->{'gen_prefix_lptan'}?" A":"");
+	  my $on = ${$new->{'oid'}}[0];
+	  if ( defined $self->{'nodes'}{$on} ) {
+	    my $oid = $self->resolve_oid($on);
+	    $type .= $px.'Oid['.(defined($oid)?$oid:"nooid".$n).'.'.${$new->{'oid'}}[1].'] ';
+	  }
+	} # if ( gen_oid )
+
+	if ( $self->{'gen_prefix_lptan'} ) {
+    $s .= " P".$access . " T".$type . " N". $n . "\n";
+	} else {
+    $s .= $access . $type . $n . "\n";
+	}
+	my $objs = $new->{'objects'};
+	foreach my $o (@{$objs}) {
+	    if (defined $self->{'nodes'}{$o}) {
+	      $s .= "  ";
+	      $s .= " " x ($inc * ($level + 1)) . "|\n";
+	      $s = $self->trapsnode($o, $level + 1, $inc, $s);
+	    }
+	}
+  }
+  $s;
+}
+
+# trapsnode() is roughly the same tree() without iterating over $n
+sub trapsnode {
+  my $self  = shift;
+  my $new  = shift;
+  my $level = shift;
+  my $inc   = shift;
+  my $s     = shift;
+
+  $level = 0 unless defined $level;
+  $inc   = 4 unless defined $inc;
+
+  unless ($level) {
+    $s .= $new . "\n";
+    $s .= "  |\n";
+  }
+    $s .= "  ";
+    ##$s .= " " x ($inc * $level) . "+-- ";
+    $s .= " " x ($inc * $level) . ($self->{'gen_prefix_lptan'}?"+".$level."--":"+-- ");
+    my $access = "";
+    $access = $$treemodes{$self->{'nodes'}{$new}{'access'}} || "???"
+      if defined $self->{'nodes'}{$new}{'access'};
+    $access .= " " if $access;
+    my $type = "";
+    $type = $self->{'nodes'}{$new}{'syntax'}{'type'} if
+      defined $self->{'nodes'}{$new}{'syntax'} &&
+	defined $self->{'nodes'}{$new}{'syntax'}{'type'};
+	  my $gen_save_rawtype = $type;
+    if ($type) {
+      $type = $self->resolve_type($type);
+	  my $gen_save_resolved = ( defined $$treetypes{$type} ? $$treetypes{$type} : "");
+      $type = sprintf "%-8.8s ", defined $$treetypes{$type} ?
+	$$treetypes{$type} : $type;
+      $type = "" if $type =~ m/^\s+$/o;
+	if ( $self->{'gen_string_size'} ) {
+	  my $px = ($self->{'gen_prefix_lptan'}?" A":"");
+	  if ( defined $self->{'nodes'}{$new}{'syntax'} &&
+	       defined $self->{'nodes'}{$new}{'syntax'}{'size'} && 
+	       defined $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'} && 
+	       defined $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'}{'min'} && 
+	       defined $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'}{'max'}    ) {
+
+	    $type .= sprintf "  %sStringSize[%04d-%04d]   ", $px, 
+	               $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'}{'min'}, 
+	               $self->{'nodes'}{$new}{'syntax'}{'size'}{'range'}{'max'};
+	  }
+	  elsif ( defined $self->{'nodes'}{$new}{'type'} &&
+	          $gen_save_resolved eq 'String' ) {
+
+	    if ( defined $self->{'types'}{$gen_save_rawtype} &&
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'} && 
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'} && 
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'} && 
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'min'} && 
+	         defined $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'max'}   ) {
+	      $type .= sprintf "  %sStringSize[%04d-%04d]   ", $px, 
+	             $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'min'},
+	             $self->{'types'}{$gen_save_rawtype}{'syntax'}{'size'}{'range'}{'max'};
+            } else {
+	      $type .= sprintf "  %sStringSize[unknown]   ", $px;
+	    }
+	  }
+	} # if gen_string_size
+	if ( $self->{'gen_table_size'} ) {
+	  my $px = ($self->{'gen_prefix_lptan'}?" A":"");
+	  if ( defined $self->{'nodes'}{$new}{'index'} ) {
+	    my $refn = ref($self->{'nodes'}{$new}{'index'});
+	    if ( defined $refn && $refn eq "ARRAY" ) {
+	      my $refv = $self->{'nodes'}{$new}{'index'};
+	      if ( $#{$refv} == 0 ) {
+	        if ( defined ${$refv}[0]{'value'} ) {
+	           my $n =  ${$refv}[0]{'value'};
+	           if ( defined $self->{'nodes'}{$n} ) {
+	             $type .= $px.'TableIndex['.$n.'] ';
+	             my $v = $self->{'nodes'}{$n};
+	             if ( defined ${$v}{'syntax'} && 
+	                  defined ${$v}{'syntax'}{'range'} && 
+	                  defined ${$v}{'syntax'}{'range'}{'min'} && 
+	                  defined ${$v}{'syntax'}{'range'}{'max'}    ) {
+	               $type .= $px.'TableRange['.${$v}{'syntax'}{'range'}{'min'}.
+	                        '-'.${$v}{'syntax'}{'range'}{'max'}.'] ';
+	            } else {
+	             $type .= $px.'TableRange[norange] ';
+	            }
+	          } else {
+	             $type .= $px.'TableRange[nonode] ';
+	          }
+	        } else {
+	           $type .= $px.'TableRange[novalue] ';
+	        }
+	      } elsif ( $#{$refv} > 0 ) {
+	        $type .= $px.'TableIndex[';
+	        for(my $k=0; $k<=$#{$refv}; $k++) {
+	          if ( defined ${$refv}[$k]{'value'} ) {
+	            my $n =  ${$refv}[$k]{'value'};
+	            if ( defined $self->{'nodes'}{$n} ) {
+	              $type .= $n;
+	            } else {
+	              $type .= 'nonode';
+	            }
+	          } else {
+	             $type .= 'novalue';
+	          }
+	          $type .= ',' if $k<$#{$refv};
+	        }
+	          $type .= '] ';
+	        $type .= $px.'TableRange[';
+	        for(my $k=0; $k<=$#{$refv}; $k++) {
+	          if ( defined ${$refv}[$k]{'value'} ) {
+	             my $n =  ${$refv}[$k]{'value'};
+	             if ( defined $self->{'nodes'}{$n} ) {
+	               my $v = $self->{'nodes'}{$n};
+	               if ( defined ${$v}{'syntax'} && 
+	                    defined ${$v}{'syntax'}{'range'} && 
+	                    defined ${$v}{'syntax'}{'range'}{'min'} && 
+	                    defined ${$v}{'syntax'}{'range'}{'max'}    ) {
+	                 $type .= ${$v}{'syntax'}{'range'}{'min'}.
+	                          '-'.${$v}{'syntax'}{'range'}{'max'};
+	              } else {
+	               $type .= 'norange';
+	              }
+	            } else {
+	             $type .= 'nonode';
+	            }
+	          } else {
+	             $type .= 'novalue';
+	          }
+	          $type .= ',' if $k<$#{$refv};
+	        }
+	          $type .= '] ';
+	      } else {
+	           $type .= $px.'TableRange[nonum] ';
+	      }
+	    }
+	  }
+	} # if ( gen_table_size )
+	if ( $self->{'gen_integer_enum'} ) {
+	  my $px = ($self->{'gen_prefix_lptan'}?" A":"");
+	    if ( defined $self->{'nodes'}{$new}{'syntax'}{'values'} ) {
+	      ##print "\n  values for $gen_save_rawtype \n";
+	    }
+	  if ( $gen_save_rawtype eq 'INTEGER' || 
+	       $gen_save_rawtype eq 'Unsigned8'  || 
+	       $gen_save_rawtype eq 'Unsigned16' || 
+	       $gen_save_rawtype eq 'Unsigned32' || 
+	       $gen_save_rawtype eq 'Integer8'   || 
+	       $gen_save_rawtype eq 'Integer16'  || 
+	       $gen_save_rawtype eq 'Integer32'    ) {
+	    my $ens = {};
+	    if ( defined $self->{'nodes'}{$new}{'syntax'}{'values'} ) {
+	      %{$ens} = %{$self->{'nodes'}{$new}{'syntax'}{'values'}};
+	      $type .= sprintf "  %sEnum[", $px;
+	      foreach my $k (keys(%{$ens})) {
+	        $type .= sprintf "%s:%s;", $k, ${$ens}{$k};
+	      }
+	      $type .= sprintf "]   ";
+	    }
+	  }
+	} # if gen_integer_enum
+	if ( $self->{'gen_oid'} ) {
+	  my $px = ($self->{'gen_prefix_lptan'}?" A":"");
+	  if ( defined $self->{'nodes'}{$new} ) {
+	    my $oid = $self->resolve_oid($new);
+	    $type .= $px.'Oid['.(defined($oid)?$oid:"nooid".$new).'] ';
+	  }
+	} # if ( gen_oid )
+
+    }
+	if ( $self->{'gen_prefix_lptan'} ) {
+    $s .= " P".$access . " T".$type . " N".$new . "\n";
+	} else {
+    $s .= $access . $type . $new . "\n";
+	}
+    if (defined $self->{'tree'}{$new}) {
+      $s .= "  ";
+      $s .= " " x ($inc * ($level + 1)) . "|\n";
+      $s = $self->tree($new, $level + 1, $inc, $s);
+    }
   $s;
 }
 

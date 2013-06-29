@@ -86,7 +86,7 @@ close($fh);
                     my $e = $elements[$k];
                     next if ( $e =~ m/^\s*$/ ); #empty line
                     if ( $e =~ m/^\s*T(\w+)\s*$/ ) { $foundtype = $1; }
-                    if ( $e =~ m/^\s*N(\w+)\(\d+\)\s*$/ ) { $foundname = $1; }
+                    if ( $e =~ m/^\s*N(\w+)(\(\d+\))*\s*$/ ) { $foundname = $1; }
                     if ( $e =~ m/^\s*AOid\[([\.\d]+)\]\s*$/ ) {$foundoid = $1;}
                     if ( $e =~ m/^\s*AStringSize\[((\d+\-\d+)|(\w+))\]\s*$/ ) { 
                         $strsize = $1; 
