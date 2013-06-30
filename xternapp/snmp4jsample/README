@@ -1,0 +1,43 @@
+
+search for snmp4j tutorial
+
+
+client1.java: 
+  Create SNMP Client in JAVA Using SNMP4j
+  Posted on February 23rd, 2011 
+  http://shivasoft.in/blog/java/snmp/create-snmp-client-in-java-using-snmp4j/
+  rename to SNMPManager.java
+
+
+agent1-*.java:
+  Creating SNMP Agent (Server) in JAVA using SNMP4j
+  Posted on February 24th, 2011 
+  http://shivasoft.in/blog/java/snmp/creating-snmp-agent-server-in-java-using-snmp4j/
+  agent1-mocreater.java
+  agent1-server.java
+  agent1-testclient.java
+
+
+jar:
+  https://oosnmp.net/dist/release/org/snmp4j/snmp4j/2.2.2/snmp4j-2.2.2-distribution.zip
+  https://oosnmp.net/dist/release/org/snmp4j/snmp4j-agent/2.0.7/snmp4j-agent-2.0.7-distribution.zip
+  http://www.snmp4j.org/SNMP4J-Agent-1.4-InstrumentationGuide.pdf
+
+
+test1src: 
+  Directory copied from test project src for client1 and agent1 files. 
+ test1src/
+ └── src
+    ├── com
+    │   └── G2
+    │       └── SNMP
+    │           ├── client
+    │           │   └── SNMPManager.java
+    │           └── Server
+    │               ├── MOCreator.java
+    │               ├── SNMPAgent.java
+    │               └── TestSNMPAgent.java
+    └── s4jclient
+        └── S4jclient.java
+
+7 directories, 5 files
