@@ -18,6 +18,16 @@ agent1-*.java:
   agent1-testclient.java
 
 
+traps:
+  Generating TRAP in SNMP using SNMP4j
+  Posted on February 24th, 2011 
+  http://shivasoft.in/blog/java/snmp/generating-trap-in-snmp-using-snmp4j/
+
+  test1src/src/com/G2/SNMP/Trap/Sender/TrapSenderVersion1.java
+  test1src/src/com/G2/SNMP/Trap/Sender/TrapSenderVersion2.java
+  test1src/src/com/G2/SNMP/Trap/receiver/TrapReceiver.java
+
+
 jar:
   https://oosnmp.net/dist/release/org/snmp4j/snmp4j/2.2.2/snmp4j-2.2.2-distribution.zip
   https://oosnmp.net/dist/release/org/snmp4j/snmp4j-agent/2.0.7/snmp4j-agent-2.0.7-distribution.zip
@@ -40,4 +50,3 @@ test1src:
     └── s4jclient
         └── S4jclient.java
 
-7 directories, 5 files
