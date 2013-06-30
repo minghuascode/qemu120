@@ -15,9 +15,18 @@ import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
+import org.snmp4j.log.LogFactory;
+import org.snmp4j.log.Log4jLogFactory;
+import org.snmp4j.log.LogLevel;
 
 public class SNMPManager {
 
+    // initialize Log4J logging
+    static {
+      LogFactory.setLogFactory(new Log4jLogFactory());
+      org.apache.log4j.BasicConfigurator.configure();
+      LogFactory.getLogFactory().getRootLogger().setLogLevel(LogLevel.ALL);
+    }
     Snmp snmp = null;
     String address = null;
 
