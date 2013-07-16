@@ -16,10 +16,10 @@ else
   gcc -c -I ../lib -o webs.o   ../lib/websocket.c
   if [ ! "x$?" == "x0" ]; then echo error; exit 1; fi
 
-  gcc -c -I ../lib -o main.o   main.c
+  gcc -c -I ../lib -o test2.o  test2.c
   if [ ! "x$?" == "x0" ]; then echo error; exit 1; fi
 
-  gcc main.o base64.o sha1.o webs.o
+  gcc test2.o base64.o sha1.o webs.o
   if [ ! "x$?" == "x0" ]; then echo error; exit 1; fi
 
   echo "Built *.o a.out"
