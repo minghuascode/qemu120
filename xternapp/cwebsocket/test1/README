@@ -1,0 +1,8 @@
+
+an earlier version of cwebsocket
+july 15 2013
+
+with some test changes:
+  new testecho.c derived from the original mingw.echo.c and beej.us sample.
+  print error in websocket.c, see the line "my ". it does not handle sec ver 13.
+
