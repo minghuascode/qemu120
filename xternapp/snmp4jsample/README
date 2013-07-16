@@ -22,6 +22,10 @@ traps:
   Generating TRAP in SNMP using SNMP4j
   Posted on February 24th, 2011 
   http://shivasoft.in/blog/java/snmp/generating-trap-in-snmp-using-snmp4j/
+  modified:
+  TrapReceiver.java
+  TrapSenderVersion1.java
+  TrapSenderVersion2.java
 
   test1src/src/com/G2/SNMP/Trap/Sender/TrapSenderVersion1.java
   test1src/src/com/G2/SNMP/Trap/Sender/TrapSenderVersion2.java
@@ -49,4 +53,8 @@ test1src:
     │               └── TestSNMPAgent.java
     └── s4jclient
         └── S4jclient.java
+
+
+Another Tutorial
+  http://www.jayway.com/2010/05/21/introduction-to-snmp4j/
 
