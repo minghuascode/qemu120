@@ -7,8 +7,10 @@
 
  <script language="javascript" type="text/javascript">
 
-  var wsUri = "ws://echo.websocket.org/";
+  //var wsUri = "ws://echo.websocket.org/";
+  var wsUri = "ws://localhost:8088/echo";
   var output;
+  var websocket;
 
   function init() {
     output = document.getElementById("output");
@@ -16,10 +18,14 @@
   }
   function testWebSocket() {
     websocket = new WebSocket(wsUri);
-    websocket.onopen = function(evt) { onOpen(evt) };
-    websocket.onclose = function(evt) { onClose(evt) };
-    websocket.onmessage = function(evt) { onMessage(evt) };
-    websocket.onerror = function(evt) { onError(evt) };
+    if ( typeof websocket === 'undefined' ) {
+      writeToScreen('<span style="color: red;">ERROR:</span> ' + "websocket undefined");
+    } else {
+      websocket.onopen = function(evt) { onOpen(evt) };
+      websocket.onclose = function(evt) { onClose(evt) };
+      websocket.onmessage = function(evt) { onMessage(evt) };
+      websocket.onerror = function(evt) { onError(evt) };
+    }
   }
   function onOpen(evt) {
     writeToScreen("CONNECTED");
