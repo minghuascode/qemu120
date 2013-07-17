@@ -85,6 +85,18 @@ uint32_t parity(uint32_t x, uint32_t y, uint32_t z){
 
 typedef uint32_t (*pf_t)(uint32_t x, uint32_t y, uint32_t z);
 
+#if defined(__ARMEL__) /* avoid unaligned access on arm */
+static mymemcpy(uint8_t *dst, uint8_t *src, uint32_t sz)
+{
+    int i = 0;
+    if ( dst == NULL || src == NULL ) {
+        return;
+    }
+    for (i=0; i<sz; i++) {
+        dst[i] = src[i];
+    }
+}
+#endif
 void sha1_nextBlock (sha1_ctx_t *state, const void* block){
 	uint32_t a[5];
 	uint32_t w[16];
@@ -98,7 +110,14 @@ void sha1_nextBlock (sha1_ctx_t *state, const void* block){
 
 	/* load the w array (changing the endian and so) */
 	for(t=0; t<16; ++t){
+#if defined(__ARMEL__) /* avoid unaligned access on arm */
+		uint32_t tmp1 = 0;
+		mymemcpy((uint8_t *)&tmp1, (uint8_t *)&(((uint32_t*)block)[t]), 
+		                        sizeof(tmp1));
+		w[t] = change_endian32(tmp1);
+#else
 		w[t] = change_endian32(((uint32_t*)block)[t]);
+#endif
 	}
 
 #if DEBUG

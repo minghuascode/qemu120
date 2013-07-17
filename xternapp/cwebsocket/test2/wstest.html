@@ -10,33 +10,71 @@
   //var wsUri = "ws://echo.websocket.org/";
   var wsUri = "ws://localhost:8088/echo";
   var output;
+  var wstestinner;
   var websocket;
+  var msgcount = 0;
 
   function init() {
     output = document.getElementById("output");
-    testWebSocket();
+    wstestinner = document.getElementById("wstestinner");
+    writeToScreen(" loc " + document.location);
+    var loc = document.location.toString();
+    var nloc1 = loc.replace("http://", "ws://");
+    if ( nloc1.search(/wstest\.html/i) == nloc1.length - 11) {
+        wsUri = nloc1.replace("/wstest.html", "/echo");
+    } else if ( nloc1.search(/wstest\.htm/i) == nloc1.length - 10) {
+        wsUri = nloc1.replace("/wstest.htm", "/echo");
+    } else if ( nloc1.search(/wstest/i) == nloc1.length - 6) {
+        wsUri = nloc1.replace("/wstest", "/echo");
+    } else {
+        writeToScreen(" loc search fail. no wstest.html, wstest.htm, wstest.");
+    }
+    writeToScreen(" wsUri " + wsUri);
+    //testWebSocket();
   }
   function testWebSocket() {
     websocket = new WebSocket(wsUri);
+    document.websocket = websocket;
     if ( typeof websocket === 'undefined' ) {
-      writeToScreen('<span style="color: red;">ERROR:</span> ' + "websocket undefined");
+      writeToScreen('<span style="color: red;">ERROR:</span> ' + 
+                                                    "websocket undefined");
     } else {
       websocket.onopen = function(evt) { onOpen(evt) };
       websocket.onclose = function(evt) { onClose(evt) };
       websocket.onmessage = function(evt) { onMessage(evt) };
       websocket.onerror = function(evt) { onError(evt) };
     }
+    if ( typeof window.websocket === 'undefined' ) {
+      writeToScreen('<span style="color: red;">ERROR:</span> ' + 
+                                            "window.websocket undefined");
+    } else {
+      writeToScreen(" window.websocket proto " + typeof websocket + " " + 
+                                              window.websocket.readyState);
+      writeToScreen(" websocket proto " + typeof websocket + " " + 
+                                                  websocket.readyState);
+    }
   }
   function onOpen(evt) {
     writeToScreen("CONNECTED");
-    doSend("WebSocket rocks");
+    msgcount++;
+    //writeToScreen(" websocket proto " + typeof websocket + " " + 
+    //                                            websocket.readyState);
+                    // readyState: 0=connecting, 1=open, 2=closing, 3=closed
+    doSend("WebSocket rocks count " + msgcount);
   }
   function onClose(evt) {
     writeToScreen("DISCONNECTED");
+    writeToScreen(" websocket proto " + typeof websocket + " " + 
+                                                websocket.readyState);
   }
   function onMessage(evt) {
     writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
-    websocket.close();
+    if ( msgcount < 5 ) {
+        msgcount++;
+        doSend("WebSocket rocks count " + msgcount);
+    } else {
+        websocket.close();
+    }
   }
   function onError(evt) {
     writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
@@ -60,8 +98,11 @@
  <p> http://www.websocket.org/echo.html </p>
 
  <h2>WebSocket Test</h2>
+ <button id="1" onClick="testWebSocket()">Try start a websocket echo</button>
  <div id="output"></div>
+ <div id="wstestinner">
+     
+ <!-- the server will insert an iframe tag -->
+ <!-- the server will close div, body, html tags -->
 
-</body>
-</html> 
 
