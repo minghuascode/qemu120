@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>WebSocket Test Inner Frame</title>
+
+  <script language="javascript" type="text/javascript">
+    var infoutput;
+     
+    function tryws() {
+      infoutput = document.getElementById("infoutput");
+      var s = parent.document.websocket.readyState;
+      if ( typeof s === 'undefined' ) {
+          writeToInScreen("top rdy state undefined");
+      } else {
+          writeToInScreen("top rdy state " + s);
+      }
+    }
+    function writeToInScreen(message) {
+      var pre = document.createElement("p");
+      pre.style.wordWrap = "break-word";
+      pre.innerHTML = message;
+      infoutput.appendChild(pre);
+    }
+     
+  </script>
+ 
+</head>
+<body>
+    
+ <button id="1" onClick="tryws()">Try to show top websocket state</button>
+
+ <div id="infoutput"></div>
+    
+</body>
+</html>
+
