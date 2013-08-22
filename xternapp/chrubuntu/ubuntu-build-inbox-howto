@@ -1,0 +1,43 @@
+
+http://unix.stackexchange.com/questions/75565/i-need-a-step-by-step-guide-to-build-kernel-modules-in-chrubuntu
+
+
+This is all from Redditer michaela_elise. (Thank you!)
+
+There is a script that will get and build the ChromeOS 3.4 kernel on your Ubuntu install. This is great because now we can compile kernel mods.
+
+The apt-get install linux-headers-$(uname -r) does not work because 3.4.0 seems to be a Google specific build and you cannot just get those headers.
+
+I have added the script here. Just run it as sudo and let it go. When it is done, you will have /usr/src/kernel (this the source and compiled kernel), /usr/src/linux-headers-3.4.0, it also installs this version of the kernel.
+
+
+... the script ...
+
+
+Let me know how it works for you. I have compiled and insmod'd kernel modules with this.
+
+Here is how you #include the headers
+
+include </usr/src/linux-headers-3.4.0/include/linux/module.h>
+include </usr/src/linux-headers-3.4.0/include/linux/kernel.h>
+include </usr/src/linux-headers-3.4.0/include/linux/init.h>
+include </usr/src/linux-headers-3.4.0/include/linux/syscalls.h>
+
+//or whatever you need specifically
+
+And I am guessing you already know this but in case someone does not This is the basic makefile for kernel mods. Once you use the script I linked, you can just run make with this makefile and all is well. replace kmod.o with whatever your source.c is called except keep it as .o
+
+Makefile 
+obj-m += kmod.o 
+all: make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+clean: make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+
+p.s. I had to modify sysinfo.h because the type __kernel_ulong_t was not defined. I changed it to uint64_t. This seems to work just fine. my mods have had no problems thus far. Make sure if you have to do this to edit the sysinfo.h in the 3.4.0 headers
+
+p.p.s. This fixes the issues with vbox and vmware player!!! They just install and work!!
+
+
+Answered Jun 6 at 4:02
+MountainX
+
