@@ -41,3 +41,34 @@ p.p.s. This fixes the issues with vbox and vmware player!!! They just install an
 Answered Jun 6 at 4:02
 MountainX
 
+
+
+For kernel 3.8, it is asked here, and the diff is below.
+http://superuser.com/questions/583269/chrubuntu-acer-how-to-load-kernel-3-8-0-16-instead-3-4-0
+
+But be aware of a backlight bug reported here: 
+https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1156306
+
+@@ -24,9 +23,9 @@
+ #
+ apt-get install git-core
+ cd /usr/src
+-git clone  https://git.chromium.org/git/chromiumos/third_party/kernel.git
+-cd kernel
+-git checkout origin/chromeos-3.4
++git clone  https://git.chromium.org/git/chromiumos/third_party/kernel-next.git
++cd kernel-next
++git checkout origin/chromeos-3.8
+ 
+ #
+ # Configure the kernel
+@@ -80,7 +79,7 @@
+   --version 1 \
+   --signprivate /usr/share/vboot/devkeys/kernel_data_key.vbprivk \
+   --config=/config-$tstamp.txt \
+-  --vmlinuz /boot/vmlinuz-3.4.0 \
++  --vmlinuz /boot/vmlinuz-3.8.0 \
+   --arch x86_64
+ 
+ #
+
