@@ -1,5 +1,39 @@
 
-https://cr-48-ubuntu.googlecode.com/files/install-ubuntu-1204-9.sh
+https://cr-48-ubuntu.googlecode.com/files/install-ubuntu-1204-9.sh  jan 2 2013
+    redirected from http://goo.gl/tnyga
+    see README-cr48-blog
+
+
+http://cr-48-ubuntu.googlecode.com/files/arm-chrubuntu-3.sh  jan 2 2013
+    redirected from http://goo.gl/34v87
+    see README-sd-blog
+
+
+http://googledrive.com/host/0B0YvUuHHn3MndlNDbXhPRlB2eFE/chrubuntu-install.txt  aug 22 2013
+    redirected from http://goo.gl/s9ryd
+    usage: <command>  [flavor] [version] [target-disk]
+      flavor: 
+               default  (ubuntu-desktop on x86, xubuntu-desktop on arm)
+               kubuntu-desktop
+               lubuntu-desktop
+               xubuntu-desktop
+               edubuntu-desktop
+               ubuntu-standard    (no GUI installed)
+      version:
+               lts -- latest LTS Ubuntu release, 12.04.2 as of this writing
+               latest -- latest official release, 13.04 as of this writing
+               dev -- unstable development Ubuntu release, daily alpha build of 
+                      Saucy Salamander 13.10 as of this writing <-- Experts only! 
+                      If this breaks, don't be surprised
+               12.10 -- Ubuntu 12.10 release
+
+      target-disk is the last argument (specify "default" and "latest" for 
+               the first two arguments if you just want to install the defaults 
+               to an external drive). An example installation to SD Card might be:
+                  sudo bash s9ryd default latest /dev/mmcblk1
+
+    see the blog http://chromeos-cr48.blogspot.ca/2013/05/chrubuntu-one-script-to-rule-them-all_31.html
+
 
 https://github.com/jbdatko/chrubuntu_trackpad
 
