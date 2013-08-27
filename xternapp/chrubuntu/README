@@ -1,15 +1,34 @@
 
-https://cr-48-ubuntu.googlecode.com/files/install-ubuntu-1204-9.sh  jan 2 2013
+README
+=========
+  this file.
+
+
+README-prepare
+======================
+  getting the chromebook into the developer mode.
+
+
+install-ubuntu-1204-9.sh
+README-cr48-blog
+==========================
+  https://cr-48-ubuntu.googlecode.com/files/install-ubuntu-1204-9.sh  jan 2 2013
     redirected from http://goo.gl/tnyga
     see README-cr48-blog
 
 
-http://cr-48-ubuntu.googlecode.com/files/arm-chrubuntu-3.sh  jan 2 2013
+arm-chrubuntu-3.sh
+README-sd-blog
+======================
+  http://cr-48-ubuntu.googlecode.com/files/arm-chrubuntu-3.sh  jan 2 2013
     redirected from http://goo.gl/34v87
     see README-sd-blog
+    Note: acer c7 cannot boot off a sd card. it does off a usb stick.
 
 
-http://googledrive.com/host/0B0YvUuHHn3MndlNDbXhPRlB2eFE/chrubuntu-install.txt  aug 22 2013
+chrubuntu-install.txt
+======================
+  http://googledrive.com/host/0B0YvUuHHn3MndlNDbXhPRlB2eFE/chrubuntu-install.txt  aug 22 2013
     redirected from http://goo.gl/s9ryd
     usage: <command>  [flavor] [version] [target-disk]
       flavor: 
@@ -35,11 +54,40 @@ http://googledrive.com/host/0B0YvUuHHn3MndlNDbXhPRlB2eFE/chrubuntu-install.txt  
     see the blog http://chromeos-cr48.blogspot.ca/2013/05/chrubuntu-one-script-to-rule-them-all_31.html
 
 
-https://github.com/jbdatko/chrubuntu_trackpad
+Track pad reference fix
+======================
+  https://github.com/jbdatko/chrubuntu_trackpad
 
 
-http://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/cr-48-chrome-notebook-developer-information/how-to-boot-ubuntu-on-a-cr-48
-    see pdf file.
+how-to-boot-ubunto-on-a-cr-48.pdf
+===================================
+  http://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/cr-48-chrome-notebook-developer-information/how-to-boot-ubuntu-on-a-cr-48
+    see the pdf file. general information.
 
+
+README-vm-blog
+======================
+  run chrome os inside a vm.
+
+
+ubuntu-build-general-howto
+============================
+  Instruction by Olof Johansson how to build a kernel on a chromebook.
+
+
+ubuntu-build-inbox-howto
+ubuntu-build-inbox-script
+ubuntu-kernel-for-acer-c7.sh
+ubuntu-kernel-for-acer-c7-fix
+===============================
+  Instructions and scrits to build a new kernel inside a chromebook linux installation.
+  With some fixes.
+
+
+debian-acerc7-forum.pdf
+===============================
+  General instructions to install any Linux distro.
+  It mentions the origin is here:
+    http://chromebooklinux.blogspot.ca/2013/08/usb-bootable-media-toolbox.html
 
 
