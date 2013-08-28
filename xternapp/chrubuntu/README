@@ -90,4 +90,64 @@ debian-acerc7-forum.pdf
   It mentions the origin is here:
     http://chromebooklinux.blogspot.ca/2013/08/usb-bootable-media-toolbox.html
 
+  http://forums.debian.net/viewtopic.php?f=30&t=103827
+  Getting Debian on Acer C7 Chromebook
+
+  To identify the current rootfs & kernel partitions:
+    $ rootdev -s
+
+  The kernel is one before the rootfs partition. Example:
+    $ rootdev -s
+      /dev/sda3
+    $ dd if=/dev/sda2 of=kernel_2.blob
+    $ dump_kernel_config kernel_2.blob > kernel_2.cfg
+    $ cp kernel_2.cfg kernel_debug.cfg
+
+  Replace the contents of kernel_debug.cfg with the following:
+        add_efi_memmap
+        boot=local
+        console=tty1
+        disablevmx=off
+        i915.modeset=1
+        init=/sbin/init
+        kern_guid=%U
+        loglevel=7
+        lsm.module_locking=0
+        ro
+        root=PARTUUID=%U/PARTNROFF=1
+        rootwait
+        tpm_tis.force=1
+
+  Wrap the new kernel with the verified block and the new config:
+    $ vbutil_kernel --repack kernel_debug.blob \
+        --keyblock /usr/share/vboot/devkeys/kernel.keyblock \
+        --version 1 \
+        --signprivate /usr/share/vboot/devkeys/kernel_data_key.vbprivk \
+        --config=kernel_debug.cfg \
+        --oldblob kernel_2.blob
+
+    $ vbutil_kernel --verify kernel_debug.blob
+    $ dd if=/kernel_debug.blob of=/dev/mmcblk0p6
+    $ cgpt add /dev/mmcblk0 -i 6 -P 1 -T 1
+
+  Copy the necessary stuff from the current Chrome OS rootfs to partition #7.
+    Include the following complete folders:
+        /lib/firmware
+        /lib/modules
+        /usr/share/vboot
+
+  And these files as well:
+        /usr/bin/cgpt
+        /usr/bin/dump_kernel_config
+        /usr/bin/vbutil_*
+
+  Cross your fingers, reboot & attempt to boot from USB. If it boots,
+  reprioritize partition #6 and mark it as having booted successfully.
+    $ cgpt add /dev/sdb -i 6 -P 1 -T 0 -S 1
+
+
+chrolin/
+==========
+  The package downloaded from chromebook-linux.com. Removed all the binary files.
+
 

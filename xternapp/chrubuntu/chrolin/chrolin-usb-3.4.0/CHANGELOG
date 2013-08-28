@@ -1,0 +1,38 @@
+2011-12-14	Jordi	<jordi@chromebook-linux.com>
+
+	* Downloading scripts: bugfix when deleting temporary parts
+
+	Added more verbosity
+
+	* bugreport.sh: replaced $VERSION to $CHROLIN_VERSION
+	
+
+2011-11-26	Jordi	<jordi@chromebook-linux.com>
+
+	* get-gentoo.sh: new script
+
+	Added new script to download Gentoo rootfs
+
+
+
+2011-11-19	Jordi	<jordi@chromebook-linux.com>
+
+	* chrolin-usb.sh: rootfs space
+
+	Added new feature to dynamic create and expand root filesystem partition $ROOT_A
+
+	* chrolin-usb.sh: new parameter -f
+
+	Added new feature to don't format partitions KERN-A and ROOT-a
+	
+
+
+2011-11-18	Jordi	<jordi@chromebook-linux.com>
+	
+	* chrolin-usb.sh: add e2fsck
+		
+	Added 'e2fsck -p $ROOT_A' to check and repair (if needed) the filesystem when the process is completed
+
+	* chrolin-usb.sh: fixed umount
+	
+	Added fix to automatically umount if the USB device is busy

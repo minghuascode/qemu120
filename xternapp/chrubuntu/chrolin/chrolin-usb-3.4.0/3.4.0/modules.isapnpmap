@@ -1,0 +1,4 @@
+# isapnp module      cardvendor carddevice driver_data vendor     function   ...
+rtc-cmos             0xffff     0xffff     0x00000000  0xd041     0x000b    
+rtc-cmos             0xffff     0xffff     0x00000000  0xd041     0x010b    
+rtc-cmos             0xffff     0xffff     0x00000000  0xd041     0x020b    

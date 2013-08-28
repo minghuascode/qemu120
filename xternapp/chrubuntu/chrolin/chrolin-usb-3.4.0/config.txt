@@ -1,0 +1,1 @@
+console=tty1 init=/sbin/init add_efi_memmap boot=local rootwait ro noresume noswap i915.modeset=1 loglevel=7 kern_guid=%U tpm_tis.force=1 tpm_tis.interrupts=0 root=/dev/sdb2 noinitrd

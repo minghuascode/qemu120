@@ -1,0 +1,460 @@
+
+Directory of files downloaded from 
+http://files.chromebook-linux.com/chrolin-usb/chrolin-usb.tar.bz2
+
+ 5520417 Aug 27 22:54 chrolin-usb.tar.bz2
+
+
+Truncated these files:
+│   ├── [    3264512]  ./chrolin-usb-3.4.0/kernel-3.4.0.bin
+│   │   ├── [     648336]  ./chrolin-usb-3.4.0/tools/cgpt*
+│   │   └── [      57560]  ./chrolin-usb-3.4.0/tools/vbutil_kernel*
+│   │   ├── [     105061]  ./chrolin-usb-3.4.0/3.4.0/modules.alias.bin
+│   │   ├── [       6946]  ./chrolin-usb-3.4.0/3.4.0/modules.builtin.bin
+│   │   ├── [      37711]  ./chrolin-usb-3.4.0/3.4.0/modules.dep.bin
+│   │   ├── [      62720]  ./chrolin-usb-3.4.0/3.4.0/modules.symbols.bin
+
+Removed all .ko files.
+
+tree -fsaF
+.
+├── [       ----]  ./chrolin-usb-3.4.0/
+│   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/
+│   │   ├── [        103]  ./chrolin-usb-3.4.0/3.4.0/build -> /build/x86-alex/tmp/portage/sys-kernel/chromeos-kernel-3.4-r958/work/chromeos-kernel-3.4/build/x86-alex
+│   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/
+│   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/arch/
+│   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/arch/x86/
+│   │   │   │       └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/arch/x86/crypto/
+│   │   │   │           └── [      11292]  ./chrolin-usb-3.4.0/3.4.0/kernel/arch/x86/crypto/aesni-intel.ko
+│   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/crypto/
+│   │   │   │   ├── [       3036]  ./chrolin-usb-3.4.0/3.4.0/kernel/crypto/crc32c.ko
+│   │   │   │   ├── [      10380]  ./chrolin-usb-3.4.0/3.4.0/kernel/crypto/cryptd.ko
+│   │   │   │   ├── [       3724]  ./chrolin-usb-3.4.0/3.4.0/kernel/crypto/deflate.ko
+│   │   │   │   ├── [       3272]  ./chrolin-usb-3.4.0/3.4.0/kernel/crypto/michael_mic.ko
+│   │   │   │   └── [      10240]  ./chrolin-usb-3.4.0/3.4.0/kernel/crypto/sha512_generic.ko
+│   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/block/
+│   │   │   │   │   └── [      10588]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/block/virtio_blk.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/bluetooth/
+│   │   │   │   │   ├── [       7120]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/bluetooth/ath3k.ko
+│   │   │   │   │   ├── [       5552]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/bluetooth/bcm203x.ko
+│   │   │   │   │   ├── [       9580]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/bluetooth/bfusb.ko
+│   │   │   │   │   ├── [       6828]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/bluetooth/bpa10x.ko
+│   │   │   │   │   ├── [      15120]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/bluetooth/btusb.ko
+│   │   │   │   │   └── [       6020]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/bluetooth/hci_vhci.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/cdrom/
+│   │   │   │   │   └── [      33832]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/cdrom/cdrom.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/firmware/
+│   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/firmware/google/
+│   │   │   │   │       └── [       5464]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/firmware/google/memconsole.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/gpio/
+│   │   │   │   │   └── [       7444]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/gpio/nm10_gpio.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/
+│   │   │   │   │   ├── [       9136]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-apple.ko
+│   │   │   │   │   ├── [      13072]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-logitech-dj.ko
+│   │   │   │   │   ├── [       8312]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-logitech.ko
+│   │   │   │   │   ├── [       8264]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-magicmouse.ko
+│   │   │   │   │   ├── [       4708]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-microsoft.ko
+│   │   │   │   │   ├── [      11444]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-multitouch.ko
+│   │   │   │   │   ├── [       3340]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-primax.ko
+│   │   │   │   │   ├── [       4588]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-sony.ko
+│   │   │   │   │   └── [      23196]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/hid/hid-wiimote.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/i2c/
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/i2c/busses/
+│   │   │   │   │   │   ├── [      12296]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/i2c/busses/i2c-piix4.ko
+│   │   │   │   │   │   └── [       5624]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/i2c/busses/i2c-stub.ko
+│   │   │   │   │   └── [       7692]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/i2c/i2c-dev.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/
+│   │   │   │   │   ├── [      11284]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/joydev.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/joystick/
+│   │   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/joystick/iforce/
+│   │   │   │   │   │   │   └── [      17772]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/joystick/iforce/iforce.ko
+│   │   │   │   │   │   └── [      13236]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/joystick/xpad.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/misc/
+│   │   │   │   │   │   └── [       9372]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/misc/uinput.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/mouse/
+│   │   │   │   │   │   └── [      11724]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/mouse/appletouch.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/serio/
+│   │   │   │   │   │   ├── [       5228]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/serio/ct82c710.ko
+│   │   │   │   │   │   ├── [       4824]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/serio/pcips2.ko
+│   │   │   │   │   │   └── [       5128]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/serio/serport.ko
+│   │   │   │   │   └── [       4308]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/input/sparse-keymap.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/
+│   │   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/
+│   │   │   │   │   │       ├── [       4232]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/mc44s803.ko
+│   │   │   │   │   │       ├── [      10940]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/mt20xx.ko
+│   │   │   │   │   │       ├── [      38744]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tda18271.ko
+│   │   │   │   │   │       ├── [      10472]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tda827x.ko
+│   │   │   │   │   │       ├── [      10800]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tda8290.ko
+│   │   │   │   │   │       ├── [      11076]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tda9887.ko
+│   │   │   │   │   │       ├── [       5612]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tea5761.ko
+│   │   │   │   │   │       ├── [       7072]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tea5767.ko
+│   │   │   │   │   │       ├── [      12752]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tuner-simple.ko
+│   │   │   │   │   │       ├── [      11596]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tuner-types.ko
+│   │   │   │   │   │       ├── [      20456]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/tuner-xc2028.ko
+│   │   │   │   │   │       ├── [      21556]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/xc4000.ko
+│   │   │   │   │   │       └── [      14580]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/common/tuners/xc5000.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/
+│   │   │   │   │   │   ├── [       5536]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/ir-mce_kbd-decoder.ko
+│   │   │   │   │   │   ├── [       3648]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/ir-sanyo-decoder.ko
+│   │   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/
+│   │   │   │   │   │   │   ├── [       2608]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-adstech-dvb-t-pci.ko
+│   │   │   │   │   │   │   ├── [       2372]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-alink-dtu-m.ko
+│   │   │   │   │   │   │   ├── [       2572]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-anysee.ko
+│   │   │   │   │   │   │   ├── [       2496]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-apac-viewcomp.ko
+│   │   │   │   │   │   │   ├── [       2552]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-asus-pc39.ko
+│   │   │   │   │   │   │   ├── [       2452]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-ati-tv-wonder-hd-600.ko
+│   │   │   │   │   │   │   ├── [       2608]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-ati-x10.ko
+│   │   │   │   │   │   │   ├── [       2520]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-avermedia-a16d.ko
+│   │   │   │   │   │   │   ├── [       2688]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-avermedia-cardbus.ko
+│   │   │   │   │   │   │   ├── [       2520]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-avermedia-dvbt.ko
+│   │   │   │   │   │   │   ├── [       2528]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-avermedia.ko
+│   │   │   │   │   │   │   ├── [       2880]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-avermedia-m135a.ko
+│   │   │   │   │   │   │   ├── [       2616]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-avermedia-m733a-rm-k6.ko
+│   │   │   │   │   │   │   ├── [       2452]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-avermedia-rm-ks.ko
+│   │   │   │   │   │   │   ├── [       2528]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-avertv-303.ko
+│   │   │   │   │   │   │   ├── [       2668]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-azurewave-ad-tu700.ko
+│   │   │   │   │   │   │   ├── [       2472]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-behold-columbus.ko
+│   │   │   │   │   │   │   ├── [       2504]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-behold.ko
+│   │   │   │   │   │   │   ├── [       2608]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-budget-ci-old.ko
+│   │   │   │   │   │   │   ├── [       2540]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-cinergy-1400.ko
+│   │   │   │   │   │   │   ├── [       2520]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-cinergy.ko
+│   │   │   │   │   │   │   ├── [       2800]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-dib0700-nec.ko
+│   │   │   │   │   │   │   ├── [       3680]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-dib0700-rc5.ko
+│   │   │   │   │   │   │   ├── [       2636]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-digitalnow-tinytwin.ko
+│   │   │   │   │   │   │   ├── [       2452]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-digittrade.ko
+│   │   │   │   │   │   │   ├── [       2488]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-dm1105-nec.ko
+│   │   │   │   │   │   │   ├── [       2504]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-dntv-live-dvb-t.ko
+│   │   │   │   │   │   │   ├── [       2680]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-dntv-live-dvbt-pro.ko
+│   │   │   │   │   │   │   ├── [       2464]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-em-terratec.ko
+│   │   │   │   │   │   │   ├── [       2560]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-encore-enltv2.ko
+│   │   │   │   │   │   │   ├── [       2488]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-encore-enltv-fm53.ko
+│   │   │   │   │   │   │   ├── [       2660]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-encore-enltv.ko
+│   │   │   │   │   │   │   ├── [       2372]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-evga-indtube.ko
+│   │   │   │   │   │   │   ├── [       2580]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-eztv.ko
+│   │   │   │   │   │   │   ├── [       2488]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-flydvb.ko
+│   │   │   │   │   │   │   ├── [       2452]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-flyvideo.ko
+│   │   │   │   │   │   │   ├── [       2608]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-fusionhdtv-mce.ko
+│   │   │   │   │   │   │   ├── [       2496]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-gadmei-rm008z.ko
+│   │   │   │   │   │   │   ├── [       2512]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-genius-tvgo-a11mce.ko
+│   │   │   │   │   │   │   ├── [       2512]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-gotview7135.ko
+│   │   │   │   │   │   │   ├── [       3616]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-hauppauge.ko
+│   │   │   │   │   │   │   ├── [       2816]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-imon-mce.ko
+│   │   │   │   │   │   │   ├── [       2944]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-imon-pad.ko
+│   │   │   │   │   │   │   ├── [       2536]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-iodata-bctv7e.ko
+│   │   │   │   │   │   │   ├── [       2648]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-it913x-v1.ko
+│   │   │   │   │   │   │   ├── [       2608]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-it913x-v2.ko
+│   │   │   │   │   │   │   ├── [       2488]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-kaiomy.ko
+│   │   │   │   │   │   │   ├── [       2496]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-kworld-315u.ko
+│   │   │   │   │   │   │   ├── [       2600]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-kworld-pc150u.ko
+│   │   │   │   │   │   │   ├── [       2512]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-kworld-plus-tv-analog.ko
+│   │   │   │   │   │   │   ├── [       2640]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-leadtek-y04g0051.ko
+│   │   │   │   │   │   │   ├── [       2216]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-lirc.ko
+│   │   │   │   │   │   │   ├── [       2752]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-lme2510.ko
+│   │   │   │   │   │   │   ├── [       2480]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-manli.ko
+│   │   │   │   │   │   │   ├── [       2656]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-medion-x10.ko
+│   │   │   │   │   │   │   ├── [       2492]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-msi-digivox-iii.ko
+│   │   │   │   │   │   │   ├── [       2380]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-msi-digivox-ii.ko
+│   │   │   │   │   │   │   ├── [       2440]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-msi-tvanywhere.ko
+│   │   │   │   │   │   │   ├── [       2544]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-msi-tvanywhere-plus.ko
+│   │   │   │   │   │   │   ├── [       2672]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-nebula.ko
+│   │   │   │   │   │   │   ├── [       2944]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-nec-terratec-cinergy-xs.ko
+│   │   │   │   │   │   │   ├── [       2512]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-norwood.ko
+│   │   │   │   │   │   │   ├── [       2512]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-npgtech.ko
+│   │   │   │   │   │   │   ├── [       2496]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pctv-sedna.ko
+│   │   │   │   │   │   │   ├── [       2584]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pinnacle-color.ko
+│   │   │   │   │   │   │   ├── [       2576]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pinnacle-grey.ko
+│   │   │   │   │   │   │   ├── [       2460]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pinnacle-pctv-hd.ko
+│   │   │   │   │   │   │   ├── [       2456]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pixelview-002t.ko
+│   │   │   │   │   │   │   ├── [       2496]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pixelview.ko
+│   │   │   │   │   │   │   ├── [       2496]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pixelview-mk12.ko
+│   │   │   │   │   │   │   ├── [       2496]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pixelview-new.ko
+│   │   │   │   │   │   │   ├── [       2544]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-powercolor-real-angel.ko
+│   │   │   │   │   │   │   ├── [       2436]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-proteus-2309.ko
+│   │   │   │   │   │   │   ├── [       2516]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-purpletv.ko
+│   │   │   │   │   │   │   ├── [       2480]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-pv951.ko
+│   │   │   │   │   │   │   ├── [       2724]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-rc6-mce.ko
+│   │   │   │   │   │   │   ├── [       2488]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-real-audio-220-32-keys.ko
+│   │   │   │   │   │   │   ├── [       2632]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-snapstream-firefly.ko
+│   │   │   │   │   │   │   ├── [       2508]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-streamzap.ko
+│   │   │   │   │   │   │   ├── [       2504]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-tbs-nec.ko
+│   │   │   │   │   │   │   ├── [       2516]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-technisat-usb2.ko
+│   │   │   │   │   │   │   ├── [       2632]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-terratec-cinergy-xs.ko
+│   │   │   │   │   │   │   ├── [       2380]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-terratec-slim-2.ko
+│   │   │   │   │   │   │   ├── [       2460]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-terratec-slim.ko
+│   │   │   │   │   │   │   ├── [       2616]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-tevii-nec.ko
+│   │   │   │   │   │   │   ├── [       2576]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-tivo.ko
+│   │   │   │   │   │   │   ├── [       2524]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-total-media-in-hand.ko
+│   │   │   │   │   │   │   ├── [       2448]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-trekstor.ko
+│   │   │   │   │   │   │   ├── [       2544]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-tt-1500.ko
+│   │   │   │   │   │   │   ├── [       2656]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-twinhan1027.ko
+│   │   │   │   │   │   │   ├── [       2648]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-videomate-m1f.ko
+│   │   │   │   │   │   │   ├── [       2600]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-videomate-s350.ko
+│   │   │   │   │   │   │   ├── [       2548]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-videomate-tv-pvr.ko
+│   │   │   │   │   │   │   ├── [       2680]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-winfast.ko
+│   │   │   │   │   │   │   └── [       2484]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/keymaps/rc-winfast-usbii-deluxe.ko
+│   │   │   │   │   │   ├── [      12652]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/lirc_dev.ko
+│   │   │   │   │   │   └── [      17068]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/rc/rc-core.ko
+│   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/
+│   │   │   │   │       ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/uvc/
+│   │   │   │   │       │   └── [      65180]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/uvc/uvcvideo.ko
+│   │   │   │   │       ├── [       7864]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/v4l2-common.ko
+│   │   │   │   │       ├── [       3548]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/v4l2-int-device.ko
+│   │   │   │   │       ├── [      19656]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/videobuf2-core.ko
+│   │   │   │   │       ├── [       3768]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/videobuf2-memops.ko
+│   │   │   │   │       ├── [       4268]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/videobuf2-vmalloc.ko
+│   │   │   │   │       └── [      77264]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/media/video/videodev.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/mfd/
+│   │   │   │   │   ├── [       4280]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/mfd/lpc_sch.ko
+│   │   │   │   │   └── [       4652]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/mfd/mfd-core.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/misc/
+│   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/misc/eeprom/
+│   │   │   │   │       └── [       3596]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/misc/eeprom/eeprom_93cx6.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/
+│   │   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/intel/
+│   │   │   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/intel/e1000/
+│   │   │   │   │   │   │   │   └── [      98180]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/intel/e1000/e1000.ko
+│   │   │   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/intel/e1000e/
+│   │   │   │   │   │   │   │   └── [     134212]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/intel/e1000e/e1000e.ko
+│   │   │   │   │   │   │   ├── [      32900]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/intel/e100.ko
+│   │   │   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/intel/igbvf/
+│   │   │   │   │   │   │       └── [      31456]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/intel/igbvf/igbvf.ko
+│   │   │   │   │   │   ├── [      30208]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/jme.ko
+│   │   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/realtek/
+│   │   │   │   │   │       └── [      45160]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ethernet/realtek/r8169.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ppp/
+│   │   │   │   │   │   ├── [       9848]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ppp/ppp_async.ko
+│   │   │   │   │   │   └── [      22104]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/ppp/ppp_generic.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/slip/
+│   │   │   │   │   │   └── [       5536]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/slip/slhc.ko
+│   │   │   │   │   ├── [      16972]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/tun.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/
+│   │   │   │   │   │   ├── [      17444]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/asix.ko
+│   │   │   │   │   │   ├── [       7044]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/cdc_ether.ko
+│   │   │   │   │   │   ├── [      10844]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/cdc_ncm.ko
+│   │   │   │   │   │   ├── [       9316]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/dm9601.ko
+│   │   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/gobi/
+│   │   │   │   │   │   │   └── [      48680]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/gobi/gobi.ko
+│   │   │   │   │   │   ├── [       8144]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/mcs7830.ko
+│   │   │   │   │   │   ├── [       5368]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/net1080.ko
+│   │   │   │   │   │   ├── [      25856]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/pegasus.ko
+│   │   │   │   │   │   ├── [       8284]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/rndis_host.ko
+│   │   │   │   │   │   ├── [      16840]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/smsc75xx.ko
+│   │   │   │   │   │   ├── [      15604]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/smsc95xx.ko
+│   │   │   │   │   │   └── [      19576]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/usb/usbnet.ko
+│   │   │   │   │   ├── [       6376]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/veth.ko
+│   │   │   │   │   ├── [      15144]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/virtio_net.ko
+│   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/
+│   │   │   │   │       ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/ath/
+│   │   │   │   │       │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/ath/ath5k/
+│   │   │   │   │       │   │   └── [     135660]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/ath/ath5k/ath5k.ko
+│   │   │   │   │       │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/ath/ath9k/
+│   │   │   │   │       │   │   ├── [       3664]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/ath/ath9k/ath9k_common.ko
+│   │   │   │   │       │   │   ├── [     366924]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/ath/ath9k/ath9k_hw.ko
+│   │   │   │   │       │   │   └── [     134860]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/ath/ath9k/ath9k.ko
+│   │   │   │   │       │   └── [      16848]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/ath/ath.ko
+│   │   │   │   │       ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/hostap/
+│   │   │   │   │       │   ├── [      95488]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/hostap/hostap.ko
+│   │   │   │   │       │   ├── [      48560]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/hostap/hostap_pci.ko
+│   │   │   │   │       │   └── [      49160]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/hostap/hostap_plx.ko
+│   │   │   │   │       ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/libertas_tf/
+│   │   │   │   │       │   ├── [      15868]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/libertas_tf/libertas_tf.ko
+│   │   │   │   │       │   └── [       9616]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/libertas_tf/libertas_tf_usb.ko
+│   │   │   │   │       ├── [      24336]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/mac80211_hwsim.ko
+│   │   │   │   │       ├── [      26276]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rndis_wlan.ko
+│   │   │   │   │       ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rt2x00/
+│   │   │   │   │       │   ├── [      37840]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rt2x00/rt2800lib.ko
+│   │   │   │   │       │   ├── [      14156]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rt2x00/rt2800pci.ko
+│   │   │   │   │       │   ├── [      37728]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rt2x00/rt2x00lib.ko
+│   │   │   │   │       │   └── [       7852]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rt2x00/rt2x00pci.ko
+│   │   │   │   │       └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rtlwifi/
+│   │   │   │   │           ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rtlwifi/rtl8192c/
+│   │   │   │   │           │   └── [      47120]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rtlwifi/rtl8192c/rtl8192c-common.ko
+│   │   │   │   │           ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rtlwifi/rtl8192ce/
+│   │   │   │   │           │   └── [      63440]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rtlwifi/rtl8192ce/rtl8192ce.ko
+│   │   │   │   │           └── [      88376]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/net/wireless/rtlwifi/rtlwifi.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/platform/
+│   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/platform/x86/
+│   │   │   │   │       ├── [       5212]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/platform/x86/dell-wmi.ko
+│   │   │   │   │       ├── [      11596]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/platform/x86/hp-wmi.ko
+│   │   │   │   │       ├── [       6684]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/platform/x86/intel_menlow.ko
+│   │   │   │   │       └── [      11156]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/platform/x86/wmi.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/rtc/
+│   │   │   │   │   └── [      12876]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/rtc/rtc-cmos.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/scsi/
+│   │   │   │   │   ├── [       1988]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/scsi/scsi_wait_scan.ko
+│   │   │   │   │   └── [      16504]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/scsi/sr_mod.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/spi/
+│   │   │   │   │   ├── [       5404]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/spi/spi-bitbang.ko
+│   │   │   │   │   └── [       8440]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/spi/spidev.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/iio/
+│   │   │   │   │   │   ├── [      18408]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/iio/industrialio.ko
+│   │   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/iio/light/
+│   │   │   │   │   │       ├── [       9176]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/iio/light/isl29018.ko
+│   │   │   │   │   │       ├── [       8132]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/iio/light/tsl2563.ko
+│   │   │   │   │   │       └── [      11000]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/iio/light/tsl2583.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/zram/
+│   │   │   │   │   │   └── [      13264]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/zram/zram.ko
+│   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/zsmalloc/
+│   │   │   │   │       └── [       7520]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/staging/zsmalloc/zsmalloc.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/host/
+│   │   │   │   │   │   └── [      72548]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/host/xhci-hcd.ko
+│   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/serial/
+│   │   │   │   │       ├── [      47776]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/serial/option.ko
+│   │   │   │   │       ├── [      16528]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/serial/pl2303.ko
+│   │   │   │   │       ├── [      10408]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/serial/qcserial.ko
+│   │   │   │   │       ├── [      15196]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/serial/sierra.ko
+│   │   │   │   │       └── [      12908]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/usb/serial/usb_wwan.ko
+│   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/virtio/
+│   │   │   │       ├── [       5364]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/virtio/virtio.ko
+│   │   │   │       ├── [       9276]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/virtio/virtio_pci.ko
+│   │   │   │       └── [       6576]  ./chrolin-usb-3.4.0/3.4.0/kernel/drivers/virtio/virtio_ring.ko
+│   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/fat/
+│   │   │   │   │   ├── [      47768]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/fat/fat.ko
+│   │   │   │   │   └── [      10880]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/fat/vfat.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/fuse/
+│   │   │   │   │   └── [      70560]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/fuse/fuse.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/hfsplus/
+│   │   │   │   │   └── [      79340]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/hfsplus/hfsplus.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/isofs/
+│   │   │   │   │   └── [      28648]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/isofs/isofs.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/nls/
+│   │   │   │   │   ├── [       4944]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/nls/nls_ascii.ko
+│   │   │   │   │   ├── [       6528]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/nls/nls_cp437.ko
+│   │   │   │   │   ├── [       4952]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/nls/nls_iso8859-1.ko
+│   │   │   │   │   └── [       2616]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/nls/nls_utf8.ko
+│   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/udf/
+│   │   │   │       └── [      74136]  ./chrolin-usb-3.4.0/3.4.0/kernel/fs/udf/udf.ko
+│   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/kernel/
+│   │   │   │   └── [      23764]  ./chrolin-usb-3.4.0/3.4.0/kernel/kernel/configs.ko
+│   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/
+│   │   │   │   ├── [       2264]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/crc7.ko
+│   │   │   │   ├── [       2540]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/crc-itu-t.ko
+│   │   │   │   ├── [       2472]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/crc-t10dif.ko
+│   │   │   │   ├── [       2900]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/libcrc32c.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/lzo/
+│   │   │   │   │   ├── [       2740]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/lzo/lzo_compress.ko
+│   │   │   │   │   └── [       3004]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/lzo/lzo_decompress.ko
+│   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/zlib_deflate/
+│   │   │   │       └── [      15456]  ./chrolin-usb-3.4.0/3.4.0/kernel/lib/zlib_deflate/zlib_deflate.ko
+│   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/bluetooth/
+│   │   │   │   │   ├── [     155236]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/bluetooth/bluetooth.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/bluetooth/hidp/
+│   │   │   │   │   │   └── [      17904]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/bluetooth/hidp/hidp.ko
+│   │   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/bluetooth/rfcomm/
+│   │   │   │   │       └── [      25696]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/bluetooth/rfcomm/rfcomm.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/
+│   │   │   │   │   ├── [       7400]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/ah4.ko
+│   │   │   │   │   ├── [       8268]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/esp4.ko
+│   │   │   │   │   ├── [       4360]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/ipcomp.ko
+│   │   │   │   │   ├── [       4376]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/tunnel4.ko
+│   │   │   │   │   ├── [       3744]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/xfrm4_mode_beet.ko
+│   │   │   │   │   ├── [       3064]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/xfrm4_mode_transport.ko
+│   │   │   │   │   ├── [       3656]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/xfrm4_mode_tunnel.ko
+│   │   │   │   │   └── [       3884]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv4/xfrm4_tunnel.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/
+│   │   │   │   │   ├── [       7688]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/ah6.ko
+│   │   │   │   │   ├── [       7972]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/esp6.ko
+│   │   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/netfilter/
+│   │   │   │   │   │   ├── [       3500]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/netfilter/ip6table_filter.ko
+│   │   │   │   │   │   ├── [       3656]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/netfilter/ip6table_mangle.ko
+│   │   │   │   │   │   ├── [      13248]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/netfilter/ip6_tables.ko
+│   │   │   │   │   │   ├── [       3324]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/netfilter/ip6t_ipv6header.ko
+│   │   │   │   │   │   ├── [       5024]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/netfilter/ip6t_REJECT.ko
+│   │   │   │   │   │   ├── [       8880]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/netfilter/nf_conntrack_ipv6.ko
+│   │   │   │   │   │   └── [       8636]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko
+│   │   │   │   │   ├── [      12380]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/sit.ko
+│   │   │   │   │   ├── [       3548]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/xfrm6_mode_beet.ko
+│   │   │   │   │   ├── [       3100]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/xfrm6_mode_transport.ko
+│   │   │   │   │   └── [       3548]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/ipv6/xfrm6_mode_tunnel.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/key/
+│   │   │   │   │   └── [      27124]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/key/af_key.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/mac80211/
+│   │   │   │   │   └── [     348568]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/mac80211/mac80211.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/netfilter/
+│   │   │   │   │   ├── [       2892]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/netfilter/xt_mark.ko
+│   │   │   │   │   └── [       5008]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/netfilter/xt_TCPMSS.ko
+│   │   │   │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/wireless/
+│   │   │   │   │   ├── [     151956]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/wireless/cfg80211.ko
+│   │   │   │   │   ├── [       5868]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/wireless/lib80211_crypt_ccmp.ko
+│   │   │   │   │   ├── [       9112]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/wireless/lib80211_crypt_tkip.ko
+│   │   │   │   │   ├── [       4524]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/wireless/lib80211_crypt_wep.ko
+│   │   │   │   │   └── [       5928]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/wireless/lib80211.ko
+│   │   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/xfrm/
+│   │   │   │       └── [       6312]  ./chrolin-usb-3.4.0/3.4.0/kernel/net/xfrm/xfrm_ipcomp.ko
+│   │   │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/
+│   │   │       ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/
+│   │   │       │   ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/seq/
+│   │   │       │   │   ├── [       7096]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/seq/snd-seq-device.ko
+│   │   │       │   │   ├── [       4400]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/seq/snd-seq-dummy.ko
+│   │   │       │   │   ├── [      49968]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/seq/snd-seq.ko
+│   │   │       │   │   ├── [       6664]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/seq/snd-seq-midi-event.ko
+│   │   │       │   │   └── [       7656]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/seq/snd-seq-midi.ko
+│   │   │       │   ├── [       3828]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/snd-hrtimer.ko
+│   │   │       │   ├── [       7912]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/snd-hwdep.ko
+│   │   │       │   ├── [       9836]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/snd-page-alloc.ko
+│   │   │       │   ├── [      63584]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/snd-pcm.ko
+│   │   │       │   ├── [      18088]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/snd-rawmidi.ko
+│   │   │       │   └── [      19932]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/core/snd-timer.ko
+│   │   │       ├── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/
+│   │   │       │   └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/
+│   │   │       │       ├── [      77980]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-analog.ko
+│   │   │       │       ├── [       7912]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-ca0110.ko
+│   │   │       │       ├── [       9348]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-ca0132.ko
+│   │   │       │       ├── [      17488]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-cirrus.ko
+│   │   │       │       ├── [      10536]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-cmedia.ko
+│   │   │       │       ├── [      42408]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-conexant.ko
+│   │   │       │       ├── [      27120]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-hdmi.ko
+│   │   │       │       ├── [      49704]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-idt.ko
+│   │   │       │       ├── [      74248]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec.ko
+│   │   │       │       ├── [      50684]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-realtek.ko
+│   │   │       │       ├── [       5768]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-si3054.ko
+│   │   │       │       ├── [      33504]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-codec-via.ko
+│   │   │       │       └── [      28868]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/pci/hda/snd-hda-intel.ko
+│   │   │       └── [       ----]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/usb/
+│   │   │           ├── [      95004]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/usb/snd-usb-audio.ko
+│   │   │           └── [      18288]  ./chrolin-usb-3.4.0/3.4.0/kernel/sound/usb/snd-usbmidi-lib.ko
+│   │   ├── [     105546]  ./chrolin-usb-3.4.0/3.4.0/modules.alias
+│   │   ├── [     105061]  ./chrolin-usb-3.4.0/3.4.0/modules.alias.bin
+│   │   ├── [       5613]  ./chrolin-usb-3.4.0/3.4.0/modules.builtin
+│   │   ├── [       6946]  ./chrolin-usb-3.4.0/3.4.0/modules.builtin.bin
+│   │   ├── [         69]  ./chrolin-usb-3.4.0/3.4.0/modules.ccwmap
+│   │   ├── [      23751]  ./chrolin-usb-3.4.0/3.4.0/modules.dep
+│   │   ├── [      37711]  ./chrolin-usb-3.4.0/3.4.0/modules.dep.bin
+│   │   ├── [        186]  ./chrolin-usb-3.4.0/3.4.0/modules.devname
+│   │   ├── [         73]  ./chrolin-usb-3.4.0/3.4.0/modules.ieee1394map
+│   │   ├── [        218]  ./chrolin-usb-3.4.0/3.4.0/modules.inputmap
+│   │   ├── [        312]  ./chrolin-usb-3.4.0/3.4.0/modules.isapnpmap
+│   │   ├── [        151]  ./chrolin-usb-3.4.0/3.4.0/modules.ofmap
+│   │   ├── [      12738]  ./chrolin-usb-3.4.0/3.4.0/modules.order
+│   │   ├── [      29310]  ./chrolin-usb-3.4.0/3.4.0/modules.pcimap
+│   │   ├── [         43]  ./chrolin-usb-3.4.0/3.4.0/modules.seriomap
+│   │   ├── [        131]  ./chrolin-usb-3.4.0/3.4.0/modules.softdep
+│   │   ├── [      51990]  ./chrolin-usb-3.4.0/3.4.0/modules.symbols
+│   │   ├── [      62720]  ./chrolin-usb-3.4.0/3.4.0/modules.symbols.bin
+│   │   ├── [     250150]  ./chrolin-usb-3.4.0/3.4.0/modules.usbmap
+│   │   └── [         88]  ./chrolin-usb-3.4.0/3.4.0/source -> /build/x86-alex/tmp/portage/sys-kernel/chromeos-kernel-3.4-r958/work/chromeos-kernel-3.4
+│   ├── [       1546]  ./chrolin-usb-3.4.0/bugreport.sh*
+│   ├── [       ----]  ./chrolin-usb-3.4.0/builds/
+│   ├── [        863]  ./chrolin-usb-3.4.0/CHANGELOG
+│   ├── [       7318]  ./chrolin-usb-3.4.0/chrolin-usb.sh*
+│   ├── [        183]  ./chrolin-usb-3.4.0/config.txt
+│   ├── [       1530]  ./chrolin-usb-3.4.0/get-debian-6.0.3.sh*
+│   ├── [       1484]  ./chrolin-usb-3.4.0/get-gentoo.sh*
+│   ├── [       1640]  ./chrolin-usb-3.4.0/get-ubuntu-11.04.sh*
+│   ├── [    3264512]  ./chrolin-usb-3.4.0/kernel-3.4.0.bin
+│   ├── [       1199]  ./chrolin-usb-3.4.0/kernel_data_key.vbprivk
+│   ├── [       1991]  ./chrolin-usb-3.4.0/README
+│   ├── [       ----]  ./chrolin-usb-3.4.0/tools/
+│   │   ├── [     648336]  ./chrolin-usb-3.4.0/tools/cgpt*
+│   │   └── [      57560]  ./chrolin-usb-3.4.0/tools/vbutil_kernel*
+│   └── [          6]  ./chrolin-usb-3.4.0/VERSION
+└── [        148]  ./README
+
+

@@ -1,0 +1,54 @@
+--------------------------------------------------------
+How to install GNU/Linux on USB (to run on Chromebooks)
+--------------------------------------------------------
+
+1. Get a GNU/Linux root filesystem. In this version you can choose between Debian 6.0.3 or Ubuntu 11.04. So, choose your favorite.
+	To download Debian 6.0.3: sh get-debian-6.0.3.sh
+	To download Ubuntu 11.04: sh get-ubuntu-11.04.sh
+
+	By default this will download the distribution and left a binary on 'builds' folder.
+
+2. Connect your USB stick and type: dmesg | tail
+	This will return your USB device, something like: /dev/sdb, /dev/sdc, /dev/sdg, ... depending on your system
+
+3. Open and check the file 'config.txt'. Look for root=/dev/sdb2 and change this value only if your root device on your Chromebook is different. But probably you don't have to change nothing, just keep in mind.
+
+4. Run the script chrolin-usb with sudo.
+	To install Debian 6.0.3: sudo sh chrolin-usb.sh -u <your USB device> -i builds/debian_rootfs-6.0.3.bin
+	To install Ubuntu 11.04: sudo sh chrolin-usb.sh -u <your USB device> -i builds/ubuntu_rootfs-11.04.bin
+	To install Gentoo: sudo sh chrolin-usb.sh -u <your USB device> -i builds/gentoo_rootfs.bin
+
+For example, assuming your USB device is /dev/sdg and you want to install Debian 6.0.3, you should type: sudo sh chrolin-usb.sh -u /dev/sdg -i builds/debian_rootfs-6.0.3.bin
+
+If you found a bug, you can send me a bug report using the script 'bugreport.sh': sh bugreport.sh
+Or contact via email to: jordi@chromebook-linux.com
+
+--------------------
+Logins and passwords
+--------------------
+
+Gentoo
+-------
+Login: user
+Password: chromebook
+
+Root password: chromebook 
+(set your root password using: sudo passwd root)
+
+
+Debian 6.0.3
+-------------
+Login: user
+Password: chromebook
+
+Root password: chromebook-linux.com 
+(set your root password using: sudo passwd root)
+
+
+Ubuntu 11.04
+-------------
+Login: user
+Password: user
+
+No root password
+(set your root password using: sudo passwd root)
