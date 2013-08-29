@@ -156,7 +156,6 @@ Minimal Fedora 19
   http://forums.fedoraforum.org/showthread.php?t=287090
   [SOLVED] How to make a minimal install with only graphical DE?
 
-  ""
   "Things to do with the minimal fedora 19: "
   "  Install pkgs: openssh-server, net-tools, system-config-firewall-tui"
   "  Disable fw:   systemctl stop firewalld.service"
@@ -166,13 +165,11 @@ Minimal Fedora 19
   "      cd /etc/systemd/system; rm display-manager.service ;"
   "      ln -s /usr/lib/systemd/system/lxdm.service display-manager.service"
 
-  ""
   "  Install more packages for x: "
   "      yum install xorg-x11-server-Xorg xterm xorg-x11-xinit xorg-x11-drv-evdev"
   "    (If on a laptop where the touchpad works with synaptics, add xorg-x11-drv-synaptics)"
   "  Install a window manager, e.g. yum install openbox. dbus-x11 too."
 
-  ""
   "  Or get a new image from scratch to have a minimal Fedora with only LXDE:"
   "    - use Netinstall image"
   "    - chose "minimal" and "customise now", then only 4 bundle of packages: "
