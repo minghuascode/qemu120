@@ -153,6 +153,9 @@ chrolin/
 
 Minimal Fedora 19
 ===================
+  http://forums.fedoraforum.org/showthread.php?t=287090
+  [SOLVED] How to make a minimal install with only graphical DE?
+
   ""
   "Things to do with the minimal fedora 19: "
   "  Install pkgs: openssh-server, net-tools, system-config-firewall-tui"
