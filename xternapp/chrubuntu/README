@@ -151,3 +151,28 @@ chrolin/
   The package downloaded from chromebook-linux.com. Removed all the binary files.
 
 
+Minimal Fedora 19
+===================
+  ""
+  "Things to do with the minimal fedora 19: "
+  "  Install pkgs: openssh-server, net-tools, system-config-firewall-tui"
+  "  Disable fw:   systemctl stop firewalld.service"
+  ""
+  "  Install lxde: yum install @lxde-desktop"
+  "  Set LXDE as default for LXDM: "
+  "      cd /etc/systemd/system; rm display-manager.service ;"
+  "      ln -s /usr/lib/systemd/system/lxdm.service display-manager.service"
+
+  ""
+  "  Install more packages for x: "
+  "      yum install xorg-x11-server-Xorg xterm xorg-x11-xinit xorg-x11-drv-evdev"
+  "    (If on a laptop where the touchpad works with synaptics, add xorg-x11-drv-synaptics)"
+  "  Install a window manager, e.g. yum install openbox. dbus-x11 too."
+
+  ""
+  "  Or get a new image from scratch to have a minimal Fedora with only LXDE:"
+  "    - use Netinstall image"
+  "    - chose "minimal" and "customise now", then only 4 bundle of packages: "
+  "      LXDE and Window managers, and in base system Fonts and X Window System"
+
+
