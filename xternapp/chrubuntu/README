@@ -176,3 +176,8 @@ Minimal Fedora 19
   "      LXDE and Window managers, and in base system Fonts and X Window System"
 
 
+mon-wait-usb-flush.sh
+=======================
+  a test script that wait till usb-storage or flush processes are idle.
+
+
