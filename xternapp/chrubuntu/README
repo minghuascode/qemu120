@@ -100,6 +100,7 @@ ubuntu-kernel-for-acer-c7-fix
             root@ChrUbuntu:/usr/src/kernel#
         [2] bluetooth error. see -howto to put .dfu to /lib/firmware/ar3k/.
         [3] backlight suspension issue on kernel 3.8. see below. 
+        [4] compilation, it used "-fstack-protector-strong" flag. see -fix file.
 
 
 ubuntu-kernel-3-8-backlight-patch
