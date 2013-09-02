@@ -83,6 +83,35 @@ ubuntu-kernel-for-acer-c7-fix
   Instructions and scrits to build a new kernel inside a chromebook linux installation.
   With some fixes.
 
+  See -howto for a summary. 
+  The -inbox-script is the same as -c7.sh. 
+  The -howto mentions a patch to build kernel 3.8 instead of 3.4. 
+
+  The -c7.sh is from velvet-underscore blog. 
+        http://velvet-underscore.blogspot.ca/2013/01/chrubuntu-virtualbox-with-kvm.html
+
+  The -c7.sh and -c7-fix mention a few fixes to various problems posted to velvet blog: 
+        [1] https://gist.github.com/carletes/3661b1dcddfa6f3db01d#file-kvm-ok-ubuntu-12-04-original-kernel
+            root@ChrUbuntu:/usr/src/kernel# kvm-ok
+            INFO: /dev/kvm does not exist
+            HINT: sudo modprobe kvm_intel
+            INFO: Your CPU supports KVM extensions
+            KVM acceleration can be used
+            root@ChrUbuntu:/usr/src/kernel#
+        [2] bluetooth error. see -howto to put .dfu to /lib/firmware/ar3k/.
+        [3] backlight suspension issue on kernel 3.8. see below. 
+
+
+ubuntu-kernel-3-8-backlight-patch
+===================================
+  If you build 3.8 kernel: see -howto to modify the build script; 
+                           and see -fix to apply this patch. 
+
+
+ubuntu-kernel-3-8-bluetooth-fw/
+===================================
+  If you have a late version hardware: see -fix to load the fw.
+
 
 debian-acerc7-forum.pdf
 ===============================

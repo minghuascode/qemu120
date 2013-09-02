@@ -2,7 +2,26 @@
 http://velvet-underscore.blogspot.ca/2013/01/chrubuntu-virtualbox-with-kvm.html
 
 
-It turns out this is a bug in Ubuntu 12.04 (#1024884) which the ChrUbuntu guys apparently worked around but which is reset when reloading the fresh kernel with this script. After your script runs, Bluetooth can be restored by doing this in a Terminal window:
+bluetooth fix:
+===============
+
+Bootup errors are:
+
+Bluetooth: Patch file not found ar3k/AthrBT_0x11020000.dfu
+Bluetooth: Loading patch file failed
+
+and after bootup the Bluetooth icon is no longer illuminated in the top bar on Unity
+
+Apparently, since at least January, they've been shipping the mainboard in the 
+C710-2847 that was just announced in the new model that is $80 more expensive 
+(but comes with an extra 2GB RAM and larger battery). Those new features 
+are USB3, Bluetooth3, etc.
+
+
+It turns out this is a bug in Ubuntu 12.04 (#1024884) which the ChrUbuntu guys 
+apparently worked around but which is reset when reloading the fresh kernel 
+with this script. After your script runs, Bluetooth can be restored by 
+doing this in a Terminal window:
 
 user@ChrUbuntu~$ cd /lib/firmware/ar3k
 user@ChrUbuntu~$ sudo wget https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1024884/+attachment/3244421/+files/AthrBT_0x11020000.dfu
@@ -10,6 +29,16 @@ Password:
 user@ChrUbuntu~$ sudo wget https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1024884/+attachment/3244422/+files/ramps_0x11020000_40.dfu
 user@ChrUbuntu~$ sudo reboot
 
-After the system comes back, you'll find the Bluetooth icon illuminated again in the top bar on Unity and/or you can go to the Bluetooth panel in the System Settings. Some models of C7 might not have the AR3K chip so these directions might not do anything useful (but shouldn't hurt). Hopefully they can be incorporated into the above script.
+After the system comes back, you'll find the Bluetooth icon illuminated 
+again in the top bar on Unity and/or you can go to the Bluetooth panel 
+in the System Settings. Some models of C7 might not have the AR3K chip 
+so these directions might not do anything useful (but shouldn't hurt). 
+Hopefully they can be incorporated into the above script.
+
+
+backlight fix for kernel 3.8:
+===============================
+
+see the patch file.
 
 
