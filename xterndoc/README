@@ -26,6 +26,11 @@ push head to a remote branch:
 git push origin HEAD:refs/heads/<branchname>
 
 
+Use .netrc instead of ssh key:
+machine code.google.com login <login-name> password <password>
+machine github.com login <login-name> password <password>
+
+
 github pull request workflow
 ==============================
 https://www.openshift.com/wiki/github-workflow-for-submitting-pull-requests
