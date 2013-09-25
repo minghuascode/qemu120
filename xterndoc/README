@@ -13,3 +13,15 @@
 └── [          0]  README
 
 2 directories, 10 files
+
+
+git tips: 
+===========
+
+push current branch, set to global ~/.gitconfig:
+push.default=current
+
+
+push head to a remote branch:
+git push origin HEAD:refs/heads/<branchname>
+
