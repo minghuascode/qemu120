@@ -1,0 +1,39 @@
+
+https://wiki.debian.org/Schroot
+
+
+set /etc/schroot/schroot.conf:
+
+ [ada]
+ description=Contains the SPICE program
+ aliases=oldstable
+ type=directory
+ directory=/mnt/chrdsk1/ada
+ users=ada
+ groups=ada
+ root-groups=root
+ #script-config=desktop/config
+ personality=linux
+ preserve-environment=true
+
+
+Run: 
+ schroot -c ada
+ --fail at etc/resolve.conf
+
+Modify to comment out "type=dirctory": 
+ schroot -c ada
+ --fail at directories
+
+
+Setup chroot files:
+
+ yum --downloadonly --downloaddir=/mnt/chrdsk1/ada reinstall fedora-release
+ rpm --root /mnt/chrdsk1/ada --initdb
+ rpm --root /mnt/chrdsk1/ada -i fedora-release-19-4.noarch.rpm
+ yum --installroot=/mnt/chrdsk1/ada install bash yum
+
+Run: 
+ schroot -c ada
+
+
