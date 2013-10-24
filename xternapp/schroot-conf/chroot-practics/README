@@ -1,0 +1,35 @@
+
+http://www.unixwiz.net/techtips/chroot-practices.html
+2013-10-24
+
+
+Steve Friedl's Unixwiz.net Tech Tips
+Best Practices for UNIX chroot() Operations
+
+
+How to break out of jail
+
+There are well-known techniques used to escape from jail, but the most common 
+one requires root privileges inside the jail. The idea is for the program to 
+do a chroot to a subdirectory, leaving the current directory outside the jail.
+
+We'll add more notes on ways to break out of a jail - which is meant more to 
+show what must be protected against than it is as a how-to for jailbreakers -- 
+but we've found a good article on chroot in general here.
+
+    Use mknod to create a raw disk device, thereby doing pretty much 
+    anything you like to the system.
+
+    Use mknod to create /dev/mem and modify kernel memory
+
+    Find a carelessly-left hard link that leads outside the jail (though 
+    symbolic links don't escape jail, hard links do).
+
+    Use ptrace to trace a process living outside the jail. We may be able 
+    to modify this program to do our bad stuff on our behalf.
+
+Almost all jail breaking requires root privileges. 
+
+
+
+
