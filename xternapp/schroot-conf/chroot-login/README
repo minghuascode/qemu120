@@ -1,0 +1,41 @@
+
+http://kegel.com/crosstool/current/doc/chroot-login-howto.html
+2013-10-24
+
+http://kegel.com/crosstool/current/mkjail.sh
+http://kegel.com/crosstool/current/initjail.sh
+http://kegel.com/crosstool/current/chrootshell.c
+
+
+mkjail.sh: makes a tarball containing core shared libraries and the jail's etc/passwd file. 
+
+initjail.sh: unpacks that tarball into the jail, and adds crucial /dev entries, 
+             a /proc filesystem, /etc files, core programs like sh, and non-toolchain 
+             shared libraries, and appends a given file to the jail's /etc/passwd file. 
+
+
+1.1. Setting up a jail
+here's how to use the scripts to set up a minimal jail containing a copy of the system 
+libraries and system /etc/passwd file:
+
+$ sh mkjail.sh / /etc/passwd
+$ su
+# zcat jail.tar.gz | sh initjail.sh myjail
+
+1.2. Testing the Jail
+test it by hand using the /usr/sbin/chroot program to run a shell inside the jail, e.g.
+
+$ su
+# /usr/sbin/chroot `pwd`/myjail /bin/sh
+
+(Note: the argument to chroot must be an absolute path, else exec fails. This appears 
+to be a bug in Linux.) If you can't run a shell inside the jail, try running something 
+easier, e.g. /bin/true (the simplest program there is):
+
+$ su
+# /usr/sbin/chroot `pwd`/myjail /bin/true
+
+
+see the original html for rsh etc.
+
+
