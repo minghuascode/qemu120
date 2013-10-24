@@ -1,0 +1,95 @@
+
+http://snarvaez.com.ar/libertad/index.php/2012/11/01/chroot-environment-on-centos-6-3/
+2013-10-24
+
+
+chroot environment on CentOS 6.3
+1 Nov 2012   | shell_scripts · sysadmin
+
+Tags: centos
+
+Steps to install a chroot jail on CentOS 6.3
+
+[root@host ~] cat /etc/centos-release
+CentOS release 6.3 (Final)
+
+[root@host ~] cd /home/
+[root@host home] mkdir chroot
+[root@host home] mkdir -p chroot/var/lib/rpm
+
+rpm --rebuilddb --root=/home/chroot/
+wget http://mirror.centos.org/centos-6/6.3/os/x86_64/Packages/centos-release-6-3.el6.centos.9.x86_64.rpm
+
+[root@host ~] rpm -i --root=/home/chroot/ --nodeps centos-release-6-3.el6.centos.9.x86_64.rpm
+warning: centos-release-6-3.el6.centos.9.x86_64.rpm: Header V3 RSA/SHA1 Signature, key ID c105b9de: NOKEY
+
+yum --installroot=/home/chroot install -y rpm-build yum
+
+root@host ~] cp -vi /home/chroot/etc/skel/.??*   /home/chroot/root/
+`/home/chroot/etc/skel/.bash_logout' -> `/home/chroot/root/.bash_logout'
+`/home/chroot/etc/skel/.bash_profile' -> `/home/chroot/root/.bash_profile'
+`/home/chroot/etc/skel/.bashrc' -> `/home/chroot/root/.bashrc'
+
+[root@host ~] mount --bind /proc  /home/chroot/proc
+[root@host ~] mount --bind /dev  /home/chroot/dev
+[root@host ~] cp /etc/resolv.conf   /home/chroot/etc/
+
+Now you can use YUM to install additional software from inside the chroot
+jail. Or you can always exit the jail and install from outside using the
+yum –installroot switch.
+
+Enlaces Patrocinados
+
+
+LOGIN INTO THE CHROOT ENVIRONMENT
+
+chroot /home/chroot/   /bin/bash -l
+
+You should be inside the chroot now.
+
+# add following line to /root/.bashrc
+PS1=CHROOT.$PS1
+
+
+If you plan to use the screen command, or any application that uses /dev/pts,
+run the following script first:
+
+CHROOT.[root@host ~]# ./mount_pts.sh
+
+#!/bin/bash
+# makes it works the screen command inside the chrooted environment
+umount /dev/pts
+mount -t devpts -o rw,gid=5,mode=620 none /dev/pts
+
+
+Installing packages inside the chroot:
+
+yum provides "*/ping"
+yum provides "*/bin/telnet"
+
+yum install telnet
+
+yum install httpd
+
+yum install php php-cli  php-pdo  php-mysql php-snmp  php-soap  php-odbc php-imap php-gd
+
+
+Checking PHP version
+
+[root@host ~] php --version
+No log handling enabled - turning on stderr logging
+Created directory: /var/lib/net-snmp/mib_indexes
+PHP 5.3.3 (cli) (built: Jul  3 2012 16:53:21)
+Copyright (c) 1997-2010 The PHP Group
+Zend Engine v2.3.0, Copyright (c) 1998-2010 Zend Technologies
+
+
+Starting Apache ….
+
+CHROOT.[root@host] service  httpd status
+httpd is stopped
+CHROOT.[root@host] service  httpd start
+Starting httpd:                                            [  OK  ]
+
+Have Fun.
+
