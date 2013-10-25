@@ -33,7 +33,25 @@ Setup chroot files:
  rpm --root /mnt/chrdsk1/ada -i fedora-release-19-4.noarch.rpm
  yum --installroot=/mnt/chrdsk1/ada install bash yum
 
+Optional packages for ifconfig and ping: 
+
+ yum --installroot=/mnt/chrdsk1/ada install net-tools iputils
+
+
 Run: 
  schroot -c ada
+
+
+
+Mounts on host for chroot jail:
+  /proc    /chroot/devel/proc   rw,bind 0 0
+  /sys
+  /dev
+  /dev/pts
+  /tmp
+  /run
+  /run/lock
+  /dev/shm
+  /run/shm
 
 
