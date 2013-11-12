@@ -1,0 +1,38 @@
+
+
+BitBake Demos
+===============
+http://www.slideshare.net/zenlinux/openembedded BitBake Demos
+
+    Machine configuration: conf/machine/gumstix.conf
+    Package recipe: recipes/xscreensaver/
+    Task recipe: recipes/tasks/task-nas-server.bb
+
+
+TI AM335x SDK and Rootfs Build
+================================
+
+Build in a chroot on centos x86_64 step-by-step instructions:
+
+  oe-sdk-build
+
+Local build without using network:
+
+  oe-local-build
+
+
+Build in Schroot
+==================
+
+See schroot-conf examples.
+
+
+Alternate chroot packages
+===========================
+
+  $ sudo yum --installroot=/chroot/devel groupinstall "minimal install"
+
+
+To install for ifconfig and ping:
+
+  $ sudo yum --installroot=/chroot/devel install net-tools iputils

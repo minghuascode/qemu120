@@ -1,0 +1,118 @@
+
+
+#
+# fstab for chroot:
+#
+
+#/etc/fstab section for chroot at /srv/devel:
+  /proc      /srv/devel/proc     none rw,bind 0 0
+  /sys       /srv/devel/sys      none rw,bind 0 0
+  /dev       /srv/devel/dev      none rw,bind 0 0
+  /dev/pts   /srv/devel/dev/pts  none rw,bind 0 0
+  /tmp       /srv/devel/tmp      none rw,bind 0 0
+  /dev/shm   /srv/devel/dev/shm  none rw,bind 0 0
+  #/run/shm  /srv/devel/run/shm  none rw,bind 0 0
+  #/run      /srv/devel/run      none rw,bind 0 0
+  #/run/lock /srv/devel/run/lock none rw,bind 0 0
+
+
+#
+# initial bash rc files for chroot:
+#
+
+#copy bash skels for devel user in chroot:
+ cp /etc/skel/.??* /srv/devel/home/devel
+
+
+#
+# scripts to enter chroot
+#
+
+  $ cat jail
+  #!/bin/bash
+  sudo /usr/sbin/chroot --userspec=devel:devel /srv/devel /usr/bin/env -i HOME=/home/devel /bin/bash -l
+
+  $ cat jail-root
+  #!/bin/bash
+  sudo cp -iv /etc/resolv.conf /srv/devel/etc
+  sudo /usr/sbin/chroot /srv/devel /usr/bin/env -i HOME=/root /bin/bash -l
+
+
+#
+# packages and commands to build on centos 6.4 x86_64
+#
+
+  #from a very minimal centos x86_64 installation of only bash and yum:
+  #(debian package python-m2crypto is centos m2crypto)
+  #(dpkg*.rpm are downloaded from rhel6)
+  #(gcc-linaro-arm-linux-gnueabihf-4.7-2013.03-20130313_linux.tar.bz2 
+  # is downloaded from linaro)
+
+  yum install  net-tools iputils
+  yum install  chrpath
+  yum install  diffstat texinfo
+  yum groupinstall  "Development Tools"
+  yum install  gettext-devel compat-glibc glibc-devel
+  rpm -i       dpkg-1.15.5.6-6.el6.x86_64.rpm
+  yum install  perl-DateTime-Format-DateParse
+  rpm -i       dpkg-devel-1.15.5.6-6.el6.noarch.rpm
+  yum install  m2crypto   
+  yum install  wget glibc.i686 libstdc++-4.4.7-3.el6.i686
+  yum install  ncurses-devel.i686
+  yum install  gettext-devel.i686
+
+  cd ~/bin/
+  tar jxf ../gcc-linaro-arm-linux-gnueabihf-4.7-2013.03-20130313_linux.tar.bz2
+
+  mkdir ~/ambuild
+  cd ~/ambuild/
+  git clone git://arago-project.org/git/projects/oe-layersetup.git
+  cd ~/ambuild/oe-layersetup
+  ./oe-layertool-setup.sh -f configs/amsdk/amsdk-06.00.00.00-config.txt
+
+  cd ~/ambuild/oe-layersetup/build
+  source conf/setenv
+  export PATH=~/bin/gcc-linaro-arm-linux-gnueabihf-4.7-2013.03-20130313_linux/bin:$PATH
+  MACHINE=am335x-evm bitbake tisdk-rootfs-image
+
+  MACHINE=am335x-evm bitbake core-image-minimal
+
+
+#
+# rootfs build result: 
+# 
+
+  rootfs: tisdk-rootfs-image-am335x-evm-20131025214801.rootfs.tar.gz
+  under:  build/arago-tmp-external-linaro-toolchain/deploy/images/
+
+
+#
+# oe content after oe setup:
+#
+
+  $ pwd
+  /home/devel/ambuild/oe-layersetup/build
+
+  $ ls -l
+  drwxrwxr-x 2  4096 Oct 25 13:10 conf
+
+  $ ls conf/
+  bblayers.conf  local.conf  setenv
+
+
+#
+# ti sdk build
+#
+  
+  required:  rpm -iv uboot-tools-2011.03-1.el6.x86_64.rpm
+  sdk file: ti-sdk-am335x-evm-06.00.00.00-Linux-x86-Install
+  install:  just run it, with  --mode console
+  build:    just run make inside the directory
+
+  install:  
+  $ cd ~/.../ti-sdk-am335x-evm-06.00.00.00/board-support
+  $ cp linux-3.2.0-psp04.06.00.11/arch/arm/boot/uImage ~/target/
+  $ cp u-boot-2013.01.01-psp06.00.00.00/MLO            ~/target/
+  $ cp u-boot-2013.01.01-psp06.00.00.00/u-boot.img     ~/target/
+
+

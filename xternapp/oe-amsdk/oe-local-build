@@ -1,0 +1,26 @@
+
+
+Local Mirror
+=============
+http://bec-systems.com/site/1010/openembedded-source-mirrors local mirror:
+
+  Setting up a source mirror is as simple as copying the contents of your 
+  downloads directory to a web server, and then populating the following 
+  variable in local.conf. Use file:// for local directories:
+
+  PREMIRRORS_prepend = "\
+   git://.*/.* http://my-server/sources/ \n \
+   ftp://.*/.* http://my-server/sources/ \n \
+   http://.*/.* http://my-server/sources/ \n \
+   https://.*/.* http://my-server/sources/ \n"
+
+
+Avoid Network Downloading
+==========================
+http://www.yoctoproject.org/docs/1.0/poky-ref-manual/poky-ref-manual.html#idm1091472
+
+  To avoid accessing network at all: 
+
+  BB_NO_NETWORK = "1"
+
+
