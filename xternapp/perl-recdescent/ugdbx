@@ -1,0 +1,13 @@
+    # gdb script for dumping type instance
+
+    set height 0
+    set width 0
+    set print pretty on
+
+    file a_dot_out
+    b test_sub_function
+    r
+    print _instance
+    c
+    quit
+

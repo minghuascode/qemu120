@@ -1,0 +1,10 @@
+Inputed 8 lines.
+startrule:
+--ARRAY+:      ARRAY
+--Type block
+--ARRAY+:          ARRAY
+--field:               field  top.f3_sub_s.f1_i32  ARRAYtail 
+--field:               field  top.f3_sub_s.f2_i16  ARRAYtail 
+--field:               field  top.f4_u32  ARRAYtail 
+--ARRAY-: 
+--ARRAY-: 

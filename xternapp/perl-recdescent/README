@@ -29,3 +29,31 @@ use the instance field:
         int status;
         abi::__cxa_demangle( typeid(x.field).name(), 0, 0, &status)
 
+
+gdb script:
+
+    # gdb script for dumping type instance 
+    
+    set height 0
+    set width 0
+    set print pretty on
+     
+    file a_dot_out
+    b test_sub_function
+    r
+    print _instance
+    c
+    quit
+
+run gdb: 
+  save the script to a file
+  gcc with -g to generate the exec file a_dot_out
+  run  gdb -x gdb_script_file
+
+
+steps through:
+
+  gcc -g -o a_dot_out udemo.c
+  gdb -x ugdbx | ./ufilter1.pl | ./parse-struct.pl > udemo-result
+
+
