@@ -1,0 +1,15 @@
+
+       0:    top__instance.fa_sub_s.f1_i4                   int   4    0
+       1:    top__instance.fa_sub_s.f2_i2                 short   2    4
+       2:  top__instance.f2_sub_s[0].f1_i4                   int   4    8
+       3:  top__instance.f2_sub_s[0].f2_i2                 short   2   12
+       4:  top__instance.f2_sub_s[1].f1_i4                   int   4   16
+       5:  top__instance.f2_sub_s[1].f2_i2                 short   2   20
+       6:          top__instance.f3_u4[0]          unsigned int   4   24
+       7:          top__instance.f3_u4[1]          unsigned int   4   28
+       8:          top__instance.f3_u4[2]          unsigned int   4   32
+       9:          top__instance.f3_u4[3]          unsigned int   4   36
+      10:             top__instance.fb_u4          unsigned int   4   40
+      11:             top__instance.fc_em                 sel_e   4   44
+      12: null-name-done
+

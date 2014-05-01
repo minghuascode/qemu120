@@ -54,12 +54,10 @@ run gdb:
 steps through:
 
   gcc -g -o a_dot_out udemo.c
-  gdb -x ugdbx | ./ufilter1.pl | ./parse-struct.pl > udemo-result
-
-  ...somehow fill-out the table in udemo_dec.c...
+  gdb -x ugdbx | ./ufilter1.pl | ./parse-struct.pl | grep '^\-\-field:' \
+     | sed -e 's/^--field:\(.*\)$/def(\1)/' > udemo_def_gen.h
 
   g++ -o aout udemo_dec.c
-  ./aout > udemo-result2
-
+  ./aout > udemo-result3
 
 

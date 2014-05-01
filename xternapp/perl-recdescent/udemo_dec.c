@@ -15,10 +15,11 @@ struct top_s top__instance;
                   sizeof(x), ((u32)&x-((u32)&top__instance))}, 
   /* sample data from udemo-result */
   struct dectbl_entry_s dectbl[] = {
-    def(                 top__instance.fa_sub_s.f1_i32 ) 
-    def(                 top__instance.fa_sub_s.f2_i16 ) 
-    def(                 top__instance.fb_u32 ) 
-    def(                 top__instance.fc_enum)  
+#include "udemo_def_gen.h"
+//    def(                 top__instance.fa_sub_s.f1_i32 ) 
+//    def(                 top__instance.fa_sub_s.f2_i16 ) 
+//    def(                 top__instance.fb_u32 ) 
+//    def(                 top__instance.fc_enum)  
     {{(char)0}, {(char)0}, 0,0}
   };
   #undef def
@@ -41,11 +42,15 @@ int main(int argc, char *argv[])
       dectbl[i].type[NM_LEN]='\0';\
       if (dectbl[i].name[0] == (char)0) break;
   do{ 
-    def(                 top__instance.fa_sub_s.f1_i32 ) 
-    def(                 top__instance.fa_sub_s.f2_i16 ) 
-    def(                 top__instance.fb_u32 ) 
-    def(                 top__instance.fc_enum)  
+
+#include "udemo_def_gen.h"
+
+//    def(                 top__instance.fa_sub_s.f1_i32 ) 
+//    def(                 top__instance.fa_sub_s.f2_i16 ) 
+//    def(                 top__instance.fb_u32 ) 
+//    def(                 top__instance.fc_enum)  
   }while(0);
+
   #undef def
 
   printf("\n");
