@@ -1,0 +1,7 @@
+
+       0:   top__instance.fa_sub_s.f1_i32                   int   4    0
+       1:   top__instance.fa_sub_s.f2_i16                 short   2    4
+       2:            top__instance.fb_u32          unsigned int   4    8
+       3:           top__instance.fc_enum                 sel_e   4   12
+       4: null-name-done
+

@@ -58,8 +58,8 @@ steps through:
 
   ...somehow fill-out the table in udemo_dec.c...
 
-  gcc -o aout udemo_dec.c
-  ./aout
+  g++ -o aout udemo_dec.c
+  ./aout > udemo-result2
 
 
 
