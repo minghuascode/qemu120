@@ -181,7 +181,7 @@ stringvalue2: /\\"\\\\000[\\\\0]+\\"/
     { #print "stringvalue2: $item[1]\n"; 
       $return = ["scalar", "string", " str2 "]; } 
 
-enumvalue: /\\w+::\\w+/
+enumvalue: /\\w+(::)*\\w+/
     { #print "enumvalue: $item[1]\n";
       $return = ["scalar", "enum", $item[1]]; }
 
