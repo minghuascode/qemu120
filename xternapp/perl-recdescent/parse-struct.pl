@@ -6,6 +6,8 @@ use Parse::RecDescent;
 
 $::RD_HINT = 1;
 
+my $cfg_debug = 1;
+
 #===========================================================
 # grammar
 my $gramm = q {
@@ -34,7 +36,11 @@ my $gramm = q {
             for (my $k=0; $k< 4*$depth; $k++) { print " "; }
             my $tail = "${$v}[2]";
             $tail =~ s/ARRAY\([0-9a-fx]+\)/ARRAYtail/;
-            print " ${$v}[0]  ${$v}[1]  $tail \n";
+            if ( $::cfg_debug ) {
+                print " ${$v}[0]  ${$v}[1]  $tail \n";
+            } else {
+                print "   ${$v}[1]  \n";
+            }
         } elsif ( $t eq "ARRAY" ) {
             printf("--ARRAY+: ");
             for (my $k=0; $k< 4*$depth; $k++) { print " "; }
@@ -51,7 +57,7 @@ my $gramm = q {
     }
 }
 
-startrule: '$1' '=' block["top", $item[0]]
+startrule: '$1' '=' block["top__instance", $item[0]]
     { print "$item[0]:\n"; 
       my $v = $item[3];
       prta($v, " ", 1);

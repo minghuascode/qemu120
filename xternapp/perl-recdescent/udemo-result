@@ -3,9 +3,9 @@ startrule:
 --ARRAY+:      ARRAY
 --Type block
 --ARRAY+:          ARRAY
---field:               field  top.fa_sub_s.f1_i32  ARRAYtail 
---field:               field  top.fa_sub_s.f2_i16  ARRAYtail 
---field:               field  top.fb_u32  ARRAYtail 
---field:               field  top.fc_enum  ARRAYtail 
+--field:                 top__instance.fa_sub_s.f1_i32  
+--field:                 top__instance.fa_sub_s.f2_i16  
+--field:                 top__instance.fb_u32  
+--field:                 top__instance.fc_enum  
 --ARRAY-: 
 --ARRAY-: 
