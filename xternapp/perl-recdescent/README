@@ -56,4 +56,10 @@ steps through:
   gcc -g -o a_dot_out udemo.c
   gdb -x ugdbx | ./ufilter1.pl | ./parse-struct.pl > udemo-result
 
+  ...somehow fill-out the table in udemo_dec.c...
+
+  gcc -o aout udemo_dec.c
+  ./aout
+
+
 
