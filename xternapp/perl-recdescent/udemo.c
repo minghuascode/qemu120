@@ -1,6 +1,8 @@
 
 #include <string.h>
 
+#include "udemo_types.h"
+/*
 enum sel_e {
     selv1 = 0,
     selv2 = 1, 
@@ -17,6 +19,7 @@ struct top_s {
   unsigned int fb_u32;
   enum sel_e   fc_enum;
 };
+*/
 
 struct top_s _instance;
 
