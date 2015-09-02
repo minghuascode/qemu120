@@ -1,0 +1,13 @@
+
+
+http://www.enterpriseintegrationpatterns.com/docs/jaoo_hohpeg_enterpriseintegrationpatterns.pdf
+
+http://www.enterpriseintegrationpatterns.com/docs/hohpeg_enterpriseintegrationpatterns_sdbp.pdf
+
+https://lumens.googlecode.com/files/Addison.Wesley.Enterprise.Integration.Patterns.pdf
+
+
+chenruiao on github https://github.com/chenruiao/ares/tree/master/books
+
+
+
