@@ -1,0 +1,139 @@
+diff -rau gdb-7.2-orig/bfd/bfdio.c gdb-7.2/bfd/bfdio.c
+--- gdb-7.2-orig/bfd/bfdio.c	2010-06-09 06:28:31.000000000 -0700
++++ gdb-7.2/bfd/bfdio.c	2015-09-24 21:02:52.245391199 -0700
+@@ -577,7 +577,7 @@
+ {
+   struct bfd_in_memory *bim = (struct bfd_in_memory *) abfd->iostream;
+ 
+-  memset (statbuf, 0, sizeof (statbuf));
++  memset (statbuf, 0, sizeof (*statbuf));
+   statbuf->st_size = bim->size;
+ 
+   return 0;
+diff -rau gdb-7.2-orig/gdb/gdbserver/linux-low.c gdb-7.2/gdb/gdbserver/linux-low.c
+--- gdb-7.2-orig/gdb/gdbserver/linux-low.c	2010-08-11 08:58:49.000000000 -0700
++++ gdb-7.2/gdb/gdbserver/linux-low.c	2015-09-24 21:43:00.226007035 -0700
+@@ -4676,7 +4676,7 @@
+    layout of the inferiors' architecture.  */
+ 
+ static void
+-siginfo_fixup (struct siginfo *siginfo, void *inf_siginfo, int direction)
++siginfo_fixup ( siginfo_t *siginfo, void *inf_siginfo, int direction)
+ {
+   int done = 0;
+ 
+@@ -4688,9 +4688,9 @@
+   if (!done)
+     {
+       if (direction == 1)
+-	memcpy (siginfo, inf_siginfo, sizeof (struct siginfo));
++	memcpy (siginfo, inf_siginfo, sizeof ( siginfo_t));
+       else
+-	memcpy (inf_siginfo, siginfo, sizeof (struct siginfo));
++	memcpy (inf_siginfo, siginfo, sizeof ( siginfo_t));
+     }
+ }
+ 
+@@ -4699,8 +4699,8 @@
+ 		    unsigned const char *writebuf, CORE_ADDR offset, int len)
+ {
+   int pid;
+-  struct siginfo siginfo;
+-  char inf_siginfo[sizeof (struct siginfo)];
++   siginfo_t siginfo;
++  char inf_siginfo[sizeof ( siginfo_t)];
+ 
+   if (current_inferior == NULL)
+     return -1;
+diff -rau gdb-7.2-orig/gdb/linux-nat.c gdb-7.2/gdb/linux-nat.c
+--- gdb-7.2-orig/gdb/linux-nat.c	2010-07-07 05:28:32.000000000 -0700
++++ gdb-7.2/gdb/linux-nat.c	2015-09-24 21:37:43.276860385 -0700
+@@ -213,7 +213,7 @@
+ /* The method to call, if any, when the siginfo object needs to be
+    converted between the layout returned by ptrace, and the layout in
+    the architecture of the inferior.  */
+-static int (*linux_nat_siginfo_fixup) (struct siginfo *,
++static int (*linux_nat_siginfo_fixup) ( siginfo_t *,
+ 				       gdb_byte *,
+ 				       int);
+ 
+@@ -3849,7 +3849,7 @@
+    layout of the inferiors' architecture.  */
+ 
+ static void
+-siginfo_fixup (struct siginfo *siginfo, gdb_byte *inf_siginfo, int direction)
++siginfo_fixup ( siginfo_t *siginfo, gdb_byte *inf_siginfo, int direction)
+ {
+   int done = 0;
+ 
+@@ -3861,9 +3861,9 @@
+   if (!done)
+     {
+       if (direction == 1)
+-	memcpy (siginfo, inf_siginfo, sizeof (struct siginfo));
++	memcpy (siginfo, inf_siginfo, sizeof ( siginfo_t));
+       else
+-	memcpy (inf_siginfo, siginfo, sizeof (struct siginfo));
++	memcpy (inf_siginfo, siginfo, sizeof ( siginfo_t));
+     }
+ }
+ 
+@@ -3873,8 +3873,8 @@
+ 		    const gdb_byte *writebuf, ULONGEST offset, LONGEST len)
+ {
+   int pid;
+-  struct siginfo siginfo;
+-  gdb_byte inf_siginfo[sizeof (struct siginfo)];
++   siginfo_t siginfo;
++  gdb_byte inf_siginfo[sizeof ( siginfo_t)];
+ 
+   gdb_assert (object == TARGET_OBJECT_SIGNAL_INFO);
+   gdb_assert (readbuf || writebuf);
+@@ -5647,7 +5647,7 @@
+    inferior.  */
+ void
+ linux_nat_set_siginfo_fixup (struct target_ops *t,
+-			     int (*siginfo_fixup) (struct siginfo *,
++			     int (*siginfo_fixup) ( siginfo_t *,
+ 						   gdb_byte *,
+ 						   int))
+ {
+@@ -5656,7 +5656,7 @@
+ }
+ 
+ /* Return the saved siginfo associated with PTID.  */
+-struct siginfo *
++ siginfo_t *
+ linux_nat_get_siginfo (ptid_t ptid)
+ {
+   struct lwp_info *lp = find_lwp_pid (ptid);
+diff -rau gdb-7.2-orig/gdb/linux-nat.h gdb-7.2/gdb/linux-nat.h
+--- gdb-7.2-orig/gdb/linux-nat.h	2010-06-11 05:10:12.000000000 -0700
++++ gdb-7.2/gdb/linux-nat.h	2015-09-24 21:37:10.022215997 -0700
+@@ -60,7 +60,7 @@
+ 
+   /* Non-zero si_signo if this LWP stopped with a trap.  si_addr may
+      be the address of a hardware watchpoint.  */
+-  struct siginfo siginfo;
++  siginfo_t siginfo;
+ 
+   /* STOPPED_BY_WATCHPOINT is non-zero if this LWP stopped with a data
+      watchpoint trap.  */
+@@ -159,7 +159,7 @@
+    that ptrace returns, and the layout in the architecture of the
+    inferior.  */
+ void linux_nat_set_siginfo_fixup (struct target_ops *,
+-				  int (*) (struct siginfo *,
++				  int (*) ( siginfo_t *,
+ 					   gdb_byte *,
+ 					   int));
+ 
+@@ -168,7 +168,7 @@
+ void linux_nat_switch_fork (ptid_t new_ptid);
+ 
+ /* Return the saved siginfo associated with PTID.  */
+-struct siginfo *linux_nat_get_siginfo (ptid_t ptid);
++ siginfo_t *linux_nat_get_siginfo (ptid_t ptid);
+ 
+ /* Compute and return the processor core of a given thread.  */
+ int linux_nat_core_of_thread_1 (ptid_t ptid);
