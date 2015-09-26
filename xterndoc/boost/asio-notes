@@ -1,0 +1,32 @@
+
+
+search boost asio tutorial
+
+
+
+http://www.gamedev.net/blog/950/entry-2249317-a-guide-to-getting-started-with-boostasio/
+
+A guide to getting started with boost::asio
+Posted by Drew_Benton, 31 January 2011 · 190,508 views
+
+2015-9-25
+
+
+
+http://www.boost.org/doc/libs/1_45_0/doc/html/boost_asio/overview/core/async.html
+Disadvantages
+  * — Program complexity.
+
+    It is more difficult to develop applications using asynchronous mechanisms due to the separation in time and space between operation initiation and completion. Applications may also be harder to debug due to the inverted flow of control. 
+
+  * — Memory usage.
+
+    Buffer space must be committed for the duration of a read or write operation, which may continue indefinitely, and a separate buffer is required for each concurrent operation. The Reactor pattern, on the other hand, does not require buffer space until a socket is ready for reading or writing. 
+
+
+
+http://www.cs.wustl.edu/~schmidt/PDF/
+http://www.cs.wustl.edu/~schmidt/POSA/POSA2/event-patterns.html
+
+
+
