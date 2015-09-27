@@ -1,0 +1,67 @@
+
+A guide to getting started with boost::asio
+Posted by Drew_Benton, 31 January 2011 · 190,508 views
+
+
+
+2. Getting to know boost::bind
+
+Before we look at how to give the io_service real work to do, we need to establish a basic understanding of another boost library, boost::bind[*]. The first time I saw boost::bind I had no idea of what was going on with it and really had no idea why such a library would be needed. After using boost::asio though, I could easily see and appreciate how useful the library is. At this time, I would recommend the reader to read up on the boost::bind docs a little to have an idea of what the library does before moving on.
+  [*] http://www.boost.org/doc/libs/1_45_0/libs/bind/bind.html
+
+Wrapping a function invocation with boost::bind creates an object. Consider the following example.
+
+Example 2a
+Spoiler
+
+
+If we run the program, we would see no output. This is because we created a function invocation object, but did not actually call it. To call it, we simply use the () operator of the object.
+
+Example 2b
+Spoiler
+
+
+Now when we run the example, we see the output! What if we had arguments to pass? Adding them is pretty easy as well.
+
+Example 2c
+Spoiler
+
+
+If we run the program, we will see the expected output. We could easily swap out the hard coded values with variables as well. There are a couple of important things here to notice as well. The parameters belong to the function object and are not passed through the calling operator! When we bind the parameters along with the function, we have to match the signature exactly or we will get a ton of hard to read errors that will be difficult to look through at first. When we get errors with boost::bind, we need to compare our function declarations and the parameters that are being used to check for any type mismatches.
+
+The last example we have in our crash course to boost::bind will show using bind of a class member function. This example is similar to before, but there is one important difference.
+
+Example 2d
+Spoiler
+
+
+We must pass the address of the class object to invoke after the class function! If we were calling bind from inside the class, we could then use the this pointer or subsequently shared_from_this()[*] if our class supported it. Please note in all these examples, we are simply using the () operator to call the object. In practice, we only do this if we are receiving a boost::bind object to actually invoke. Otherwise, we would just use normal semantics to call the function! Be sure to refer to the boost::bind documentation for more information and references.
+  [*] http://www.boost.org/doc/libs/1_45_0/libs/smart_ptr/enable_shared_from_this.html
+
+Now that boost::bind has been quickly introduced, we must also go over another important concept. In the threaded boost::asio example, the io_service object as made global and moved to the top of the program. For any modular and reusable code this is not desired. However, if we were to try to use io_service with boost::bind, we would get a non-copyable error, since the io_service cannot be copied and that is what boost::bind does for us behind the scenes. To get around this, we must make use of shared_ptr again.
+
+Rather than using a regular io_service object, we must use a shared_ptr object of io_service and pass that around. The shared_ptr is a reference counted smart pointer so it is copyable and thus compatible with boost::bind. The same applies for many other non-copyable objects as well; we have to wrap them in shared_ptrs to pass them if we need to. Let us revisit the threaded example using our newly learned concepts.
+
+Example 2e
+Spoiler
+
+
+Pretty cool, huh? We can use shared_ptr on the io_service to make it copyable so we can bind it to the worker thread function that we use as the thread handler. When we run the program, we should get the exact same behavior as before. At this point it is strongly advised to read up more on boost::bind, shared_ptr, and even the boost::asio topics already covered if they do not feel comfortably understood yet. We will be making heavy use of them all very soon!
+
+When working with threaded programs, we must ensure that we synchronize access to any global data or shared data. Our previous thread example has a flaw that was hackishly worked around. Does it stand out? The std::cout object is a global object. Writing to it from different threads at once can cause output formatting issues. To ensure we do not run into such issues since they hamper debugging efforts, we will want to make use of a global mutex. The boost::thread library provides us with the classes we need to accomplish this.
+
+The next example will make use of a mutex object. We should also read up on the synchronization[*] topics as well. We will simply correct the previous example to handle the output as it should be handled now. In addition, we will also make use of the thread id functionality of boost::thread to identify our threads. More information about that feature can be found here[**] in addition.
+  [*] http://www.boost.org/doc/libs/1_45_0/doc/html/thread/synchronization.html
+  [**] http://www.boost.org/doc/libs/1_45_0/doc/html/thread/thread_management.html#thread.thread_management.thread_ids
+
+Example 2f
+Spoiler
+
+
+It is important to understand the basics of the mutex object as well. If we lock once, we have to unlock as soon as it is done. We cannot recursively lock with this specific type of mutex, although there are other types that allow that. If we do, the thread will deadlock which is something we never want to happen. A lot of the benefits of concurrency are reduced when we have to wait on the global output lock, but for the sake of having correct multi-threaded code to work from, it is a must for now. Eventually, we will want to implement our own custom logging scheme that avoids such issues, but we can cover that issue later.
+
+All of the prerequisites have been covered now. We will make use of the boost::bind library a lot in the future so be sure the concepts are comfortable before continuing on. For more interesting reading, check out How the Boost Bind Library Can Improve Your C++ Programs[*] and Fast C++ Delegate: Boost.Function 'drop-in' replacement and multicast[**]. Boost::bind certainly provides a great deal of flexibility, but at a cost the user should be aware of before using in production code.
+ [*] http://www.informit.com/articles/article.aspx?p=412354
+ [**] http://www.codeproject.com/KB/cpp/fastdelegate2.aspx
+
+

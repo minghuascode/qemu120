@@ -1,0 +1,34 @@
+
+A guide to getting started with boost::asio
+Posted by Drew_Benton, 31 January 2011 · 190,508 views
+
+boost::asio is "is a cross-platform C++ library for network and low-level I/O programming that provides developers with a consistent asynchronous model using a modern C++ approach." It currently has many users[*] and is part of the boost family of libraries.
+  [*] http://think-async.com/Asio/WhoIsUsingAsio
+
+Before getting started, we will want to read over the boost::asio overview[*]. It covers a lot of useful information that we should understand the basics of first. This guide is not meant to teach the complete ins and outs of boost::asio library; that is what the documentation is for! This guide will point us in a practical direction for learning the library and getting on our way to using it in our own applications.
+  [*] http://www.boost.org/doc/libs/1_45_0/doc/html/boost_asio/overview.html
+
+In addition, we might also want to check out the blog[*] of the boost::asio author as well. There is a plethora of tidbits of useful information there as well as many stream of conscious posts by the author. Another good site to reference is this one[**]. It is actually a book that has been released online so consider supporting that author for their hard work!
+  [*] http://blog.think-async.com/
+  [**] http://en.highscore.de/cpp/boost/index.html
+
+At this time, the purpose of this guide needs to be explained. This guide is not going to teach any programming languages. The reader must already be comfortable with C++ to get the most out of the boost libraries, especially boost::asio. This guide is not going to teach network programming in general. The reader should already understand that topic. This guide will simply help get the reader started using the boost::asio library for practical network programming. In other words, this guide's goal is to direct the reader along a path of learning that is most useful for learning boost::asio. It is still up to the reader to spend the time reading the official docs and doing the other research required when using a new library for their projects.
+
+Another thing to note is the examples were compiled only on Windows. While an effort has been made to make them mostly portable, there are a few that might need a few logic changes to compile on other platforms or using other compilers. All of the source examples have been zipped up and attached. No project files are included, only the actual source files. This is to make looking over the code more convenient if we do not want to copy and paste the examples. Boost must be properly setup and installed to use them though! We can refer to the main boost site for such instructions.
+
+Lastly, this guide is written from my own personal opinions and experiences. While I work hard to make sure no misinformation is spread, sometimes mistakes are made. Please point out any errors or inconsistency if you are also experienced in this domain and I will be happy to correct them.
+
+Without further adieu, let us get started!
+
+1. The basics of io_service
+2. Getting to know boost::bind
+3. Giving io_service some work to do
+4. Serializing our workload with strand
+5. Error handling
+6. Timers
+7. Networking basics: connectors and acceptors (TCP)
+8. Networking basics: binary protocol sending and receiving (TCP)
+9. A boost::asio network wrapper (TCP)
+10. The road ahead
+
+

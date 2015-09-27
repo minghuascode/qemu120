@@ -1,0 +1,67 @@
+
+A guide to getting started with boost::asio
+Posted by Drew_Benton, 31 January 2011 · 190,508 views
+
+
+
+1. The basics of io_service
+
+The core object of boost::asio is io_service. This object is like the brain and the heart of the library. We will start out with a simple example to get acquainted with it. In this example, we will be calling the run member function. If we check the function's documentation, "the run() function blocks until all work has finished and there are no more handlers to be dispatched, or until the io_service has been stopped."
+
+Example 1a
+Spoiler
+
+
+Based on what the docs say, we should expect the line of text to be displayed, right? I mean we are not really giving it anything to do explicitly, so unless something goes on behind the scenes we do not know of, the function should not block. If we run the program, we get the expected results; we see the line of text.
+
+This example might have already set alarms off for some readers. What if our program runs out of work? That is not useful at all; boost::asio is definitely not for me! Not so fast partner, let us not get ahead of ourselves so soon. The developers of boost::asio thought about this as well. To address this issue, they created a work class. The work class is a "class to inform the io_service when it has work to do." In other words, as long as an io_service has a work object associated with it, it will never run out of stuff to do. To test this, consider the next example.
+
+Example 1b
+Spoiler
+
+
+If we run the example, we will get the expected results once again. We do not see the text and the program does not quit. Unfortunately, we now have no way of performing a graceful exit with the tools we know of now. There are ways around this, but we will not cover them until later since we are only getting our feet wet for the moment.
+
+From these examples, we can already see two different design approaches that are possible with boost::asio. There are many, many more! What if we do not like this idea of having to block a thread for doing work? What if we want the ability to do work whenever and wherever we want? Is this even possible? The answer is yes!
+
+In the next example, we will simply simulate a loop and call the poll function of the io_service. The poll function "runs the io_service object's event processing loop to execute ready handlers."
+
+Example 1c
+Spoiler
+
+
+If we run the example, we will see 42 lines worth of text outputted to the console and then the program exits. What if we had a work object assigned to the io_service? Would the behavior change?
+
+Example 1d
+Spoiler
+
+
+When we run this program, we get the exact same output and results as before. This is because the poll function will not block while there is more work to do. It simply executes the current set of work and then returns. In a real program, the loop would be based on some other event, but for the sake of simplicity, we are just using a fixed one.
+
+This example speaks volumes to how the work class operates under the hood. Imagine for a second if the work object supplied the io_service object with work in a manner that new work was added from inside the work handler invoked by the io_service. In that case, poll should never run out of work to do since new work would always be added. However, this is clearly not the case. The work is added outside the handler so everything will work as intended.
+
+Great! We can now choose between using the run and poll functions depending on how we need our program setup. To add more flexibility, the run_one and poll_one functions were created. These allow programmers to fine tune their programs as needed. At this point we need to step back and consider what we know so far. To get the io_service working for us, we have to use the run or poll family of functions. Run will block and wait for work if we assign it a work object while the poll function does not. In essence, the names of the functions match their functionality.
+
+There is one more little loose end we need to tie up. What if we want a work object removed from an io_service? Looking through the docs, there does not seem to be a function provided to do this. In order to achieve this functionality, we must make use of a pointer to a work object instead. Keeping with the boost library, we will use shared_ptr[*], a smart pointer class.
+  [*] http://www.boost.org/doc/libs/1_45_0/libs/smart_ptr/shared_ptr.htm
+
+Example 1e
+Spoiler
+
+
+If we run the program, we will see the line of text displayed. This effectively shows us how we can remove a work object from an io_service. This type of functionality is important in the case we want to gracefully finish all pending work but not stop it prematurely. There is a caveat to this that will be covered later though.
+
+Now that we know how to drive the io_service with one thread, we need to figure out what would be required for more threads. The io_service docs page tell us that "multiple threads may call the run() function to set up a pool of threads from which the io_service may execute handlers. All threads that are waiting in the pool are equivalent and the io_service may choose any one of them to invoke a handler." Sounds easy enough right? Since the boost library also provides a thread library[*], we will make use of that for the next example.
+  [*] http://www.boost.org/doc/libs/1_45_0/doc/html/thread.html
+
+Example 1f
+Spoiler
+
+
+This example introduces the stop member function. The stop function will signal the io_service that all work should be stopped, so after the current batch of work finishes, no more work will be done. Another change in this example is the io_service object has now been made global. This was only to keep things simple as more complex mechanisms have to be used otherwise. If we run the program, we get the 4 thread start messages on the console and after we hit return, we get the four thread finish messages, as expected.
+
+What should really stand out is how simple and easy it is to make our threaded programs scale. By simply adding more worker threads, we can support more and more concurrency for processing work through the io_service object. As mentioned before, if we had associated a work object with the io_service and wanted to let all queued work finish, we would not call stop but rather destroy the work object. Care has to be taken though. If we want all work to finish but keep giving the io_service more things to do, then it will never exit! In that case, at some point, we would want to call the stop function to ensure the system actually stops.
+
+Now that we have an idea of the different ways to drive the io_service object, we can move on to the next set of topics we have to learn before being able to actually do the real work.
+
+
