@@ -1,0 +1,115 @@
+
+search telecom software hard multithread locking
+2015-10-14
+
+
+http://blog.smartbear.com/programming/why-johnny-cant-write-multithreaded-programs/
+
+
+
+Software Quality Matters Blog
+
+Why Johnny Can’t Write Multithreaded Programs
+December 10, 2013 by Jim Mischel 18 Comments
+
+
+Programming for multiple threads is not fundamentally different from writing an event-oriented GUI application or even a straight up sequential application. The important lessons of encapsulation, separation of concerns, loose coupling, etc. all apply. But developers get into trouble with multiple threads when they don’t apply those lessons; instead they try to apply the mostly-irrelevant bits of information they learned about threads and synchronization primitives from introductory multithreading texts.
+
+Some people, when confronted with a problem, think, “I know, I’ll use regular expressions.” Now they have two problems. –Jaimie Zawinski
+
+Some people, when confronted with a problem, think, “I know, I’ll use threads!” Now they have 10 problems. –Bill Schindler
+
+Too many programmers writing multithreaded programs are like Mickey Mouse in The Sorcerer’s Apprentice. They learn to create a bunch of threads and get them mostly working, but then the threads go completely out of control and the programmer doesn’t know what to do.
+
+Unlike Mickey, those programmers don’t have the luxury of a kindly master wizard who can wave his magic wand and restore sanity. Instead, the programmer resorts to all manner of ugly hacks in an attempt to fix problems as they pop up. The result is invariably an overly complicated, restrictive, fragile, and unreliable application that’s prone to deadlocks and other multithreading hazards. Not to mention unexplained crashes, poor performance, and incomplete or incorrect results.
+
+You’ve probably wondered why that is. Perhaps you’ve accepted the common fallacy that “Multithreading is hard.” It’s not. If a multithreaded program is unreliable it’s most likely due to the same reasons that single-threaded programs fail: The programmer didn’t follow basic, well known development practices. Multithreaded programs seem harder or more complex to write because two or more concurrent threads working incorrectly make a much bigger mess a whole lot faster than a single thread can.
+
+The “multithreading is hard” fallacy is propagated by programmers who, out of their depth in a single-threaded world, jump feet first into multithreading – and drown. Rather than re-examine their development practices or preconceived notions, they stubbornly try to “fix” things, and use the “multithreading is hard” excuse to justify their unreliable programs and missed delivery dates.
+
+Note that I’m talking here about the majority of programs that use multithreading. There are difficult multithreading scenarios, just as there are difficult scenarios in the single-threaded world. But those are relatively rare. For the majority of what most programmers do, the problems just aren’t that complicated. We move data around, transform it, perhaps do some calculations from time to time, and finally store the results in a database or display them on the screen.
+
+Upgrading a typical single-threaded program so that it uses multiple threads isn’t (or shouldn’t be) very difficult. It becomes difficult for two reasons:
+
+    Developers fail to apply simple, well known development practices; and
+    Most of what they were taught in introductory multithreading materials is technically correct but completely irrelevant to the problems at hand.
+
+The most important concepts in programming are universal; they apply equally to single-threaded and multithreaded programs. Programmers who drown in a sea of threads haven’t learned the important lessons from writing single-threaded programs. I know this because they make the same fundamental mistakes in their multithreaded programs as they do in their single-threaded programs.
+
+Probably the most important lesson to be learned from the past 60 years of software development is that global mutable state is bad. Really bad. Programs that depend on global mutable state are harder to reason about and generally less reliable, because there are too many possible ways for the state to change. There is a huge amount of research to back up that generalization, and countless design patterns whose primary purpose is to implement some type of data hiding. The best thing you can do to make your programs easier to reason about is to eliminate as much global mutable state as possible.
+
+In a single-threaded sequential program, the likelihood of data being mangled is proportional to the number of components that can modify that data.
+
+It’s usually not possible to completely eliminate global state, but we developers have very effective tools for strictly controlling which parts of a program can modify it. In addition, we’ve learned to create restrictive API layers around primitive data structures so that we also control how those data structures are changed.
+
+The problems of global mutable state became more apparent in the late ’80s and early ’90s with the widespread use of event-oriented programming. Programs no longer start at the beginning and follow a single predictable path to conclusion. Instead, the program has an initial state and events occur at unpredictable times in an unpredictable order. The code is still single-threaded, but it’s asynchronous. The likelihood of data being mangled increases because the order in which events can occur is a factor. It’s not uncommon to find that if event A occurs before event B, then everything’s fine. But if A follows B, especially if event C occurs in between, then the data is mangled beyond recognition.
+
+Adding concurrent threads complicates the problem even further because multiple methods can manipulate the global state at the same time. It becomes impossible to reason about how the global state is changing. Not only is the order of events unpredictable, but multiple threads of execution can be updating the state at the same time. At least in the asynchronous case you can guarantee that one event will complete its processing before any other event can start. In short, it is possible to say with certainty what the global state will be at the end of an event’s processing. With multiple threads it’s impossible in the general case to say which events will execute concurrently, and it’s therefore impossible to say what the global state is at any given point in time.
+
+A multithreaded program with extensive global mutable state is one of the best demonstrations of the Heisenberg uncertainty principle I know of. It’s impossible to examine the state without changing the program’s behavior.
+
+When I launch into my prepared rant about global mutable state (a somewhat expanded version of the last few paragraphs), programmers roll their eyes and tell me that they already know that. If they do know that, their programs don’t show it. The programs are filled with global mutable state, and the programmers wonder why their programs don’t work.
+
+Not surprisingly, the most important part of creating a multithreaded program is design: figuring out what the program has to do, designing independent modules to perform those functions, clearly identifying what data each module needs, and defining the communications paths between modules. [Also: designing the project team’s t-shirt. Some things take priority. –Ed.] The fundamental process is no different from designing a single-threaded program. The key to success is, as with a single-threaded program, limiting interactions between the modules. If you eliminate shared mutable state, then data sharing problems are impossible.
+
+You might think that you can’t afford the time to design your application so that it doesn’t use global state. In my opinion you can’t afford not to. Trying to manage global mutable state kills more multithreaded programs than anything else. The more you have to manage, the more likely it is that your program will crash and burn.
+
+Most real world programs require some shared state that can be changed, and that’s where programmers most often get into trouble. Seeing the need for sharing state, programmers often reach into their multithreading toolbox and pull out the only tool they have: the all-purpose lock (critical section, mutex, or whatever it’s called in their particular language). They figure, I suppose, that they can eliminate the data sharing problems with mutual exclusion.
+
+The number of problems you can encounter with a single lock is astounding. There are race conditions to think about, gating problems with an overly broad lock, and fairness issues, just to name a few. If you have multiple locks, especially nested locks, you have to worry about deadlock, livelock, lock convoys, and other concurrency hazards in addition to the problems associated with a single lock. Things get complicated in a hurry.
+
+When writing or reviewing application code, I have a simple rule of thumb that rarely fails: If you used a lock, you probably did something wrong.
+
+That statement can be taken two ways:
+
+    If you need a lock, then you probably have global mutable state that has to be protected against concurrent updates. The existence of global mutable state indicates a flaw in the application’s design, which you should review and change.
+    Locks are difficult to use correctly, and locking bugs can be incredibly difficult to isolate. The likelihood of there being an error in the way you used the lock is very high. If I see a lock, especially in a program that exhibits unusual behavior, the first place I look for the failure is the code that depends on the lock being used correctly. And that’s where I usually find it.
+
+Both of those interpretations apply.
+
+Multithreading isn’t hard. Properly using synchronization primitives, though, is really, really, hard. You probably aren’t qualified to use even a single lock properly. Locks and other synchronization primitives are systems level constructs. People who know a lot more about multithreading use those constructs to build concurrent data structures and higher level synchronization constructs that mere application programmers like you and I use in our programs. Application programmers should use the low-level synchronization primitives about as often as they make direct device driver calls: almost never.
+
+Trying to solve a data sharing problem with locks is like trying to put out a fire by throwing liquid oxygen on it. As with fires, prevention is the best solution. If you eliminate shared state, you have no reason to misuse those synchronization primitives.
+Most of what you know about multithreading is irrelevant
+
+Introductory multithreading materials explain what threads are. Then they launch into discussions of how to make those threads work together in various ways, such as controlling access to shared data with locks and semaphores, and perhaps controlling when things happen with events. There’s detailed discussion of condition variables, memory barriers, critical sections, mutexes, volatile fields, and atomic operations. You’re given examples of how to use those low level constructs to do all manner of systems level things. By the time a programmer is halfway through that material, she thinks she knows how to use those primitives in her applications. After all, if you understand how to use something at the systems level, using it at the application level should be trivial, right?
+
+This is like teaching a teenager how to build an internal combustion engine from discrete parts and then, without the benefit of any driving instruction, setting him behind the wheel of a car and turning him loose on the roads. The teenager understands how the car works internally, but he has no idea how to drive it from point A to point B.
+
+Knowing how threads work at the systems level is mostly irrelevant to understanding how to use them in an application program. I’m not saying that programmers shouldn’t know how things work under the hood, just that they shouldn’t expect that knowledge to be directly applicable to the design or implementation of a business application. After all, knowing the details of the intake, compression, combustion, and exhaust cycle doesn’t help you in getting from home to the grocery store and back.
+
+Introductory multithreading textbooks (and computer science courses) shouldn’t be teaching those low level constructs. Rather, they should concentrate on common classes of problems and show developers how to use higher level constructs to solve those problems. For example, a large number of business applications are in concept extremely simple programs: They read data from one or more input devices, apply some arbitrarily complex processing to that data (perhaps querying some other stored data in the process), and then output the results.
+
+These programs very often fit nicely into a producer-consumer model with three threads:
+
+    The input thread reads data and places it on the input queue.
+    The processing thread reads records from the input queue, processes them, and puts them on the output queue.
+    The output thread reads records from the output queue and stores them.
+
+The three threads operate independently and communicate through the queues. Although technically those queues are shared state, in practice they are communications channels with their own internal, synchronization. The queues support multiple producers and consumers, all adding or removing items concurrently.
+
+Because the input, processing, and output are each isolated, it’s easy to change their implementations without affecting the rest of the program. As long as the queue data types remain unchanged, the individual pieces can be refactored at will. In addition, because the queues handle an arbitrary number of producers and consumers, adding more producers or consumers is no problem. There could be a dozen input threads all writing to the same queue, or multiple processing threads removing input items and crunching the data. Within the confines of a single computer, this model scales well.
+
+Perhaps most importantly, modern programming languages and libraries make it easy to create a producer-consumer application. In .NET you have concurrent collections and TPL Dataflow. Java has the Executer service, BlockingQueue, and other classes in the java.util.concurrent namespace. In C++ you have the Boost threading library and Intel’s Thread Building Blocks. Microsoft introduced its Asynchronous Agents with Visual Studio 2013. Similar libraries are available for Python, Javascript, Ruby, PHP, and for all I know many other languages. You can create a producer-consumer application with any of those packages without ever having to use a lock, semaphore, condition variable, or any other synchronization primitive.
+
+Granted, those libraries likely make liberal use of many different synchronization primitives. That’s okay. Those libraries were written by people who know multithreading a whole lot better than does your average application programmer. Using a library like that is no different from using a language’s runtime library, or writing in a high level language rather than Assembly language.
+
+The producer-consumer model is just one example. The libraries I mentioned above include classes with which you can implement many common multithreading design patterns without once dipping into low-level multithreading. It’s possible to create extensive multithreading applications without knowing a thing about how threads and synchronization work under the hood.
+Use the libraries
+
+Writing programs that use multiple threads is not fundamentally different from writing single-threaded synchronous programs. The important lessons of encapsulation and data hiding are universal, and become even more important when multiple concurrent threads are involved. If you ignore those important lessons, then no amount of low level threading knowledge can save you.
+
+Programmers today have plenty to worry about at the application level without having to think about systems-level things. As applications become more involved, we increasingly hide complexity behind API layers. We’ve been doing this for decades. One could make a good argument that hiding complexity from programmers is the primary reason they are able to create complex applications. After all, don’t we already hide the complexities of the file system, the UI message loop, low-level communication protocols, etc.?
+
+Multithreading concepts should be no different. The majority of multithreading scenarios business programmers are likely encounter are well known and implemented in libraries that hide the bewildering complexity of dealing with concurrency. We should use those libraries in the same way that we use libraries of user interface controls, communications protocols, and the countless other tools that simplify our jobs. Leave low level multithreading to the people who know what they’re doing: the ones who write the libraries we use to build real programs.
+
+Jim Mischel is a developer with Professional Datasolutions, Inc., a leading provider of software, hardware, and professional services to convenience retailers and wholesale petroleum marketers. When he’s not banging out code or writing about his experiences, he’s probably putting in miles on his bike or working on his latest wood carving project. Keep up with Jim on his blog.
+See also:
+
+    What Intel and AMD’s Latest Multicore Development Moves Mean to You
+    Re-Thinking User Interface Design for the TV Platform
+    Programming on Early Microcomputers: A Retrospective
+    YAGNI Applies to Usability
+
+
+
