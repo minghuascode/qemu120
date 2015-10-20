@@ -1,0 +1,53 @@
+
+search c++11 singleton
+
+
+
+http://preshing.com/20130930/double-checked-locking-is-fixed-in-cpp11/
+see the pdf file
+
+
+
+
+http://stackoverflow.com/questions/11711920/how-to-implement-multithread-safe-singleton-in-c11-without-using-mutex
+
+
+answer 1:
+
+C++11 removes the need for manual locking. Concurrent execution shall wait if a static local variable is already being initialized.
+
+§6.7 [stmt.dcl] p4
+
+    If control enters the declaration concurrently while the variable is being initialized, the concurrent execution shall wait for completion of the initialization.
+
+As such, simple have a static function like this:
+
+static Singleton& get(){
+  static Singleton instance;
+  return instance;
+}
+
+This will work all-right in C++11 (as long as the compiler properly implements that part of the standard, of course).
+
+Of course, the real correct answer is to not use a singleton, period.
+
+answered Jul 29 '12 at 18:52 
+Xeo
+
+
+answer 2:
+
+IMHO, the best way to implement singletons is with a "double-check, single-lock" pattern, which you can implement portably in C++ 11: Double-Checked Locking Is Fixed In C++11 This pattern is fast in the already-created case, requiring only a single pointer comparison, and safe in the first-use case.
+
+As mentioned in previous answer, C++ 11 guarantees construction-order safety for static local variables Is local static variable initialization thread-safe in C++11? so you are safe using that pattern. However, Visual Studio 2013 does not yet support it :-( See the "magic statics" row on this page, so if you are using VS2013 you still need to do it yourself.
+
+Unfortunately, nothing is ever simple. The sample code referenced for the pattern above cannot be called from CRT initialization, because the static std::mutex has a constructor, and is thus not guaranteed to be initialized before the first call to get the singleton, if said call is a side-effect of CRT initialization. To get around that, you have to use, not a mutex, but a pointer-to-mutex, which is guaranteed to be zero-initialized before CRT initialization starts. Then you would have to use std::atomic::compare_exchange_strong to create and use the mutex.
+
+I am assuming that the C++ 11 thread-safe local-static-initialization semantics work even when called during CRT initialization.
+
+So if you have the C++ 11 thread-safe local-static-initialization semantics available, use them. If not, you have some work to do, even moreso if you want your singleton to be thread-safe during CRT initialization.
+
+answered Jan 20 at 16:21
+Wheezil
+
+
